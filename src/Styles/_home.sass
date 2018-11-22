@@ -1,0 +1,156 @@
+.home-container
+
+
+.home-banner
+	position: relative
+	height: 100vh
+	.home-banner-text
+		position: absolute
+		top: 50%
+		left: 10%
+		transform: translate(0, -50%)
+		width: 40%
+		.home-title
+			@extend .title-montserrat
+			font-size: 90px
+			font-weight: 900
+			padding: 8px
+		.home-subtitle
+			@extend .subtitle-montserrat
+			color: $primary-color
+			padding: 8px
+		.home-description
+			color: $third-color
+			font-size: 10px
+			font-weight: 600
+			padding: 8px
+			text-align: justify
+	.home-image-banner
+		position: absolute
+		top: 50%
+		left: 55%
+		transform: translate(0, -50%)
+		width: 35%
+		img
+			width: 100%
+			height: auto
+			background-size: cover
+			background-repeat: no-repeat
+			background-position: center
+
+
+
+
+
+.home-counter
+	padding: 64px 10vw
+	background: $blue-color
+	.counter
+		display: flex
+		justify-content: center
+		align-items: center
+		.counter-number	
+			color: $yellow-color
+			font-size: 32px
+			text-align: center
+		.counter-text
+			color: #fff
+			font-size: 16px
+			padding-top: 16px
+			text-align: center
+
+.volunteer-container
+	padding: 64px 10vw
+
+
+.volunteer-slide
+	display: flex
+	justify-content: center
+	align-items: center
+
+.volunteer-card
+	flex: 1
+	margin: 12px
+	border-radius: 5px
+	overflow: hidden
+	.card-image
+		height: 40vh
+		width: 100%
+		max-height: 40vh
+		overflow: hidden
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
+		transition: $transition-fast
+	.card-text
+		background: $red-color
+		color: #fff
+		padding: 16px
+		.card-name
+			font-size: 16px
+			font-weight: 600
+		.card-description
+			font-size: 10px
+.volunteer-card:hover
+	.card-image
+		transform: scale(1.1)
+		height: 40vh
+
+.about-container
+	background: #f5f5f5
+	padding: 64px 10vw
+	.about-image
+		width: 70%
+		img
+			width: 100%
+			height: auto
+	p
+		padding: 16px 0
+.subject-container
+	padding: 64px 10vw
+	.subject-card
+		padding: 8px 16px
+		.subject
+			background: $yellow-color
+			color: #000
+			padding: 24px
+			font-weight: 900
+			cursor: pointer
+			position: relative
+			transition: $transition-fast
+			.sub
+			    overflow: hidden
+			    text-overflow: ellipsis
+			    white-space: nowrap 
+			    max-width: 300px
+			.reviewer
+				font-size: 12px
+				position: absolute
+				top: 50%
+				right: 24px
+				transform: translate(0,-50%)
+		.subject:hover
+			background: $blue-color
+			color: #fff
+
+.home-title-text
+	margin-bottom: 32px
+
+.footer-container
+	padding: 64px 10vw
+	background: #f5f5f5
+	p
+		padding: 16px 0
+
+.footer-contact
+	display: flex
+	span
+		margin-top: 24px
+		margin-right: 32px
+		padding: 0 16px
+		p
+			@extend .context-montserrat
+			font-weight: 900
+			color: $third-color
+			font-size: 12px
+			padding: 4px 0
