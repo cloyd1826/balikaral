@@ -1,0 +1,113 @@
+.sign-up
+  display: inline-block
+  vertical-align: middle
+  margin: 1rem 0 1rem 0
+  font-family: inherit
+  padding: 1em
+  -webkit-appearance: none
+  border: 1px solid transparent
+  border-radius: 3px
+  font-size: 0.9rem
+  line-height: 1
+  text-align: center
+  cursor: pointer
+  background-color: $blue-color
+  color: #fff
+  font-weight: 600
+  transition: $transition-fast 
+  &:hover
+    background: $yellow-color
+    color: #000
+.log-in
+  font-size: 0.9rem
+  line-height: 1
+  text-align: center
+  cursor: pointer
+  font-weight: 600
+  margin-right: 1rem
+
+
+.nav-container
+  padding: 4px 5vw
+  position: fixed
+  top: 0
+  left: 0
+  width: calc(100% - 10vw)
+  background: #fff
+  z-index: 998
+  box-shadow: 0px 1px 4px #888
+  .nav-icon
+      width: 75px
+      padding: 1em
+      img
+        width: 100%
+        height: auto
+  .link-container
+    display: flex
+    justify-content: flex-end
+    width: 100%
+    align-items: center
+    position: relative
+    .user-top-bar
+      display: flex  
+      align-items: center
+      .user-name
+        display: inline-block
+        vertical-align: middle
+        margin: 1rem 0 1rem 0
+        font-family: inherit
+        padding: 1em
+        -webkit-appearance: none
+        border: 1px solid transparent
+        border-radius: 3px
+        font-size: 0.9rem
+        line-height: 1
+        text-align: center
+        cursor: pointer
+        background-color: $blue-color
+        color: #fff
+        font-weight: 600
+        transition: $transition-fast 
+        &:hover
+          background: $yellow-color
+          color: #000
+      .user-circle
+        border-radius: 50%
+        height: 44px
+        width: 44px
+        font-size: 0.9rem
+        text-align: center
+        cursor: pointer
+        margin-right: 1rem
+        position: relative
+        background: $blue-color
+        span
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%,-50%)
+          font-size: 1.5em
+          color: #fff
+        &:hover
+          background: $yellow-color
+          color: #000
+          span
+            color: #0a0a0a
+      .user-container
+        position: absolute
+        top: calc(100%)
+        right: 0
+        background: $blue-color
+        padding: 8px 4px
+        color: #fff
+        font-size: 14px
+        animation: LogIn $transition-fast
+        .user-bar
+          padding: 8px 16px
+          cursor: pointer
+          transition: $transition-fast
+          i
+            margin-right: 8px
+          &:hover
+            background: $yellow-color
+            color: #0a0a0a

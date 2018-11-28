@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react'
 
+import { NavLink } from 'react-router-dom'
 
 class Sidebar extends Component {
   constructor(props) {
@@ -14,29 +15,30 @@ class Sidebar extends Component {
               <div className='sidebar-title'>
                 DASHBOARD TITLE
               </div>
-              <div className='sidebar-link'>
+              <NavLink className='sidebar-link' activeClassName='active' to='/admin/dashboard'>
                 <i className='fa fa-dashboard'></i>
                 <span className='show-for-large-only'>Dashboard</span>
-              </div>
+              </NavLink>
             </div>
 
 
             <div className='sidebar-content'>
               <div className='sidebar-title'>
-                TITLE TWO
+                MANAGEMENT
               </div>
-              <div className='sidebar-link'>
+
+              <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/level/list'>
                 <i className='fa fa-edit'></i>
-                <span className='show-for-large-only'>Link One</span>
-              </div>
-              <div className='sidebar-link'>
+                <span className='show-for-large-only'>Level</span>
+              </NavLink>
+              <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/learning-strand/list'>
                 <i className='fa fa-bell'></i>
-                <span className='show-for-large-only'>Link Two</span>
-              </div>
-              <div className='sidebar-link'>
+                <span className='show-for-large-only'>Learning Strands</span>
+              </NavLink>
+              <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam'>
                 <i className='fa fa-calendar'></i>
-                <span className='show-for-large-only'>Link Three</span>
-              </div>
+                <span className='show-for-large-only'>Exam</span>
+              </NavLink>
             </div>
 
             <div className='sidebar-content'>

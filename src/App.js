@@ -1,11 +1,11 @@
 import React , { Component } from 'react'
-import './Styles/main.css' 
+import './_styles/main.css' 
+import './_line-awesome/css/line-awesome.css' 
+import './_line-awesome/css/line-awesome-font-awesome.css' 
 
 import Routes from './Routes'
 
-import { withRouter } from 'react-router-dom'
- 
-class Layout extends Component {
+class App extends Component {
 	render() {
 	    return (
 	      <div >
@@ -13,6 +13,6 @@ class Layout extends Component {
 	      </div>
 	    );
 	  }
-}
-const App = withRouter(Layout)
+} 
+
 export default App

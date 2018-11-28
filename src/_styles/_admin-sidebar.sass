@@ -1,0 +1,32 @@
+.admin-sidebar
+	padding-top: 16px
+	width: 15vw
+	position: fixed
+	top: 0
+	left: 0
+	height: calc(100vh - 50px)
+	background: $sidebar-color
+	margin-top: $adminNavHeight
+	.sidebar-content
+		padding: 16px 8px
+		.sidebar-title
+			font-size: 10px
+			color: #f0f0f1
+			font-weight: 600
+		.sidebar-link
+			font-size: 10px
+			padding: 8px 0px 8px 16px
+			color: #969ca3
+			font-weight: 500
+			cursor: pointer
+			transition: $transition-fast
+			display: block
+			i
+				margin-right: 8px
+			&:hover
+				background: #121921
+				color: #f5f5f5
+		.sidebar-link.active
+			background: #121921
+			color: #f5f5f5
+			transition: $transition-fast

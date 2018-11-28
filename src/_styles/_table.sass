@@ -1,0 +1,107 @@
+table 
+  border-collapse: collapse
+  width: 100%
+  margin-bottom: 1rem
+  border-radius: 3px
+  margin-top: 1rem
+  thead,tbody,tfoot 
+    border: 1px solid #f1f1f1
+    background-color: #fefefe
+  caption 
+    padding: 0.5rem 0.625rem 0.625rem
+    font-weight: bold
+  thead 
+    background: #f8f8f8
+    color: #0a0a0a
+  tfoot 
+    background: #f1f1f1
+    color: #0a0a0a
+  thead, tfoot
+    tr
+      background: transparent
+  thead, tfoot
+    th, td
+      padding: 0.5rem 0.625rem 0.625rem
+      font-weight: bold
+      text-align: left
+  tbody 
+    th, td 
+      padding: 0.5rem 0.625rem 0.625rem
+    tr:nth-child(even) 
+      border-bottom: 0
+      background-color: #f1f1f1
+    th.is-narrowed, td.is-narrowed
+      white-space: nowrap!important
+      width: 1px
+table.unstriped 
+  tbody 
+    background-color: #fefefe
+    tr 
+      border-bottom: 0
+      border-bottom: 1px solid #f1f1f1
+      background-color: #fefefe
+
+@media screen and (max-width: 63.9375em) 
+  table.stack 
+    thead 
+      display: none
+    tfoot 
+      display: none
+    tr, th, td 
+      display: block
+    td 
+      border-top: 0
+
+table.scroll 
+  display: block
+  width: 100%
+  overflow-x: auto
+
+table.hover 
+  thead 
+    tr:hover 
+      background-color: #f3f3f3
+
+table.hover 
+  tfoot 
+    tr:hover 
+      background-color: #ececec
+
+table.hover 
+  tbody 
+    tr:hover 
+      background-color: #f9f9f9
+
+table.hover:not(.unstriped) 
+  tr:nth-of-type(even):hover 
+    background-color: #ececec
+td
+  span
+    width: auto
+    .fa
+      cursor: pointer
+      font-size: 1.2em
+      text-align: center
+      border-radius: 50%
+      background: #fafafa
+      margin-left: 4px
+      padding: 0.3em
+      transition: all 0.1s linear
+    &:first-child
+      margin-left: 0
+    .primary:hover
+      background: $blue-color
+      color: #fff
+    .cancel:hover,.delete:hover
+      background: $red-color
+      color: #fff
+    .secondary:hover
+      background: $yellow-color
+      color: #fff
+
+
+.table-scroll 
+  overflow-x: auto
+  .table-scroll table 
+    width: auto
+

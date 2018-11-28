@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-import Banner from './Images/banner.png'
-import Logo from './Images/logo.png'
+import Banner from '../_images/banner.png'
+import Logo from '../_images/logo.png'
 
-import One from './Images/vol1.jpeg'
-import Two from './Images/vol2.jpeg'
-import Three from './Images/vol3.jpeg'
+import One from '../_images/vol1.jpeg'
+import Two from '../_images/vol2.jpeg'
+import Three from '../_images/vol3.jpeg'
 
-import Nav from '../Nav'
+import NavBar from '../_userComponent/NavBar'
 
 let subjects = [
     {
@@ -49,13 +49,14 @@ let subjects = [
 ]
 
 
+
+
 class Home extends Component {
   render() {
     return (
       <div  className='home-container'>
-        <Nav />
+        <NavBar />
 
-        {/* banner */}
         <div className='home-banner'>
           <div className='home-banner-text'>
             <p className='home-subtitle bold subtitle-montserrat'>

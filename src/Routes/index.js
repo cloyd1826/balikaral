@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import { Route } from 'react-router-dom'
+
+import isAuth from '../_hoc/isAuth'
 
 import Home from '../Home'
 import Test from '../Test'
@@ -11,7 +13,7 @@ const Routes = () => {
 		<div>
 			<Route path='/' exact component={ Home } />
 			<Route path='/test-component' component={ Test } />
-			<Route path='/admin' component={ Admin } />
+			<Route path='/admin' component={ isAuth(Admin) } />
 			
 		</div>
 	)

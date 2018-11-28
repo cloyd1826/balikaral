@@ -1,0 +1,55 @@
+.admin-topbar
+	height: $adminNavHeight
+	width: 100vw
+	background: #fff
+	position: fixed
+	top: 0
+	left: 0
+	z-index: 999
+	display: flex
+	.topbar-right
+		width: 50%
+	.topbar-left
+		width: 50%
+	
+.topbar-right
+	display: flex
+	justify-content: flex-end
+	align-items: center
+	padding: 8px 24px
+	position: relative
+	.icon
+		font-size: 24px
+		margin-right: 8px
+		cursor: pointer
+		&:hover
+			color: $blue-color
+	.user-top-bar
+		display: flex  
+		align-items: center
+		.user-image
+			height: calc(50px - 16px)
+			width: calc(50px - 16px)
+			background-position: center
+			background-size: cover
+			background-repeat: no-repeat
+			border-radius: 50%
+			cursor: pointer
+		.user-container
+			position: absolute
+			top: calc(100%)
+			right: 24px
+			background: $blue-color
+			padding: 8px 4px
+			color: #fff
+			font-size: 14px
+			animation: LogIn $transition-fast
+			.user-bar
+				padding: 8px 32px
+				cursor: pointer
+				transition: $transition-fast
+				i
+					margin-right: 8px
+				&:hover
+					background: $yellow-color
+					color: #0a0a0a
