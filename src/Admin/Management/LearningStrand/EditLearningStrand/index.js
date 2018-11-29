@@ -63,19 +63,21 @@ class Layout extends Component {
   fetchSingle(){
     apiRequest('get', `/learning-strand/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-            console.log(res)
+            
             if(res.data){
+                let result = res.data.data
+                console.log(result)
                 this.setState({
-                    name: res.data.data.name,
-                    description: res.data.data.description,
-                    level: res.data.data.level,
-                    noOfQuestions: res.data.data.noOfQuestions,
+                    name: result.name,
+                    description: result.description,
+                    level: result.level,
+                    noOfQuestions: result.noOfQuestions,
                 })
             }
             
         })    
         .catch((err)=>{
-          this.formMessage('Error: ' + err.message, 'error', true, false)
+            this.formMessage('Error: ' + err.message, 'error', true, false)
         })
 
   }
@@ -104,7 +106,7 @@ class Layout extends Component {
         level: this.state.level,
         noOfQuestions: this.state.noOfQuestions,
     }
-    console.log(data)
+    
     apiRequest('put', `/learning-strand/update/${this.props.location.state.id}`, data, this.props.token)
         .then((res)=>{
           this.clearData()

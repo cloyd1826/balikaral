@@ -56,6 +56,7 @@ class Layout extends Component {
   	
   	apiRequest('get', '/learning-strand/all', false, this.props.token)
   		.then((res)=>{
+        console.log(res.data.data)
   			if(res.data){
   				this.setState({
 	  				learningStrand: res.data.data
@@ -70,7 +71,6 @@ class Layout extends Component {
   	this.fetchLearningStrand()
   }
   render() { 
-  	console.log(this.state)
     return (
         <div>
         	<Grid fluid>
@@ -110,7 +110,7 @@ class Layout extends Component {
     															{attr.name}
     														</Link>
     													</Table.Cell>
-                              <Table.Cell>{attr.level}</Table.Cell>
+                              <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
 							        				<Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{attr.noOfQuestions}</Table.Cell>
 							        				<Table.Cell isNarrowed>
@@ -156,7 +156,7 @@ class Layout extends Component {
         </div>
     )
   }
-}
+} 
 
 const mapStateToProps = (state) => {
 	return {

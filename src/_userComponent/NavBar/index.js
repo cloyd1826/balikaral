@@ -53,13 +53,7 @@ class Layout extends Component {
 			})
 		}
 	}
-	componentDidMount(){
-		console.log(this.props)
-	}
-	componentWillReceiveProps(nextProps){
-		console.log(nextProps)
-
-	}
+	
 	render() {
 	    return (
 		    <div className='nav-container'>

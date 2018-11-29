@@ -49,28 +49,33 @@ class Layout extends Component{
           this.props.close()
       })
       .catch((err)=>{
-          console.log(err)
+         
       })
   }
  
   componentWillReceiveProps(nextProps){
-    console.log(nextProps)
+    
   }
   render() {
     return (
       <div className='modal'>
         <div className='modal-container'>
-            <div className='log-in-modal'>
+            <div className='sign-in-container'>
               <div className='close-button fa fa-close'  onClick={this.props.close}></div>
               <div className='log-in-text'>
                 <div className='subtitle-montserrat'>Log in to your account</div>
                 <div className='context-montserrat'>Lorem Ipsum Dolor Sit Amet Consectur Adepescin Elit.</div>
               </div>
               <div className='log-in-form'>
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form onSubmit={this.handleSubmit} size='small'>
                     <Input onChange={this.handleChange} label='Email' name='email' type='email' placeholder='email@email.com' value={this.state.email} /> 
-                    <Input onChange={this.handleChange} label='Password' name='password' placeholder='password' type='password' value={this.state.password} /> 
-                    <Button type='submit' className='secondary' text='Log In' position='right'/>
+                    <Input onChange={this.handleChange} label='Password' name='password' placeholder='password' type='password' value={this.state.password} />
+                   
+                    <div className='sign-in-button-form'>
+                      <span>
+                        <button className='sign-in-button' type='submit'>LOG IN</button>
+                      </span>
+                    </div>
                   </Form>
               </div>
              

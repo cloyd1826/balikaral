@@ -58,7 +58,7 @@ class Layout extends Component {
   fetchSingle(){
     apiRequest('get', `/level/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-            console.log(res)
+            
             if(res.data){
                 this.setState({
                     name: res.data.data.name,
@@ -93,7 +93,7 @@ class Layout extends Component {
         name: this.state.name,
         description: this.state.description
     }
-    console.log(data)
+    
     apiRequest('put', `/level/update/${this.props.location.state.id}`, data, this.props.token)
         .then((res)=>{
           this.clearData()

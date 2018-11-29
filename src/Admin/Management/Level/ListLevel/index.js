@@ -63,6 +63,7 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
+        console.log(err)
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }
@@ -70,7 +71,6 @@ class Layout extends Component {
   	this.fetchLevel()
   }
   render() { 
-  	console.log(this.state)
     return (
         <div>
         	<Grid fluid>

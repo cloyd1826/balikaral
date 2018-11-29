@@ -10,7 +10,7 @@ class ErrorComponent extends Component {
 
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
-    console.log(error)
+    
   }
 
   render() {

@@ -12,7 +12,7 @@ const apiRequest = (method, url, data, header) => {
 		if(data){
 			call = {...call, data: data}
 		}
-		console.log(call)
+		
 	return axios (call)
 }
 

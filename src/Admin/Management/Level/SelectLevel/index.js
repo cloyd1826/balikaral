@@ -24,7 +24,7 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
-  			this.formMessage('Error: ' + err.message, 'error', true, false)
+        
   		})
   }
   componentDidMount(){

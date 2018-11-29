@@ -27,11 +27,11 @@ class Layout extends Component{
     }
   }
   componentDidMount(){
-    console.log(this.props)
+  
   }
  
   componentWillReceiveProps(nextProps){
-    console.log(nextProps)
+    
   }
   logOut(){
     this.props.actions.logOut()
