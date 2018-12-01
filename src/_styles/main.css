@@ -987,6 +987,8 @@ label {
       font-size: 20px; }
     .sign-in-container .log-in-text .context-montserrat, .sign-in-container .log-in-text .form-subtitle, .sign-in-container .log-in-text .footer-contact span p, .footer-contact span .sign-in-container .log-in-text p {
       text-align: center; }
+  .sign-in-container .form-message {
+    font-size: 12px; }
   .sign-in-container .log-in-form .sign-in-button-form {
     display: flex;
     width: 100%;
@@ -1006,6 +1008,29 @@ label {
         font-weight: 600;
         width: 100%;
         margin: 8px 0; }
+  .sign-in-container .sign-in-message .confirmation {
+    font-size: 14px;
+    border-bottom: rgba(0, 0, 0, 0.24) solid 1px;
+    text-align: center;
+    margin-top: 16px;
+    padding: 8px; }
+  .sign-in-container .sign-in-message .credentials {
+    font-size: 14px;
+    text-align: center;
+    padding: 32px 0; }
+    .sign-in-container .sign-in-message .credentials p {
+      font-weight: 900;
+      padding: 4px 0; }
+      .sign-in-container .sign-in-message .credentials p span {
+        text-decoration: underline;
+        font-weight: 500; }
+  .sign-in-container .sign-in-message .create-new-text {
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: underline;
+    padding: 8px;
+    line-height: 1; }
   .sign-in-container .log-in-button {
     display: flex;
     justify-content: center;

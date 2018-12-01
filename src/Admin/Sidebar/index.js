@@ -33,9 +33,9 @@ class Sidebar extends Component {
               </NavLink>
               <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/learning-strand/list'>
                 <i className='fa fa-bell'></i>
-                <span className='show-for-large-only'>Learning Strands</span>
+                <span className='show-for-large-only'>Learning Strand</span>
               </NavLink>
-              <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam'>
+              <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam/list'>
                 <i className='fa fa-calendar'></i>
                 <span className='show-for-large-only'>Exam</span>
               </NavLink>
@@ -43,12 +43,12 @@ class Sidebar extends Component {
 
             <div className='sidebar-content'>
               <div className='sidebar-title'>
-                TITLE THREE
+                User
               </div>
-              <div className='sidebar-link'>
-                <i className='fa fa-comments'></i>
-                <span className='show-for-large-only'>Link One</span>
-              </div>
+              <NavLink className='sidebar-link' activeClassName='active' to='/admin/user/list'>
+                <i className='fa fa-users'></i>
+                <span className='show-for-large-only'>User</span>
+              </NavLink>
               <div className='sidebar-link'>
                 <i className='fa fa-code'></i>
                 <span className='show-for-large-only'>Link Two</span>

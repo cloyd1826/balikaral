@@ -16,7 +16,7 @@ class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
-    	level: [],
+    	exam: [],
 
     	message: '',
         type: '',
@@ -54,11 +54,11 @@ class Layout extends Component {
 
   fetchLevel(){
   	
-  	apiRequest('get', '/level/all', false, this.props.token)
+  	apiRequest('get', '/exam-management/all', false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
-	  				level: res.data.data
+	  				exam: res.data.data
 	  			})	
 	  		}
   		})
@@ -78,10 +78,10 @@ class Layout extends Component {
         			<Grid.Cell large={12}>
         				<div className='element-container'>
         					<div className='title-text-container'>
-        						<div className='title'>Level Management</div>
+        						<div className='title'>Exam Management</div>
         						<div className='title-action'>
-        							<Link to='/admin/management/level/add'>
-        								<div className='button primary small'>Add New Level</div>
+        							<Link to='/admin/management/exam/add'>
+        								<div className='button primary small'>Add New Exam</div>
         							</Link>
         						</div>
         					</div>
@@ -89,29 +89,33 @@ class Layout extends Component {
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
-				        				<Table.HeaderCell>Name</Table.HeaderCell>
-				        				<Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Question</Table.HeaderCell>
+				        				<Table.HeaderCell>Answer</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
+				        				<Table.HeaderCell>Learning Strand</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Header>
 				        		<Table.Body>
 				        			{
-					        			this.state.level.map((attr, index) =>{
+					        			this.state.exam.map((attr, index) =>{
 					        				return (
 					        					<Table.Row key={index}>
-							        				<Table.Cell>
-							        					<Link 
-							        						to={{ 
-    														    pathname: '/admin/management/level/edit', 
+    							        		<Table.Cell>
+    							        					<Link 
+    							        						to={{ 
+    														    pathname: '/admin/management/exam/edit', 
     														    state: { id: attr._id } 
     															}}>
-    															{attr.name}
+    															{attr.question.details}
     														</Link>
-													    </Table.Cell>
-							        				<Table.Cell>{attr.description}</Table.Cell>
+    													</Table.Cell>
+                              <Table.Cell>{attr.question.answer}</Table.Cell>
+                              <Table.Cell>{attr.level.name}</Table.Cell>
+							        				<Table.Cell>{attr.learningStrand.name}</Table.Cell>
 							        				<Table.Cell isNarrowed>
 							        					<Link to={{ 
-															    pathname: '/admin/management/level/edit', 
+															    pathname: '/admin/management/exam/edit', 
 															    state: { id: attr._id } 
 															  }}>
 								        					<span>
@@ -119,7 +123,7 @@ class Layout extends Component {
 								        					</span>
 							        					</Link>
 							        				
-							        					<span onClick={()=>{this.toggleDelete('/level/delete/' + attr._id)}}>
+							        					<span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
 							        						<i className='fa fa-trash cancel'></i>
 							        					</span>
 							        				</Table.Cell>
@@ -133,9 +137,11 @@ class Layout extends Component {
 				        		</Table.Body>
 				        		<Table.Footer>
 				        			<Table.Row>
-				        				<Table.HeaderCell>Name</Table.HeaderCell>
-				        				<Table.HeaderCell>Description</Table.HeaderCell>
-				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
+                        <Table.HeaderCell>Question</Table.HeaderCell>
+				        				<Table.HeaderCell>Answer</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
+                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
@@ -145,7 +151,7 @@ class Layout extends Component {
         	</Grid>
 
 
-        	<ManagementDelete item='Level Name' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+        	<ManagementDelete item='Exam' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
 
         </div>
     )

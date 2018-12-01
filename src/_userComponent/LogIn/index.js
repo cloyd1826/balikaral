@@ -7,6 +7,8 @@ import { logInUser, logOutUser } from '../../_redux/actions/user'
 import Form from '../../_component/Form/Form' 
 import Input from '../../_component/Form/Input'
 import Button from '../../_component/Form/Button'
+import FormMessage from '../../_component/Form/FormMessage'
+
 
 import axios from 'axios'
 import apiRequest from '../../_axios'
@@ -21,6 +23,16 @@ class Layout extends Component{
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.formMessage = this.formMessage.bind(this)
+
+  }
+  formMessage(message, type, active, button){
+    this.setState({
+      message: message,
+      type: type,
+      active: active,
+      buttonDisabled: button
+    })
   }
   handleChange(e){
     let name = e.target.name
@@ -33,15 +45,17 @@ class Layout extends Component{
     e.preventDefault()
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
+        console.log(res)
+          let result = res.data
           let userData = {
             user: {
-              id: 'id',
-              email: this.state.email,
-              firstName: 'first name',
-              middleName: 'middle name',
-              lastName: 'last name',
+              id: result._id,
+              email: result.data.local.email,
+              firstName: result.data.personalInformation.firstName,
+              middleName: result.data.personalInformation.middleName,
+              lastName: result.data.personalInformation.lastName,
             },
-            token: res.data.token,
+            token: result.token,
             isLoggedIn: true
           }
           this.props.actions.logIn(userData)
@@ -49,7 +63,7 @@ class Layout extends Component{
           this.props.close()
       })
       .catch((err)=>{
-         
+          this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
  
@@ -68,6 +82,7 @@ class Layout extends Component{
               </div>
               <div className='log-in-form'>
                   <Form onSubmit={this.handleSubmit} size='small'>
+                    <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
                     <Input onChange={this.handleChange} label='Email' name='email' type='email' placeholder='email@email.com' value={this.state.email} /> 
                     <Input onChange={this.handleChange} label='Password' name='password' placeholder='password' type='password' value={this.state.password} />
                    

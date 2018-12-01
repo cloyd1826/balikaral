@@ -10,16 +10,16 @@ class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
-    	level: []
+    	learningStrand: []
     }
     this.fetchAll = this.fetchAll.bind(this)
   }
   fetchAll(){	
-  	apiRequest('get', '/level/all', false, this.props.token)
+  	apiRequest('get', '/learning-strand/all', false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
-	  				level: res.data.data
+	  				learningStrand: res.data.data
 	  			})	
 	  		}
   		})
@@ -36,12 +36,11 @@ class Layout extends Component {
 			onChange={this.props.onChange ? this.props.onChange : '' }
 			value={this.props.value}
 			name={this.props.name}
-			label='Level'
       required={this.props.required}
-      
+			label='Learning Strand'
 		>
 			<option value='' disabled></option>
-        {this.state.level.map((attr,index)=> {
+        {this.state.learningStrand.map((attr,index)=> {
           return (
               <option key={index} value={attr._id}>{attr.name}</option>
             )
@@ -57,6 +56,6 @@ const mapStateToProps = (state) => {
 		token: state.token
 	}
 }
-const SelectLevel = connect(mapStateToProps)(Layout)
+const SelectLearningStrand = connect(mapStateToProps)(Layout)
 
-export default SelectLevel
+export default SelectLearningStrand

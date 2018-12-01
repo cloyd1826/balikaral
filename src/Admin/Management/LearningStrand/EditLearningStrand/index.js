@@ -36,7 +36,6 @@ class Layout extends Component {
 
     this.fetchSingle = this.fetchSingle.bind(this)
  
-    this.clearData = this.clearData.bind(this)
     this.formMessage = this.formMessage.bind(this)
   }
 
@@ -48,15 +47,6 @@ class Layout extends Component {
       buttonDisabled: button
     })
   }
-  clearData(){
-    this.setState({
-      name: '',
-      description: '',
-      level: '',
-      noOfQuestions: '',
-    })
-  }
-
   componentDidMount(){
     this.fetchSingle()
   }
@@ -81,14 +71,7 @@ class Layout extends Component {
         })
 
   }
-  clearData(){
-    this.setState({
-      name: '',
-      description: '',
-      level: '',
-      noOfQuestions: '',
-    })
-  }
+  
   handleChange(e){
     let name = e.target.name
     let value = e.target.value
@@ -109,11 +92,11 @@ class Layout extends Component {
     
     apiRequest('put', `/learning-strand/update/${this.props.location.state.id}`, data, this.props.token)
         .then((res)=>{
-          this.clearData()
+          
           this.formMessage('Data has been updated', 'success', true, false)
       })    
         .catch((err)=>{
-          this.clearData()
+          
           this.formMessage('Error: ' + err.message, 'error', true, false)
         })
   }

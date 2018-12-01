@@ -15,6 +15,7 @@ class Textarea extends Component {
 						onChange={this.props.onChange ? this.props.onChange : '' }
 						value={this.props.value}
 						name={this.props.name}
+						required={this.props.required}
 						/>
 				</label>
 			</div>

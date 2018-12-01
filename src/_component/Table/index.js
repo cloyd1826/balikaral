@@ -41,7 +41,7 @@ class Table extends Component{
   }
   render() {
     let { children } = this.props
-    let tableClass = (this.props.nostripe ? 'unstriped' : '') + ' ' + (this.props.hover ? 'hover' : '') + ' ' +  (this.props.className ? this.props.className : '')
+    let tableClass = (this.props.scroll ? 'scroll' : '') + ' ' +  (this.props.nostripe ? 'unstriped' : '') + ' ' + (this.props.hover ? 'hover' : '') + ' ' +  (this.props.className ? this.props.className : '')
     return (
       <table className={tableClass}>
           {  children }

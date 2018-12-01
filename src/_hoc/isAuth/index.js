@@ -5,7 +5,7 @@ export default (OriginalComponent) => {
   class MixedComponent extends Component {
 
     checkAuth() {
-      if (!this.props.isLoggedIn && !this.props.token) {
+      if (!this.props.isLoggedIn && !this.props.token && this.props.role != 'Administrator') {
         this.props.history.push('/');
       }
     }
@@ -27,7 +27,8 @@ export default (OriginalComponent) => {
   function mapStateToProps(state) {
     return {
       isLoggedIn: state.isLoggedIn,
-      token: state.token
+      token: state.token,
+      role: state.role
     }
   }
 

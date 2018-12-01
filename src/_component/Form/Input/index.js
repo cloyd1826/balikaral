@@ -12,6 +12,7 @@ class Input extends Component {
 				<label>{this.props.label}
 					<input 
 						required={this.props.required}
+						disabled={this.props.disabled}
 						type={this.props.type ? this.props.type : 'text'} 
 						placeholder={this.props.placeholder ? this.props.placeholder : ''}
 						min={this.props.min ? this.props.min : ''}
