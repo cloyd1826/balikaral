@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { logOutUser } from '../../_redux/actions/user'
+import { logOutUser } from '../../../_redux/actions/user'
+
+
+import Profile from '../../../_images/vol1.jpeg'
 
 import { Link } from 'react-router-dom'
 
@@ -27,7 +30,7 @@ class Layout extends Component{
     }
   }
   componentDidMount(){
-  
+    console.log(this.props)
   }
  
   componentWillReceiveProps(nextProps){
@@ -39,20 +42,30 @@ class Layout extends Component{
   render() {
     return (
       <div className='user-top-bar'>
-        <div className='user-name' onClick={this.toggleUserLink}>
-          Hello! {this.props.user.firstName ? this.props.user.firstName : ''} &nbsp;
-          <i className={'fa ' + (this.state.userLink ? 'fa-chevron-up' : 'fa-chevron-down')} />
+        <div className='user-name'>
+          <div className='name'>
+          
+          {
+              (this.props.user.firstName ? this.props.user.firstName : '') 
+              + ' ' + 
+              (this.props.user.middleName ? this.props.user.middleName.substring(0,1) : '')
+              + ' ' + 
+              (this.props.user.lastName ? this.props.user.lastName : '')
+
+          }
+
+          </div>
+          <div className='role'>{
+            this.props.role ? this.props.role : ''
+          }</div>
         </div>
+        <div className='user-image'  onClick={this.toggleUserLink} style={{backgroundImage: 'url(' + Profile +')'}}></div>
+        
         {this.state.userLink ? 
             <div className='user-container'>
-              <Link to='/admin/dashboard'>
+              <Link to='/'>
                 <div className='user-bar'>
-                  <span><i className='fa fa-dashboard' />Administrator Dashboard</span>
-                </div>
-              </Link>
-               <Link to='/teacher/dashboard'>
-                <div className='user-bar'>
-                  <span><i className='fa fa-dashboard' />Teacher Dashboard</span>
+                  <span><i className='la la-home' />Home</span>
                 </div>
               </Link>
               <div className='user-bar'>
@@ -77,7 +90,8 @@ class Layout extends Component{
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    role: state.role
   }
 }
 const mapDispatchToProps = dispatch => {

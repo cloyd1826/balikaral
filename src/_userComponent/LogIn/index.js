@@ -49,17 +49,17 @@ class Layout extends Component{
           let result = res.data
           let userData = {
             user: {
-              id: result._id,
+              id: result.data._id,
               email: result.data.local.email,
               firstName: result.data.personalInformation.firstName,
               middleName: result.data.personalInformation.middleName,
-              lastName: result.data.personalInformation.lastName,
+              lastName: result.data.personalInformation.lastName
             },
             token: result.token,
-            isLoggedIn: true
+            isLoggedIn: true,
+            role: result.data.local.userType
           }
           this.props.actions.logIn(userData)
-          axios.defaults.headers.common['Authorization'] = res.data.token
           this.props.close()
       })
       .catch((err)=>{

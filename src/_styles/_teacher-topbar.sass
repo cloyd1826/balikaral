@@ -1,19 +1,18 @@
-.admin-topbar
+.teacher-topbar
 	height: $adminNavHeight
 	width: 100vw
 	background: $blue-color
+	position: fixed
+	top: 0
+	left: 0
+	z-index: 999
 	display: flex
 	box-shadow: 3px 2px 2px #888
-	.topbar-left
+	.teacher-topbar-left
 		width: 50%
 		padding-left: 16px
 		display: flex
 		align-items: center
-		.icon
-			font-size: 20px
-			margin-right: 16px
-			cursor: pointer
-			color: #fff
 		.balik, .aral
 			font-weight: 900
 			font-size: 24px
@@ -21,37 +20,36 @@
 			color: #fff
 		.aral
 			color: $red-color
-	.topbar-right
+	.teacher-topbar-right
 		display: flex
 		justify-content: flex-end
 		align-items: center
 		padding: 8px 24px
 		width: 50%
 		position: relative
+		.icon
+			font-size: 24px
+			margin-right: 8px
+			cursor: pointer
+			color: #fff
+			&:hover
+				color: $yellow-color
 		.user-top-bar
 			display: flex  
 			align-items: center
-			.user-name
-				color: #fff
-				margin-right: 16px
-				text-align: right
-				.name
-					font-size: 14px
-				.role
-					font-size: 10px
 			.user-image
 				height: calc(50px - 16px)
 				width: calc(50px - 16px)
 				background-position: center
 				background-size: cover
 				background-repeat: no-repeat
+				border-radius: 50%
 				cursor: pointer
 			.user-container
 				position: absolute
 				top: calc(100% + 8px)
 				box-shadow: 3px 2px 2px #888
 				border-radius: 5px
-				z-index: 998
 				right: 24px
 				background: #fff
 				padding: 8px 0px

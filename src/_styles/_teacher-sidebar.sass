@@ -1,14 +1,13 @@
-.admin-sidebar
+.teacher-sidebar
 	padding-top: 16px
-	min-width: 300px
+	width: 20vw
 	position: fixed
-	z-index: 999
-	top: 50px
-	left: 0
+	top: calc(50px + 16px)
+	left: 8px
 	background: #fff
 	box-shadow: 3px 2px 2px #888
-	height: calc(100vh - 50px)
-	animation: LogIn $transition-fast
+	height: calc(100vh - 98px)
+	border-radius: 5px
 	.sidebar-content
 		border-bottom: #e0e0e0 solid 1px
 		padding: 8px 0
@@ -18,16 +17,17 @@
 			padding: 8px 16px 8px 16px
 			font-weight: 600
 		.sidebar-link
-			font-size: 14px
+			font-size: 12px
 			padding: 8px 16px 8px 16px
 			color: #000
+			font-weight: 600
 			cursor: pointer
 			transition: $transition-fast
 			display: block
 			i
 				margin-right: 8px
 			&:hover
-				background: #d1f4da
+				background: #f5f5f5
 				color: #000
 		.sidebar-link.active
 			background: $blue-color

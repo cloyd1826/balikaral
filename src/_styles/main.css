@@ -1350,121 +1350,273 @@ label {
 
 .admin-sidebar {
   padding-top: 16px;
-  width: 15vw;
+  min-width: 300px;
   position: fixed;
-  top: 0;
+  z-index: 999;
+  top: 50px;
   left: 0;
+  background: #fff;
+  box-shadow: 3px 2px 2px #888;
   height: calc(100vh - 50px);
-  background: #393939;
-  margin-top: 50px; }
+  animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
   .admin-sidebar .sidebar-content {
-    padding: 16px 8px; }
+    border-bottom: #e0e0e0 solid 1px;
+    padding: 8px 0; }
     .admin-sidebar .sidebar-content .sidebar-title {
-      font-size: 10px;
-      color: #f0f0f1;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
+      padding: 8px 16px 8px 16px;
       font-weight: 600; }
     .admin-sidebar .sidebar-content .sidebar-link {
-      font-size: 10px;
-      padding: 8px 0px 8px 16px;
-      color: #969ca3;
-      font-weight: 500;
+      font-size: 14px;
+      padding: 8px 16px 8px 16px;
+      color: #000;
       cursor: pointer;
       transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
       display: block; }
       .admin-sidebar .sidebar-content .sidebar-link i {
         margin-right: 8px; }
       .admin-sidebar .sidebar-content .sidebar-link:hover {
-        background: #121921;
-        color: #f5f5f5; }
+        background: #d1f4da;
+        color: #000; }
     .admin-sidebar .sidebar-content .sidebar-link.active {
-      background: #121921;
-      color: #f5f5f5;
+      background: #2f5597;
+      color: #fff;
       transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
 
 .admin-topbar {
   height: 50px;
   width: 100vw;
+  background: #2f5597;
+  display: flex;
+  box-shadow: 3px 2px 2px #888; }
+  .admin-topbar .topbar-left {
+    width: 50%;
+    padding-left: 16px;
+    display: flex;
+    align-items: center; }
+    .admin-topbar .topbar-left .icon {
+      font-size: 20px;
+      margin-right: 16px;
+      cursor: pointer;
+      color: #fff; }
+    .admin-topbar .topbar-left .balik, .admin-topbar .topbar-left .aral {
+      font-weight: 900;
+      font-size: 24px; }
+    .admin-topbar .topbar-left .balik {
+      color: #fff; }
+    .admin-topbar .topbar-left .aral {
+      color: #fe0000; }
+  .admin-topbar .topbar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 24px;
+    width: 50%;
+    position: relative; }
+    .admin-topbar .topbar-right .user-top-bar {
+      display: flex;
+      align-items: center; }
+      .admin-topbar .topbar-right .user-top-bar .user-name {
+        color: #fff;
+        margin-right: 16px;
+        text-align: right; }
+        .admin-topbar .topbar-right .user-top-bar .user-name .name {
+          font-size: 14px; }
+        .admin-topbar .topbar-right .user-top-bar .user-name .role {
+          font-size: 10px; }
+      .admin-topbar .topbar-right .user-top-bar .user-image {
+        height: calc(50px - 16px);
+        width: calc(50px - 16px);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        cursor: pointer; }
+      .admin-topbar .topbar-right .user-top-bar .user-container {
+        position: absolute;
+        top: calc(100% + 8px);
+        box-shadow: 3px 2px 2px #888;
+        border-radius: 5px;
+        z-index: 998;
+        right: 24px;
+        background: #fff;
+        padding: 8px 0px;
+        color: #000;
+        font-size: 14px;
+        animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+        .admin-topbar .topbar-right .user-top-bar .user-container .user-bar {
+          padding: 8px 32px;
+          cursor: pointer;
+          transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+          .admin-topbar .topbar-right .user-top-bar .user-container .user-bar i {
+            margin-right: 8px; }
+          .admin-topbar .topbar-right .user-top-bar .user-container .user-bar:hover {
+            background: #2f5597;
+            color: #fff; }
+
+.admin-content {
+  height: calc(100vh - 50px - 16px);
+  width: 100%;
+  overflow: auto;
+  background: transparent; }
+
+.admin-dashboard {
+  padding: 0 16px 16px 16px; }
+  .admin-dashboard .dashboard-link-container {
+    padding: 16px 0; }
+    .admin-dashboard .dashboard-link-container .grid-container {
+      padding: 0;
+      margin: 0; }
+      .admin-dashboard .dashboard-link-container .grid-container .main-link-title {
+        font-size: 20px;
+        padding: 8px 0;
+        margin-bottom: 8px;
+        border-bottom: #e0e0e0 solid 1px;
+        color: rgba(0, 0, 0, 0.6); }
+      .admin-dashboard .dashboard-link-container .grid-container .dashboard-link {
+        cursor: pointer;
+        color: #fff;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin: 0 8px 8px 0; }
+        .admin-dashboard .dashboard-link-container .grid-container .dashboard-link span {
+          font-size: 64px;
+          padding: 16px;
+          color: #fff; }
+        .admin-dashboard .dashboard-link-container .grid-container .dashboard-link .link-title {
+          width: auto;
+          display: inline-block;
+          padding-left: 16px;
+          font-size: 20px; }
+        .admin-dashboard .dashboard-link-container .grid-container .dashboard-link .link-number {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          font-size: 24px;
+          color: #fff; }
+
+.admin-container {
+  max-height: 100vh;
+  overflow: hidden;
+  background: #f9f9f9;
+  height: 100vh; }
+
+.teacher-sidebar {
+  padding-top: 16px;
+  width: 20vw;
+  position: fixed;
+  top: calc(50px + 16px);
+  left: 8px;
   background: #fff;
+  box-shadow: 3px 2px 2px #888;
+  height: calc(100vh - 98px);
+  border-radius: 5px; }
+  .teacher-sidebar .sidebar-content {
+    border-bottom: #e0e0e0 solid 1px;
+    padding: 8px 0; }
+    .teacher-sidebar .sidebar-content .sidebar-title {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
+      padding: 8px 16px 8px 16px;
+      font-weight: 600; }
+    .teacher-sidebar .sidebar-content .sidebar-link {
+      font-size: 12px;
+      padding: 8px 16px 8px 16px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
+      display: block; }
+      .teacher-sidebar .sidebar-content .sidebar-link i {
+        margin-right: 8px; }
+      .teacher-sidebar .sidebar-content .sidebar-link:hover {
+        background: #f5f5f5;
+        color: #000; }
+    .teacher-sidebar .sidebar-content .sidebar-link.active {
+      background: #2f5597;
+      color: #fff;
+      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+
+.teacher-topbar {
+  height: 50px;
+  width: 100vw;
+  background: #2f5597;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999;
-  display: flex; }
-  .admin-topbar .topbar-right {
-    width: 50%; }
-  .admin-topbar .topbar-left {
-    width: 50%; }
-
-.topbar-right {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px 24px;
-  position: relative; }
-  .topbar-right .icon {
-    font-size: 24px;
-    margin-right: 8px;
-    cursor: pointer; }
-    .topbar-right .icon:hover {
-      color: #2f5597; }
-  .topbar-right .user-top-bar {
+  box-shadow: 3px 2px 2px #888; }
+  .teacher-topbar .teacher-topbar-left {
+    width: 50%;
+    padding-left: 16px;
     display: flex;
     align-items: center; }
-    .topbar-right .user-top-bar .user-image {
-      height: calc(50px - 16px);
-      width: calc(50px - 16px);
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      border-radius: 50%;
-      cursor: pointer; }
-    .topbar-right .user-top-bar .user-container {
-      position: absolute;
-      top: calc(100%);
-      right: 24px;
-      background: #2f5597;
-      padding: 8px 4px;
-      color: #fff;
-      font-size: 14px;
-      animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-      .topbar-right .user-top-bar .user-container .user-bar {
-        padding: 8px 32px;
-        cursor: pointer;
-        transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-        .topbar-right .user-top-bar .user-container .user-bar i {
-          margin-right: 8px; }
-        .topbar-right .user-top-bar .user-container .user-bar:hover {
-          background: #faf21a;
-          color: #0a0a0a; }
+    .teacher-topbar .teacher-topbar-left .balik, .teacher-topbar .teacher-topbar-left .aral {
+      font-weight: 900;
+      font-size: 24px; }
+    .teacher-topbar .teacher-topbar-left .balik {
+      color: #fff; }
+    .teacher-topbar .teacher-topbar-left .aral {
+      color: #fe0000; }
+  .teacher-topbar .teacher-topbar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 24px;
+    width: 50%;
+    position: relative; }
+    .teacher-topbar .teacher-topbar-right .icon {
+      font-size: 24px;
+      margin-right: 8px;
+      cursor: pointer;
+      color: #fff; }
+      .teacher-topbar .teacher-topbar-right .icon:hover {
+        color: #faf21a; }
+    .teacher-topbar .teacher-topbar-right .user-top-bar {
+      display: flex;
+      align-items: center; }
+      .teacher-topbar .teacher-topbar-right .user-top-bar .user-image {
+        height: calc(50px - 16px);
+        width: calc(50px - 16px);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        cursor: pointer; }
+      .teacher-topbar .teacher-topbar-right .user-top-bar .user-container {
+        position: absolute;
+        top: calc(100% + 8px);
+        box-shadow: 3px 2px 2px #888;
+        border-radius: 5px;
+        right: 24px;
+        background: #fff;
+        padding: 8px 0px;
+        color: #000;
+        font-size: 14px;
+        animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+        .teacher-topbar .teacher-topbar-right .user-top-bar .user-container .user-bar {
+          padding: 8px 32px;
+          cursor: pointer;
+          transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+          .teacher-topbar .teacher-topbar-right .user-top-bar .user-container .user-bar i {
+            margin-right: 8px; }
+          .teacher-topbar .teacher-topbar-right .user-top-bar .user-container .user-bar:hover {
+            background: #2f5597;
+            color: #fff; }
 
-.admin-content {
+.teacher-content {
   height: calc(100vh - 50px - 16px);
-  width: calc(100vw - 15vw - 16px);
+  width: calc(100vw - 20vw - 16px);
   position: fixed;
   top: calc( 0px + 50px + 16px);
-  left: calc( 0px + 15vw + 16px);
+  left: calc( 0px + 20vw + 16px);
   overflow: auto;
   background: transparent; }
 
-.dashboard-summary-container {
-  margin-bottom: 16px;
-  background-color: white; }
-
-.dashboard-summary {
-  font-weight: 500;
-  border-right: 1px solid rgba(0, 0, 0, 0.24);
-  font-family: "Montserrat", sans-serif !important;
-  padding: 16px;
-  font-size: 24px; }
-  .dashboard-summary i {
-    margin-right: 32px;
-    color: #2f5597; }
-
-.dashboard-table {
-  background-color: #fff;
-  padding: 16px; }
-
-.admin-container {
+.teacher-container {
   max-height: 100vh;
   overflow: hidden;
   background: #edf2f6;
@@ -1493,4 +1645,6 @@ p, span, a {
 .element-container {
   background: #fff;
   padding: 16px;
-  margin-bottom: 16px; }
+  margin-bottom: 16px;
+  margin-top: 16px;
+  box-shadow: 3px 2px 2px #888; }
