@@ -45,25 +45,28 @@ class Layout extends Component{
         </div>
         {this.state.userLink ? 
             <div className='user-container'>
-              <Link to='/admin/dashboard'>
-                <div className='user-bar'>
-                  <span><i className='fa fa-dashboard' />Administrator Dashboard</span>
-                </div>
-              </Link>
-               <Link to='/teacher/dashboard'>
-                <div className='user-bar'>
-                  <span><i className='fa fa-dashboard' />Teacher Dashboard</span>
-                </div>
-              </Link>
+
+              {this.props.role === 'Administrator' ? 
+                <Link to='/admin/dashboard'>
+                  <div className='user-bar'>
+                    <span><i className='fa fa-dashboard' />Administrator Dashboard</span>
+                  </div>
+                </Link>
+              : null}
+              {this.props.role === 'Teacher' ? 
+                <Link to='/teacher/dashboard'>
+                  <div className='user-bar'>
+                    <span><i className='fa fa-dashboard' />Teacher Dashboard</span>
+                  </div>
+                </Link>
+              : null}
+
+              
+               
               <div className='user-bar'>
                 <span><i className='fa fa-user' />Profile</span>
               </div>
-              <div className='user-bar'>
-                <span><i className='fa fa-calendar' />Link Two</span>
-              </div>
-              <div className='user-bar'>
-                <span><i className='fa fa-code' />Link Three</span>
-              </div>
+             
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>
               </div>
@@ -77,7 +80,8 @@ class Layout extends Component{
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    role: state.role
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -29,7 +29,6 @@ class Dashboard extends Component {
                     <div className='dashboard-link' style={{background: '#0386a2'}}>
                       <span className='la la-sort-amount-asc'></span>
                       <div className='link-title'>Level</div>
-                      <div className='link-number'>00</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -39,7 +38,6 @@ class Dashboard extends Component {
                     <div className='dashboard-link' style={{background: '#2e81e1'}}>
                       <span className='la la-align-left'></span>
                       <div className='link-title'>Learning Strand</div>
-                      <div className='link-number'>00</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -49,7 +47,6 @@ class Dashboard extends Component {
                     <div className='dashboard-link' style={{background: '#912396'}}>
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>
-                      <div className='link-number'>00</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -68,7 +65,6 @@ class Dashboard extends Component {
                     <div className='dashboard-link' style={{background: '#00a100'}}>
                       <span className='la la-user'></span>
                       <div className='link-title'>List of User</div>
-                      <div className='link-number'>00</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -93,10 +89,12 @@ class Dashboard extends Component {
 
 
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <div className='dashboard-link' style={{background: '#ce5a29'}}>
-                    <span className='la la-user'></span>
-                    <div className='link-title'>Teacher Link</div>
-                  </div>
+                  <Link to='/admin/management/reviewer/list'>
+                    <div className='dashboard-link' style={{background: '#912396'}}>
+                      <span className='la la-file-pdf-o'></span>
+                      <div className='link-title'>Reviewer</div>
+                    </div>
+                  </Link>
                 </Grid.Cell>
                
               </Grid.X>

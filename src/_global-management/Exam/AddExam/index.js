@@ -126,7 +126,7 @@ class Layout extends Component {
         					<div className='title-text-container'>
         						<div className='title'>Exam Management > Add</div>
         						<div className='title-action'>
-        							<Link to='/admin/management/exam/list'>
+        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
         								<div className='button primary small'>List of Exams</div>
         							</Link>
         						</div>
@@ -223,7 +223,7 @@ class Layout extends Component {
 
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>
   	        						<Button type='submit' text='Save' className='secondary small' />
-                        <Link to='/admin/management/exam/list'>
+                        <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
   	        						 <Button disabled={this.state.buttonDisabled} type='button' text='Return' className='cancel small'/>
                         </Link>
   	        					</Grid.Cell>
@@ -241,7 +241,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    role: state.role
   }
 }
 const AddLevel = connect(mapStateToProps)(Layout)

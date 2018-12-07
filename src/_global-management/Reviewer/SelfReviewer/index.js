@@ -10,13 +10,11 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
-import ManagementDelete from '../../../_component/ManagementDelete'
-
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
-    	exam: [],
+    	reviewer: [],
 
     	message: '',
         type: '',
@@ -51,14 +49,13 @@ class Layout extends Component {
       active: active
     })
   }
-
   fetchLevel(){
-  	
-  	apiRequest('get', '/exam-management/all', false, this.props.token)
+  	apiRequest('get', `/reviewer-management/all?uploader=${this.props.user.id}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
+          console.log(res)
   				this.setState({
-	  				exam: res.data.data
+	  				reviewer: res.data.data
 	  			})	
 	  		}
   		})
@@ -69,20 +66,19 @@ class Layout extends Component {
   }
   componentDidMount(){
   	this.fetchLevel()
-    console.log(this.props.role)
   }
   render() { 
     return (
         <div>
         	<Grid fluid>
         		<Grid.X>
-        			<Grid.Cell large={12}>
+        			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
         					<div className='title-text-container'>
-        						<div className='title'>Exam Management</div>
+        						<div className='title'>Uploaded Reviewer</div>
         						<div className='title-action'>
-        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/add'}>
-        								<div className='button primary small'>Add New Exam</div>
+        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/add'}>
+        								<div className='button primary small'>Add New Reviewer</div>
         							</Link>
         						</div>
         					</div>
@@ -90,43 +86,39 @@ class Layout extends Component {
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
-                        <Table.HeaderCell>Question</Table.HeaderCell>
-				        				<Table.HeaderCell>Answer</Table.HeaderCell>
-                        <Table.HeaderCell>Level</Table.HeaderCell>
-				        				<Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+				        				<Table.HeaderCell>PDF Title</Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Status</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Header>
 				        		<Table.Body>
 				        			{
-					        			this.state.exam.map((attr, index) =>{
+					        			this.state.reviewer.map((attr, index) =>{
 					        				return (
 					        					<Table.Row key={index}>
-    							        		<Table.Cell>
-    							        					<Link 
-    							        						to={{ 
-    														    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/edit', 
-    														    state: { id: attr._id } 
-    															}}>
-    															{attr.question.details}
-    														</Link>
-    													</Table.Cell>
-                              <Table.Cell>{attr.question.answer}</Table.Cell>
-                              <Table.Cell>{attr.level.name}</Table.Cell>
-							        				<Table.Cell>{attr.learningStrand.name}</Table.Cell>
+                              <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
+                              <Table.Cell>{attr.pdf}</Table.Cell>
+                              <Table.Cell>{attr.description}</Table.Cell>
+							        				<Table.Cell>{attr.validated ? 'Validated' : 'For Validation'}</Table.Cell>
 							        				<Table.Cell isNarrowed>
 							        					<Link to={{ 
-															    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
+															    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/edit', 
 															    state: { id: attr._id } 
 															  }}>
 								        					<span>
 								        						<i className='fa fa-edit primary'></i>
 								        					</span>
 							        					</Link>
-							        				
-							        					<span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
-							        						<i className='fa fa-trash cancel'></i>
-							        					</span>
+							        					<Link to={{ 
+                                  pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/view', 
+                                  state: { id: attr._id } 
+                                }}>
+                                  <span>
+                                    <i className='la la-tags primary'></i>
+                                  </span>
+                                </Link>
 							        				</Table.Cell>
 							        			</Table.Row>
 					        				)
@@ -138,11 +130,11 @@ class Layout extends Component {
 				        		</Table.Body>
 				        		<Table.Footer>
 				        			<Table.Row>
-                        <Table.HeaderCell>Question</Table.HeaderCell>
-				        				<Table.HeaderCell>Answer</Table.HeaderCell>
-                        <Table.HeaderCell>Level</Table.HeaderCell>
-                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
+				        				 <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell>PDF Title</Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Status</Table.HeaderCell>
+				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
@@ -150,10 +142,6 @@ class Layout extends Component {
         			</Grid.Cell>
         		</Grid.X>
         	</Grid>
-
-
-        	<ManagementDelete item='Exam' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
-
         </div>
     )
   }
@@ -162,8 +150,9 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
 	return {
 		token: state.token,
+    user: state.user,
     role: state.role
 	}
 }
-const ListLevel = connect(mapStateToProps)(Layout)
-export default ListLevel
+const SelfReviewer = connect(mapStateToProps)(Layout)
+export default SelfReviewer

@@ -30,7 +30,14 @@ class Dashboard extends Component {
                     <div className='dashboard-link' style={{background: '#00a100'}}>
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>
-                      <div className='link-number'>00</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/teacher/management/reviewer/self'>
+                    <div className='dashboard-link' style={{background: '#2d8aef'}}>
+                      <span className='la la-folder-o'></span>
+                      <div className='link-title'>Your Reviewers</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -45,11 +52,13 @@ class Dashboard extends Component {
                 </Grid.Cell>
 
 
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <div className='dashboard-link' style={{background: '#2d8aef'}}>
-                    <span className='la la-user'></span>
-                    <div className='link-title'>Teacher Link</div>
-                  </div>
+               <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/teacher/management/reviewer/list'>
+                    <div className='dashboard-link' style={{background: '#5736b1'}}>
+                      <span className='la la-file-pdf-o'></span>
+                      <div className='link-title'>Reviewers</div>
+                    </div>
+                  </Link>
                 </Grid.Cell>
                
               </Grid.X>

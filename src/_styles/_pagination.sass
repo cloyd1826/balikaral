@@ -29,11 +29,11 @@
     border-radius: 3px
     color: #0a0a0a 
     &:hover,
-      background: #e6e6e6 
+      background: $lightBlue
 .pagination 
   .current
     padding: 0.1875rem 0.625rem
-    background: #2ba6cb
+    background: $blue-color
     color: #fefefe
     cursor: default 
   .disabled
@@ -68,3 +68,13 @@
     display: inline-block
     margin-left: 0.5rem
     content: '\00bb' 
+
+.pagination
+  .pagination-button,.pagination-next,.pagination-previous,.current
+    cursor: pointer
+.pagination-next,.pagination-previous
+  .la
+    padding: 0.1875rem 0.625rem
+  &:hover
+    .la  
+      background: $lightBlue

@@ -72,8 +72,6 @@ label > input[type='checkbox'],
 label > input[type='radio'] 
   margin-right: 0.5rem
 
-input[type='file'] 
-  width: 100%
 
 label 
   display: block
@@ -347,6 +345,36 @@ label
   color: #a94547
   padding: 8px 16px 8px 48px
   position: relative
+
+.file-input
+  .file-input-container
+    cursor: pointer
+    position: relative
+    border-radius: 5px
+    border: #e0e0e0 solid 1px
+    padding: 8px 0
+    .file-button-icon
+      background: #f5f5f5
+      font-size: 16px
+      padding: 8px
+      cursor: pointer
+      .la
+        margin-right: 4px
+    .file-name
+      font-size: 16px
+      padding: 8px
+    input[type='file']
+      font-size: 16px
+      padding: 8px
+      opacity: 0
+      top: 0
+      left: 0
+      height: 100%
+      width: 100%
+      outline: 0
+      background: #000
+      position: absolute
+      cursor: pointer
 
 @keyframes messageLoader
     0% 

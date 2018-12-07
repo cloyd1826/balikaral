@@ -67,7 +67,16 @@ class Sidebar extends Component {
                     <i className='la la-user-plus'></i>
                     <span>Add User</span>
                   </NavLink>
-                 
+                </div>
+
+                <div className='sidebar-content'>
+                  <div className='sidebar-title'>
+                    Teacher
+                  </div>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/reviewer/list'>
+                    <i className='la la-file-pdf-o'></i>
+                    <span>Reviewer</span>
+                  </NavLink>
                 </div>
             </div>
             :
