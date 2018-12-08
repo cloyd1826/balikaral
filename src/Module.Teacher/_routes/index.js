@@ -8,6 +8,8 @@ import Exam from '../../_global-management/Exam/_routeTeacher'
 
 import Reviewer from '../../_global-management/Reviewer/_routeTeacher'
 
+import UserProfile from '../../Page.Profile/_routesTeacher'
+
 
 const Routes = () => {
   return (
@@ -15,6 +17,7 @@ const Routes = () => {
             <Route path='/teacher/dashboard' component={Dashboard} />
             <Route path='/teacher/management/exam' component={Exam} />
             <Route path='/teacher/management/reviewer' component={Reviewer} />
+            <Route path='/teacher/profile' component={UserProfile} />
         </div>
 
     )

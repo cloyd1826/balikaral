@@ -1539,189 +1539,65 @@ td, th {
   background: #f9f9f9;
   height: 100vh; }
 
-.teacher-sidebar {
-  padding-top: 16px;
-  width: 20vw;
-  position: fixed;
-  top: calc(50px + 16px);
-  left: 8px;
-  background: #fff;
-  box-shadow: 3px 2px 2px #888;
-  height: calc(100vh - 98px);
-  border-radius: 5px; }
-  .teacher-sidebar .sidebar-content {
-    border-bottom: #e0e0e0 solid 1px;
-    padding: 8px 0; }
-    .teacher-sidebar .sidebar-content .sidebar-title {
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.5);
-      padding: 8px 16px 8px 16px;
-      font-weight: 600; }
-    .teacher-sidebar .sidebar-content .sidebar-link {
-      font-size: 12px;
-      padding: 8px 16px 8px 16px;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
-      display: block; }
-      .teacher-sidebar .sidebar-content .sidebar-link i {
-        margin-right: 8px; }
-      .teacher-sidebar .sidebar-content .sidebar-link:hover {
-        background: #f5f5f5;
-        color: #000; }
-    .teacher-sidebar .sidebar-content .sidebar-link.active {
-      background: #2f5597;
-      color: #fff;
-      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-
-.teacher-topbar {
-  height: 50px;
-  width: 100vw;
-  background: #2f5597;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  display: flex;
-  box-shadow: 3px 2px 2px #888; }
-  .teacher-topbar .teacher-topbar-left {
-    width: 50%;
-    padding-left: 16px;
-    display: flex;
-    align-items: center; }
-    .teacher-topbar .teacher-topbar-left .balik, .teacher-topbar .teacher-topbar-left .aral {
-      font-weight: 900;
-      font-size: 24px; }
-    .teacher-topbar .teacher-topbar-left .balik {
-      color: #fff; }
-    .teacher-topbar .teacher-topbar-left .aral {
-      color: #fe0000; }
-  .teacher-topbar .teacher-topbar-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 8px 24px;
-    width: 50%;
-    position: relative; }
-    .teacher-topbar .teacher-topbar-right .icon {
-      font-size: 24px;
-      margin-right: 8px;
-      cursor: pointer;
-      color: #fff; }
-      .teacher-topbar .teacher-topbar-right .icon:hover {
-        color: #faf21a; }
-    .teacher-topbar .teacher-topbar-right .user-top-bar {
-      display: flex;
-      align-items: center; }
-      .teacher-topbar .teacher-topbar-right .user-top-bar .user-image {
-        height: calc(50px - 16px);
-        width: calc(50px - 16px);
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        border-radius: 50%;
-        cursor: pointer; }
-      .teacher-topbar .teacher-topbar-right .user-top-bar .user-container {
-        position: absolute;
-        top: calc(100% + 8px);
-        box-shadow: 3px 2px 2px #888;
-        border-radius: 5px;
-        right: 24px;
-        background: #fff;
-        padding: 8px 0px;
-        color: #000;
-        font-size: 14px;
-        animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-        .teacher-topbar .teacher-topbar-right .user-top-bar .user-container .user-bar {
-          padding: 8px 32px;
-          cursor: pointer;
-          transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-          .teacher-topbar .teacher-topbar-right .user-top-bar .user-container .user-bar i {
-            margin-right: 8px; }
-          .teacher-topbar .teacher-topbar-right .user-top-bar .user-container .user-bar:hover {
-            background: #2f5597;
-            color: #fff; }
-
-.teacher-content {
-  height: calc(100vh - 50px - 16px);
-  width: calc(100vw - 20vw - 16px);
-  position: fixed;
-  top: calc( 0px + 50px + 16px);
-  left: calc( 0px + 20vw + 16px);
-  overflow: auto;
-  background: transparent; }
-
-.reviewer-view .context-montserrat, .reviewer-view .form-subtitle, .reviewer-view .footer-contact span p, .footer-contact span .reviewer-view p {
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 16px;
-  margin-top: 16px;
-  font-weight: 600; }
-  .reviewer-view .context-montserrat span, .reviewer-view .form-subtitle span, .reviewer-view .footer-contact span p span, .footer-contact span .reviewer-view p span {
-    text-decoration: underline;
-    font-weight: 500;
-    color: #000; }
-  .reviewer-view .context-montserrat span.validator-name, .reviewer-view .form-subtitle span.validator-name, .reviewer-view .footer-contact span p span.validator-name, .footer-contact span .reviewer-view p span.validator-name, .reviewer-view .context-montserrat span.no-validator, .reviewer-view .form-subtitle span.no-validator, .reviewer-view .footer-contact span p span.no-validator, .footer-contact span .reviewer-view p span.no-validator {
-    padding: 4px 8px;
-    background: #2f5597;
-    color: #fff;
-    text-decoration: none;
-    margin-left: 4px;
-    border-radius: 5px; }
-  .reviewer-view .context-montserrat span.no-validator, .reviewer-view .form-subtitle span.no-validator, .reviewer-view .footer-contact span p span.no-validator, .footer-contact span .reviewer-view p span.no-validator {
-    background: #fe0000;
-    color: #fff; }
-
-.reviewer-view .pdf-viewer {
-  border: #e0e0e0 solid 1px;
-  padding: 16px 16px 64px 16px;
-  background: #f5f5f5;
-  margin-top: 16px;
+.user-profile-container .user-image {
   display: flex;
   justify-content: center;
-  position: relative;
-  overflow: auto;
-  min-height: 300px; }
-  .reviewer-view .pdf-viewer .pdf-action {
-    position: absolute;
-    top: 16px;
-    right: 16px; }
-    .reviewer-view .pdf-viewer .pdf-action .la {
-      font-size: 22px;
-      padding: 8px;
-      border-radius: 5px;
-      box-shadow: 3px 2px 2px #888;
-      color: #fff;
-      background: #2f5597;
-      cursor: pointer;
-      margin-left: 8px; }
-  .reviewer-view .pdf-viewer .pagination {
-    position: absolute;
-    bottom: 16px;
-    width: auto;
-    left: 50%;
-    transform: translate(-50%, 0); }
-  .reviewer-view .pdf-viewer .pdf-loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: #f5f5f5;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center; }
-    .reviewer-view .pdf-viewer .pdf-loader i {
-      font-size: 64px;
-      animation: pdfLoader 1s linear infinite; }
+  align-items: center;
+  border-bottom: #e0e0e0 solid 1px;
+  padding-bottom: 16px; }
+  .user-profile-container .user-image .hero-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: 3px 2px 2px #888;
+    background-repeat: no-repeat;
+    background-position: center; }
 
-@keyframes pdfLoader {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
+.user-profile-container .user-information .info-box {
+  font-size: 14px;
+  border-bottom: #e0e0e0 solid 1px;
+  padding: 4px 8px; }
+  .user-profile-container .user-information .info-box .info-title {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-weight: 600; }
+    .user-profile-container .user-information .info-box .info-title .la, .user-profile-container .user-information .info-box .info-title .fa {
+      font-size: 20px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: #2f5597;
+      color: #fff;
+      padding: 4px; }
+  .user-profile-container .user-information .info-box .info {
+    margin-bottom: 4px;
+    padding-left: 16px; }
+    .user-profile-container .user-information .info-box .info span {
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.6);
+      margin-right: 16px; }
+
+.nav-bar {
+  margin: 16px 0px 8px 16px;
+  background: #fff;
+  display: flex;
+  box-shadow: 3px 2px 2px #888;
+  border-radius: 5px; }
+  .nav-bar .link {
+    padding: 8px;
+    border-right: #e0e0e0 solid 1px;
+    cursor: pointer; }
+    .nav-bar .link:hover {
+      background: #d9edf7; }
+  .nav-bar .link.active {
+    background: #2f5597;
+    color: #fff; }
+
+.user-route-container {
+  margin-left: 16px; }
 
 body {
   padding: 0;

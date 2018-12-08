@@ -64,7 +64,7 @@ class Dashboard extends Component {
                   <Link to='/admin/user/list'>
                     <div className='dashboard-link' style={{background: '#00a100'}}>
                       <span className='la la-user'></span>
-                      <div className='link-title'>List of User</div>
+                      <div className='link-title'>List of Users</div>
                     </div>
                   </Link>
                 </Grid.Cell>

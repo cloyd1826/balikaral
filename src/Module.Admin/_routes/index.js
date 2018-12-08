@@ -9,6 +9,8 @@ import LearningStrand from '../Management/LearningStrand'
 import Exam from '../../_global-management/Exam/_routeAdmin'
 import Reviewer from '../../_global-management/Reviewer/_routeAdmin'
 
+import UserView from '../../Page.Profile/_routeAdmin'
+
 
 import User from '../User'
 
@@ -21,6 +23,8 @@ const Routes = () => {
             <Route path='/admin/management/exam' component={Exam} />
             <Route path='/admin/management/reviewer' component={Reviewer} />
             <Route path='/admin/user' component={User} />
+
+            <Route path='/admin/user-view' component={UserView} />
         </div>
 
     )

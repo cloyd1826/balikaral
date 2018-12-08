@@ -1,0 +1,58 @@
+.user-profile-container
+	.user-image
+		display: flex
+		justify-content: center
+		align-items: center
+		border-bottom: #e0e0e0 solid 1px
+		padding-bottom: 16px
+		.hero-image
+			height: 200px
+			width: 200px
+			border-radius: 50%
+			background-size: cover
+			box-shadow: $boxShadow
+			background-repeat: no-repeat
+			background-position: center
+	.user-information
+		.info-box
+			font-size: 14px
+			border-bottom: #e0e0e0 solid 1px
+			padding: 4px 8px
+			.info-title
+				display: flex
+				align-items: center
+				font-size: 14px
+				margin-bottom: 8px
+				margin-top: 8px
+				font-weight: 600
+				.la,.fa
+					font-size: 20px
+					margin-right: 8px
+					border-radius: 50%
+					background: $blue-color
+					color: #fff
+					padding: 4px
+			.info
+				margin-bottom: 4px
+				padding-left: 16px
+				span
+					font-weight: 600
+					color: rgba(0,0,0,0.6)
+					margin-right: 16px
+.nav-bar
+	margin: 16px 0px 8px 16px
+	background: #fff
+	display: flex
+	box-shadow: $boxShadow
+	border-radius: 5px
+	.link
+		padding: 8px
+		border-right: #e0e0e0 solid 1px
+		cursor: pointer
+		&:hover
+			background: $lightBlue
+	.link.active
+		background: $blue-color
+		color: #fff
+.user-route-container
+	margin-left: 16px

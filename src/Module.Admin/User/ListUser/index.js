@@ -83,7 +83,7 @@ class Layout extends Component {
                               <Table.Cell>
                                 <Link 
                                     to={{ 
-                                      pathname: '/admin/user/edit', 
+                                      pathname: '/admin/user-view/update-information', 
                                       state: { id: attr._id } 
                                     }}>
                                   {attr.local.email}
@@ -100,7 +100,7 @@ class Layout extends Component {
                               <Table.Cell isNarrowed>
                                   <Link 
                                     to={{ 
-                                      pathname: '/admin/user/edit', 
+                                      pathname: '/admin/user-view/update-information', 
                                       state: { id: attr._id } 
                                     }}>
                                     <span>

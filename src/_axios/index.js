@@ -1,9 +1,12 @@
 import axios from 'axios'
 
+
+import config from '../_config'
+
 const apiRequest = (method, url, data, header) => {
 	let call = {
 			method: method,
-			url: `http://localhost:5000/balikaral${url}`,
+			url: `${config}/balikaral${url}`,
 		}
 		if(header) {
 			let headers = { Authorization: header }

@@ -7,6 +7,7 @@ import Routes from './Routes'
 
 class App extends Component {
 	render() {
+		console.log(process.env.REACT_APP_APP_ID)
 	    return (
 	      <div >
    			<Routes />

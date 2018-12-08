@@ -44,15 +44,18 @@ class Layout extends Component{
       <div className='user-top-bar'>
         <div className='user-name'>
           <div className='name'>
-          
-          {
-              (this.props.user.firstName ? this.props.user.firstName : '') 
-              + ' ' + 
-              (this.props.user.middleName ? this.props.user.middleName.substring(0,1) : '')
-              + ' ' + 
-              (this.props.user.lastName ? this.props.user.lastName : '')
-
-          }
+          <Link to={{ 
+                pathname: '/admin/profile/', 
+                state: { id: this.props.user.id } 
+              }}>
+            {
+                (this.props.user.firstName ? this.props.user.firstName : '') 
+                + ' ' + 
+                (this.props.user.middleName ? this.props.user.middleName.substring(0,1) : '')
+                + ' ' + 
+                (this.props.user.lastName ? this.props.user.lastName : '')
+            }
+          </Link>
 
           </div>
           <div className='role'>{
