@@ -26,6 +26,7 @@ class Layout extends Component {
     this.state = { 
         question: '',
         answer: '',
+        difficulty: '',
         level: '',
         learningStrand: '',
         a: '',
@@ -33,6 +34,9 @@ class Layout extends Component {
         c: '',
         d: '',
 
+        uploader: '',
+        validation: '',
+        validator: [],
      
         message: '',
         type: '',
@@ -69,12 +73,18 @@ class Layout extends Component {
                 this.setState({
                     question: result.question.details,
                     answer: result.question.answer,
-                    level: result.level,
-                    learningStrand: result.learningStrand,
+                    difficulty: result.question.difficulty,
                     a: result.question.choices.a.details,
                     b: result.question.choices.b.details,
                     c: result.question.choices.c.details,
                     d: result.question.choices.d.details,
+
+                    level: result.level._id,
+                    learningStrand: result.learningStrand._id,
+
+                    uploader: result.uploader,
+                    validation: result.validation,
+                    validator: (result.validator ? result.validator : [] ),
                 })
             }
             
@@ -99,9 +109,13 @@ class Layout extends Component {
    let data = {
       level: this.state.level,
       learningStrand: this.state.learningStrand,
+      uploader: this.state.uploader,
+      validation: this.state.validation,
+      validator: this.state.validator,
       question: {
         details: this.state.question,
         answer: this.state.answer,
+        difficulty: this.state.difficulty,
         choices: {
           a: {
             type: '',
@@ -165,8 +179,8 @@ class Layout extends Component {
                                     value={this.state.question} 
                                     onChange={this.handleChange}/>
                                 </Grid.Cell>
-                                <Grid.Cell large={12} medium={12} small={12}>
-                                  <Textarea 
+                                <Grid.Cell large={3} medium={12} small={12}>
+                                  <Input 
                                     required 
                                     type='text' 
                                     label='Answer' 
@@ -176,7 +190,18 @@ class Layout extends Component {
                                     onChange={this.handleChange}/>
                                 </Grid.Cell>
 
-                                <Grid.Cell large={6} medium={12} small={12}>
+                                <Grid.Cell large={3} medium={12} small={12}>
+                                  <Input 
+                                    required 
+                                    type='text' 
+                                    label='Difficulty' 
+                                    placeholder='Difficulty' 
+                                    name='difficulty' 
+                                    value={this.state.difficulty} 
+                                    onChange={this.handleChange}/>
+                                </Grid.Cell>
+
+                                <Grid.Cell large={3} medium={12} small={12}>
                                   <SelectLevel 
                                     required 
                                     type='text' 
@@ -187,7 +212,7 @@ class Layout extends Component {
                                 </Grid.Cell>
 
 
-                                <Grid.Cell large={6} medium={12} small={12}>
+                                <Grid.Cell large={3} medium={12} small={12}>
                                   <SelectLearningStrand 
                                     required 
                                     type='text' 

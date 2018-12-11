@@ -23,7 +23,7 @@ class FileInput extends Component {
 						accept={this.props.accept}
 						onChange={this.props.onChange ? this.props.onChange : '' }
 						name={this.props.name}
-						ref={this.props.ref}
+						
 						/>
 				</div>
 			</div>

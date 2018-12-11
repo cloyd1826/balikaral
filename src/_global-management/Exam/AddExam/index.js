@@ -25,6 +25,7 @@ class Layout extends Component {
     	
       question: '',
       answer: '',
+      difficulty: '',
       level: '',
       learningStrand: '',
       a: '',
@@ -58,6 +59,7 @@ class Layout extends Component {
     this.setState({
       question: '',
       answer: '',
+      difficulty: '',
       level: '',
       learningStrand: '',
       a: '',
@@ -82,9 +84,13 @@ class Layout extends Component {
   	let data = {
       level: this.state.level,
       learningStrand: this.state.learningStrand,
+      uploader: this.props.user.id,
+      validation: ( this.props.role === 'Administrator' ? true : false ),
+      validator: [],
       question: {
         details: this.state.question,
         answer: this.state.answer,
+        difficulty: this.state.difficulty,
         choices: {
           a: {
             type: '',
@@ -149,8 +155,8 @@ class Layout extends Component {
                           value={this.state.question} 
                           onChange={this.handleChange}/>
   	        					</Grid.Cell>
-                      <Grid.Cell large={12} medium={12} small={12}>
-                        <Textarea 
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <Input 
                           required 
                           type='text' 
                           label='Answer' 
@@ -160,7 +166,18 @@ class Layout extends Component {
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
-                      <Grid.Cell large={6} medium={12} small={12}>
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <Input 
+                          required 
+                          type='text' 
+                          label='Difficulty' 
+                          placeholder='Difficulty' 
+                          name='difficulty' 
+                          value={this.state.difficulty} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectLevel 
                           required 
                           type='text' 
@@ -171,7 +188,7 @@ class Layout extends Component {
                       </Grid.Cell>
 
 
-                      <Grid.Cell large={6} medium={12} small={12}>
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectLearningStrand 
                           required 
                           type='text' 
@@ -242,7 +259,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const AddLevel = connect(mapStateToProps)(Layout)

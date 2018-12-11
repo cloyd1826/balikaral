@@ -54,7 +54,7 @@ class Layout extends Component {
 
   fetchLevel(){
   	
-  	apiRequest('get', `/exam-management/all?disclude=${this.props.user.id}`, false, this.props.token)
+  	apiRequest('get', `/exam-management/all?uploader=${this.props.user.id}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
@@ -95,8 +95,7 @@ class Layout extends Component {
 				        			<Table.Row>
                         <Table.HeaderCell>Question</Table.HeaderCell>
                         <Table.HeaderCell>Answer</Table.HeaderCell>
-                        <Table.HeaderCell>Difficulty</Table.HeaderCell>
-				        				<Table.HeaderCell>Submitted By</Table.HeaderCell>
+				        				<Table.HeaderCell>Difficulty</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
 				        				<Table.HeaderCell>Learning Strand</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
@@ -118,29 +117,21 @@ class Layout extends Component {
     													</Table.Cell>
                               <Table.Cell>{ attr.question ? attr.question.answer ? attr.question.answer : '' : '' }</Table.Cell>
                               <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
-                                <Table.Cell>{
-                                attr.uploader ? attr.uploader.personalInformation ? 
-                                (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
-                                + ' ' + 
-                                (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
-                                + ' ' + 
-                                (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-                                : '' : ''
-                              }</Table.Cell>
                               <Table.Cell>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
 							        				<Table.Cell>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
-
-                                <Link to={{ 
-                                  pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
-                                  state: { id: attr._id } 
-                                }}>
-                                  <span>
-                                    <i className='la la-tags primary'></i>
-                                  </span>
-                                </Link>
-
+							        					<Link to={{ 
+															    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
+															    state: { id: attr._id } 
+															  }}>
+								        					<span>
+								        						<i className='fa fa-edit primary'></i>
+								        					</span>
+							        					</Link>
 							        				
+							        					<span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
+							        						<i className='fa fa-trash cancel'></i>
+							        					</span>
 							        				</Table.Cell>
 							        			</Table.Row>
 					        				)
@@ -155,7 +146,6 @@ class Layout extends Component {
                         <Table.HeaderCell>Question</Table.HeaderCell>
                         <Table.HeaderCell>Answer</Table.HeaderCell>
                         <Table.HeaderCell>Difficulty</Table.HeaderCell>
-                        <Table.HeaderCell>Submitted By</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
@@ -182,5 +172,5 @@ const mapStateToProps = (state) => {
     user: state.user
 	}
 }
-const ListLevel = connect(mapStateToProps)(Layout)
-export default ListLevel
+const SelfExam = connect(mapStateToProps)(Layout)
+export default SelfExam

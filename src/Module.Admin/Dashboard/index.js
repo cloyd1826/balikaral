@@ -50,6 +50,14 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/management/exam/import'>
+                    <div className='dashboard-link' style={{background: '#912396'}}>
+                      <span className='la la-list-ul'></span>
+                      <div className='link-title'>Import Exam</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
               </Grid.X>
 
 

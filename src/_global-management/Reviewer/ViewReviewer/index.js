@@ -151,7 +151,6 @@ class Layout extends Component {
   }
 
   render() { 
-    console.log(this.state)
     return (
         <div>
         	<Grid fluid>

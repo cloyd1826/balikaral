@@ -73,8 +73,14 @@ class TableBody extends Component{
   render() {
     let { children } = this.props
     return (
-      <tbody className={this.props.className ? this.props.className : ''}>
-          {  children }
+      <tbody className={(this.props.className ? this.props.className : '' )}>
+          {  children.length === 0 ? 
+            <tr>
+              <td className='table-body-no-data' colSpan={16}>
+                No data to display
+              </td>
+            </tr>
+          : children }
       </tbody>
     );
   }

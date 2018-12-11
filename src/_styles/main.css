@@ -705,6 +705,11 @@ table.scroll {
   width: 100%;
   overflow-x: auto; }
 
+tbody tr td.table-body-no-data {
+  text-align: center;
+  padding: 8px;
+  font-weight: 600; }
+
 table.hover thead tr:hover {
   background-color: #f3f3f3; }
 
@@ -741,7 +746,7 @@ td span {
     color: #fff; }
 
 td, th {
-  font-size: 12px; }
+  font-size: 16px; }
 
 .table-scroll {
   overflow-x: auto; }
@@ -1538,6 +1543,133 @@ td, th {
   overflow: hidden;
   background: #f9f9f9;
   height: 100vh; }
+
+.reviewer-view .context-montserrat, .reviewer-view .form-subtitle, .reviewer-view .footer-contact span p, .footer-contact span .reviewer-view p {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  margin-top: 16px;
+  font-weight: 600; }
+  .reviewer-view .context-montserrat span, .reviewer-view .form-subtitle span, .reviewer-view .footer-contact span p span, .footer-contact span .reviewer-view p span {
+    text-decoration: underline;
+    font-weight: 500;
+    color: #000; }
+
+.reviewer-view .pdf-viewer {
+  border: #e0e0e0 solid 1px;
+  padding: 16px 16px 64px 16px;
+  background: #f5f5f5;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: auto;
+  min-height: 300px; }
+  .reviewer-view .pdf-viewer .pdf-action {
+    position: absolute;
+    top: 16px;
+    right: 16px; }
+    .reviewer-view .pdf-viewer .pdf-action .la {
+      font-size: 22px;
+      padding: 8px;
+      border-radius: 5px;
+      box-shadow: 3px 2px 2px #888;
+      color: #fff;
+      background: #2f5597;
+      cursor: pointer;
+      margin-left: 8px; }
+  .reviewer-view .pdf-viewer .pagination {
+    position: absolute;
+    bottom: 16px;
+    width: auto;
+    left: 50%;
+    transform: translate(-50%, 0); }
+  .reviewer-view .pdf-viewer .pdf-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #f5f5f5;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; }
+    .reviewer-view .pdf-viewer .pdf-loader i {
+      font-size: 64px;
+      animation: pdfLoader 1s linear infinite; }
+
+.exam-view .context-montserrat, .exam-view .form-subtitle, .exam-view .footer-contact span p, .footer-contact span .exam-view p {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  margin-top: 16px;
+  font-weight: 600; }
+  .exam-view .context-montserrat span, .exam-view .form-subtitle span, .exam-view .footer-contact span p span, .footer-contact span .exam-view p span {
+    text-decoration: underline;
+    font-weight: 500;
+    color: #000; }
+
+span.validator-name, span.no-validator {
+  padding: 4px 8px;
+  background: #2f5597;
+  color: #fff !important;
+  text-decoration: none !important;
+  margin-left: 4px;
+  border-radius: 5px; }
+
+span.no-validator {
+  background: #fe0000;
+  color: #fff; }
+
+@keyframes pdfLoader {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.question-card {
+  border: #e0e0e0 solid 1px;
+  padding: 64px 16px 64px 16px;
+  margin-top: 16px;
+  background: #d9edf7;
+  position: relative; }
+  .question-card .question {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 32px; }
+  .question-card .difficulty {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 32px; }
+  .question-card .answer-container {
+    width: calc(100% - 32px);
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; }
+    .question-card .answer-container .answer-box {
+      display: flex;
+      margin-bottom: 4px;
+      width: 80%;
+      cursor: pointer; }
+      .question-card .answer-container .answer-box .letter {
+        background: #2f5597;
+        padding: 16px;
+        color: #fff;
+        font-weight: 600; }
+      .question-card .answer-container .answer-box .letter.correct {
+        background: #faf21a;
+        color: #000; }
+      .question-card .answer-container .answer-box .answer {
+        background: #fff;
+        padding: 16px;
+        color: rgba(0, 0, 0, 0.8);
+        width: 100%; }
+  .question-card .question-action {
+    position: absolute;
+    top: 0px;
+    right: 8px; }
 
 .user-profile-container .user-image {
   display: flex;

@@ -5,6 +5,9 @@ import {Route} from 'react-router-dom'
 import AddExam from '../AddExam'
 import ListExam from '../ListExam'
 import EditExam from '../EditExam'
+import ImportExam from '../ImportExam'
+import ValidateExam from '../ValidateExam'
+import SelfExam from '../SelfExam'
 
 const Routes = () => {
   return (
@@ -12,6 +15,9 @@ const Routes = () => {
       <Route path='/teacher/management/exam/add' component={AddExam} />
       <Route path='/teacher/management/exam/list' component={ListExam} />
       <Route path='/teacher/management/exam/edit' component={EditExam} />
+      <Route path='/teacher/management/exam/import' component={ImportExam} />
+      <Route path='/teacher/management/exam/validate' component={ValidateExam} />
+      <Route path='/teacher/management/exam/self' component={SelfExam} />
     </div>
   )
 }

@@ -56,7 +56,12 @@ table.scroll
   display: block
   width: 100%
   overflow-x: auto
-
+tbody
+  tr
+    td.table-body-no-data
+      text-align: center
+      padding: 8px
+      font-weight: 600
 table.hover 
   thead 
     tr:hover 
@@ -99,7 +104,7 @@ td
       background: $yellow-color
       color: #fff
 td, th
-  font-size: 12px
+  font-size: 16px
 
 .table-scroll 
   overflow-x: auto
