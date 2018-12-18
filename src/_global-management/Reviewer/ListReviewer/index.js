@@ -12,23 +12,49 @@ import { connect } from 'react-redux'
 
 import ManagementDelete from '../../../_component/ManagementDelete'
 
+import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+
+import Select from '../../../_component/Form/Select'
+
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
     	reviewer: [],
 
-    	message: '',
-        type: '',
-        active: false,
+      validation: '',
+      learningStrand: '',
 
-        deleteActive: false,
-        link: ''
+    	message: '',
+      type: '',
+      active: false,
+
+      deleteActive: false,
+      link: ''
     }
     this.fetchLevel = this.fetchLevel.bind(this)
    	this.formMessage = this.formMessage.bind(this)
 
    	this.toggleDelete = this.toggleDelete.bind(this)
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value
+    })
+    let learningStrand = this.state.learningStrand
+    let validation = this.state.validation
+    let level = this.state.level
+    if(name==='learningStrand'){
+      learningStrand = value
+    }
+    if(name ==='validation'){
+      validation = value
+    }
+    this.fetchLevel(validation, learningStrand)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -36,7 +62,7 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLevel()
+      this.fetchLevel('','')
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -52,14 +78,23 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(){
-  	let route = ''
-    if(this.props.role === 'Administrator'){
-      route = `/reviewer-management/all`
-    }else{
-      route = `/reviewer-management/all?disclude=${this.props.user.id}`
+  fetchLevel(validation, learningStrand){
+  
+    let routeToUse = ''
+
+    if(this.props.match.params.type === 'self'){
+      routeToUse = `/reviewer-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}`
     }
-  	apiRequest('get', route, false, this.props.token)
+
+    if(this.props.match.params.type === 'all'){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}`
+    }
+
+    if(this.props.match.params.type === 'teachers'){
+      routeToUse = `/reviewer-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}`
+    }
+
+  	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
           console.log(res)
@@ -74,7 +109,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel()
+  	this.fetchLevel('','')
   }
   render() { 
     return (
@@ -94,7 +129,29 @@ class Layout extends Component {
         							</Link>
         						</div>
         					</div>
-        					<FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 
+        					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
+                  <div className='table-filter'>
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <Select 
+                        label='Validation'
+                        name='validation' 
+                        value={this.state.validation} 
+                        onChange={this.handleChange}
+                        >
+                        <option value=''></option>
+                        <option value='false'>For Validation</option>
+                        <option value='true'>Validated</option>
+                      </Select>
+                    </Grid.Cell>
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <SelectLearningStrand
+                        label='Learning Strand' 
+                        name='learningStrand' 
+                        value={this.state.learningStrand} 
+                        onChange={this.handleChange}/>
+                    </Grid.Cell>
+
+                  </div>
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
@@ -125,14 +182,36 @@ class Layout extends Component {
                               <Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
-							        					<Link to={{ 
-															    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/view', 
-															    state: { id: attr._id } 
-															  }}>
-								        					<span>
-								        						<i className='la la-tags primary'></i>
-								        					</span>
-							        					</Link>
+
+                                { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
+                                  <Link to={{ 
+                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/view', 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='la la-tags primary'></i>
+                                    </span>
+                                  </Link>
+                                : null }
+
+                                { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
+                                  <Link to={{ 
+                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/edit', 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='fa fa-edit primary'></i>
+                                    </span>
+                                  </Link>
+                                : null }
+
+                                { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
+                                  <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id)}}>
+                                    <i className='fa fa-trash cancel'></i>
+                                  </span>
+                                : null }
+
+
 							        				</Table.Cell>
 							        			</Table.Row>
 					        				)
@@ -158,6 +237,8 @@ class Layout extends Component {
         			</Grid.Cell>
         		</Grid.X>
         	</Grid>
+
+          <ManagementDelete item='Reviewer' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
         </div>
     )
   }

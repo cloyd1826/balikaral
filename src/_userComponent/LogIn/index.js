@@ -82,7 +82,7 @@ class Layout extends Component{
               </div>
               <div className='log-in-form'>
                   <Form onSubmit={this.handleSubmit} size='small'>
-                    <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                    <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                     <Input onChange={this.handleChange} label='Email' name='email' type='email' placeholder='email@email.com' value={this.state.email} /> 
                     <Input onChange={this.handleChange} label='Password' name='password' placeholder='password' type='password' value={this.state.password} />
                    

@@ -644,6 +644,9 @@ label {
     position: absolute;
     cursor: pointer; }
 
+.required {
+  color: #fe0000; }
+
 @keyframes messageLoader {
   0% {
     transform: translate(0, -50%) rotate(0deg); }
@@ -752,6 +755,16 @@ td, th {
   overflow-x: auto; }
   .table-scroll .table-scroll table {
     width: auto; }
+
+.table-filter {
+  display: flex;
+  justify-content: flex-end; }
+  .table-filter .select, .table-filter select, .table-filter .label, .table-filter label {
+    font-size: 12px !important; }
+  .table-filter .select, .table-filter select {
+    padding: 4px !important;
+    height: auto !important;
+    margin-bottom: 0 !important; }
 
 .pagination {
   margin-left: 0;
@@ -1633,6 +1646,13 @@ span.no-validator {
   margin-top: 16px;
   background: #d9edf7;
   position: relative; }
+  .question-card .question-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+    margin: 0 auto; }
   .question-card .question {
     font-size: 22px;
     text-align: center;
@@ -1649,23 +1669,33 @@ span.no-validator {
     align-items: center;
     justify-content: center; }
     .question-card .answer-container .answer-box {
-      display: flex;
       margin-bottom: 4px;
-      width: 80%;
+      width: calc(50% - 16px);
+      padding: 8px;
       cursor: pointer; }
-      .question-card .answer-container .answer-box .letter {
-        background: #2f5597;
-        padding: 16px;
-        color: #fff;
-        font-weight: 600; }
-      .question-card .answer-container .answer-box .letter.correct {
-        background: #faf21a;
-        color: #000; }
-      .question-card .answer-container .answer-box .answer {
-        background: #fff;
-        padding: 16px;
-        color: rgba(0, 0, 0, 0.8);
-        width: 100%; }
+      .question-card .answer-container .answer-box .answer-text {
+        display: flex;
+        cursor: pointer; }
+        .question-card .answer-container .answer-box .answer-text .letter {
+          background: #2f5597;
+          padding: 16px;
+          color: #fff;
+          font-weight: 600; }
+        .question-card .answer-container .answer-box .answer-text .letter.correct {
+          background: #faf21a;
+          color: #000; }
+        .question-card .answer-container .answer-box .answer-text .answer {
+          background: #fff;
+          padding: 16px;
+          color: rgba(0, 0, 0, 0.8);
+          width: 100%; }
+          .question-card .answer-container .answer-box .answer-text .answer .answer-image {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 200px;
+            width: 200px;
+            margin: 0 auto 8px auto; }
   .question-card .question-action {
     position: absolute;
     top: 0px;

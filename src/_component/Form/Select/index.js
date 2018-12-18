@@ -9,7 +9,7 @@ class Select extends Component {
 		let { children } = this.props
 		return(
 			<div className={'select-container ' + (this.props.className ? this.props.className : '')}>
-				<label>{this.props.label}</label>
+				<label>{this.props.label} {this.props.required ? <span className='required'>*</span> : '' } </label>
 					<select  
 						onChange={this.props.onChange ? this.props.onChange : '' }
 						value={this.props.value}

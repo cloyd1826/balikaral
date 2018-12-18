@@ -7,17 +7,15 @@ import ListExam from '../ListExam'
 import EditExam from '../EditExam'
 import ImportExam from '../ImportExam'
 import ValidateExam from '../ValidateExam'
-import SelfExam from '../SelfExam'
 
 const Routes = () => {
   return (
     <div>
       <Route path='/teacher/management/exam/add' component={AddExam} />
-      <Route path='/teacher/management/exam/list' component={ListExam} />
       <Route path='/teacher/management/exam/edit' component={EditExam} />
       <Route path='/teacher/management/exam/import' component={ImportExam} />
       <Route path='/teacher/management/exam/validate' component={ValidateExam} />
-      <Route path='/teacher/management/exam/self' component={SelfExam} />
+      <Route path='/teacher/management/exam/list/:type' component={ListExam} />
     </div>
   )
 }

@@ -115,7 +115,7 @@ class Layout extends Component {
                                 >
                             <Grid.X>
                                 <Grid.Cell large={12} medium={12} small={12}>
-                                  <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                                  <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                                  
                                 </Grid.Cell>
                                 <Grid.Cell large={6} medium={12} small={12}>

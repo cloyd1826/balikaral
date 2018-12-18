@@ -25,7 +25,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
 
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/exam/self'>
+                  <Link to='/teacher/management/exam/list/self'>
                     <div className='dashboard-link' style={{background: '#d24726'}}>
                       <span className='la la-folder-o'></span>
                       <div className='link-title'>Your Exams</div>
@@ -33,7 +33,7 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/reviewer/self'>
+                  <Link to='/teacher/management/reviewer/list/self'>
                     <div className='dashboard-link' style={{background: '#2d8aef'}}>
                       <span className='la la-folder-o'></span>
                       <div className='link-title'>Your Reviewers</div>
@@ -41,18 +41,12 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
               </Grid.X>
-
-
-             
               <Grid.X>
-
                 <Grid.Cell large={12} medium={12} small={12}>
                   <div className='main-link-title'>Teacher</div>
                 </Grid.Cell>
-
-
                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/reviewer/list'>
+                  <Link to='/teacher/management/reviewer/list/teachers'>
                     <div className='dashboard-link' style={{background: '#5736b1'}}>
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Reviewers</div>
@@ -60,18 +54,15 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/exam/list'>
+                  <Link to='/teacher/management/exam/list/teachers'>
                     <div className='dashboard-link' style={{background: '#00a100'}}>
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>
                     </div>
                   </Link>
                 </Grid.Cell>
-               
               </Grid.X>
-
               <Grid.X>
-
                 <Grid.Cell large={12} medium={12} small={12}>
                   <div className='main-link-title'>Learner</div>
                 </Grid.Cell>

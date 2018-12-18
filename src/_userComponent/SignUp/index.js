@@ -144,7 +144,7 @@ class Layout extends Component{
                       <Grid>
                         <Grid.X>
                           <Grid.Cell large={12} medium={6} small={12}>
-                            <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                            <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                           </Grid.Cell>
                         </Grid.X>
                         <Grid.X>
@@ -251,7 +251,7 @@ class Layout extends Component{
                               onChange={this.handleChange}
                               >
                               <option value='' disabled></option>
-                              <option value='Student'>Student</option>
+                              <option value='Learner'>Learner</option>
                               <option value='Teacher'>Teacher</option>
                             </Select>
                           </Grid.Cell>

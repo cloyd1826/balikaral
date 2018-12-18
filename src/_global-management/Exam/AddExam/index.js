@@ -7,15 +7,20 @@ import Grid from '../../../_component/Grid'
 import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
 import Input from '../../../_component/Form/Input'
+import FileInput from '../../../_component/Form/FileInput'
+import Select from '../../../_component/Form/Select'
 import Textarea from '../../../_component/Form/Textarea'
 import Button from '../../../_component/Form/Button'
 
-import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+
+import apiRequest from '../../../_axios'
+
+import axios, { post } from 'axios'
 
 
 class Layout extends Component {
@@ -33,6 +38,20 @@ class Layout extends Component {
       c: '',
       d: '',
 
+      imageQuestionName: '',
+      imageChoiceAName: '',
+      imageChoiceBName: '',
+      imageChoiceCName: '',
+      imageChoiceDName: '',
+
+      imageQuestion: '',
+      imageChoiceA: '',
+      imageChoiceB: '',
+      imageChoiceC: '',
+      imageChoiceD: '',
+
+
+
      
       message: '',
       type: '',
@@ -40,12 +59,14 @@ class Layout extends Component {
       buttonDisabled: false
       
     }
+    this.handleFileChange = this.handleFileChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-
  
     this.clearData = this.clearData.bind(this)
     this.formMessage = this.formMessage.bind(this)
+
+    this.postFile = this.postFile.bind(this)
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -66,10 +87,35 @@ class Layout extends Component {
       b: '',
       c: '',
       d: '',
+
+      imageQuestionName: '',
+      imageChoiceAName: '',
+      imageChoiceBName: '',
+      imageChoiceCName: '',
+      imageChoiceDName: '',
+
+      imageQuestion: '',
+      imageChoiceA: '',
+      imageChoiceB: '',
+      imageChoiceC: '',
+      imageChoiceD: '',
+
+      uploader: '',
+      validated: false
     })
+    this.fileInput.value = ''
   }
 
+  handleFileChange(e, imageName){
+    let name = e.target.name
+    let value = e.target.value
+    let files = e.target.files
 
+    this.setState({
+      [name]: files[0],
+      [imageName]: e.target.value.replace('C:\\fakepath\\', '')
+    })
+  }
   handleChange(e){
   	let name = e.target.name
   	let value = e.target.value
@@ -81,39 +127,9 @@ class Layout extends Component {
   handleSubmit(e){
   	e.preventDefault()
     this.formMessage('Saving Data', 'loading', true, true)
-  	let data = {
-      level: this.state.level,
-      learningStrand: this.state.learningStrand,
-      uploader: this.props.user.id,
-      validation: ( this.props.role === 'Administrator' ? true : false ),
-      validator: [],
-      question: {
-        details: this.state.question,
-        answer: this.state.answer,
-        difficulty: this.state.difficulty,
-        choices: {
-          a: {
-            type: '',
-            details: this.state.a,
-          },
-          b: {
-            type: '',
-            details: this.state.b,
-          },
-          c: {
-            type: '',
-            details: this.state.c,
-          },
-          d: {
-            type: '',
-            details: this.state.d,
-          }
-        }
-      }
-  	}
-
-  	apiRequest('post', '/exam-management', data, this.props.token)
+  	this.postFile()
   		.then((res)=>{
+         console.log(res)
           this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
       })	
@@ -122,7 +138,49 @@ class Layout extends Component {
           this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }
-  render() { 
+  postFile(){
+    const url = `http://localhost:5000/balikaral/exam-management/`
+    const formData = new FormData()
+   
+    formData.append('learningStrand', this.state.learningStrand)
+    formData.append('level', this.state.level)
+    formData.append('uploader', this.props.user.id)
+    formData.append('validation', false )
+    formData.append('questionDetails', this.state.question )
+    formData.append('answer', this.state.answer )
+    formData.append('difficulty', this.state.difficulty )
+    formData.append('aDetails', this.state.a )
+    formData.append('bDetails', this.state.b )
+    formData.append('cDetails', this.state.c )
+    formData.append('dDetails', this.state.d )
+
+    if(this.state.imageQuestion != ''){
+      formData.append('questionImage', this.state.imageQuestion )
+    }
+    if(this.state.imageChoiceA != ''){
+      formData.append('aImage', this.state.imageChoiceA )
+    }
+    if(this.state.imageChoiceB != ''){
+      formData.append('bImage', this.state.imageChoiceB )
+    }
+    if(this.state.imageChoiceC != ''){
+      formData.append('cImage', this.state.imageChoiceC )
+    }
+    if(this.state.imageChoiceD != ''){
+      formData.append('dImage', this.state.imageChoiceD )
+    }
+
+
+    const config = {
+        headers: {
+            Authorization: `${this.props.token}`,
+            'content-type': 'multipart/form-data'
+        }
+    }
+    return post(url, formData, config)
+  }
+  render() {
+    console.log(this.state) 
     return (
         <div>
         	<Grid fluid>
@@ -132,7 +190,7 @@ class Layout extends Component {
         					<div className='title-text-container'>
         						<div className='title'>Exam Management > Add</div>
         						<div className='title-action'>
-        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
+        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
         								<div className='button primary small'>List of Exams</div>
         							</Link>
         						</div>
@@ -142,7 +200,7 @@ class Layout extends Component {
                     >
   	        				<Grid.X>
                       <Grid.Cell large={12} medium={12} small={12}>
-                        <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                        <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                       </Grid.Cell>
 
   	        					<Grid.Cell large={12} medium={12} small={12}>
@@ -155,26 +213,51 @@ class Layout extends Component {
                           value={this.state.question} 
                           onChange={this.handleChange}/>
   	        					</Grid.Cell>
+
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <FileInput 
+                          type='file'
+                          label='Image for Question'
+                          name='imageQuestion'
+                          fileName={this.state.imageQuestionName}
+                          accept="image/*"
+                          refProps={ref => this.fileInput = ref}
+                          onChange={(e)=> this.handleFileChange(e, 'imageQuestionName' )}/>
+                      </Grid.Cell>
+                    </Grid.X>
+                    <Grid.X>
                       <Grid.Cell large={3} medium={12} small={12}>
-                        <Input 
-                          required 
-                          type='text' 
-                          label='Answer' 
-                          placeholder='Answer' 
+                        <Select
+                          required  
+                          label='Answer'
                           name='answer' 
                           value={this.state.answer} 
-                          onChange={this.handleChange}/>
+                          onChange={this.handleChange}
+                        >
+                            <option value='' disabled></option>
+                            <option value='A'>A</option>
+                            <option value='B'>B</option>
+                            <option value='C'>C</option>
+                            <option value='D'>D</option>
+
+                        </Select>
                       </Grid.Cell>
 
                       <Grid.Cell large={3} medium={12} small={12}>
-                        <Input 
+                        
+                        <Select
                           required 
                           type='text' 
-                          label='Difficulty' 
-                          placeholder='Difficulty' 
+                          label='Difficulty'
                           name='difficulty' 
                           value={this.state.difficulty} 
-                          onChange={this.handleChange}/>
+                          onChange={this.handleChange}
+                          >
+                          <option value='' disabled></option>
+                          <option value='Easy'>Easy</option>
+                          <option value='Medium'>Medium</option>
+                          <option value='High'>High</option>
+                        </Select>
                       </Grid.Cell>
 
                       <Grid.Cell large={3} medium={12} small={12}>
@@ -198,7 +281,7 @@ class Layout extends Component {
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
-                      <Grid.Cell large={12} medium={12} small={12}>
+                      <Grid.Cell large={6} medium={12} small={12}>
                         <Input  
                           type='text' 
                           label='A' 
@@ -207,8 +290,18 @@ class Layout extends Component {
                           value={this.state.a} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <FileInput 
+                          type='file'
+                          label='Image for Choice A'
+                          name='imageChoiceA'
+                          fileName={this.state.imageChoiceAName}
+                          accept="image/*"
+                          refProps={ref => this.fileInput = ref}
+                          onChange={(e)=> this.handleFileChange(e, 'imageChoiceAName' )}/>
+                      </Grid.Cell>
 
-                      <Grid.Cell large={12} medium={12} small={12}>
+                      <Grid.Cell large={6} medium={12} small={12}>
                         <Input  
                           type='text' 
                           label='B' 
@@ -217,8 +310,18 @@ class Layout extends Component {
                           value={this.state.b} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <FileInput 
+                          type='file'
+                          label='Image for Choice B'
+                          name='imageChoiceB'
+                          fileName={this.state.imageChoiceBName}
+                          accept="image/*"
+                          refProps={ref => this.fileInput = ref}
+                          onChange={(e)=> this.handleFileChange(e, 'imageChoiceBName' )}/>
+                      </Grid.Cell>
 
-                      <Grid.Cell large={12} medium={12} small={12}>
+                      <Grid.Cell large={6} medium={12} small={12}>
                         <Input  
                           type='text' 
                           label='C' 
@@ -227,8 +330,18 @@ class Layout extends Component {
                           value={this.state.c} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <FileInput 
+                          type='file'
+                          label='Image for Choice C'
+                          name='imageChoiceC'
+                          fileName={this.state.imageChoiceCName}
+                          accept="image/*"
+                          refProps={ref => this.fileInput = ref}
+                          onChange={(e)=> this.handleFileChange(e, 'imageChoiceCName' )}/>
+                      </Grid.Cell>
 
-                      <Grid.Cell large={12} medium={12} small={12}>
+                      <Grid.Cell large={6} medium={12} small={12}>
                         <Input  
                           type='text' 
                           label='D' 
@@ -237,10 +350,20 @@ class Layout extends Component {
                           value={this.state.d} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <FileInput 
+                          type='file'
+                          label='Image for Choice D'
+                          name='imageChoiceD'
+                          fileName={this.state.imageChoiceDName}
+                          accept="image/*"
+                          refProps={ref => this.fileInput = ref}
+                          onChange={(e)=> this.handleFileChange(e, 'imageChoiceDName' )}/>
+                      </Grid.Cell>
 
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>
   	        						<Button type='submit' text='Save' className='secondary small' />
-                        <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
+                        <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '') }>
   	        						 <Button disabled={this.state.buttonDisabled} type='button' text='Return' className='cancel small'/>
                         </Link>
   	        					</Grid.Cell>

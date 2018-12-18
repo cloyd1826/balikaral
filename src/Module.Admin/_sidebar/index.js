@@ -49,9 +49,13 @@ class Sidebar extends Component {
                     <i className='la la-align-left'></i>
                     <span>Learning Strand</span>
                   </NavLink>
-                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam/list'>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam/list/all'>
                     <i className='la la-list-ul'></i>
                     <span>Exam</span>
+                  </NavLink>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam-type/list'>
+                    <i className='la la-flag-checkered'></i>
+                    <span>Exam Type</span>
                   </NavLink>
                 </div>
     
@@ -73,7 +77,7 @@ class Sidebar extends Component {
                   <div className='sidebar-title'>
                     Teacher
                   </div>
-                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/reviewer/list'>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/reviewer/list/all'>
                     <i className='la la-file-pdf-o'></i>
                     <span>Reviewer</span>
                   </NavLink>

@@ -115,7 +115,7 @@ class Layout extends Component {
         					<div className='title-text-container'>
         						<div className='title'>Exam Management > Import</div>
         						<div className='title-action'>
-        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
+        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
         								<div className='button primary small'>List of Exams</div>
         							</Link>
         						</div>
@@ -125,7 +125,7 @@ class Layout extends Component {
                     >
   	        				<Grid.X>
                       <Grid.Cell large={12} medium={12} small={12}>
-                        <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                        <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                       </Grid.Cell>
                        <Grid.Cell large={6} medium={12} small={12}>
                         <SelectLevel 
@@ -159,7 +159,7 @@ class Layout extends Component {
   	        					</Grid.Cell>
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>
   	        						<Button type='submit' text='Save' className='secondary small' />
-                        <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
+                        <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
   	        						 <Button disabled={this.state.buttonDisabled} type='button' text='Return' className='cancel small'/>
                         </Link>
   	        					</Grid.Cell>

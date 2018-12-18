@@ -4,6 +4,13 @@
 	margin-top: 16px
 	background: $lightBlue
 	position: relative
+	.question-image
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
+		height: 300px
+		width: 300px
+		margin: 0 auto
 	.question
 		font-size: 22px
 		text-align: center
@@ -20,23 +27,33 @@
 		align-items: center
 		justify-content: center
 		.answer-box
-			display: flex
 			margin-bottom: 4px
-			width: 80%
+			width: calc(50% - 16px)
+			padding: 8px
 			cursor: pointer
-			.letter
-				background: $blue-color
-				padding: 16px
-				color: #fff
-				font-weight: 600
-			.letter.correct
-				background: $yellow-color
-				color: #000
-			.answer
-				background: #fff
-				padding: 16px
-				color: rgba(0,0,0,0.8)
-				width: 100%
+			.answer-text
+				display: flex
+				cursor: pointer
+				.letter
+					background: $blue-color
+					padding: 16px
+					color: #fff
+					font-weight: 600
+				.letter.correct
+					background: $yellow-color
+					color: #000
+				.answer
+					background: #fff
+					padding: 16px
+					color: rgba(0,0,0,0.8)
+					width: 100%
+					.answer-image
+						background-size: cover
+						background-repeat: no-repeat
+						background-position: center
+						height: 200px
+						width: 200px
+						margin: 0 auto 8px auto
 	.question-action
 		position: absolute
 		top: 0px

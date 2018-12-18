@@ -64,7 +64,7 @@ class Layout extends Component {
         						<div className='title'>User Management</div>
         						
         					</div>
-        					<FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 
+        					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>

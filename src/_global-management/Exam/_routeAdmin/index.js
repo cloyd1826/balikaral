@@ -12,7 +12,7 @@ const Routes = () => {
 	return (
 		<div>
 			<Route path='/admin/management/exam/add' component={AddExam} />
-			<Route path='/admin/management/exam/list' component={ListExam} />
+			<Route path='/admin/management/exam/list/:type' component={ListExam} />
       <Route path='/admin/management/exam/edit' component={EditExam} />
       <Route path='/admin/management/exam/import' component={ImportExam} />
 			<Route path='/admin/management/exam/validate' component={ValidateExam} />

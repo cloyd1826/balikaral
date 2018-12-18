@@ -9,7 +9,7 @@ class Input extends Component {
 		
 		return(
 			<div className={'input-container ' + (this.props.className ? this.props.className : '')}>
-				<label>{this.props.label}
+				<label>{this.props.label} {this.props.required ? <span className='required'>*</span> : '' }
 					<input 
 						required={this.props.required}
 						disabled={this.props.disabled}
@@ -21,6 +21,7 @@ class Input extends Component {
 						value={this.props.value}
 						name={this.props.name}
 						/>
+				
 				</label>
 			</div>
 		)

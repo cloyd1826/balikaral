@@ -93,8 +93,8 @@ class Layout extends Component {
                     validation: result.validation,
                     validator: result.validator,
 
-                    disableReview: ( result.validation || isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id ? true : false )
-
+                    disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id ? true : false )
+                    // result.validation || 
                 })
 
 
@@ -162,12 +162,12 @@ class Layout extends Component {
                     <div className='title-action'>
                       <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate Reviewer</button>
 
-                      <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/list'}>
+                      <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
                         <div className='button primary small'>List of Reviewer</div>
                       </Link>
                     </div>
                   </div>
-                  <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                  <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   <Grid.X className='reviewer-view'>
                       <Grid.Cell large={3} medium={6} small={12}>
                         <div className='context-montserrat'>Learning Strand: <span>{this.state.learningStrand}</span></div>
@@ -222,7 +222,7 @@ class Layout extends Component {
                 <span className='close-button la la-close' onClick={this.toggleModal}></span>
                 <div className='delete-title text-center'>Validate Reviewer {this.state.pdf} ?</div>
                 <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
-                <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 
+                <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                 <div className='delete-button-group'>
                   <button type='button' className='button yes small' onClick={this.handleSubmit}>YES</button>
                   <button type='button' className='button no small' onClick={this.toggleModal}>CANCEL</button>

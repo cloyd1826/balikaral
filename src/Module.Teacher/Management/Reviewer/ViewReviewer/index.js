@@ -166,7 +166,7 @@ class Layout extends Component {
                       </Link>
                     </div>
                   </div>
-                  <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage>
+                  <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   <Grid.X className='reviewer-view'>
                       <Grid.Cell large={3} medium={6} small={12}>
                         <div className='context-montserrat'>Learning Strand: <span>{this.state.learningStrand}</span></div>
@@ -217,7 +217,7 @@ class Layout extends Component {
                 <span className='close-button la la-close' onClick={this.toggleModal}></span>
                 <div className='delete-title text-center'>Validate Reviewer {this.state.pdf} ?</div>
                 <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
-                <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 
+                <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                 <div className='delete-button-group'>
                   <button type='button' className='button yes small' onClick={this.handleSubmit}>YES</button>
                   <button type='button' className='button no small' onClick={this.toggleModal}>CANCEL</button>

@@ -39,7 +39,7 @@ class Layout extends Component {
       required={this.props.required}
 			label='Learning Strand'
 		>
-			<option value='' disabled></option>
+			<option value=''></option>
         {this.state.learningStrand.map((attr,index)=> {
           return (
               <option key={index} value={attr._id}>{attr.name}</option>

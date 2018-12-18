@@ -4,19 +4,17 @@ class FormMessage extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			active: true
+
 		}
 		this.close = this.close.bind(this)
 	}
 	close(){
-		this.setState({
-			active: false
-		})
+		this.props.formMessage('','',false,false)
 	}
 	render(){
 		let { children } = this.props
 		
-		if(this.props.active && this.state.active){
+		if(this.props.active){
 			return(
 				<div className={'form-message ' + (this.props.type ? this.props.type : '')}>
 					<i className={'la ' + 

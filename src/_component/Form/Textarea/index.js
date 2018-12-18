@@ -8,7 +8,7 @@ class Textarea extends Component {
 	render(){
 		return(
 			<div className={'textarea-container ' + (this.props.className ? this.props.className : '')}>
-				<label>{this.props.label}
+				<label>{this.props.label} {this.props.required ? <span className='required'>*</span> : '' }
 					<textarea  
 						rows={this.props.rows ? this.props.rows : 3 }
 						placeholder={this.props.placeholder ? this.props.placeholder : '' }

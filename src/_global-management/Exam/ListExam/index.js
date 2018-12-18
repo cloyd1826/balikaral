@@ -12,6 +12,11 @@ import { connect } from 'react-redux'
 
 import ManagementDelete from '../../../_component/ManagementDelete'
 
+import SelectLevel from '../../../_special-form/SelectLevel'
+import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+
+import Select from '../../../_component/Form/Select'
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -19,16 +24,41 @@ class Layout extends Component {
     	exam: [],
 
     	message: '',
-        type: '',
-        active: false,
+      type: '',
+      active: false,
 
-        deleteActive: false,
-        link: ''
+      validation: '',
+      learningStrand: '',
+      level: '',
+
+      deleteActive: false,
+      link: ''
     }
     this.fetchLevel = this.fetchLevel.bind(this)
    	this.formMessage = this.formMessage.bind(this)
-
    	this.toggleDelete = this.toggleDelete.bind(this)
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value
+    })
+    let learningStrand = this.state.learningStrand
+    let validation = this.state.validation
+    let level = this.state.level
+    if(name==='learningStrand'){
+      learningStrand = value
+    }
+    if(name ==='validation'){
+      validation = value
+    }
+    if(name ==='level'){
+      level = value
+    }
+    this.fetchLevel(validation, learningStrand, level)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -36,7 +66,7 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLevel()
+  		this.fetchLevel('','')
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -52,9 +82,23 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(){
-  	
-  	apiRequest('get', `/exam-management/all?disclude=${this.props.user.id}`, false, this.props.token)
+  fetchLevel(validation, learningStrand, level){
+
+    let routeToUse = ''
+
+    if(this.props.match.params.type === 'self'){
+      routeToUse = `/exam-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}`
+    }
+
+    if(this.props.match.params.type === 'all'){
+      routeToUse = `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}`
+    }
+
+    if(this.props.match.params.type === 'teachers'){
+      routeToUse = `/exam-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}`
+    }
+
+  	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
@@ -68,8 +112,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel()
-    console.log(this.props.role)
+  	this.fetchLevel('','','')
   }
   render() { 
     return (
@@ -89,16 +132,48 @@ class Layout extends Component {
         							</Link>
         						</div>
         					</div>
-        					<FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 
+        					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
+                  <div className='table-filter'>
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <Select 
+                        label='Validation'
+                        name='validation' 
+                        value={this.state.validation} 
+                        onChange={this.handleChange}
+                        >
+                        <option value=''></option>
+                        <option value='false'>For Validation</option>
+                        <option value='true'>Validated</option>
+                      </Select>
+                    </Grid.Cell>
+                    <Grid.Cell large={2} medium={12} small={12}>
+                        <SelectLevel
+                          label='Level' 
+                          name='level' 
+                          value={this.state.level} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
+
+                      <Grid.Cell large={2} medium={12} small={12}>
+                        <SelectLearningStrand
+                          label='Learning Strand' 
+                          name='learningStrand' 
+                          value={this.state.learningStrand} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
+                  </div>
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
                         <Table.HeaderCell>Question</Table.HeaderCell>
                         <Table.HeaderCell>Answer</Table.HeaderCell>
                         <Table.HeaderCell>Difficulty</Table.HeaderCell>
-				        				<Table.HeaderCell>Submitted By</Table.HeaderCell>
-                        <Table.HeaderCell>Level</Table.HeaderCell>
-				        				<Table.HeaderCell>Learning Strand</Table.HeaderCell>
+				        				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed>Level</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
+				        				<Table.HeaderCell>Validation</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Header>
@@ -118,7 +193,7 @@ class Layout extends Component {
     													</Table.Cell>
                               <Table.Cell>{ attr.question ? attr.question.answer ? attr.question.answer : '' : '' }</Table.Cell>
                               <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
-                                <Table.Cell>{
+                              <Table.Cell isNarrowed>{
                                 attr.uploader ? attr.uploader.personalInformation ? 
                                 (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
                                 + ' ' + 
@@ -127,19 +202,39 @@ class Layout extends Component {
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
                                 : '' : ''
                               }</Table.Cell>
-                              <Table.Cell>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
-							        				<Table.Cell>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
+                              <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
+							        				<Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
+                              <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
 
-                                <Link to={{ 
-                                  pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
-                                  state: { id: attr._id } 
-                                }}>
-                                  <span>
-                                    <i className='la la-tags primary'></i>
-                                  </span>
-                                </Link>
 
+                                { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
+                                  <Link to={{ 
+                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='la la-tags primary'></i>
+                                    </span>
+                                  </Link>
+                                : null }
+
+                                { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
+                                  <Link to={{ 
+                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='fa fa-edit primary'></i>
+                                    </span>
+                                  </Link>
+                                : null }
+
+                                { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
+                                  <span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
+                                    <i className='fa fa-trash cancel'></i>
+                                  </span>
+                                : null }
 							        				
 							        				</Table.Cell>
 							        			</Table.Row>
@@ -155,9 +250,10 @@ class Layout extends Component {
                         <Table.HeaderCell>Question</Table.HeaderCell>
                         <Table.HeaderCell>Answer</Table.HeaderCell>
                         <Table.HeaderCell>Difficulty</Table.HeaderCell>
-                        <Table.HeaderCell>Submitted By</Table.HeaderCell>
-                        <Table.HeaderCell>Level</Table.HeaderCell>
-                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed>Level</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell>Validation</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Footer>
@@ -166,7 +262,6 @@ class Layout extends Component {
         			</Grid.Cell>
         		</Grid.X>
         	</Grid>
-
 
         	<ManagementDelete item='Exam' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
 

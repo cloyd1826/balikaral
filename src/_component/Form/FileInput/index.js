@@ -9,7 +9,7 @@ class FileInput extends Component {
 		
 		return(
 			<div className={'input-container file-input' + (this.props.className ? this.props.className : '')}>
-				<label>{this.props.label}</label>
+				<label>{this.props.label} {this.props.required ? <span className='required'>*</span> : '' } </label>
 				<div className='file-input-container'>
 					<span className='file-button-icon'>
 						<i className='la la-cloud-upload'></i>
@@ -23,7 +23,7 @@ class FileInput extends Component {
 						accept={this.props.accept}
 						onChange={this.props.onChange ? this.props.onChange : '' }
 						name={this.props.name}
-						
+						ref={this.props.refProps}
 						/>
 				</div>
 			</div>

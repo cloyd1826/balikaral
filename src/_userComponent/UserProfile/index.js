@@ -61,6 +61,13 @@ class Layout extends Component{
                 </Link>
               : null}
 
+              {this.props.role === 'Learner' ? 
+                <Link to='/learner/dashboard'>
+                  <div className='user-bar'>
+                    <span><i className='fa fa-dashboard' />Learner Dashboard</span>
+                  </div>
+                </Link>
+              : null}
               
                
               <div className='user-bar'>

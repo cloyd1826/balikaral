@@ -25,6 +25,7 @@ class Layout extends Component {
     super(props)
     this.state = { 
         question: '',
+        questionImage: '',
         answer: '',
         level: '',
         learningStrand: '',
@@ -32,6 +33,11 @@ class Layout extends Component {
         b: '',
         c: '',
         d: '',
+
+        aImage: '',
+        bImage: '',
+        cImage: '',
+        dImage: '',
 
         uploader: '',
         validation: false,
@@ -83,9 +89,10 @@ class Layout extends Component {
     this.fetchSingle()
   }
   fetchSingle(){
+    console.log(this.props.location.state.id)
     apiRequest('get', `/exam-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-            console.log(res.data.data)
+            console.log('result', res.data.data)
             if(res.data){
                 let result = res.data.data
                 let validator = result.validator
@@ -96,15 +103,21 @@ class Layout extends Component {
                 }).indexOf(this.props.user.id)
 
                 this.setState({
-                    question: result.question.details,
-                    answer: result.question.answer,
-                    difficulty: result.question.difficulty,
-                    level: result.level.name,
-                    learningStrand: result.learningStrand.name,
-                    a: result.question.choices.a.details,
-                    b: result.question.choices.b.details,
-                    c: result.question.choices.c.details,
-                    d: result.question.choices.d.details,
+                    questionImage: (result.question ? result.question.images ? result.question.images : '' : ''),
+                    question: (result.question ? result.question.details ? result.question.details : '' : ''),
+                    answer: (result.question ? result.question.answer ? result.question.answer : '' : ''),
+                    difficulty: (result.question ? result.question.difficulty ? result.question.difficulty : '' : ''),
+                    level: (result.level ? result.level.name ? result.level.name : '' : ''),
+                    learningStrand: (result.learningStrand ? result.learningStrand.name ? result.learningStrand.name : '' : ''),
+                    a: (result.question ? result.question.choices ? result.question.choices.a ? result.question.choices.a.details ? result.question.choices.a.details : '' : '' : '' : '' ),
+                    b: (result.question ? result.question.choices ? result.question.choices.b ? result.question.choices.b.details ? result.question.choices.b.details : '' : '' : '' : '' ),
+                    c: (result.question ? result.question.choices ? result.question.choices.c ? result.question.choices.c.details ? result.question.choices.c.details : '' : '' : '' : '' ),
+                    d: (result.question ? result.question.choices ? result.question.choices.d ? result.question.choices.d.details ? result.question.choices.d.details : '' : '' : '' : '' ),
+                   
+                    aImage: (result.question ? result.question.choices ? result.question.choices.a ? result.question.choices.a.image ? result.question.choices.a.image : '' : '' : '' : '' ),
+                    bImage: (result.question ? result.question.choices ? result.question.choices.b ? result.question.choices.b.image ? result.question.choices.b.image : '' : '' : '' : '' ),
+                    cImage: (result.question ? result.question.choices ? result.question.choices.c ? result.question.choices.c.image ? result.question.choices.c.image : '' : '' : '' : '' ),
+                    dImage: (result.question ? result.question.choices ? result.question.choices.d ? result.question.choices.d.image ? result.question.choices.d.image : '' : '' : '' : '' ),
 
                     uploader: (result.uploader ? result.uploader.personalInformation ? 
                               (result.uploader.personalInformation.firstName ? result.uploader.personalInformation.firstName : '') 
@@ -116,7 +129,7 @@ class Layout extends Component {
                     validation: result.validation,
                     validator: (result.validator ? result.validator : [] ),
 
-                    disableReview: ( result.validation || isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id ? true : false )
+                    disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id ? true : false )
                 })
             }
             
@@ -150,6 +163,9 @@ class Layout extends Component {
         .then((res)=>{
           this.formMessage('Data has been updated', 'success', true, false)
           this.fetchSingle()
+          this.setState({
+            modalActive: false
+          })
       })    
         .catch((err)=>{
           this.formMessage('Error: ' + err.message, 'error', true, false)
@@ -163,9 +179,9 @@ class Layout extends Component {
                     <Grid.Cell large={12}>
                         <div className='element-container'>
                             <div className='title-text-container'>
-                                <div className='title'>Exam Management > Edit</div>
+                                <div className='title'>Exam Management > Validate</div>
                                 <div className='title-action'>
-                                    <Link to={ (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list'}>
+                                    <Link to={ (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
                                         <div className='button primary small'>List of Exams</div>
                                     </Link>
                                 </div>
@@ -216,11 +232,64 @@ class Layout extends Component {
                                     <button disabled={this.state.disableReview} className='button primary' onClick={this.toggleModal}>Validate Exam</button>
                                   </div>
                                   <div className='question'>{this.state.question}</div>
+
+                                  {
+                                    this.state.questionImage != '' ?
+                                    <div className='question-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.questionImage + ')'}}></div>
+                                    : null }                                  
                                   <div className='answer-container'>
-                                      <div className='answer-box'><span className={'letter ' + (this.state.answer === 'A' ? 'correct' : '')}>A.</span><span className='answer'>{this.state.a}</span></div>
-                                      <div className='answer-box'><span className={'letter ' + (this.state.answer === 'B' ? 'correct' : '')}>B.</span><span className='answer'>{this.state.b}</span></div>
-                                      <div className='answer-box'><span className={'letter ' + (this.state.answer === 'C' ? 'correct' : '')}>C.</span><span className='answer'>{this.state.c}</span></div>
-                                      <div className='answer-box'><span className={'letter ' + (this.state.answer === 'D' ? 'correct' : '')}>D.</span><span className='answer'>{this.state.d}</span></div>
+
+                                      <div className='answer-box'>
+                                        <div className='answer-text'>
+                                          <span className={'letter ' + (this.state.answer === 'A' ? 'correct' : '')}>A.</span>
+                                          <span className='answer'>
+                                             {
+                                              this.state.aImage != '' ?
+                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.aImage + ')'}}></div>
+                                              : null }
+                                            {this.state.a}
+                                          </span>
+                                        </div>
+                                        
+                                      </div>
+                                      <div className='answer-box'>
+                                        <div className='answer-text'>
+                                          <span className={'letter ' + (this.state.answer === 'B' ? 'correct' : '')}>B.</span>
+                                          <span className='answer'>
+                                            {
+                                              this.state.bImage != '' ?
+                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.bImage + ')'}}></div>
+                                              : null }
+                                            {this.state.b}
+                                          </span>
+                                        </div>
+                                       
+                                      </div>
+                                      <div className='answer-box'>
+                                        <div className='answer-text'>
+                                          <span className={'letter ' + (this.state.answer === 'C' ? 'correct' : '')}>C.</span>
+                                          <span className='answer'>
+                                           {
+                                              this.state.cImage != '' ?
+                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.cImage + ')'}}></div>
+                                              : null }
+                                            {this.state.c}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div className='answer-box'>
+                                        <div className='answer-text'>
+                                          <span className={'letter ' + (this.state.answer === 'D' ? 'correct' : '')}>D.</span>
+                                          <span className='answer'>
+                                            {
+                                              this.state.dImage != '' ?
+                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.dImage + ')'}}></div>
+                                              : null }
+                                            {this.state.d}
+                                          </span>
+                                        </div>
+                                      </div>
+
                                   </div>
                                   <div className='difficulty'>Difficulty: {this.state.difficulty}</div>
                                 </div>
@@ -237,7 +306,7 @@ class Layout extends Component {
                   <span className='close-button la la-close' onClick={this.toggleModal}></span>
                   <div className='delete-title text-center'>Validate Question: {this.state.question} ?</div>
                   <div className='context-montserrat text-center'>You will be recorded as a validator of this question.</div>
-                  <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 
+                  <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   <div className='delete-button-group'>
                     <button type='button' className='button yes small' onClick={this.handleSubmit}>YES</button>
                     <button type='button' className='button no small' onClick={this.toggleModal}>CANCEL</button>
