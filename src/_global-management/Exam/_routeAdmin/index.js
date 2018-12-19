@@ -7,6 +7,8 @@ import ListExam from '../ListExam'
 import EditExam from '../EditExam'
 import ImportExam from '../ImportExam'
 import ValidateExam from '../ValidateExam'
+import LearnerExam from '../LearnerExam'
+import ResultExam from '../ResultExam'
 
 const Routes = () => {
 	return (
@@ -15,7 +17,9 @@ const Routes = () => {
 			<Route path='/admin/management/exam/list/:type' component={ListExam} />
       <Route path='/admin/management/exam/edit' component={EditExam} />
       <Route path='/admin/management/exam/import' component={ImportExam} />
-			<Route path='/admin/management/exam/validate' component={ValidateExam} />
+      <Route path='/admin/management/exam/validate' component={ValidateExam} />
+      <Route path='/admin/management/exam/learner' component={LearnerExam} />
+			<Route path='/admin/management/exam/result' component={ResultExam} />
 		</div>
 	)
 }

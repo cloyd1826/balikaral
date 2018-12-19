@@ -15,7 +15,6 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
-import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 
 
@@ -26,6 +25,7 @@ class Layout extends Component {
       
       examType: '',
       examDescription: '',
+      learningStrand: '',
       difficultyEasy: '',
       difficultyMedium: '',
       difficultyHard: '',
@@ -57,10 +57,12 @@ class Layout extends Component {
     this.setState({
         examType: '',
         examDescription: '',
+        learningStrand: '',
         difficultyEasy: '',
         difficultyMedium: '',
         difficultyHard: '',
         passingRate: '',
+        totalHours: ''
     })
   }
 
@@ -80,6 +82,7 @@ class Layout extends Component {
   	let data = {
       examType: this.state.examType,
       examDescription: this.state.examDescription,
+      learningStrand: this.state.learningStrand,
       difficulty: {
         easy: parseInt(this.state.difficultyEasy),
         medium: parseInt(this.state.difficultyMedium), 
@@ -122,7 +125,7 @@ class Layout extends Component {
                         <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                       </Grid.Cell>
 
-  	        					<Grid.Cell large={12} medium={12} small={12}>
+  	        					<Grid.Cell large={6} medium={12} small={12}>
                         <Select
                           required
                           label='Exam Type'
@@ -135,6 +138,15 @@ class Layout extends Component {
                           <option value='Post Test'>Post Test</option>
                           <option value='Adaptive Test'>Adaptive Test</option>
                         </Select>
+                      </Grid.Cell>
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <SelectLearningStrand 
+                          required 
+                          type='text' 
+                          label='Learning Strand' 
+                          name='learningStrand' 
+                          value={this.state.learningStrand} 
+                          onChange={this.handleChange}/>
                       </Grid.Cell>
                       <Grid.Cell large={12} medium={12} small={12}>
                         <Textarea

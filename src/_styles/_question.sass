@@ -58,3 +58,131 @@
 		position: absolute
 		top: 0px
 		right: 8px
+.question-card-list-container
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+	border: 1px solid transparent
+	padding: 0
+.question-card-list
+	width: 100%
+	.question
+		font-size: 22px
+		margin-bottom: 16px
+	.question-image
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
+		height: 200px
+		width: 200px
+		margin: 0 auto 16px auto
+	.answer
+		font-size: 16px
+		cursor: pointer
+		padding-left: 32px
+		.answer-box
+			display: flex
+			width: 100%
+			margin-bottom: 4px
+			span
+				padding: 8px 16px
+				font-weight: 600
+			.text
+				padding: 8px 16px
+				width: 100%
+				.answer-image
+					background-size: cover
+					background-repeat: no-repeat
+					background-position: center
+					height: 200px
+					width: 200px
+					margin: 0 auto
+			&:hover
+				span
+					background: $blue-color
+					color: #fff
+				.text
+					background: $lightBlue
+.question-checking
+	.question-box
+		border-radius: 5px
+		font-weight: 600
+		padding: 8px 16px 8px 48px
+		position: relative 
+		margin-bottom: 8px
+		i
+			font-size: 24px
+			position: absolute
+			top: 50%
+			left: 16px
+			transform: translate(0,-50%)
+	.question-box.correct
+		background: #d1f4da
+		color: #76a472
+	.question-box.wrong
+		background: #f2dede
+		color: #a94547
+		
+.ex-container
+	border-bottom: #e0e0e0 dotted 2px
+	padding: 16px
+
+.ex-container.answered
+	background: $lightBlue
+	border-bottom: #e0e0e0 dotted 2px
+	.answer-box
+		display: flex
+		width: 100%
+		span
+			padding: 8px 16px
+			font-weight: 600
+			background: $blue-color
+			color: #fff
+		.text
+			padding: 8px 16px
+			background: #fff
+	.answer-box.active
+		span
+			background: $yellow-color
+			color: #000
+.question-card-loader
+	min-height: 70vh
+	width: 100%
+	display: flex
+	justify-content: center
+	align-items: center
+	text-align: center
+	span
+		text-align: center
+		margin: 0 auto
+		.la
+			font-size: 100px
+			color: #888
+		.la-spinner
+			animation: spin 1s linear infinite
+	.context-montserrat
+		font-size: 16px
+.question-actions
+	margin-bottom: 16px
+	display: flex
+	align-items: center
+	justify-content: flex-end
+	font-size: 24px
+	.action
+		color: #fff
+		padding: 16px
+		background: $yellow-color
+		color: #000
+		margin-left: 4px
+		border-radius: 5px
+	.la
+		font-size: 24px
+.question-result
+	margin-bottom: 16px
+	display: flex
+	.context-montserrat
+		color: rgba(0,0,0,0.6)
+		font-size: 16px
+		margin-top: 16px
+		margin-right: 32px
+		span
+			font-weight: 600
+			font-size: 22px

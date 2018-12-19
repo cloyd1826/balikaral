@@ -94,6 +94,10 @@ class Layout extends Component {
       routeToUse = `/reviewer-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}`
     }
 
+    if(this.props.match.params.type === 'learner'){
+      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}`
+    }
+
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
@@ -123,26 +127,30 @@ class Layout extends Component {
         						<div className='title-action'>
 
                       
-
+                    {this.props.role === 'Learner' ? null : 
         							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/add'}>
         								<div className='button primary small'>Add New Reviewer</div>
         							</Link>
+                    }
+
         						</div>
         					</div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   <div className='table-filter'>
-                    <Grid.Cell large={2} medium={12} small={12}>
-                      <Select 
-                        label='Validation'
-                        name='validation' 
-                        value={this.state.validation} 
-                        onChange={this.handleChange}
-                        >
-                        <option value=''></option>
-                        <option value='false'>For Validation</option>
-                        <option value='true'>Validated</option>
-                      </Select>
-                    </Grid.Cell>
+                    {this.props.match.params.type != 'learner' ? 
+                      <Grid.Cell large={2} medium={12} small={12}>
+                        <Select 
+                          label='Validation'
+                          name='validation' 
+                          value={this.state.validation} 
+                          onChange={this.handleChange}
+                          >
+                          <option value=''></option>
+                          <option value='false'>For Validation</option>
+                          <option value='true'>Validated</option>
+                        </Select>
+                      </Grid.Cell>
+                    : null}
                     <Grid.Cell large={2} medium={12} small={12}>
                       <SelectLearningStrand
                         label='Learning Strand' 
@@ -185,7 +193,7 @@ class Layout extends Component {
 
                                 { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
                                   <Link to={{ 
-                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/view', 
+                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/validate', 
                                     state: { id: attr._id } 
                                   }}>
                                     <span>
@@ -205,13 +213,23 @@ class Layout extends Component {
                                   </Link>
                                 : null }
 
+                                <Link to={{ 
+                                    pathname: (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + (this.props.role === 'Learner' ? '/learner/reviewer/view' : ''), 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='la la-folder-open-o primary'></i>
+                                    </span>
+                                  </Link>
+
                                 { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
                                   <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id)}}>
                                     <i className='fa fa-trash cancel'></i>
                                   </span>
                                 : null }
 
-
+                                
+                                  
 							        				</Table.Cell>
 							        			</Table.Row>
 					        				)

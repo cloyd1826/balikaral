@@ -103,7 +103,6 @@ class Layout extends Component {
       uploader: '',
       validated: false
     })
-    this.fileInput.value = ''
   }
 
   handleFileChange(e, imageName){
@@ -256,7 +255,7 @@ class Layout extends Component {
                           <option value='' disabled></option>
                           <option value='Easy'>Easy</option>
                           <option value='Medium'>Medium</option>
-                          <option value='High'>High</option>
+                          <option value='Hard'>Hard</option>
                         </Select>
                       </Grid.Cell>
 

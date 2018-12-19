@@ -35,6 +35,8 @@ class Layout extends Component {
 
       
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 
     this.fetchSingle = this.fetchSingle.bind(this)
  
@@ -42,6 +44,7 @@ class Layout extends Component {
 
     this.onDocumentComplete = this.onDocumentComplete.bind(this)
 
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
   formMessage(message, type, active, button){
@@ -105,7 +108,47 @@ class Layout extends Component {
         })
 
   }
+  handleChange(e){
+    let name = e.target.name
+    let value = e.target.value
 
+    this.setState({
+        [name]: value
+    })
+  }
+  toggleModal(){
+    if(this.state.modalActive){
+      this.setState({
+        modalActive: false
+      })
+    }else{
+      this.setState({
+        modalActive: true
+      })
+    }
+  }
+  handleSubmit(e){
+    this.formMessage('Updating Data...', 'loading', true, true)
+    let validator = this.state.validator
+    validator = [...validator, { user: this.props.user.id }]
+    let data = {
+      validator: validator,
+      validation: (validator.length >= 3 || this.props.role === 'Administrator' ? true : false)
+    }
+    apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}`, data, this.props.token)
+      .then((res)=>{
+        console.log(res)
+         this.formMessage('Data has been updated...', 'success', true, false)
+         this.setState({
+            modalActive: false
+         })
+         this.fetchSingle()
+      })
+      .catch((err)=>{
+        console.log(err)
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
 
   render() { 
     return (
@@ -117,12 +160,9 @@ class Layout extends Component {
                   <div className='title-text-container'>
                     <div className='title'>Reviewer</div>
                     <div className='title-action'>
-                     
-                      <Link to={
-                          (this.props.role === 'Administrator' ? '/admin/management/reviewer/list/all' : '')
-                          + (this.props.role === 'Teacher' ? '/teacher/management/reviewer/list/teachers' : '')
-                          + (this.props.role === 'Learner' ? '/learner/reviewer/list/learner' : '')
-                           }>
+                      <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate Reviewer</button>
+
+                      <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
                         <div className='button primary small'>List of Reviewer</div>
                       </Link>
                     </div>
@@ -136,8 +176,37 @@ class Layout extends Component {
                         <div className='context-montserrat'>Teacher: <span>{this.state.uploader}</span></div>
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={6} small={12}>
+                        <div className='context-montserrat'>Validation Status: <span>{this.state.validation ? 'Validated' : 'For Validation' }</span></div>
+                      </Grid.Cell>
+                      <Grid.Cell large={3} medium={6} small={12}>
                         <div className='context-montserrat'>Title: <span>{this.state.pdf}</span></div>
                       </Grid.Cell>
+                      <Grid.Cell large={12} medium={6} small={12}>
+                        <div className='context-montserrat'>Validators: 
+                         
+                          {
+                            this.state.validator.length > 0 ?
+                                this.state.validator.map((attr,index)=>{
+                                  return (
+                                     <span key={index} className='validator-name'>
+                                     {  attr.user ? attr.user.personalInformation ? 
+                                         (attr.user.personalInformation.firstName ? attr.user.personalInformation.firstName : '') 
+                                         + ' ' + 
+                                         (attr.user.personalInformation.middleName ? attr.user.personalInformation.middleName.substring(0,1) : '')
+                                         + ' ' + 
+                                         (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
+                                     : '' : ''}
+                                    </span>
+                                  )
+                                })
+                                :
+                                <span className='no-validator'>No validators</span>
+                                
+                          }
+                          
+                        </div>
+                      </Grid.Cell>
+                     
                       <Grid.Cell large={12} medium={12} small={12}>
                         <PdfViewer pdf={this.state.pdf}/>
                       </Grid.Cell>
@@ -147,7 +216,23 @@ class Layout extends Component {
             </Grid.X>
           </Grid>
 
-         
+          {this.state.modalActive ? 
+            <div className='modal'>
+              <div className='confirm-modal'>
+                <span className='close-button la la-close' onClick={this.toggleModal}></span>
+                <div className='delete-title text-center'>Validate Reviewer {this.state.pdf} ?</div>
+                <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
+                <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
+                <div className='delete-button-group'>
+                  <button type='button' className='button yes small' onClick={this.handleSubmit}>YES</button>
+                  <button type='button' className='button no small' onClick={this.toggleModal}>CANCEL</button>
+                </div>
+              </div> 
+            </div>
+
+
+          : null}
+
           
 
 

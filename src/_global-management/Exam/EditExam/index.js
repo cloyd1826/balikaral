@@ -293,7 +293,7 @@ class Layout extends Component {
                                       <option value='B'>B</option>
                                       <option value='C'>C</option>
                                       <option value='D'>D</option>
-
+ 
                                   </Select>
                                 </Grid.Cell>
 
@@ -310,7 +310,7 @@ class Layout extends Component {
                                     <option value='' disabled></option>
                                     <option value='Easy'>Easy</option>
                                     <option value='Medium'>Medium</option>
-                                    <option value='High'>High</option>
+                                    <option value='Hard'>Hard</option>
                                   </Select>
                                 </Grid.Cell>
 

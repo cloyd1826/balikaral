@@ -13,7 +13,7 @@ class TopBar extends Component {
         <div className='admin-topbar'>
            <div className='topbar-left'>
 
-            <Link to='/admin/dashboard'>
+            <Link to='/learner/dashboard'>
               <span className='icon la la-home'></span>
             </Link>
             

@@ -113,10 +113,12 @@ class Dashboard extends Component {
                   <div className='main-link-title'>Learner</div>
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <div className='dashboard-link' style={{background: '#be1e4b'}}>
-                    <span className='la la-user'></span>
-                    <div className='link-title'>Learner Link</div>
-                  </div>
+                  <Link to='/admin/management/exam/learner'>
+                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
+                      <span className='la la-list-ol'></span>
+                      <div className='link-title'>Learner Exam</div>
+                    </div>
+                  </Link>
                 </Grid.Cell>
                
               </Grid.X>

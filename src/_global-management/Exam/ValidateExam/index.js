@@ -129,7 +129,8 @@ class Layout extends Component {
                     validation: result.validation,
                     validator: (result.validator ? result.validator : [] ),
 
-                    disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id ? true : false )
+                    disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id  ? true : false )
+                   
                 })
             }
             
