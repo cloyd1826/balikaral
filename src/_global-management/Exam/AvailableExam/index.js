@@ -86,7 +86,7 @@ class Layout extends Component {
               question: ''
             }
             data = {...data, question: attr._id}
-            mediumExam = [...mediumExam, data]
+            hardExam = [...hardExam, data]
 
           })
 
