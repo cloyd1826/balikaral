@@ -146,7 +146,7 @@ class Layout extends Component {
     formData.append('learningStrand', this.state.learningStrand)
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
-    formData.append('validation', false )
+    formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
     formData.append('questionDetails', this.state.question )
     formData.append('answer', this.state.answer )
     formData.append('difficulty', this.state.difficulty )

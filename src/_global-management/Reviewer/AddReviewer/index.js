@@ -105,7 +105,7 @@ class Layout extends Component {
     formData.append('learningStrand', this.state.learningStrand)
     formData.append('description', this.state.description)
     formData.append('uploader', this.props.user.id )
-    formData.append('validation', false )
+    formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
     const configPost = {
         headers: {
             Authorization: `${this.props.token}`,

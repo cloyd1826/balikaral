@@ -98,6 +98,8 @@ class Layout extends Component {
     const formData = new FormData()
     formData.append('csv', this.state.csv)
     formData.append('level', this.state.level)
+    formData.append('validation', (this.props.role === 'Administrator' ? true : false))
+    formData.append('uploader', (this.props.user.id))
     formData.append('learningStrand', this.state.learningStrand)
     const configPost = {
         headers: {
@@ -179,7 +181,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const ImportExam = connect(mapStateToProps)(Layout)
