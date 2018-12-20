@@ -9,7 +9,7 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
-import ListExamView from './ListExamView'
+import ListExamView from '../View.ListExam'
 
 import Timer from 'react-compound-timer'
  
@@ -63,13 +63,15 @@ class Layout extends Component {
       return attr.answer != '' 
     })
 
+    console.log(lengthOfAnsweredQuestion.length)
+
     this.setState({
       exam: exam,
       lengthOfAnsweredQuestion: lengthOfAnsweredQuestion.length
     })
 
     if(lengthOfAnsweredQuestion.length === exam.length){
-      this.updateExam(exam, true)
+      this.updateExam(exam, 'Completed')
     }
 
   }
@@ -98,7 +100,7 @@ class Layout extends Component {
   }
   discontinueExam(){
     let exam = this.state.exam
-    this.updateExam(exam, false)
+    this.updateExam(exam, 'Pending')
   }
   
   updateExam(exam, finished){
@@ -114,37 +116,43 @@ class Layout extends Component {
     })
 
 
-    let data = {
-      exam: newExam,
+    let data = {}
+
+    if(finished === 'Completed'){
+      data = {
+        exam: newExam,
+        status: 'Completed',
+        score: {
+          points: lengthOfCorrectAnswer.length, 
+          dateFinished: Date.now()
+        }
+      }
+    }else if(finished === 'Pending'){
+      data = {
+        exam: newExam,
+        timeRemaining: 120, 
+        status: 'Pending' 
+      }
     }
-    if(finished){
-      data = {...data, 
-                  score: {
-                    points: lengthOfCorrectAnswer.length,
-                    dateFinished: Date.now()
-                  },
-                  status: 'Completed',
-              }
-    }else{
-      data = {...data, timeRemaining: 120, status: 'Pending', }
-    }
+    console.log(data)
 
     apiRequest('put', `/generated-exam/update/${this.props.location.state.id}`, data, this.props.token)
       .then((res)=>{ 
-          if(finished){
+          if(finished === 'Completed'){
             this.setState({
               exam: checkedExam,
               lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
               takingExam: false,
               checkingExam: true
             })
-          }else{
+          }else if(finished === 'Pending'){
             this.setState({
               cancelExam: true,
               takingExam: false,
               checkingExam: false,
             })
           }
+          console.log(res)
           
       })
       .catch((err)=>{
@@ -165,9 +173,13 @@ class Layout extends Component {
                   <div className='title-text-container'>
                     <div className='title'>Exam - {this.state.examType ? this.state.examType.examType ? this.state.examType.examType : '' : '' }</div>
                     <div className='title-action'>
-                      
-                        <div className='button primary small' onClick={this.discontinueExam}>Discontinue Exam</div>
-                     
+                        {this.state.takingExam ? 
+                          <div className='button primary small' onClick={this.discontinueExam}>Discontinue Exam</div>
+                        : 
+                          <Link to='/learner/dashboard'>
+                            <div className='button primary small'>Return to Dashboard</div>
+                          </Link>
+                        }
                     </div>
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
@@ -203,7 +215,7 @@ class Layout extends Component {
                         </div>
                       </div>
                     : null 
-                  }
+                  } 
 
                  
 
@@ -279,15 +291,19 @@ class Layout extends Component {
                           </Grid.Cell>
 
                           <Grid.Cell large={12} medium={12} small={12}>
-                            <div className='question-checking'>
+                            <div className='question-card-list'>
                               {this.state.exam.map((attr, index)=>{
-                                  return(
-                                   <div className={'question-box ' + (attr.answer === attr.correctAnswer ? 'correct' : 'wrong')} key={index}>
-                                      <i className={'la ' + (attr.answer === attr.correctAnswer ? 'la-check' : 'la-close')}></i>
-                                      {(index + 1)  + '. ' + (attr.question.question.details)}
-                                   </div>
-                                  )
-                              })}
+                                          return(
+                                            <ListExamView 
+                                              key={index}
+                                              question={attr.question} 
+                                              answer={attr.answer} 
+                                              correctAnswer={attr.correctAnswer}
+                                              index={index} 
+                                              checking={true}
+                                              />
+                                          )
+                                      })}
                             </div>
                           </Grid.Cell>
                         </Grid.X>

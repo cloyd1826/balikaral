@@ -68,11 +68,20 @@ class Layout extends Component{
                   </div>
                 </Link>
               : null}
-              
+              <Link to={{ 
+                pathname: (
+                  (this.props.role === 'Administrator' ? '/admin/user-view' : '') + 
+                  (this.props.role === 'Teacher' ? '/teacher/profile' : '') + 
+                  (this.props.role === 'Learner' ? '/learner/profile' : '') + 
+                  '/update-information'), 
+                state: { id: this.props.user.id } 
+              }}>
                
               <div className='user-bar'>
                 <span><i className='fa fa-user' />Profile</span>
               </div>
+
+              </Link>
              
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>

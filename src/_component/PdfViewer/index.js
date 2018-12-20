@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import PDF from 'react-pdf-js'
 
+import config from '../../_config'
 
 class PdfErrorHandle extends Component {
 	constructor(props){
@@ -163,7 +164,7 @@ class PdfViewer extends Component {
 								<i className='la la-download' />
 							</div>
 							<PDF
-								file={`http://localhost:5000/${this.state.pdf}`}
+								file={`${config}/${this.state.pdf}`}
 								onDocumentComplete={this.onDocumentComplete}
 								page={this.state.currentPage}
 							/>

@@ -69,7 +69,7 @@ class Dashboard extends Component {
 
 
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/exam/learner'>
+                  <Link to='/teacher/generated-exam/learner'>
                     <div className='dashboard-link' style={{background: '#be1e4b'}}>
                       <span className='la la-list-ol'></span>
                       <div className='link-title'>Learner Exam</div>

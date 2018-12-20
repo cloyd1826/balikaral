@@ -21,12 +21,17 @@ class Layout extends Component {
       active: false,
 
       generating: false,
+      checking: true,
+
+      hasPending: false,
     }
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
 
     this.generateExam = this.generateExam.bind(this)
     this.postExam = this.postExam.bind(this)
+
+    this.checkStatus = this.checkStatus.bind(this)
   }
   formMessage(message, type, active){
     this.setState({
@@ -98,7 +103,7 @@ class Layout extends Component {
       .catch((err)=>{
         this.formMessage('Error: ' + err.message, 'error', true, false)
         this.setState({
-          generateExam: false
+          generateExam: false,
         })
       })
   }
@@ -129,13 +134,38 @@ class Layout extends Component {
       })
   }
 
+  checkStatus(){
+    apiRequest('get', `/generated-exam/check-status/${this.props.user.id}`, false, this.props.token)
+      .then((res)=>{
+          console.log(res)
+          let result = res.data.data
+          if(result.length > 0){
+            this.setState({
+              checking: false,
+              hasPending: true,
+            })
+          }else{
+              this.setState({
+                checking: false,
+                hasPending: false,
+              })
+             this.fetchExamType()
+          }
+      })
+      .catch((err)=>{
+        console.log(err)
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
+
 
 
 
 
 
   componentDidMount(){
-    this.fetchExamType()
+   
+    this.checkStatus()
   }
   render() { 
     return (
@@ -149,7 +179,49 @@ class Layout extends Component {
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   
-                   {!this.state.generating ?
+                   
+                  
+                  {this.state.generating ?
+                  
+                      <div className='exam-type-loader'>
+                        <div>
+                          <span>
+                            <i className='la la-spinner'></i>
+                          </span>
+                          <div className='subtitle-montserrat'>Generating Exam</div>
+                        </div>
+                      </div>
+                    : null
+                  }
+
+                  {this.state.checking ? 
+
+                      <div className='exam-type-loader'>
+                        <div>
+                          <span>
+                            <i className='la la-spinner'></i>
+                          </span>
+                          <div className='subtitle-montserrat'>Checking Exam Status</div>
+                        </div>
+                      </div>
+
+                  : null}
+
+                  {this.state.hasPending ? 
+                    <div className='exam-type-loader'>
+                        <div>
+                          <span>
+                            <i className='la la-frown-o'></i>
+                          </span>
+                          <div className='subtitle-montserrat'>Pending Exam</div>
+                          <div className='context-montserrat'>You cant take any exam since you still have a Pending Exam Status</div>
+                          <Link to='/learner/exam/list'>
+                            <div className='button primary'>Exam List</div>
+                          </Link>
+                        </div>
+                      </div>
+
+                  : 
                     <Grid.X className='exam-type-container'>
                       {this.state.examType.map((attr, index)=> {
                         return (
@@ -180,17 +252,8 @@ class Layout extends Component {
                           )
                       })}
                     </Grid.X>
-                  :
-                      <div className='exam-type-loader'>
-                        <div>
-                          <span>
-                            <i className='la la-spinner'></i>
-                          </span>
-                          <div className='subtitle-montserrat'>Generating Exam</div>
-                        </div>
-                      </div>
-                  }
 
+                  }
 
                 </div>
               </Grid.Cell>

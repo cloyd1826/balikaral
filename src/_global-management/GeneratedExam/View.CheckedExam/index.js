@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import { connect } from 'react-redux'
 
+import config from '../../../_config'
 
 class Layout extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Layout extends Component {
           <div className={'ex-container ' +  (this.state.answered ? 'answered' : '')}>
             <div className='question'>{(this.props.index + 1) + '. ' +  (this.props.question.question ? this.props.question.question.details ? this.props.question.question.details : '' : '')}</div>
               {this.props.question.question ? this.props.question.question.images ?  
-                  <div className='question-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.props.question.question.images + ')'}}></div>
+                  <div className='question-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.images + ')'}}></div>
                 : '' : ''}
 
         

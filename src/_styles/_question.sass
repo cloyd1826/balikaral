@@ -77,11 +77,14 @@
 	.answer
 		font-size: 16px
 		cursor: pointer
-		padding-left: 32px
+		display: flex
+		flex-wrap: wrap
+		width: 100%
 		.answer-box
+			width: calc(50% - 16px)
 			display: flex
-			width: 100%
 			margin-bottom: 4px
+			margin-right: 4px
 			span
 				padding: 8px 16px
 				font-weight: 600
@@ -100,7 +103,7 @@
 					background: $blue-color
 					color: #fff
 				.text
-					background: $lightBlue
+					background: $lightBlue 
 .question-checking
 	.question-box
 		border-radius: 5px
@@ -120,17 +123,27 @@
 	.question-box.wrong
 		background: #f2dede
 		color: #a94547
-		
+.answer-box.correct-answer
+	width: 100%!important
+	span
+		background: $yellow-color!important
+		color: #000!important
+	.text
+		font-weight: 600
+		width: auto!important
+
+
 .ex-container
 	border-bottom: #e0e0e0 dotted 2px
 	padding: 16px
-
+.ex-container.answered.correct
+	background: $lightBlue
+.ex-container.answered.wrong
+	background: #f2dede
 .ex-container.answered
 	background: $lightBlue
 	border-bottom: #e0e0e0 dotted 2px
 	.answer-box
-		display: flex
-		width: 100%
 		span
 			padding: 8px 16px
 			font-weight: 600

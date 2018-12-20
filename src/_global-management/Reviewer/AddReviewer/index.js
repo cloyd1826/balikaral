@@ -12,6 +12,8 @@ import Button from '../../../_component/Form/Button'
 
 import apiRequest from '../../../_axios'
 
+import config from '../../../_config'
+
 import { connect } from 'react-redux'
 
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
@@ -97,20 +99,20 @@ class Layout extends Component {
   		})
   }
   postFile(){
-    const url = `http://localhost:5000/balikaral/reviewer-management/`
+    const url = `${config}/balikaral/reviewer-management/`
     const formData = new FormData()
     formData.append('pdf', this.state.pdf)
     formData.append('learningStrand', this.state.learningStrand)
     formData.append('description', this.state.description)
     formData.append('uploader', this.props.user.id )
     formData.append('validation', false )
-    const config = {
+    const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
             'content-type': 'multipart/form-data'
         }
     }
-    return post(url, formData, config)
+    return post(url, formData, configPost)
   }
   render() { 
     return (

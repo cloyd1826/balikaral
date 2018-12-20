@@ -20,6 +20,8 @@ import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 
 import apiRequest from '../../../_axios'
 
+import config from '../../../_config'
+
 import axios, { post } from 'axios'
 
 
@@ -138,7 +140,7 @@ class Layout extends Component {
   		})
   }
   postFile(){
-    const url = `http://localhost:5000/balikaral/exam-management/`
+    const url = `${config}/balikaral/exam-management/`
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
@@ -170,16 +172,17 @@ class Layout extends Component {
     }
 
 
-    const config = {
+    const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
             'content-type': 'multipart/form-data'
         }
     }
-    return post(url, formData, config)
-  }
+    return post(url, formData, configPost)
+  } 
   render() {
-    console.log(this.state) 
+    console.log(this.state)
+    console.log(config) 
     return (
         <div>
         	<Grid fluid>

@@ -111,7 +111,7 @@ class Layout extends Component {
   render() { 
     return (
         <div>
-          <Form size='small' onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit}>
               <Grid.X>
                 <Grid.Cell large={12} medium={6} small={12}>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>

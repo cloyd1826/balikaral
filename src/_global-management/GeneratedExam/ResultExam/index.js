@@ -10,6 +10,9 @@ import apiRequest from '../../../_axios'
 import { connect } from 'react-redux'
 
 
+import ListExamView from '../View.ListExam'
+
+
  
 class Layout extends Component {
   constructor(props) {
@@ -80,8 +83,8 @@ class Layout extends Component {
                     <div className='title-action'>
                       	<Link to={
                       		(this.props.role === 'Learner' ? '/learner/exam/list' : '') 
-                      		+ (this.props.role === 'Administrator' ? '/admin/management/exam/learner' : '')
-                      		+ (this.props.role === 'Teacher' ? '/teacher/management/exam/learner' : '')
+                      		+ (this.props.role === 'Administrator' ? '/admin/generated-exam/learner' : '')
+                      		+ (this.props.role === 'Teacher' ? '/teacher/generated-exam/learner' : '')
                       	}>
                         	<div className='button primary small'>List of Generated Exam</div>
                      	</Link>
@@ -104,19 +107,22 @@ class Layout extends Component {
                       {this.state.checkingExam ?
                         <Grid.X >
                           <Grid.Cell large={12} medium={12} small={12} className='question-result'>
-                            <div className='context-montserrat'>Percent: <span>{Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)}%</span></div>
-                          
-                            <div className='context-montserrat'>Score: <span>{this.state.lengthOfCorrectAnswer}/{this.state.exam.length}</span></div>
-                          </Grid.Cell>
+                          <div className='context-montserrat'>Percent: <span>{Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)}%</span></div>
 
+                          <div className='context-montserrat'>Score: <span>{this.state.lengthOfCorrectAnswer}/{this.state.exam.length}</span></div>
+                          </Grid.Cell>
                           <Grid.Cell large={12} medium={12} small={12}>
-                            <div className='question-checking'>
+                            <div className='question-card-list'>
                               {this.state.exam.map((attr, index)=>{
                                   return(
-                                   <div className={'question-box ' + (attr.answer === attr.correctAnswer ? 'correct' : 'wrong')} key={index}>
-                                      <i className={'la ' + (attr.answer === attr.correctAnswer ? 'la-check' : 'la-close')}></i>
-                                      {(index + 1)  + '. ' + (attr.question.question.details)}
-                                   </div>
+                                    <ListExamView 
+                                      key={index}
+                                      question={attr.question} 
+                                      answer={attr.answer} 
+                                      correctAnswer={attr.correctAnswer} 
+                                      index={index} 
+                                      checking={true}
+                                      />
                                   )
                               })}
                             </div>
@@ -146,3 +152,22 @@ const mapStateToProps = (state) => {
 }
 const ListLevel = connect(mapStateToProps)(Layout)
 export default ListLevel  
+
+{/*<Grid.Cell large={12} medium={12} small={12} className='question-result'>
+<div className='context-montserrat'>Percent: <span>{Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)}%</span></div>
+
+<div className='context-montserrat'>Score: <span>{this.state.lengthOfCorrectAnswer}/{this.state.exam.length}</span></div>
+</Grid.Cell>
+
+<Grid.Cell large={12} medium={12} small={12}>
+<div className='question-checking'>
+{this.state.exam.map((attr, index)=>{
+return(
+<div className={'question-box ' + (attr.answer === attr.correctAnswer ? 'correct' : 'wrong')} key={index}>
+<i className={'la ' + (attr.answer === attr.correctAnswer ? 'la-check' : 'la-close')}></i>
+{(index + 1)  + '. ' + (attr.question.question.details)}
+</div>
+)
+})}
+</div>
+</Grid.Cell>*/}

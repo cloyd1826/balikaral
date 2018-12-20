@@ -12,6 +12,8 @@ import Button from '../../../_component/Form/Button'
 
 import apiRequest from '../../../_axios'
 
+import config from '../../../_config'
+
 import { connect } from 'react-redux'
 
 
@@ -236,7 +238,7 @@ class Layout extends Component {
 
                                   {
                                     this.state.questionImage != '' ?
-                                    <div className='question-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.questionImage + ')'}}></div>
+                                    <div className='question-image' style={{backgroundImage: `url(${config}/` + this.state.questionImage + ')'}}></div>
                                     : null }                                  
                                   <div className='answer-container'>
 
@@ -246,7 +248,7 @@ class Layout extends Component {
                                           <span className='answer'>
                                              {
                                               this.state.aImage != '' ?
-                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.aImage + ')'}}></div>
+                                              <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.aImage + ')'}}></div>
                                               : null }
                                             {this.state.a}
                                           </span>
@@ -259,7 +261,7 @@ class Layout extends Component {
                                           <span className='answer'>
                                             {
                                               this.state.bImage != '' ?
-                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.bImage + ')'}}></div>
+                                              <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.bImage + ')'}}></div>
                                               : null }
                                             {this.state.b}
                                           </span>
@@ -272,7 +274,7 @@ class Layout extends Component {
                                           <span className='answer'>
                                            {
                                               this.state.cImage != '' ?
-                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.cImage + ')'}}></div>
+                                              <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.cImage + ')'}}></div>
                                               : null }
                                             {this.state.c}
                                           </span>
@@ -284,7 +286,7 @@ class Layout extends Component {
                                           <span className='answer'>
                                             {
                                               this.state.dImage != '' ?
-                                              <div className='answer-image' style={{backgroundImage: 'url(http://localhost:5000/' + this.state.dImage + ')'}}></div>
+                                              <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.dImage + ')'}}></div>
                                               : null }
                                             {this.state.d}
                                           </span>

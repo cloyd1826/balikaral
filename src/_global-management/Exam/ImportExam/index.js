@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
 
+import config from '../../../_config'
+
 import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
 import FileInput from '../../../_component/Form/FileInput'
@@ -92,18 +94,18 @@ class Layout extends Component {
       })
   }
   postFile(){
-    const url = `http://localhost:5000/balikaral/exam-management/csv/`
+    const url = `${config}/balikaral/exam-management/csv/`
     const formData = new FormData()
     formData.append('csv', this.state.csv)
     formData.append('level', this.state.level)
     formData.append('learningStrand', this.state.learningStrand)
-    const config = {
+    const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
             'content-type': 'multipart/form-data'
         }
     }
-    return post(url, formData, config)
+    return post(url, formData, configPost)
   }
   render() { 
     return (

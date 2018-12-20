@@ -86,7 +86,7 @@ class Sidebar extends Component {
                   <div className='sidebar-title'>
                     Learner
                   </div>
-                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam/learner'>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/generated-exam/learner'>
                     <i className='la la-list-ol'></i>
                     <span>Learner Exam</span>
                   </NavLink>

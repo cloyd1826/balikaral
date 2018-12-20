@@ -94,6 +94,7 @@ class Layout extends Component {
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
+          console.log(res)
   				this.setState({
 	  				exam: res.data.data
 	  			})	
@@ -207,7 +208,7 @@ class Layout extends Component {
 
                                 {this.props.role !== 'Learner' ? 
                                   <Link to={{ 
-                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '')  + '/management/exam/result',
+                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '')  + '/generated-exam/result',
                                     state: { id: attr._id } 
                                   }}>
                                     <span>

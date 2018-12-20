@@ -45,7 +45,7 @@ class Layout extends Component{
         <div className='user-name'>
           <div className='name'>
           <Link to={{ 
-                pathname: '/admin/profile/', 
+                pathname: '/admin/user-view/update-information', 
                 state: { id: this.props.user.id } 
               }}>
             {
@@ -71,9 +71,15 @@ class Layout extends Component{
                   <span><i className='la la-home' />Home</span>
                 </div>
               </Link>
-              <div className='user-bar'>
-                <span><i className='fa fa-user' />Profile</span>
-              </div>
+
+              <Link to={{ 
+                pathname: '/admin/user-view/update-information', 
+                state: { id: this.props.user.id } 
+              }}>
+                <div className='user-bar'>
+                  <span><i className='fa fa-user' />Profile</span>
+                </div>
+              </Link>
               <div className='user-bar'>
                 <span><i className='fa fa-calendar' />Link Two</span>
               </div>

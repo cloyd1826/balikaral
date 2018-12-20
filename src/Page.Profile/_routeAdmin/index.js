@@ -15,6 +15,7 @@ const Routes = () => {
     <div className='user-route-container element-container'>
       <Route path='/admin/user-view/update-information' component={UpdateInformation} />
       <Route path='/admin/user-view/update-account-info' component={UpdatePassword} />
+
     </div>
   )
 }
