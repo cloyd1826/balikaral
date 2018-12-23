@@ -39,24 +39,19 @@ class Sidebar extends Component {
                 </div>
                 <div className='sidebar-content'>
                   <div className='sidebar-title'>
-                    REVIEWERS
-                  </div>
-                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/reviewer/list/learner'>
-                    <i className='la la-file-pdf-o'></i>
-                    <span>Reviewer</span>
-                  </NavLink>
-                </div>
-                <div className='sidebar-content'>
-                  <div className='sidebar-title'>
-                    Exam
+                    Learner
                   </div>
                   <NavLink className='sidebar-link' activeClassName='active' to='/learner/exam/available'>
-                    <i className='la la-list-ul'></i>
-                    <span>Available Exam</span>
+                    <i className='la la-list-ol'></i>
+                    <span>Tapang</span>
                   </NavLink>
-                   <NavLink className='sidebar-link' activeClassName='active' to='/learner/exam/list'>
-                    <i className='la la-rotate-left'></i>
-                    <span>Taken Exam</span>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/reviewer/list/learner'>
+                    <i className='la la-file-pdf-o'></i>
+                    <span>Talino</span>
+                  </NavLink>
+                   <NavLink className='sidebar-link' activeClassName='active' to='/learner/exam/learning-strand'>
+                    <i className='la la-copy'></i>
+                    <span>Tiyaga</span>
                   </NavLink>
                 </div>
                 

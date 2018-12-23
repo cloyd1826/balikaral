@@ -6,6 +6,7 @@ const defaultCredentials = {
       firstName: '',
       middleName: '',
       lastName: '',
+      image: '',
     },
     token: '',
     isLoggedIn: false,
@@ -20,6 +21,7 @@ const userReducer = (state = defaultCredentials, action) => {
         firstName: action.data.user.firstName,
         middleName: action.data.user.middleName,
         lastName: action.data.user.lastName,
+        image: action.data.user.image,
       }
       let token = action.data.token
       let isLoggedIn = true
@@ -32,6 +34,7 @@ const userReducer = (state = defaultCredentials, action) => {
       firstName: '',
       middleName: '',
       lastName: '',
+      image: ''
     }
     let token = ''
     let isLoggedIn = false

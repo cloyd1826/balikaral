@@ -4,7 +4,11 @@ import {Link} from 'react-router-dom'
 
 import Grid from '../../_component/Grid'
 
-class Dashboard extends Component {
+import { connect } from 'react-redux'
+
+import Profile from '../../_images/vol1.jpeg'
+
+class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  }
@@ -12,45 +16,35 @@ class Dashboard extends Component {
   render() { 
     return (
         <div className='admin-dashboard'>
+          
           <div className='dashboard-link-container'>
             <Grid fluid>
               <Grid.X>
-                <Grid.Cell large={12} medium={12} small={12}>
-                  <div className='main-link-title'>Reviewers</div>
+               
+                 <Grid.Cell large={4} medium={6} small={12}>
+                    <Link to='/learner/exam/available'>
+                    <div className='dashboard-link' style={{background: '#912396'}}>
+                      <span className='la la-list-ol'></span>
+                      <div className='link-title'>Tapang</div>
+                    </div>
+                  </Link>
                 </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
+                <Grid.Cell large={4} medium={6} small={12}>
                   <Link to='/learner/reviewer/list/learner'>
                     <div className='dashboard-link' style={{background: '#0386a2'}}>
                       <span className='la la-file-pdf-o'></span>
-                      <div className='link-title'>Reviewers</div>
+                      <div className='link-title'>Talino</div>
                     </div>
                   </Link>
                 </Grid.Cell>
-               
-              </Grid.X>
-              <Grid.X>
-                <Grid.Cell large={12} medium={12} small={12}>
-                  <div className='main-link-title'>Exams</div>
-                </Grid.Cell>
-                
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/learner/exam/available'>
-                    <div className='dashboard-link' style={{background: '#912396'}}>
-                      <span className='la la-list-ul'></span>
-                      <div className='link-title'>Available Exams</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
-
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/learner/exam/list/'>
+                <Grid.Cell large={4} medium={6} small={12}>
+                  <Link to='/learner/exam/learning-strand'>
                     <div className='dashboard-link' style={{background: '#00a100'}}>
-                      <span className='la la-rotate-left'></span>
-                      <div className='link-title'>Taken Exams</div>
+                      <span className='la la-copy'></span>
+                      <div className='link-title'>Tiyaga</div>
                     </div>
                   </Link>
                 </Grid.Cell>
-
               </Grid.X>
             </Grid>
           </div>
@@ -58,5 +52,15 @@ class Dashboard extends Component {
     )
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    role: state.role
+  }
+}
+
+const Dashboard = connect(mapStateToProps)(Layout)
 
 export default Dashboard

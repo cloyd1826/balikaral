@@ -146,6 +146,7 @@ class Layout extends Component {
                         <SelectLearningStrand 
                           required 
                           type='text' 
+                          level={this.state.level}
                           label='Learning Strand' 
                           name='learningStrand' 
                           value={this.state.learningStrand} 

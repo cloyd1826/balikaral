@@ -24,6 +24,7 @@ class Layout extends Component {
       checking: true,
 
       hasPending: false,
+      isAvailable: false,
     }
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -143,17 +144,18 @@ class Layout extends Component {
             this.setState({
               checking: false,
               hasPending: true,
+              isAvailable: false
             })
           }else{
               this.setState({
                 checking: false,
                 hasPending: false,
+                isAvailable: true
               })
              this.fetchExamType()
           }
       })
       .catch((err)=>{
-        console.log(err)
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
@@ -176,6 +178,11 @@ class Layout extends Component {
                 <div className='element-container'>
                   <div className='title-text-container'>
                     <div className='title'>Available Exam</div>
+                    <div className='title-action'>
+                      <Link to='/learner/exam/list'>
+                        <div className='button primary small'>List of Taken Exams</div>
+                      </Link>
+                    </div>
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   
@@ -221,7 +228,8 @@ class Layout extends Component {
                         </div>
                       </div>
 
-                  : 
+                  : null }
+                  {this.state.isAvailable ? 
                     <Grid.X className='exam-type-container'>
                       {this.state.examType.map((attr, index)=> {
                         return (
@@ -253,7 +261,7 @@ class Layout extends Component {
                       })}
                     </Grid.X>
 
-                  }
+                  : null}
 
                 </div>
               </Grid.Cell>

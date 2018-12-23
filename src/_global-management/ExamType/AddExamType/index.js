@@ -144,7 +144,7 @@ class Layout extends Component {
                           required 
                           type='text' 
                           label='Learning Strand' 
-                          name='learningStrand' 
+                          name='learningStrand'
                           value={this.state.learningStrand} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>

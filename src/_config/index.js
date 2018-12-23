@@ -6,7 +6,7 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 if(process.env.NODE_ENV === 'production'){
-	config = 'http://api-config.com'
+	config = 'http://40.124.52.67:5000'
 }
 
 export default config

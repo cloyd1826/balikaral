@@ -6,6 +6,8 @@ import Dashboard from '../Dashboard'
 
 import Level from '../Management/Level'
 import LearningStrand from '../Management/LearningStrand'
+import Subject from '../Management/Subject'
+
 import Exam from '../../_global-management/Exam/_routeAdmin'
 import ExamType from '../../_global-management/ExamType/_routeAdmin'
 import Reviewer from '../../_global-management/Reviewer/_routeAdmin'
@@ -20,8 +22,11 @@ const Routes = () => {
   return (
         <div className='admin-content'>
             <Route path='/admin/dashboard' component={Dashboard} />
+
             <Route path='/admin/management/level' component={Level} />
             <Route path='/admin/management/learning-strand' component={LearningStrand} />
+            <Route path='/admin/management/subject' component={Subject} />
+
             <Route path='/admin/management/exam' component={Exam} />
             <Route path='/admin/management/exam-type' component={ExamType} />
             <Route path='/admin/management/reviewer' component={Reviewer} />

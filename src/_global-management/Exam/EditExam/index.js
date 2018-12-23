@@ -22,6 +22,7 @@ import axios, { put } from 'axios'
 
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectSubject from '../../../_special-form/SelectSubject'
 
 
 class Layout extends Component {
@@ -33,6 +34,7 @@ class Layout extends Component {
         difficulty: '',
         level: '',
         learningStrand: '',
+        learningStrandSub: '',
         a: '',
         b: '',
         c: '',
@@ -81,6 +83,25 @@ class Layout extends Component {
     this.putFile = this.putFile.bind(this)
 
 
+  this.handleLevelChange = this.handleLevelChange.bind(this)
+    this.handleLearningStrandChange = this.handleLearningStrandChange.bind(this)
+  }
+  handleLevelChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrand: '',
+      learningStrandSub: '',
+    })
+  }
+  handleLearningStrandChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrandSub: '',
+    })
   }
   previewExam(){
     if(this.state.preview){
@@ -117,6 +138,7 @@ class Layout extends Component {
                     difficulty: (result.question ? result.question.difficulty ? result.question.difficulty : '' : ''),
                     level: (result.level ? result.level._id ? result.level._id : '' : ''),
                     learningStrand: (result.learningStrand ? result.learningStrand._id ? result.learningStrand._id : '' : ''),
+                    learningStrandSub: (result.learningStrandSub ? result.learningStrandSub._id ? result.learningStrandSub._id : '' : ''),
 
                     a: (result.question ? result.question.choices ? result.question.choices.a ? result.question.choices.a.details ? result.question.choices.a.details : '' : '' : '' : '' ),
                     b: (result.question ? result.question.choices ? result.question.choices.b ? result.question.choices.b.details ? result.question.choices.b.details : '' : '' : '' : '' ),
@@ -182,6 +204,7 @@ class Layout extends Component {
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
+    formData.append('learningStrandSub', this.state.learningStrandSub)
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
     formData.append('validation', this.state.validation )
@@ -282,39 +305,7 @@ class Layout extends Component {
                                 </Grid.Cell>
                               </Grid.X>
                               <Grid.X>
-                               <Grid.Cell large={3} medium={12} small={12}>
-                                  <Select
-                                    required  
-                                    label='Answer'
-                                    name='answer' 
-                                    value={this.state.answer} 
-                                    onChange={this.handleChange}
-                                  >
-                                      <option value='' disabled></option>
-                                      <option value='A'>A</option>
-                                      <option value='B'>B</option>
-                                      <option value='C'>C</option>
-                                      <option value='D'>D</option>
- 
-                                  </Select>
-                                </Grid.Cell>
-
-                                <Grid.Cell large={3} medium={12} small={12}>
-                                  
-                                  <Select
-                                    required 
-                                    type='text' 
-                                    label='Difficulty'
-                                    name='difficulty' 
-                                    value={this.state.difficulty} 
-                                    onChange={this.handleChange}
-                                    >
-                                    <option value='' disabled></option>
-                                    <option value='Easy'>Easy</option>
-                                    <option value='Medium'>Medium</option>
-                                    <option value='Hard'>Hard</option>
-                                  </Select>
-                                </Grid.Cell>
+                               
 
                                 <Grid.Cell large={3} medium={12} small={12}>
                                   <SelectLevel 
@@ -323,19 +314,28 @@ class Layout extends Component {
                                     label='Level' 
                                     name='level' 
                                     value={this.state.level} 
-                                    onChange={this.handleChange}/>
+                                    onChange={this.handleLevelChange}/>
                                 </Grid.Cell>
-
-
                                 <Grid.Cell large={3} medium={12} small={12}>
                                   <SelectLearningStrand 
                                     required 
-                                    type='text' 
+                                    level={this.state.level}
                                     label='Learning Strand' 
                                     name='learningStrand' 
                                     value={this.state.learningStrand} 
+                                    onChange={this.handleLearningStrandChange}/>
+                                </Grid.Cell>
+                                <Grid.Cell large={3} medium={12} small={12}>
+                                  <SelectSubject 
+                                    required 
+                                    learningStrand={this.state.learningStrand}
+                                    name='learningStrandSub' 
+                                    value={this.state.learningStrandSub} 
                                     onChange={this.handleChange}/>
                                 </Grid.Cell>
+
+
+
 
                                 <Grid.Cell large={6} medium={12} small={12}>
                                   <Input  
@@ -415,6 +415,40 @@ class Layout extends Component {
                                     accept="image/*"
                                     refProps={ref => this.fileInput = ref}
                                     onChange={(e)=> this.handleFileChange(e, 'dImage' )}/>
+                                </Grid.Cell>
+
+                                <Grid.Cell large={3} medium={12} small={12}>
+                                  <Select
+                                    required  
+                                    label='Answer'
+                                    name='answer' 
+                                    value={this.state.answer} 
+                                    onChange={this.handleChange}
+                                  >
+                                      <option value='' disabled></option>
+                                      <option value='A'>A</option>
+                                      <option value='B'>B</option>
+                                      <option value='C'>C</option>
+                                      <option value='D'>D</option>
+ 
+                                  </Select>
+                                </Grid.Cell>
+
+                                <Grid.Cell large={3} medium={12} small={12}>
+                                  
+                                  <Select
+                                    required 
+                                    type='text' 
+                                    label='Difficulty'
+                                    name='difficulty' 
+                                    value={this.state.difficulty} 
+                                    onChange={this.handleChange}
+                                    >
+                                    <option value='' disabled></option>
+                                    <option value='Easy'>Easy</option>
+                                    <option value='Medium'>Medium</option>
+                                    <option value='Hard'>Hard</option>
+                                  </Select>
                                 </Grid.Cell>
 
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>

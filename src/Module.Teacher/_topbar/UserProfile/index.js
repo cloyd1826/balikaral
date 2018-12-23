@@ -9,6 +9,9 @@ import Profile from '../../../_images/vol1.jpeg'
 
 import { Link } from 'react-router-dom'
 
+import config from '../../../_config'
+
+
 class Layout extends Component{
   constructor(props){
     super(props)
@@ -63,7 +66,7 @@ class Layout extends Component{
             this.props.role ? this.props.role : ''
           }</div>
         </div>
-        <div className='user-image'  onClick={this.toggleUserLink} style={{backgroundImage: 'url(' + Profile +')'}}></div>
+        <div className='user-image'  onClick={this.toggleUserLink} style={{backgroundImage: 'url(' + (this.props.user.image ? `${config}/${this.props.user.image}` : Profile ) +')'}}></div>
         
         {this.state.userLink ? 
             <div className='user-container'>

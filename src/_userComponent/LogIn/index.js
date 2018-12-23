@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { logInUser, logOutUser } from '../../_redux/actions/user'
+import { logInUser } from '../../_redux/actions/user'
 
 import Form from '../../_component/Form/Form' 
 import Input from '../../_component/Form/Input'
@@ -49,15 +49,16 @@ class Layout extends Component{
           let result = res.data
           let userData = {
             user: {
-              id: result.data._id,
-              email: result.data.local.email,
-              firstName: result.data.personalInformation.firstName,
-              middleName: result.data.personalInformation.middleName,
-              lastName: result.data.personalInformation.lastName
+              id: result.data ? result.data._id ? result.data._id : '' : '',
+              email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
+              firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
+              middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
+              lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
+              image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : ''
             },
             token: result.token,
             isLoggedIn: true,
-            role: result.data.local.userType
+            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
           }
           this.props.actions.logIn(userData)
           this.props.close()
@@ -111,8 +112,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
      actions:{
-       logIn: bindActionCreators(logInUser, dispatch),
-       logOut: bindActionCreators(logOutUser, dispatch)
+       logIn: bindActionCreators(logInUser, dispatch)
     }
   }
 }

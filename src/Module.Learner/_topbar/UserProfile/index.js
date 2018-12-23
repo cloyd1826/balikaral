@@ -9,11 +9,16 @@ import Profile from '../../../_images/vol3.jpeg'
 
 import { Link } from 'react-router-dom'
 
+import config from '../../../_config'
+
+
 class Layout extends Component{
   constructor(props){
     super(props)
     this.state = {
-      userLink: false
+      userLink: false,
+      user: {},
+      role: ''
     }
     this.logOut = this.logOut.bind(this)
     this.toggleUserLink = this.toggleUserLink.bind(this)
@@ -30,39 +35,47 @@ class Layout extends Component{
     }
   }
   componentDidMount(){
-    console.log(this.props)
+      this.setState({
+        user: this.props.user,
+        role: this.props.role
+      })
   }
  
   componentWillReceiveProps(nextProps){
-    
+      console.log(nextProps)
+      this.setState({
+        user: nextProps.user,
+        role: nextProps.role
+      })
   }
   logOut(){
     this.props.actions.logOut()
   }
   render() {
+    console.log(this.state)
     return (
       <div className='user-top-bar'>
         <div className='user-name'>
           <div className='name'>
           <Link to={{ 
                 pathname: '/learner/profile/update-information', 
-                state: { id: this.props.user.id } 
+                state: { id: this.state.user.id } 
               }}>
             {
-                (this.props.user.firstName ? this.props.user.firstName : '') 
+                (this.state.user.firstName ? this.state.user.firstName : '') 
                 + ' ' + 
-                (this.props.user.middleName ? this.props.user.middleName.substring(0,1) : '')
+                (this.state.user.middleName ? this.state.user.middleName.substring(0,1) : '')
                 + ' ' + 
-                (this.props.user.lastName ? this.props.user.lastName : '')
+                (this.state.user.lastName ? this.state.user.lastName : '')
             }
           </Link>
 
           </div>
           <div className='role'>{
-            this.props.role ? this.props.role : ''
+            this.state.role ? this.state.role : ''
           }</div>
         </div>
-        <div className='user-image'  onClick={this.toggleUserLink} style={{backgroundImage: 'url(' + Profile +')'}}></div>
+        <div className='user-image'  onClick={this.toggleUserLink} style={{backgroundImage: 'url(' + (this.state.user.image ? `${config}/${this.state.user.image}` : Profile ) +')'}}></div>
         
         {this.state.userLink ? 
             <div className='user-container'>
@@ -73,7 +86,7 @@ class Layout extends Component{
               </Link>
               <Link to={{ 
                   pathname: '/learner/profile/update-information', 
-                  state: { id: this.props.user.id } 
+                  state: { id: this.state.user.id } 
                 }}>
                 <div className='user-bar'>
                   <span><i className='fa fa-user' />Profile</span>
@@ -91,7 +104,7 @@ class Layout extends Component{
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => { 
   return {
     user: state.user,
     role: state.role

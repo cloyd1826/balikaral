@@ -73,11 +73,17 @@ class PdfViewer extends Component {
         let lastPage = this.state.totalPage
 
         if(this.state.totalPage <= 10){
-        	return pageNumbers.map((number)=>{
-        		return (
-        			<li key={number}><div onClick={(e)=>{this.changePage(number)}} className={this.state.currentPage === number ? 'current' : 'pagination-button'} >{number}</div></li>
-        		)
-        	})
+        	return (
+          <div className='pagination'>
+            {
+              pageNumbers.map((number)=>{
+              return (
+                <li key={number}><div onClick={(e)=>{this.changePage(number)}} className={this.state.currentPage === number ? 'current' : 'pagination-button'} >{number}</div></li>
+              )
+              })
+            }
+          </div>
+          )
         }else{
         	if(this.state.currentPage <= 4){
     		 return (
@@ -95,7 +101,7 @@ class PdfViewer extends Component {
                         <li><div key={lastPage - 2} onClick={(e) => { this.changePage(lastPage - 2) }} className={this.state.currentPage === (lastPage - 2) ? 'current' : 'pagination-button'}>{lastPage - 2}</div></li>
                         <li><div key={lastPage - 1} onClick={(e) => { this.changePage(lastPage - 1) }} className={this.state.currentPage === (lastPage - 1) ? 'current' : 'pagination-button'}>{lastPage - 1}</div></li>
                         <li><div key={lastPage} onClick={(e) => { this.changePage(lastPage) }} className={this.state.currentPage === lastPage ? 'current' : 'pagination-button'}>{lastPage}</div></li>
-                    	<li onClick={(e)=>{this.changePage((this.state.currentPage === this.state.lastPage ? this.state.lastPage : this.state.currentPage + 1 ))}} className="pagination-next"><i className='la la-angle-double-right' /></li>
+                    	<li onClick={(e)=>{this.changePage((this.state.currentPage === lastPage ? lastPage : this.state.currentPage + 1 ))}} className="pagination-next"><i className='la la-angle-double-right' /></li>
                     </ul>
 	         	</nav>
                 )
@@ -120,7 +126,7 @@ class PdfViewer extends Component {
                             <li><div key={lastPage - 1} onClick={(e) => { this.changePage(lastPage - 1) }} className={this.state.currentPage === lastPage - 1 ? 'current' : 'pagination-button'}>{lastPage - 1}</div></li>
                             <li><div key={lastPage} onClick={(e) => { this.changePage(lastPage) }} className={this.state.currentPage === lastPage ? 'current' : 'pagination-button'}>{lastPage}</div></li>
                         
-                    		<li onClick={(e)=>{this.changePage((this.state.currentPage === this.state.lastPage ? this.state.lastPage : this.state.currentPage + 1 ))}} className="pagination-next"><i className='la la-angle-double-right' /></li>
+                    		<li onClick={(e)=>{this.changePage((this.state.currentPage === lastPage ? lastPage : this.state.currentPage + 1 ))}} className="pagination-next"><i className='la la-angle-double-right' /></li>
 
                         </ul>
 	         		</nav>
@@ -143,7 +149,7 @@ class PdfViewer extends Component {
                                <li> <div key={lastPage - 1} onClick={(e) => { this.changePage(lastPage - 1) }} className={this.state.currentPage === lastPage - 1 ? 'current' : 'pagination-button'}>{lastPage - 1}</div></li>
                                <li> <div key={lastPage} onClick={(e) => { this.changePage(lastPage) }} className={this.state.currentPage === lastPage ? 'current' : 'pagination-button'}>{lastPage}</div></li>
                             	
-                        		<li onClick={(e)=>{this.changePage((this.state.currentPage === this.state.lastPage ? this.state.lastPage : this.state.currentPage + 1 ))}} className="pagination-next"><i className='la la-angle-double-right' /></li>
+                        		<li onClick={(e)=>{this.changePage((this.state.currentPage === lastPage ? lastPage : this.state.currentPage + 1 ))}} className="pagination-next"><i className='la la-angle-double-right' /></li>
 
                          </ul>
 	         		      </nav>

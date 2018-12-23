@@ -14,6 +14,7 @@ import ManagementDelete from '../../../_component/ManagementDelete'
 
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectSubject from '../../../_special-form/SelectSubject'
 
 import Select from '../../../_component/Form/Select'
 
@@ -30,6 +31,7 @@ class Layout extends Component {
       validation: '',
       learningStrand: '',
       level: '',
+      subject: '',
 
       deleteActive: false,
       link: ''
@@ -49,6 +51,7 @@ class Layout extends Component {
     let learningStrand = this.state.learningStrand
     let validation = this.state.validation
     let level = this.state.level
+    let subject = this.state.subject
     if(name==='learningStrand'){
       learningStrand = value
     }
@@ -58,7 +61,10 @@ class Layout extends Component {
     if(name ==='level'){
       level = value
     }
-    this.fetchLevel(validation, learningStrand, level)
+    if(name ==='subject'){
+      subject = value
+    }
+    this.fetchLevel(validation, learningStrand, level, subject)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -66,7 +72,7 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLevel('','')
+  		this.fetchLevel('','','','')
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -82,25 +88,26 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(validation, learningStrand, level){
+  fetchLevel(validation, learningStrand, level,subject){
 
     let routeToUse = ''
 
     if(this.props.match.params.type === 'self'){
-      routeToUse = `/exam-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}`
+      routeToUse = `/exam-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}`
     }
 
     if(this.props.match.params.type === 'all'){
-      routeToUse = `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}`
+      routeToUse = `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}`
     }
 
     if(this.props.match.params.type === 'teachers'){
-      routeToUse = `/exam-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}`
+      routeToUse = `/exam-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}`
     }
 
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
+          console.log(res)
   				this.setState({
 	  				exam: res.data.data
 	  			})	
@@ -112,7 +119,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel('','','')
+  	this.fetchLevel('','','','')
   }
   render() { 
     return (
@@ -150,7 +157,7 @@ class Layout extends Component {
                         <SelectLevel
                           label='Level' 
                           name='level' 
-                          value={this.state.level} 
+                          value={this.state.level}
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
@@ -159,7 +166,17 @@ class Layout extends Component {
                         <SelectLearningStrand
                           label='Learning Strand' 
                           name='learningStrand' 
+                          level={this.state.level}
                           value={this.state.learningStrand} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={2} medium={12} small={12}>
+                        <SelectSubject
+                          label='Subject' 
+                          name='subject' 
+                          learningStrand={this.state.learningStrand}
+                          value={this.state.subject} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
@@ -170,9 +187,10 @@ class Layout extends Component {
                         <Table.HeaderCell>Question</Table.HeaderCell>
                         <Table.HeaderCell>Answer</Table.HeaderCell>
                         <Table.HeaderCell>Difficulty</Table.HeaderCell>
-				        				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed>Level</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
+				        				<Table.HeaderCell>Submitted By</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
+                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell>Subject</Table.HeaderCell>
 				        				<Table.HeaderCell>Validation</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
@@ -203,7 +221,8 @@ class Layout extends Component {
                                 : '' : ''
                               }</Table.Cell>
                               <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
-							        				<Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
+                              <Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
+							        				<Table.Cell isNarrowed>{ attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : '' }</Table.Cell>
                               <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
 
@@ -250,9 +269,10 @@ class Layout extends Component {
                         <Table.HeaderCell>Question</Table.HeaderCell>
                         <Table.HeaderCell>Answer</Table.HeaderCell>
                         <Table.HeaderCell>Difficulty</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed>Level</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell >Submitted By</Table.HeaderCell>
+                        <Table.HeaderCell >Level</Table.HeaderCell>
+                        <Table.HeaderCell >Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell>Subject</Table.HeaderCell>
                         <Table.HeaderCell>Validation</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>

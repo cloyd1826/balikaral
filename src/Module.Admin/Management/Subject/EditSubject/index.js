@@ -6,6 +6,7 @@ import Grid from '../../../../_component/Grid'
 
 import Form from '../../../../_component/Form/Form'
 import FormMessage from '../../../../_component/Form/FormMessage'
+import Textarea from '../../../../_component/Form/Textarea'
 import Input from '../../../../_component/Form/Input'
 import Button from '../../../../_component/Form/Button'
 
@@ -13,16 +14,17 @@ import apiRequest from '../../../../_axios'
 
 import { connect } from 'react-redux'
 
-import SelectLevel from '../../../../_special-form/SelectLevel'
+import SelectLearningStrand from '../../../../_special-form/SelectLearningStrand'
+
 
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-        name: '',
+        learningStrand: '',
         description: '',
-        level: '',
+        lessonName: '',
      
         message: '',
         type: '',
@@ -50,16 +52,15 @@ class Layout extends Component {
     this.fetchSingle()
   }
   fetchSingle(){
-    apiRequest('get', `/learning-strand/${this.props.location.state.id}`, false, this.props.token)
+    apiRequest('get', `/learning-strand-sub/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
             
             if(res.data){
                 let result = res.data.data
-                console.log(result)
                 this.setState({
-                    name: result.name,
+                    learningStrand: result.learningStrand ? result.learningStrand._id ? result.learningStrand._id : '' : '' ,
                     description: result.description,
-                    level: result.level
+                    lessonName: result.lessonName,
                 })
             }
             
@@ -82,12 +83,12 @@ class Layout extends Component {
     e.preventDefault()
     this.formMessage('Updating Data...', 'loading', true, true)
     let data = {
-        name: this.state.name,
+        learningStrand: this.state.learningStrand,
         description: this.state.description,
-        level: this.state.level
+        lessonName: this.state.lessonName,
     }
     
-    apiRequest('put', `/learning-strand/update/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/learning-strand-sub/update/${this.props.location.state.id}`, data, this.props.token)
         .then((res)=>{
           
           this.formMessage('Data has been updated', 'success', true, false)
@@ -105,10 +106,10 @@ class Layout extends Component {
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
                             <div className='title-text-container'>
-                                <div className='title'>Learning Strand Management > Edit</div>
+                                <div className='title'>Subject Management > Edit</div>
                                 <div className='title-action'>
-                                    <Link to='/admin/management/learning-strand/list'>
-                                        <div className='button primary small'>List of Learning Strand</div>
+                                    <Link to='/admin/management/subject/list'>
+                                        <div className='button primary small'>List of Subject</div>
                                     </Link>
                                 </div>
                             </div>
@@ -121,35 +122,34 @@ class Layout extends Component {
                                  
                                 </Grid.Cell>
                                 <Grid.Cell large={6} medium={12} small={12}>
-                                    <Input 
-                                      required 
-                                      type='text' 
-                                      label='Name' 
-                                      placeholder='Name' 
-                                      name='name' 
-                                      value={this.state.name} 
-                                      onChange={this.handleChange}/>
-                                </Grid.Cell>
-                                <Grid.Cell large={6} medium={12} small={12}>
-                                  <SelectLevel
+                                  <SelectLearningStrand
                                     required
-                                    label='Level'
-                                    name='level' 
-                                    value={this.state.level} 
+                                    label='Learning Strand'
+                                    name='learningStrand' 
+                                    value={this.state.learningStrand} 
                                     onChange={this.handleChange}/>
                                 </Grid.Cell>
                                 <Grid.Cell large={6} medium={12} small={12}>
-                                    <Input 
-                                        type='text'
-                                        label='Description' 
-                                        placeholder='Description' 
-                                        name='description' 
-                                        value={this.state.description} 
-                                        onChange={this.handleChange}/>
+                                  <Input 
+                                    required
+                                    type='text'
+                                    label='Lesson' 
+                                    placeholder='Lesson' 
+                                    name='lessonName' 
+                                    value={this.state.lessonName} 
+                                    onChange={this.handleChange}/>
+                                </Grid.Cell>
+                                <Grid.Cell large={12} medium={12} small={12}>
+                                  <Textarea 
+                                    label='Description' 
+                                    placeholder='Description' 
+                                    name='description' 
+                                    value={this.state.description} 
+                                    onChange={this.handleChange}/>
                                 </Grid.Cell>
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                                     <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
-                                    <Link to='/admin/management/learning-strand/list'>
+                                    <Link to='/admin/management/subject/list'>
                                         <Button type='button' text='Return' className='cancel small'/>
                                     </Link>
                                 </Grid.Cell>

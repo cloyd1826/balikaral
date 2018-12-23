@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectSubject from '../../../_special-form/SelectSubject'
 
 import apiRequest from '../../../_axios'
 
@@ -35,6 +36,7 @@ class Layout extends Component {
       difficulty: '',
       level: '',
       learningStrand: '',
+      learningStrandSub: '',
       a: '',
       b: '',
       c: '',
@@ -69,6 +71,26 @@ class Layout extends Component {
     this.formMessage = this.formMessage.bind(this)
 
     this.postFile = this.postFile.bind(this)
+
+    this.handleLevelChange = this.handleLevelChange.bind(this)
+    this.handleLearningStrandChange = this.handleLearningStrandChange.bind(this)
+  }
+  handleLevelChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrand: '',
+      learningStrandSub: '',
+    })
+  }
+  handleLearningStrandChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrandSub: '',
+    })
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -85,6 +107,7 @@ class Layout extends Component {
       difficulty: '',
       level: '',
       learningStrand: '',
+      learningStrandSub: '',
       a: '',
       b: '',
       c: '',
@@ -144,6 +167,7 @@ class Layout extends Component {
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
+    formData.append('learningStrandSub', this.state.learningStrandSub)
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
     formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
@@ -181,8 +205,6 @@ class Layout extends Component {
     return post(url, formData, configPost)
   } 
   render() {
-    console.log(this.state)
-    console.log(config) 
     return (
         <div>
         	<Grid fluid>
@@ -228,39 +250,7 @@ class Layout extends Component {
                       </Grid.Cell>
                     </Grid.X>
                     <Grid.X>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Select
-                          required  
-                          label='Answer'
-                          name='answer' 
-                          value={this.state.answer} 
-                          onChange={this.handleChange}
-                        >
-                            <option value='' disabled></option>
-                            <option value='A'>A</option>
-                            <option value='B'>B</option>
-                            <option value='C'>C</option>
-                            <option value='D'>D</option>
-
-                        </Select>
-                      </Grid.Cell>
-
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        
-                        <Select
-                          required 
-                          type='text' 
-                          label='Difficulty'
-                          name='difficulty' 
-                          value={this.state.difficulty} 
-                          onChange={this.handleChange}
-                          >
-                          <option value='' disabled></option>
-                          <option value='Easy'>Easy</option>
-                          <option value='Medium'>Medium</option>
-                          <option value='Hard'>Hard</option>
-                        </Select>
-                      </Grid.Cell>
+                      
 
                       <Grid.Cell large={3} medium={12} small={12}>
                         <SelectLevel 
@@ -269,7 +259,7 @@ class Layout extends Component {
                           label='Level' 
                           name='level' 
                           value={this.state.level} 
-                          onChange={this.handleChange}/>
+                          onChange={this.handleLevelChange}/>
                       </Grid.Cell>
 
 
@@ -279,7 +269,17 @@ class Layout extends Component {
                           type='text' 
                           label='Learning Strand' 
                           name='learningStrand' 
+                          level={this.state.level}
                           value={this.state.learningStrand} 
+                          onChange={this.handleLearningStrandChange}/>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <SelectSubject 
+                          required
+                          name='learningStrandSub' 
+                          learningStrand={this.state.learningStrand}
+                          value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
@@ -361,6 +361,40 @@ class Layout extends Component {
                           accept="image/*"
                           refProps={ref => this.fileInput = ref}
                           onChange={(e)=> this.handleFileChange(e, 'imageChoiceDName' )}/>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <Select
+                          required  
+                          label='Answer'
+                          name='answer' 
+                          value={this.state.answer} 
+                          onChange={this.handleChange}
+                        >
+                            <option value='' disabled></option>
+                            <option value='A'>A</option>
+                            <option value='B'>B</option>
+                            <option value='C'>C</option>
+                            <option value='D'>D</option>
+
+                        </Select>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        
+                        <Select
+                          required 
+                          type='text' 
+                          label='Difficulty'
+                          name='difficulty' 
+                          value={this.state.difficulty} 
+                          onChange={this.handleChange}
+                          >
+                          <option value='' disabled></option>
+                          <option value='Easy'>Easy</option>
+                          <option value='Medium'>Medium</option>
+                          <option value='Hard'>Hard</option>
+                        </Select>
                       </Grid.Cell>
 
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>

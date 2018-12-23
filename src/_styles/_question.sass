@@ -28,7 +28,7 @@
 		justify-content: center
 		.answer-box
 			margin-bottom: 4px
-			width: calc(50% - 16px)
+			
 			padding: 8px
 			cursor: pointer
 			.answer-text
@@ -81,7 +81,7 @@
 		flex-wrap: wrap
 		width: 100%
 		.answer-box
-			width: calc(50% - 16px)
+			
 			display: flex
 			margin-bottom: 4px
 			margin-right: 4px
@@ -199,3 +199,272 @@
 		span
 			font-weight: 600
 			font-size: 22px
+
+.grid-exam-container
+	width: 100%
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+	border: 1px solid transparent
+	border-radius: 5px
+	position: relative
+	.next-icon,.prev-icon
+		position: absolute
+		top: 50%
+		transform: translate(0, -50%)
+		font-size: 40px
+		cursor: pointer
+		color: #000
+	.prev-icon
+		left: 16px
+	.next-icon
+		right: 16px
+	.grid-exam
+		padding: 32px 100px
+		.grid-question-details
+			font-size: 22px
+			text-align: center
+			margin-bottom: 32px
+			font-weight: 600
+			span
+				max-width: 50%
+		.grid-question-image
+			margin: 32px auto
+			background-size: cover
+			background-repeat: no-repeat
+			background-position: center
+			height: 200px
+			width: 200px
+		.grid-answer
+			font-size: 16px
+			cursor: pointer
+			display: flex
+			flex-wrap: wrap
+			width: 100%
+			.answer-text
+				display: flex
+				width: calc(50% - 4px)
+				margin-bottom: 4px
+				margin-right: 4px
+				.letter
+					background: $blue-color
+					padding: 16px
+					color: #fff
+					font-weight: 600
+					border: $blue-color solid 1px
+					box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+					border-top-left-radius: 5px
+					border-bottom-left-radius: 5px
+				.letter.active
+					background: $yellow-color
+					color: #000
+				.answer
+					background: #fff
+					box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+					border: 1px solid transparent
+					padding: 16px
+					color: rgba(0,0,0,0.8)
+					width: 100%
+					border-top-right-radius: 5px
+					border-bottom-right-radius: 5px
+					text-align: center
+					.answer-image
+						background-size: cover
+						background-repeat: no-repeat
+						background-position: center
+						height: 150px
+						width: 150px
+						margin: 0 auto 8px auto
+			&:nth-child(2)
+				margin-right: 0
+
+.grid-question-action
+	display: flex
+	width: 100%
+	margin-bottom: 16px
+	.action
+		flex: 1
+		padding: 16px
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+		border: 1px solid transparent
+		border-radius: 5px
+		margin-right: 4px
+		text-align: center
+		cursor: pointer
+		position: relative
+		&:last-child
+			margin-right: 0
+		i.la
+			font-weight: 500
+			font-size: 32px
+			position: absolute
+			top: 50%
+			left: 16px
+			transform: translate(0,-50%)
+	a
+		flex: 1
+		padding: 16px
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+		border: 1px solid transparent
+		border-radius: 5px
+		margin-right: 4px
+		text-align: center
+		cursor: pointer
+		position: relative
+		.action
+			padding: 0
+			box-shadow: none
+			border: none
+
+
+
+.grid-exam-container.answered
+	.answer-text.active
+		.letter
+			background: $yellow-color
+			color: #000
+			border: $yellow-color solid 1px
+		.answer
+			background: $lightBlue
+			font-weight: 600
+.grid-pagination
+	display: flex
+	justify-content: center
+	.pagination-button, .current
+		display: flex
+		justify-content: center
+		align-items: center
+		height: 30px!important
+		width: 30px!important
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+		border: 1px solid transparent
+		margin-right: 4px
+	.pagination-button
+		background: #fff
+	.current
+		background: $yellow-color
+		color: #000
+		font-weight: 600
+		
+
+.question-answered-container
+	width: 100%
+	border-radius: 5px
+	position: relative
+	padding: 16px 0
+	.question-answered
+		display: flex
+		margin-bottom: 8px
+		cursor: pointer
+		.number,.question
+			border: 1px solid transparent
+			box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+			padding: 16px
+		.number
+			border-top-left-radius: 5px
+			border-bottom-left-radius: 5px
+			width: 3%
+			text-align: center
+			font-weight: 600
+			background: $blue-color
+			color: #fff
+		.question
+			border-top-right-radius: 5px
+			border-bottom-right-radius: 5px
+			width: calc(100% - 3%)
+		.question.correct
+			background: $lightGreen
+		.question.wrong
+			background: $lightRed
+		&:last-child
+			margin-bottom: 0
+	.question-answered.answered
+		background: $lightBlue
+	.answer-box
+		margin-top: 8px
+		.answered-list
+			display: flex
+			margin-bottom: 4px
+			margin-right: 4px
+			.letter,.answer
+				padding: 8px 16px
+				box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+				border: 1px solid transparent
+				background: #fff
+			.letter
+				font-weight: 600
+				border-top-left-radius: 5px
+				border-bottom-left-radius: 5px
+			.letter.correct
+				background: $yellow-color
+				border: $yellow-color solid 1px
+				color: #000
+			.letter.active
+				background: $red-color
+				border: $red-color solid 1px
+				color: #fff
+			.answer
+				color: rgba(0,0,0,0.8)
+				border-top-right-radius: 5px
+				border-bottom-right-radius: 5px
+
+.grid-correct-answer,.grid-wrong-answer
+	margin: 8px auto
+	padding: 16px
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+	border: 1px solid transparent
+	text-align: center
+	font-weight: 600
+	border-radius: 5px
+	.button
+		padding: 8px
+		margin: 0
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+		border: 1px solid transparent
+		background: #fff
+		font-weight: 500
+.grid-correct-answer
+	background: $lightGreen
+.grid-wrong-answer
+	background: $lightRed
+
+
+
+
+.learning-strand-container
+	.learning-strand
+		padding: 16px
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+		border: 1px solid transparent
+		margin-right: 4px
+		margin-bottom: 4px
+		text-align: center
+		position: relative
+		font-size: 24px
+		border-radius: 5px
+		cursor: pointer
+		transition: $transition-fast
+		i.la
+			font-weight: 500
+			font-size: 32px
+			position: absolute
+			top: 50%
+			left: 16px
+			transform: translate(0,-50%)
+		.level
+			font-size: 16px
+		&:hover
+			background: $lightBlue
+
+
+
+
+
+
+
+.answer-text,.answer-box
+	width: 100%				
+@media print, screen and (min-width: 40em)
+	.answer-text,.answer-box
+		width: 100%
+@media print, screen and (min-width: 64em)
+	.answer-text,.answer-box
+		width: calc(50% - 16px)
