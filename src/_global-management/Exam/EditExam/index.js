@@ -327,7 +327,7 @@ class Layout extends Component {
                                 </Grid.Cell>
                                 <Grid.Cell large={3} medium={12} small={12}>
                                   <SelectSubject 
-                                    required 
+                                     
                                     learningStrand={this.state.learningStrand}
                                     name='learningStrandSub' 
                                     value={this.state.learningStrandSub} 

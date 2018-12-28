@@ -13,6 +13,7 @@ class Button extends Component {
 					type={this.props.type ? this.props.type : 'button'}
 					className={'button ' + (this.props.className ? this.props.className : '')}
 					disabled={this.props.disabled}
+					onClick={this.props.onClick}
 					>
 					{this.props.text}
 				</button>

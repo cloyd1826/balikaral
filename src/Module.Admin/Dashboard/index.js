@@ -68,6 +68,15 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
+
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/management/forum/list'>
+                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                      <span className='la la-comment'></span>
+                      <div className='link-title'>Forum</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
               </Grid.X>
 
 

@@ -22,6 +22,7 @@ class Layout extends Component {
 
       lengthOfAnsweredQuestion: 0,
 
+      learningStrand: [],
 
       generatingExam: true,
       takingExam: false,
@@ -118,20 +119,55 @@ class Layout extends Component {
     if(finished){
       data = {
         exam: newExam,
-        status: 'Completed',
-        score: {
-          points: lengthOfCorrectAnswer.length, 
-          dateFinished: Date.now()
-        }
+        dateFinished: Date.now(),
+        score: lengthOfCorrectAnswer.length
       }
+
+      let listOfQuestionsPerLearningStrand = []
+      let learningStrand = this.state.examType.learningStrandQuestions
+      learningStrand.map((attr)=>{
+        listOfQuestionsPerLearningStrand = [...listOfQuestionsPerLearningStrand, { id: attr.learningStrand, content: [] } ]
+      })
+      let lsId = listOfQuestionsPerLearningStrand.map((attr)=>{
+        return attr.id
+      })    
+      checkedExam.map((attr)=> {
+        let index = lsId.indexOf(attr.question.learningStrand) 
+        let content = listOfQuestionsPerLearningStrand[index].content
+        content = [...content, attr]
+        listOfQuestionsPerLearningStrand[index].content = content
+     
+      })
+      let percentagePerLearningStrand = []
+      listOfQuestionsPerLearningStrand.map((attr)=>{
+        let correctAnswerOfQuestions = attr.content.filter((attr)=>{
+          return attr.answer === attr.correctAnswer
+        }) 
+        let data = {
+          learningStrand: attr.id,
+          percentage: Math.round((correctAnswerOfQuestions.length/attr.content.length) * 100),
+          score: correctAnswerOfQuestions.length,
+          totalQuestion: attr.content.length
+        }
+        percentagePerLearningStrand = [...percentagePerLearningStrand, data]
+      })
+      if(Math.round((lengthOfCorrectAnswer.length/exam.length) * 100) < 90 ){
+        //retake
+        data = {...data, status: 'Retake', percentagePerLearningStrand: percentagePerLearningStrand}
+      }else{
+        //completed
+        data = {...data, status: 'Completed',  percentagePerLearningStrand: percentagePerLearningStrand}
+
+      }
+
+
     }else{
       data = {
         exam: newExam,
         timeRemaining: 120, 
         status: 'Pending' 
       }
-    }  
-    
+    }
     apiRequest('put', `/generated-exam/update/${this.props.location.state.id}`, data, this.props.token)
       .then((res)=>{ 
        if(finished){

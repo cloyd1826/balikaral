@@ -15,8 +15,11 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
+import Table from '../../../_component/Table'
+
 
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectLevel from '../../../_special-form/SelectLevel'
 
 
 class Layout extends Component {
@@ -25,14 +28,19 @@ class Layout extends Component {
     this.state = { 
         
         examType: '',
-        learningStrand: '',
         examDescription: '',
+        level: '',
+
+        learningStrandQuestion: [],
+        learningStrandName: '',
+
         difficultyEasy: '',
         difficultyMedium: '',
         difficultyHard: '',
+
         passingRate: '',
         totalHours: '',
-     
+       
         message: '',
         type: '',
         active: false,
@@ -45,8 +53,70 @@ class Layout extends Component {
     this.fetchSingle = this.fetchSingle.bind(this)
  
     this.formMessage = this.formMessage.bind(this)
-  }
 
+    this.addLearningStrand = this.addLearningStrand.bind(this)
+    this.removeLearningStrand = this.removeLearningStrand.bind(this)
+    this.changeLearningStrand = this.changeLearningStrand.bind(this)
+
+    this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
+
+    this.levelChange = this.levelChange.bind(this)
+  }
+  levelChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrandQuestion: [],
+      learningStrand: '',
+    })
+  }
+  addLearningStrand(){
+    let learningStrandQuestion = this.state.learningStrandQuestion
+    let data = {
+      learningStrand: this.state.learningStrand,
+      easy: this.state.difficultyEasy,
+      medium: this.state.difficultyMedium,
+      hard: this.state.difficultyHard,
+      learningStrandName: this.state.learningStrandName
+    }
+    let checkIfExist = learningStrandQuestion.map((attr)=>{
+      return attr.learningStrand
+    }).indexOf(this.state.learningStrand)
+    if(checkIfExist === -1){
+      learningStrandQuestion = [...learningStrandQuestion, data]
+    }else{
+      learningStrandQuestion = [...learningStrandQuestion.slice(0, checkIfExist), data, ...learningStrandQuestion.slice(checkIfExist + 1)]
+    }
+    this.setState({
+      learningStrandQuestion: learningStrandQuestion,
+      learningStrand: '',
+      difficultyEasy: '',
+      difficultyMedium: '',
+      difficultyHard: '',
+      learningStrandName: ''
+    })
+  }
+  changeLearningStrand(e){
+    let name = e.target.name
+    let value = e.target.value
+    let learningStrandList = this.state.learningStrandList
+    let index = learningStrandList.map((attr)=>{
+      return attr._id
+    }).indexOf(e.target.value)
+    let learningStrandName = learningStrandList[index].name
+    this.setState({
+      [name]: value,
+      learningStrandName: learningStrandName
+    })
+  }
+  removeLearningStrand(index){
+    let learningStrandQuestion = this.state.learningStrandQuestion
+    learningStrandQuestion = [...learningStrandQuestion.slice(0,index), ...learningStrandQuestion.slice(index + 1)]
+    this.setState({
+      learningStrandQuestion: learningStrandQuestion
+    })
+  }
   formMessage(message, type, active, button){
     this.setState({
       message: message,
@@ -57,21 +127,32 @@ class Layout extends Component {
   }
   
   componentDidMount(){
-    this.fetchSingle()
+    
+    this.fetchLearningStrand()
   }
-  fetchSingle(){
+  fetchSingle(learningStrandList){
     apiRequest('get', `/exam-type-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
             if(res.data){
                 let result = res.data.data
+                let learningStrandQuestions =  result.learningStrandQuestions ?  result.learningStrandQuestions : []
+                let newLearningStrandQuestion = []
+                learningStrandQuestions.map((attr)=>{
+                  let index = learningStrandList.map((ls)=>{
+                    return ls._id
+                    }).indexOf(attr.learningStrand)
+                  let data = {...attr, learningStrandName: learningStrandList[index].name}
+                  newLearningStrandQuestion = [...newLearningStrandQuestion, data]
+                })
                 this.setState({
                     examType: result.examType,
                     examDescription: result.examDescription,
-                    learningStrand: result.learningStrand ? result.learningStrand._id ? result.learningStrand._id : '' : '' ,
-                    difficultyEasy: result.difficulty ? result.difficulty.easy ? result.difficulty.easy : '' : '',
-                    difficultyMedium: result.difficulty ? result.difficulty.medium ? result.difficulty.medium : '' : '',
-                    difficultyHard: result.difficulty ? result.difficulty.hard ? result.difficulty.hard : '' : '',
-                    passingRate: result.passingRate,
+                    difficultyEasy: result.easy,
+                    difficultyMedium: result.medium,
+                    difficultyHard: result.hard,
+
+                    level: result.level ? result.level._id ? result.level._id : '' : '' ,
+                    learningStrandQuestion: newLearningStrandQuestion, 
                     totalHours: result.totalHours
                 })
             }
@@ -82,7 +163,21 @@ class Layout extends Component {
         })
 
   }
- 
+  fetchLearningStrand(){
+    apiRequest('get', `/learning-strand/all`, false, this.props.token)
+      .then((res)=>{
+        if(res.data){
+          this.setState({
+            learningStrandList: res.data.data
+          })  
+          this.fetchSingle( res.data.data)
+        }
+      })
+      .catch((err)=>{
+        
+      })
+     
+  }
   handleChange(e){
     let name = e.target.name
     let value = e.target.value
@@ -94,19 +189,16 @@ class Layout extends Component {
   handleSubmit(e){
     e.preventDefault()
     this.formMessage('Updating Data...', 'loading', true, true)
-    let total = parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyEasy)
     let data = {
       examType: this.state.examType,
       examDescription: this.state.examDescription,
-      learningStrand: this.state.learningStrand,
-      difficulty: {
-        easy: parseInt(this.state.difficultyEasy),
-        medium: parseInt(this.state.difficultyMedium), 
-        hard: parseInt(this.state.difficultyHard)
-      },
-      examTotal: total,
-      passingRate: parseInt(this.state.passingRate),
-      totalHours: this.state.totalHours
+      level: this.state.level,
+      learningStrandQuestions: this.state.learningStrandQuestion,
+      easy: this.state.difficultyEasy,
+      medium: this.state.difficultyMedium,
+      hard: this.state.difficultyHard,
+      examTotal: this.state.learningStrandQuestion.length,
+      totalHours: this.state.totalHours,
     }
     
     apiRequest('put', `/exam-type-management/update/${this.props.location.state.id}`, data, this.props.token)
@@ -133,106 +225,149 @@ class Layout extends Component {
                                 </div>
                             </div>
                             <Form onSubmit={this.handleSubmit}>                            
-                            <Grid.X>
-                                <Grid.Cell large={12} medium={12} small={12}>
-                                  <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
-                                 
-                                </Grid.Cell>
-                                <Grid.Cell large={6} medium={12} small={12}>
-                                  <Select
-                                    required
-                                    label='Exam Type'
-                                    name='examType'
-                                    value={this.state.examType}
-                                    onChange={this.handleChange}
-                                  >
-                                    <option value='' disabled></option>
-                                    <option value='Pre Test'>Pre Test</option>
-                                    <option value='Post Test'>Post Test</option>
-                                    <option value='Adaptive Test'>Adaptive Test</option>
-                                  </Select>
-                                </Grid.Cell>
-                                <Grid.Cell large={6} medium={12} small={12}>
-                                  <SelectLearningStrand 
-                                    required 
-                                    type='text' 
-                                    label='Learning Strand' 
-                                    name='learningStrand' 
-                                    value={this.state.learningStrand} 
-                                    onChange={this.handleChange}/>
-                                </Grid.Cell>
-                                <Grid.Cell large={12} medium={12} small={12}>
-                                  <Textarea
-                                    name='examDescription'
-                                    placeholder='Exam Description'
-                                    value={this.state.examDescription}
-                                    onChange={this.handleChange}
-                                  />
-                                </Grid.Cell>
-                                <Grid.Cell large={4} medium={12} small={12}>
-                                  <Input
-                                    required
-                                    type='number'
-                                    min={0}
-                                    label='No Of Easy Questions'
-                                    name='difficultyEasy'
-                                    value={this.state.difficultyEasy}
-                                    onChange={this.handleChange}
-                                  />
-                                </Grid.Cell>
-                                <Grid.Cell large={4} medium={12} small={12}>
-                                  <Input
-                                    required
-                                    type='number'
-                                    min={0}
-                                    label='No Of Medium Questions'
-                                    name='difficultyMedium'
-                                    value={this.state.difficultyMedium}
-                                    onChange={this.handleChange}
-                                  />
-                                </Grid.Cell>
-                                <Grid.Cell large={4} medium={12} small={12}>
-                                  <Input
-                                    required
-                                    type='number'
-                                    min={0}
-                                    label='No Of Hard Questions'
-                                    name='difficultyHard'
-                                    value={this.state.difficultyHard}
-                                    onChange={this.handleChange}
-                                  />
-                                </Grid.Cell>
-                                <Grid.Cell large={4} medium={12} small={12}>
-                                  <Input
-                                    required
-                                    type='number'
-                                    min={0}
-                                    label='Passing Rate'
-                                    name='passingRate'
-                                    value={this.state.passingRate}
-                                    onChange={this.handleChange}
-                                  />
-                                </Grid.Cell>
-                                 <Grid.Cell large={4} medium={12} small={12}>
-                                    <Input
-                                      required
-                                      type='number'
-                                      min={0}
-                                      label='Total Exam Time (in minutes)'
-                                      name='totalHours'
-                                      value={this.state.totalHours}
-                                      onChange={this.handleChange}
-                                    />
-                                  </Grid.Cell>
+                           <Grid.X>
+                              <Grid.Cell large={12} medium={12} small={12}>
+                                <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
+                              </Grid.Cell>
 
-
+                              <Grid.Cell large={6} medium={12} small={12}>
+                                <Select
+                                  required
+                                  label='Exam Type'
+                                  name='examType'
+                                  value={this.state.examType}
+                                  onChange={this.handleChange}
+                                >
+                                  <option value='' disabled></option>
+                                  <option value='Pre Test'>Pre Test</option>
+                                  <option value='Post Test'>Post Test</option>
+                                  <option value='Adaptive Test'>Adaptive Test</option>
+                                </Select>
+                              </Grid.Cell>
+                              <Grid.Cell large={12} medium={12} small={12}>
+                                <Textarea
+                                  name='examDescription'
+                                  placeholder='Exam Description'
+                                  value={this.state.examDescription}
+                                  onChange={this.handleChange}
+                                />
+                              </Grid.Cell>
+                              <Grid.Cell large={3} medium={12} small={12}>
+                                <SelectLevel 
+                                  required 
+                                  type='text' 
+                                  label='Level' 
+                                  name='level'
+                                  value={this.state.level} 
+                                  onChange={this.levelChange}/>
+                              </Grid.Cell>
+                              <Grid.Cell large={3} medium={12} small={12}>
+                                <Input
                                   
-                                <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
-                                    <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
-                                    <Link to='/admin/management/exam-type/list/'>
-                                        <Button type='button' text='Return' className='cancel small'/>
-                                    </Link>
-                                </Grid.Cell>
+                                  type='number'
+                                  min={0}
+                                  label='Number of Easy Questions'
+                                  name='difficultyEasy'
+                                  value={this.state.difficultyEasy}
+                                  onChange={this.handleChange}
+                                />
+                              </Grid.Cell>
+                              <Grid.Cell large={3} medium={12} small={12}>
+                                <Input
+                                  
+                                  type='number'
+                                  min={0}
+                                  label='Number of Medium Questions'
+                                  name='difficultyMedium'
+                                  value={this.state.difficultyMedium}
+                                  onChange={this.handleChange}
+                                />
+                              </Grid.Cell>
+                              <Grid.Cell large={3} medium={12} small={12}>
+                                <Input
+                                  
+                                  type='number'
+                                  min={0}
+                                  label='Number of Hard Questions'
+                                  name='difficultyHard'
+                                  value={this.state.difficultyHard}
+                                  onChange={this.handleChange}
+                                />
+                              </Grid.Cell>
+
+
+                          </Grid.X>
+
+
+
+                          <Grid.X>
+                              <Grid.Cell large={3} medium={12} small={12}>
+                                <SelectLearningStrand 
+                                   
+                                  type='text' 
+                                  label='Learning Strand' 
+                                  name='learningStrand'
+                                  level={this.state.level}
+                                  value={this.state.learningStrand} 
+                                  onChange={this.changeLearningStrand}
+                                />
+                              </Grid.Cell>
+                              
+                              <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
+                                <Button type='button' text='Add Exam Data' className='secondary small' onClick={this.addLearningStrand} />
+                              </Grid.Cell>
+                            </Grid.X>
+                            <Grid.X>
+                                <Table hover nostripe>
+                                  <Table.Header>
+                                    <Table.Row>
+                                      <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                                      <Table.HeaderCell isNarrowed></Table.HeaderCell>
+                                    </Table.Row>
+                                  </Table.Header>
+                                  <Table.Body>
+                                    {
+                                      this.state.learningStrandQuestion.map((attr, index) =>{
+                                        return (
+                                          <Table.Row key={index}>
+                                            <Table.Cell>{attr.learningStrandName}</Table.Cell>
+                                            <Table.Cell isNarrowed>
+                                                <span onClick={()=>{this.removeLearningStrand(index)}}>
+                                                  <i className='fa fa-trash cancel'></i>
+                                                </span>
+                                            </Table.Cell>
+                                          </Table.Row>
+                                        )
+                                      })
+                                    }
+                                  </Table.Body>
+                                  <Table.Footer>
+                                    <Table.Row>
+                                      <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                                      <Table.HeaderCell isNarrowed></Table.HeaderCell>
+                                    </Table.Row>
+                                  </Table.Footer>
+                              </Table>
+                            </Grid.X>
+
+                            <Grid.X>
+                              <Grid.Cell large={4} medium={12} small={12}>
+                                <Input
+                                  required
+                                  type='number'
+                                  min={0}
+                                  label='Total Exam Time (in minutes)'
+                                  name='totalHours'
+                                  value={this.state.totalHours}
+                                  onChange={this.handleChange}
+                                />
+                              </Grid.Cell>
+                              <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
+                                <Button type='submit' disabled={this.buttonDisabled} text='Save' className='secondary small' />
+                                <Link to='/admin/management/exam-type/list'>
+                                 <Button disabled={this.state.buttonDisabled} type='button' text='Return' className='cancel small'/>
+                                </Link>
+                              </Grid.Cell>
                             </Grid.X>
                             </Form>
                         </div>

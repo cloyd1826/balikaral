@@ -2282,6 +2282,17 @@ span.no-validator {
       border-radius: 50%;
       box-shadow: 3px 2px 2px #888; }
 
+.forum-dashboard .forum-dashboard-container {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  border: 1px solid transparent;
+  margin-bottom: 8px; }
+  .forum-dashboard .forum-dashboard-container .forum-name {
+    font-weight: 600;
+    font-size: 22px;
+    border-bottom: #e0e0e0 solid 1px; }
+  .forum-dashboard .forum-dashboard-container .forum-name, .forum-dashboard .forum-dashboard-container .forum-description, .forum-dashboard .forum-dashboard-container .forum-strand {
+    padding: 8px 16px; }
+
 body {
   padding: 0;
   margin: 0;

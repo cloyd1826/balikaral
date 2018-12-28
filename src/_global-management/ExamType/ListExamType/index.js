@@ -89,13 +89,12 @@ class Layout extends Component {
 				        		<Table.Header>
 				        			<Table.Row>
                         <Table.HeaderCell>Type</Table.HeaderCell>
-                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Easy</Table.HeaderCell>
                         <Table.HeaderCell>Medium</Table.HeaderCell>
                         <Table.HeaderCell>Hard</Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell>Exam Total</Table.HeaderCell>
-                        <Table.HeaderCell>Passing Rate</Table.HeaderCell>
                         <Table.HeaderCell>Exam Time</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
@@ -106,13 +105,13 @@ class Layout extends Component {
 					        				return (
 					        					<Table.Row key={index}>
                               <Table.Cell>{attr.examType}</Table.Cell>
-                              <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
+                              <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
+                              <Table.Cell>{attr.easy}</Table.Cell>
+                              <Table.Cell>{attr.medium}</Table.Cell>
+                              <Table.Cell>{attr.hard}</Table.Cell>
                               <Table.Cell>{attr.examDescription}</Table.Cell>
-                              <Table.Cell>{attr.difficulty ? attr.difficulty.easy ? attr.difficulty.easy : '' : ''}</Table.Cell>
-                              <Table.Cell>{attr.difficulty ? attr.difficulty.medium ? attr.difficulty.medium : '' : ''}</Table.Cell>
-    							        	  <Table.Cell>{attr.difficulty ? attr.difficulty.hard ? attr.difficulty.hard : '' : ''}</Table.Cell>
+                             
                               <Table.Cell>{attr.examTotal}</Table.Cell>
-                              <Table.Cell>{attr.passingRate}</Table.Cell>
                               <Table.Cell>{attr.totalHours}</Table.Cell>
 							        				<Table.Cell isNarrowed>
                                   
@@ -142,13 +141,12 @@ class Layout extends Component {
 				        		<Table.Footer>
 				        			<Table.Row>
                         <Table.HeaderCell>Type</Table.HeaderCell>
-                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-                        <Table.HeaderCell>Easy</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
+                         <Table.HeaderCell>Easy</Table.HeaderCell>
                         <Table.HeaderCell>Medium</Table.HeaderCell>
                         <Table.HeaderCell>Hard</Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell>Exam Total</Table.HeaderCell>
-                        <Table.HeaderCell>Passing Rate</Table.HeaderCell>
                         <Table.HeaderCell>Exam Time</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>

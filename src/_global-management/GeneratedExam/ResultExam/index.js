@@ -10,7 +10,7 @@ import apiRequest from '../../../_axios'
 import { connect } from 'react-redux'
 
 
-import ListExamView from '../View.ListExam'
+import QuestionAnswered from '../View.QuestionAnswered'
 
 
  
@@ -106,26 +106,31 @@ class Layout extends Component {
 
                       {this.state.checkingExam ?
                         <Grid.X >
-                          <Grid.Cell large={12} medium={12} small={12} className='question-result'>
-                          <div className='context-montserrat'>Percent: <span>{Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)}%</span></div>
-
-                          <div className='context-montserrat'>Score: <span>{this.state.lengthOfCorrectAnswer}/{this.state.exam.length}</span></div>
+                          <Grid.Cell large={12} medium={12} small={12}>
+                             <div className='grid-question-action'>
+                              <div className='action'>
+                                <i className='la la-list-alt' />
+                                Result: &nbsp;
+                                {this.state.lengthOfCorrectAnswer}/{this.state.exam.length}
+                              </div>
+                              <div className='action'>
+                                <i className='la la-smile-o' />
+                                Percent: &nbsp;
+                                {Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)} %
+                              </div>
+                              <div className='action'>
+                                <i className='la la-hourglass-2' />
+                                5:00
+                              </div>
+                            </div>
+                          
                           </Grid.Cell>
                           <Grid.Cell large={12} medium={12} small={12}>
-                            <div className='question-card-list'>
-                              {this.state.exam.map((attr, index)=>{
-                                  return(
-                                    <ListExamView 
-                                      key={index}
-                                      question={attr.question} 
-                                      answer={attr.answer} 
-                                      correctAnswer={attr.correctAnswer} 
-                                      index={index} 
-                                      checking={true}
-                                      />
-                                  )
-                              })}
-                            </div>
+                            <QuestionAnswered 
+                              exam={this.state.exam}
+                              checking={true}
+                            />
+                            
                           </Grid.Cell>
                         </Grid.X>
                       : null} 

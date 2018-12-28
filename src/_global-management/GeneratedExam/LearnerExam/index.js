@@ -48,14 +48,12 @@ class Layout extends Component {
     let learningStrand = this.state.learningStrand
     let status = this.state.status
     let examType = this.state.examType
-    if(name==='learningStrand'){
-      learningStrand = value
-    }
+
    
     if(name ==='status'){
       status = value
     }
-    this.fetchLevel(status, learningStrand)
+    this.fetchLevel(status)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -63,7 +61,7 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLevel('','')
+  		this.fetchLevel('')
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -79,14 +77,14 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(status, learningStrand){
+  fetchLevel(status){
 
     let routeToUse = ''
 
     if(this.props.role === 'Learner'){
-      routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}&learningStrand=${learningStrand}`
+      routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}`
     }else{
-      routeToUse = `/generated-exam/all?status=${status}&learningStrand=${learningStrand}`
+      routeToUse = `/generated-exam/all?status=${status}`
     }
 
    
@@ -106,7 +104,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel('','')
+  	this.fetchLevel('')
   }
   render() { 
     return (
@@ -136,22 +134,12 @@ class Layout extends Component {
                       </Select>
                     </Grid.Cell>
                    
-                    
-
-                      <Grid.Cell large={2} medium={12} small={12}>
-                        <SelectLearningStrand
-                          label='Learning Strand' 
-                          name='learningStrand' 
-                          value={this.state.learningStrand} 
-                          onChange={this.handleChange}/>
-                      </Grid.Cell>
 
                   </div>
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
                         <Table.HeaderCell>Exam Type</Table.HeaderCell>
-                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Examiner</Table.HeaderCell>
                         <Table.HeaderCell>Date Started</Table.HeaderCell>
 				        				<Table.HeaderCell>Status</Table.HeaderCell>
@@ -167,7 +155,6 @@ class Layout extends Component {
 					        				return (
 					        					<Table.Row key={index}>
                               <Table.Cell>{attr.examType ? attr.examType.examType ? attr.examType.examType : '' : ''}</Table.Cell>
-                              <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                                <Table.Cell isNarrowed>{
                                 attr.examiner ? attr.examiner.personalInformation ? 
                                 (attr.examiner.personalInformation.firstName ? attr.examiner.personalInformation.firstName : '') 
@@ -181,11 +168,11 @@ class Layout extends Component {
                               <Table.Cell>{attr.dateStarted ? new Date(attr.dateStarted).toLocaleDateString() : ''}</Table.Cell>
                               <Table.Cell>{attr.status ? attr.status : ''}</Table.Cell>
                               <Table.Cell>{attr.exam ? attr.exam.length : ''}</Table.Cell>
-                              <Table.Cell>{attr.score ? attr.score.points ? attr.score.points : '' : ''}</Table.Cell>
-                              <Table.Cell>{attr.score ? attr.score.dateFinished ? new Date(attr.score.dateFinished).toLocaleDateString() : '' : ''}</Table.Cell>
+                              <Table.Cell>{attr.score ? attr.score : ''}</Table.Cell>
+                              <Table.Cell>{attr.dateFinished ? new Date(attr.dateFinished).toLocaleDateString() : '' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
 
-                                { attr.status === 'Completed' && this.props.role === 'Learner' ? 
+                                { attr.status === 'Completed' || attr.status === 'Retake' && this.props.role === 'Learner' ? 
                                   <Link to={{ 
                                     pathname: '/learner/exam/result', 
                                     state: { id: attr._id } 
@@ -195,6 +182,7 @@ class Layout extends Component {
                                     </span>
                                   </Link>
                                 : null }
+
                                 { attr.status === 'Pending' && this.props.role === 'Learner' ?
                                   <Link to={{ 
                                     pathname: '/learner/exam/take', 
@@ -206,16 +194,19 @@ class Layout extends Component {
                                   </Link>
                                  : null }
 
-                                {this.props.role !== 'Learner' ? 
+
+                                {this.props.role !== 'Learner' ?
+                                 
                                   <Link to={{ 
-                                    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '')  + '/generated-exam/result',
+                                    pathname: (this.props.role === 'Administrator' ? '/admin/generated-exam/result' : '') + (this.props.role === 'Teacher' ? '/teacher/generated-exam/result' : ''),
                                     state: { id: attr._id } 
                                   }}>
                                     <span>
                                       <i className='la la-folder-open-o primary'></i>
                                     </span>
                                   </Link>
-                                : null}
+
+                                   : null}
 
                                 { this.props.role === 'Administrator' ?
                                   <span onClick={()=>{this.toggleDelete('/generated-exam/delete/' + attr._id)}}>
@@ -235,7 +226,6 @@ class Layout extends Component {
 				        		<Table.Footer>
 				        			<Table.Row>
                         <Table.HeaderCell>Exam Type</Table.HeaderCell>
-                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Examiner</Table.HeaderCell>
                         <Table.HeaderCell>Date Started</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>

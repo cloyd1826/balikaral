@@ -13,6 +13,8 @@ import ExamType from '../../_global-management/ExamType/_routeAdmin'
 import Reviewer from '../../_global-management/Reviewer/_routeAdmin'
 import GeneratedExam from '../../_global-management/GeneratedExam/_routeAdmin'
 
+import ManagementForum from '../../_global-management/Forum/_routeAdminManagement'
+
 import UserView from '../../Page.Profile/_routeAdmin'
 
 
@@ -26,6 +28,7 @@ const Routes = () => {
             <Route path='/admin/management/level' component={Level} />
             <Route path='/admin/management/learning-strand' component={LearningStrand} />
             <Route path='/admin/management/subject' component={Subject} />
+            <Route path='/admin/management/forum' component={ManagementForum} />
 
             <Route path='/admin/management/exam' component={Exam} />
             <Route path='/admin/management/exam-type' component={ExamType} />
