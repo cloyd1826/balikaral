@@ -103,9 +103,9 @@ class Layout extends Component {
                               <Table.Cell>
                                 <Link 
                                   to={{ 
-                                pathname: '/admin/management/forum/edit', 
-                                state: { id: attr._id } 
-                                  }}>
+                                    pathname: '/admin/management/forum/edit', 
+                                    state: { id: attr._id } 
+                                      }}>
                                   {attr.name}
                                 </Link>
                               </Table.Cell>

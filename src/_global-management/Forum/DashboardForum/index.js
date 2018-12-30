@@ -83,10 +83,21 @@ class Layout extends Component {
                   </div>
                   {this.state.forum.map((attr, index)=>{
                     return (
-                      <div key={index} className='forum-dashboard-container'>
-                        <div className='forum-name'>{attr.name}</div>
-                        <div className='forum-strand'>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</div>
-                        <div className='forum-description'>{attr.description}</div>
+                      <div key={index}>
+                        <Link to={{ 
+                              pathname: (
+                                (this.props.role === 'Administrator' ? '/admin' : '') + 
+                                (this.props.role === 'Teacher' ? '/teacher' : '') +
+                                (this.props.role === 'Learner' ? '/learner' : '') +
+                                 '/forum/discussions/list'), 
+                              state: { id: attr._id } 
+                                }}>
+                          <div className='forum-dashboard-container'>
+                            <div className='forum-name'>{attr.name}</div>
+                            <div className='forum-strand'>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</div>
+                            <div className='forum-description'>{attr.description}</div>
+                          </div>
+                        </Link>
                       </div>
                       )
                   })}
@@ -102,7 +113,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    role: state.role
   }
 }
 const ListLearningStrand = connect(mapStateToProps)(Layout)

@@ -172,7 +172,7 @@ class Layout extends Component {
                               <Table.Cell>{attr.dateFinished ? new Date(attr.dateFinished).toLocaleDateString() : '' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
 
-                                { attr.status === 'Completed' || attr.status === 'Retake' && this.props.role === 'Learner' ? 
+                                { (attr.status === 'Completed' || attr.status === 'Retake' )&& this.props.role === 'Learner' && this.props.role !== 'Teacher' && this.props.role === 'Administrator' ? 
                                   <Link to={{ 
                                     pathname: '/learner/exam/result', 
                                     state: { id: attr._id } 

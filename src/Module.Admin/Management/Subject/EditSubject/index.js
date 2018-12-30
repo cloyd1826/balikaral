@@ -106,10 +106,10 @@ class Layout extends Component {
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
                             <div className='title-text-container'>
-                                <div className='title'>Subject Management > Edit</div>
+                                <div className='title'>Lesson Management > Edit</div>
                                 <div className='title-action'>
                                     <Link to='/admin/management/subject/list'>
-                                        <div className='button primary small'>List of Subject</div>
+                                        <div className='button primary small'>List of Lesson</div>
                                     </Link>
                                 </div>
                             </div>

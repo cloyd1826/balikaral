@@ -17,11 +17,64 @@ class Dashboard extends Component {
           <div className='dashboard-link-container'>
             <Grid fluid>
 
-               
               <Grid.X>
 
                 <Grid.Cell large={12} medium={12} small={12}>
-                  <div className='main-link-title'>Management</div>
+                  <div className='main-link-title'>Tagumpay ng Mag-aaral</div>
+                </Grid.Cell>
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/generated-exam/learner'>
+                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
+                      <span className='la la-list-ol'></span>
+                      <div className='link-title'>Learner Exam</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/learner-list'>
+                    <div className='dashboard-link' style={{background: '#00a100'}}>
+                      <span className='la la-graduation-cap'></span>
+                      <div className='link-title'>Kilalanin</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+               
+              </Grid.X>
+
+              <Grid.X>
+
+                <Grid.Cell large={12} medium={12} small={12}>
+                  <div className='main-link-title'>Saya ng Naglilingkod</div>
+                </Grid.Cell>
+
+
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/management/reviewer/list/all'>
+                    <div className='dashboard-link' style={{background: '#912396'}}>
+                      <span className='la la-file-pdf-o'></span>
+                      <div className='link-title'>Reviewer</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+               
+                 <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/management/exam/list/all'>
+                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                      <span className='la la-list-ul'></span>
+                      <div className='link-title'>Exam</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+              </Grid.X>
+
+              
+
+
+              <Grid.X>
+
+                <Grid.Cell large={12} medium={12} small={12}>
+                  <div className='main-link-title'>Pandayan</div>
                 </Grid.Cell>
 
                 <Grid.Cell large={3} medium={6} small={12}>
@@ -46,19 +99,12 @@ class Dashboard extends Component {
                   <Link to='/admin/management/subject/list'>
                     <div className='dashboard-link' style={{background: '#00a100'}}>
                       <span className='la la-align-left'></span>
-                      <div className='link-title'>Subject</div>
+                      <div className='link-title'>Lesson</div>
                     </div>
                   </Link>
                 </Grid.Cell>
  
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/exam/list/all'>
-                    <div className='dashboard-link' style={{background: '#912396'}}>
-                      <span className='la la-list-ul'></span>
-                      <div className='link-title'>Exam</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
+               
 
                 <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/admin/management/exam-type/list'>
@@ -70,8 +116,8 @@ class Dashboard extends Component {
                 </Grid.Cell>
 
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/forum/list'>
-                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                  <Link to='/admin/forum/dashboard'>
+                    <div className='dashboard-link' style={{background: '#912396'}}>
                       <span className='la la-comment'></span>
                       <div className='link-title'>Forum</div>
                     </div>
@@ -104,40 +150,6 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
 
-               
-              </Grid.X>
-
-              <Grid.X>
-
-                <Grid.Cell large={12} medium={12} small={12}>
-                  <div className='main-link-title'>Teacher</div>
-                </Grid.Cell>
-
-
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/reviewer/list/all'>
-                    <div className='dashboard-link' style={{background: '#912396'}}>
-                      <span className='la la-file-pdf-o'></span>
-                      <div className='link-title'>Reviewer</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
-               
-              </Grid.X>
-
-              <Grid.X>
-
-                <Grid.Cell large={12} medium={12} small={12}>
-                  <div className='main-link-title'>Learner</div>
-                </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/generated-exam/learner'>
-                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
-                      <span className='la la-list-ol'></span>
-                      <div className='link-title'>Learner Exam</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
                
               </Grid.X>
 

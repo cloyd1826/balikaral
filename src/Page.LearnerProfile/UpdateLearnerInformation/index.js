@@ -7,7 +7,7 @@ import Grid from '../../_component/Grid'
 import Form from '../../_component/Form/Form'
 import FormMessage from '../../_component/Form/FormMessage'
 import Input from '../../_component/Form/Input'
-import Select from '../../_component/Form/Select'
+import Textarea from '../../_component/Form/Textarea'
 import Button from '../../_component/Form/Button'
 
 import apiRequest from '../../_axios'
@@ -143,23 +143,7 @@ class Layout extends Component {
     apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}`, data, this.props.token)
         .then((res)=>{
           this.fetchSingle()
-          this.formMessage('Personal Information has been updated', 'success', true, false)
-
-          let result = res.data
-          let userData = {
-            user: {
-              id: result.data ? result.data._id ? result.data._id : '' : '',
-              email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
-              firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
-              middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
-              lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
-              image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : '',
-            },
-            token: this.props.token,
-            isLoggedIn: true,
-            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
-          }
-          this.props.actions.logIn(userData)
+          this.formMessage('Learner Information has been updated', 'success', true, false)
         })    
         .catch((err)=>{
         
@@ -179,82 +163,49 @@ class Layout extends Component {
                 <Grid.X>
                   <Grid.Cell large={4} medium={6}  small={12}>
                     <Input 
-                      label='First Name'
-                      required
-                      name='firstName'
-                      value={this.state.firstName}
+                      label='Learning Center'
+                      
+                      name='learningCenter'
+                      value={this.state.learningCenter}
                       onChange={this.handleChange}
                       />
                   </Grid.Cell>
-                  <Grid.Cell large={4} medium={6} small={12}>
+                  <Grid.Cell large={4} medium={6}  small={12}>
                     <Input 
-                      label='Middle Name' 
+                      label='Grade o Level na inabot'
                       
-                      name='middleName'
-                      value={this.state.middleName}
+                      name='gradeLevel'
+                      value={this.state.gradeLevel}
                       onChange={this.handleChange}
                       />
                   </Grid.Cell>
-                   <Grid.Cell large={4} medium={6} small={12}>
+                  <Grid.Cell large={4} medium={6}  small={12}>
                     <Input 
-                      label='Last Name'
-                      required
-                      name='lastName'
-                      value={this.state.lastName}
-                      onChange={this.handleChange}
-                       />
-                  </Grid.Cell>
-                </Grid.X>
-                <Grid.X>
-                  <Grid.Cell large={4} medium={6} small={12}>
-                    <Select 
-                      label='Gender'
-                      name='gender'
-                      value={this.state.gender}
-                      onChange={this.handleChange}
-                    >
-                      <option value=''></option>
-                      <option value='Male'>Male</option>
-                      <option value='Female'>Female</option>
-                    </Select>
-                  </Grid.Cell>
-                </Grid.X>
-                <Grid.X>
-                   <Grid.Cell large={3} medium={6} small={12}>
-                    <Input 
-                      label='House No'
+                      label='Rason kung bakit tumigil'
                       
-                      name='houseNoStreet'
-                      value={this.state.houseNoStreet}
+                      name='reasongForStopping'
+                      value={this.state.reasongForStopping}
                       onChange={this.handleChange}
-                       />
+                      />
                   </Grid.Cell>
-                   <Grid.Cell large={3} medium={6} small={12}>
+                  <Grid.Cell large={4} medium={6}  small={12}>
                     <Input 
-                      label='Baranggay'
+                      label='Pinagkaka-abalahan ngayon'
                       
-                      name='barangay'
-                      value={this.state.barangay}
+                      name='lifeStatus'
+                      value={this.state.lifeStatus}
                       onChange={this.handleChange}
-                       />
+                      />
                   </Grid.Cell>
-                   <Grid.Cell large={3} medium={6} small={12}>
-                    <Input 
-                      label='City'
-                      
-                      name='city'
-                      value={this.state.city}
+
+                  <Grid.Cell large={12} medium={6}  small={12}>
+                    <Textarea 
+                      label='About sa iyong sarili'
+                      rows={3}
+                      name='about'
+                      value={this.state.about}
                       onChange={this.handleChange}
-                       />
-                  </Grid.Cell>
-                   <Grid.Cell large={3} medium={6} small={12}>
-                    <Input 
-                      label='Province'
-                      
-                      name='province'
-                      value={this.state.province}
-                      onChange={this.handleChange}
-                       />
+                      />
                   </Grid.Cell>
                    
                   <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
@@ -275,12 +226,5 @@ const mapStateToProps = (state) => {
     role: state.role
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-     actions:{
-       logIn: bindActionCreators(logInUser, dispatch)
-    }
-  }
-}
-const UpdateInformation = connect(mapStateToProps,mapDispatchToProps)(Layout)
+const UpdateInformation = connect(mapStateToProps)(Layout)
 export default UpdateInformation

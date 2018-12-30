@@ -343,7 +343,43 @@
 		background: $yellow-color
 		color: #000
 		font-weight: 600
-		
+
+
+.percentage-per-ls-container
+	width: calc(100% - 32px)
+	border-radius: 5px
+	position: relative
+	padding: 16px
+	border: 1px solid transparent
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+	margin-bottom: 8px
+	.percentage-per-ls
+		margin-bottom: 8px
+		.learning-strand,.score
+			font-size: 16px
+			font-weight: 600
+			margin-bottom: 4px
+			span
+				font-weight: 500
+		.score
+			margin-bottom: 8px
+		.score-bar
+			display: flex
+			.correct
+				height: 40px
+				background: $lightGreen
+				border-top-left-radius: 5px
+				border-bottom-left-radius: 5px
+				display: flex
+				align-items: center
+				padding-left: 16px
+				font-weight: 600
+			.wrong
+				height: 40px
+				background: $lightRed
+				border-top-right-radius: 5px
+				border-bottom-right-radius: 5px
+
 
 .question-answered-container
 	width: 100%

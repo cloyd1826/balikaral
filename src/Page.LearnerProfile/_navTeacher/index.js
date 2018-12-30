@@ -5,21 +5,23 @@ import Grid from '../../_component/Grid'
 import { Route } from 'react-router-dom'
 
 import Profile from '../Profile'
-import NavBar from '../_navLearner'
+import NavBar from '../_navAdmin'
 
 import UpdateInformation from '../UpdateInformation'
 import UpdatePassword from '../UpdatePassword'
-import UpdateLearnerInformation from '../UpdateLearnerInformation'
 
 const Routes = () => {
   return (
     <div className='user-route-container element-container'>
-      <Route path='/learner/profile/update-information' component={UpdateInformation} />
-      <Route path='/learner/profile/update-account-info' component={UpdatePassword} />
-      <Route path='/learner/profile/update-learner-info' component={UpdateLearnerInformation} />
+      <Route path='/admin/user-view/update-information' component={UpdateInformation} />
+      <Route path='/admin/user-view/update-account-info' component={UpdatePassword} />
+
     </div>
   )
 }
+
+
+
 class UserAdmin extends Component {
   constructor(props) {
     super(props)

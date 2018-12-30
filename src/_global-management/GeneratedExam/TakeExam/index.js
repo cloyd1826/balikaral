@@ -24,6 +24,8 @@ class Layout extends Component {
 
       learningStrand: [],
 
+      percentagePerLearningStrand: [],
+
       generatingExam: true,
       takingExam: false,
       questionAnswered: false,
@@ -40,6 +42,8 @@ class Layout extends Component {
     this.toggleQuestionAnswered = this.toggleQuestionAnswered.bind(this)
 
     this.saveExam = this.saveExam.bind(this)
+
+    this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
   }
   setGrid(currentPage){
     this.setState({
@@ -112,7 +116,9 @@ class Layout extends Component {
     let lengthOfCorrectAnswer = checkedExam.filter((attr)=>{
       return attr.answer === attr.correctAnswer
     })
+    let learningStrandData = this.state.learningStrand
 
+    let percentagePerLearningStrand = []
 
     let data = {}
 
@@ -138,13 +144,15 @@ class Layout extends Component {
         listOfQuestionsPerLearningStrand[index].content = content
      
       })
-      let percentagePerLearningStrand = []
+     
       listOfQuestionsPerLearningStrand.map((attr)=>{
         let correctAnswerOfQuestions = attr.content.filter((attr)=>{
           return attr.answer === attr.correctAnswer
         }) 
+
         let data = {
           learningStrand: attr.id,
+          learningStrandName: learningStrandData[learningStrandData.map((attr)=>{return attr._id}).indexOf(attr.id)].name,
           percentage: Math.round((correctAnswerOfQuestions.length/attr.content.length) * 100),
           score: correctAnswerOfQuestions.length,
           totalQuestion: attr.content.length
@@ -175,6 +183,7 @@ class Layout extends Component {
             exam: checkedExam,
             lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
             lengthOfAnsweredQuestion: checkedExam.length,
+            percentagePerLearningStrand: percentagePerLearningStrand,
             takingExam: false,
             questionAnswered: true,
             checking: true,
@@ -198,6 +207,7 @@ class Layout extends Component {
       .then((res)=>{ 
         if(res.data){
           let result = res.data.data
+          console.log('res',result)
           let exam = [] 
           result.exam.map((attr)=>{
             exam = [...exam, {answer: attr.answer, question: attr.question}]
@@ -221,9 +231,25 @@ class Layout extends Component {
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
+  fetchLearningStrand(){
+    apiRequest('get', `/learning-strand/all`, false, this.props.token)
+      .then((res)=>{ 
+        if(res.data){
+          let result = res.data.data
+          console.log('ls', result)
+          this.setState({
+            learningStrand: result
+          })
+        }
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
  
   componentDidMount(){
     this.fetchExamType()
+    this.fetchLearningStrand()
   }
   render() {
     return (
@@ -329,10 +355,12 @@ class Layout extends Component {
                    
                     
                   {this.state.questionAnswered ? 
+
                     <QuestionAnswered 
                       exam={this.state.exam}
                       setGrid={this.setGrid}
                       checking={this.state.checking}
+                      percentagePerLearningStrand={this.state.percentagePerLearningStrand}
                     />
                   : null}
                   

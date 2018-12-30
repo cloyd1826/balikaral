@@ -31,10 +31,32 @@ class Layout extends Component {
   render() {  
     return (
           <div className='question-answered-container'>
+
+
+          <div className='percentage-per-ls-container'>
+            {this.props.percentagePerLearningStrand.map((attr,index)=>{
+              return (
+                <div key={index} className='percentage-per-ls'>
+
+                    <div className='learning-strand'><span>Learning Strand:</span> {attr.learningStrandName}</div>
+                    <div className='score'><span>Score:</span> {attr.score + '/' + attr.totalQuestion}</div>
+                    <div className='score-bar'>
+                      <div className='correct' style={{width: attr.percentage + '%'}}>{attr.percentage + '%'}</div>
+                      <div className='wrong' style={{width: (100 - attr.percentage) + '%'}}></div>
+                    </div>
+                </div>
+
+
+              )
+            })}
+          </div>
+
+
+
         	{this.props.exam.map((attr, index)=>{
         		return(
 	        		
-        			<div className={'question-answered ' + (attr.answer !== '' ? 'answered' : '') } onClick={()=>{this.setGrid(index + 1)}}>
+        			<div key={index} className={'question-answered ' + (attr.answer !== '' ? 'answered' : '') } onClick={()=>{this.setGrid(index + 1)}}>
         				<div className='number'>{index + 1}</div>
         				<div className={'question ' + (attr.correctAnswer ? attr.correctAnswer === attr.answer ? 'correct' : 'wrong' : '')}>
         					{attr.question ? attr.question.question ? attr.question.question.details ? attr.question.question.details : '' : '' : ''}

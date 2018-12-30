@@ -107,7 +107,7 @@ class Layout extends Component {
               firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
               middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
               lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
-              image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : ''
+              image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : '',
             },
             token: this.props.token,
             isLoggedIn: true,
@@ -133,6 +133,13 @@ class Layout extends Component {
     formData.append('barangay', this.state.barangay)
     formData.append('city', this.state.city)
     formData.append('province', this.state.province)
+
+    formData.append('learningCenter', this.state.learningCenter)
+    formData.append('gradeLevel', this.state.gradeLevel)
+    formData.append('reasongForStopping', this.state.reasongForStopping)
+    formData.append('lifeStatus', this.state.lifeStatus)
+    formData.append('gender', this.state.gender)
+    formData.append('about', this.state.about)
 
     const configPost = {
         headers: {
@@ -160,6 +167,19 @@ class Layout extends Component {
                     barangay: result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '',
                     city: result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '',
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
+
+                    province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
+
+                    learningCenter: result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '',
+                    gradeLevel: result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '',
+                    reasongForStopping: result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '',
+                    lifeStatus: result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '',
+                    
+                    gender: result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '',
+
+                    about: result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '',
+
+
                     userType:  result.local ? result.local.userType ? result.local.userType : '' : '',
                     imagePreview: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
                 })

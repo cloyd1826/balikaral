@@ -8,14 +8,14 @@ import DiscussionAdd from '../DiscussionAdd'
 import DiscussionView from '../DiscussionView'
 
 const Routes = () => {
-  return (
-    <div>
-      <Route path='/learner/forum/dashboard' component={DashboardForum} />
-      <Route path='/learner/forum/discussions/list' component={DiscussionForum} />
-      <Route path='/learner/forum/discussions/add' component={DiscussionAdd} />
-      <Route path='/learner/forum/discussions/view' component={DiscussionView} />
-    </div>
-  )
+	return (
+		<div>
+      <Route path='/admin/forum/dashboard' component={DashboardForum} />
+      <Route path='/admin/forum/discussions/list' component={DiscussionForum} />
+      <Route path='/admin/forum/discussions/add' component={DiscussionAdd} />
+      <Route path='/admin/forum/discussions/view' component={DiscussionView} />
+		</div>
+	)
 }
 
 class ManagementForum extends Component {
@@ -26,7 +26,7 @@ class ManagementForum extends Component {
   render() { 
     return (
         <div>
-          <Routes />
+        	<Routes />
         </div>
     )
   }

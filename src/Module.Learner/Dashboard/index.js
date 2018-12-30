@@ -45,6 +45,14 @@ class Layout extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
+                <Grid.Cell large={4} medium={6} small={12}>
+                  <Link to='/learner/forum/dashboard'>
+                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
+                      <span className='la la-comment'></span>
+                      <div className='link-title'>Forum</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
               </Grid.X>
             </Grid>
           </div>

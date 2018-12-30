@@ -107,9 +107,9 @@ class Layout extends Component {
 
                       {this.state.answer !== '' ? 
                         this.state.answer === question.answer ? 
-                          <div className='grid-correct-answer'>Congratulations. Your answer is correct</div>
+                          <div className='grid-correct-answer'>TAMA KA!</div>
                         : 
-                          <div className='grid-wrong-answer'>Nice Try. The correct answer is {question.answer} </div>
+                          <div className='grid-wrong-answer'>MALI ang sagot mo, pero OKs lang. Ang TAMANG sagot ay: {question.answer} </div>
                       : null}
 
                       <div className='grid-answer'>

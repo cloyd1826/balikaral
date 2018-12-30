@@ -2038,6 +2038,41 @@ span.no-validator {
     color: #000;
     font-weight: 600; }
 
+.percentage-per-ls-container {
+  width: calc(100% - 32px);
+  border-radius: 5px;
+  position: relative;
+  padding: 16px;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  margin-bottom: 8px; }
+  .percentage-per-ls-container .percentage-per-ls {
+    margin-bottom: 8px; }
+    .percentage-per-ls-container .percentage-per-ls .learning-strand, .percentage-per-ls-container .percentage-per-ls .score {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px; }
+      .percentage-per-ls-container .percentage-per-ls .learning-strand span, .percentage-per-ls-container .percentage-per-ls .score span {
+        font-weight: 500; }
+    .percentage-per-ls-container .percentage-per-ls .score {
+      margin-bottom: 8px; }
+    .percentage-per-ls-container .percentage-per-ls .score-bar {
+      display: flex; }
+      .percentage-per-ls-container .percentage-per-ls .score-bar .correct {
+        height: 40px;
+        background: #d1f4da;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        display: flex;
+        align-items: center;
+        padding-left: 16px;
+        font-weight: 600; }
+      .percentage-per-ls-container .percentage-per-ls .score-bar .wrong {
+        height: 40px;
+        background: #f2dede;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px; }
+
 .question-answered-container {
   width: 100%;
   border-radius: 5px;
@@ -2264,6 +2299,33 @@ span.no-validator {
   margin: 8px 0;
   background: #fff; }
 
+.learner-profile {
+  display: flex; }
+  .learner-profile .user-image-learner .hero-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: 3px 2px 2px #888;
+    background-repeat: no-repeat;
+    background-position: center; }
+  .learner-profile .user-description-learner {
+    padding: 16px;
+    margin-left: 32px; }
+    .learner-profile .user-description-learner .user-name {
+      font-size: 32px;
+      margin-bottom: 16px; }
+    .learner-profile .user-description-learner .user-description {
+      font-size: 22px;
+      margin-bottom: 16px;
+      color: rgba(0, 0, 0, 0.6); }
+    .learner-profile .user-description-learner .other-info {
+      font-size: 16px;
+      margin-bottom: 16px; }
+      .learner-profile .user-description-learner .other-info span {
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.5); }
+
 .learner-dashboard .learner-user-info {
   background: #fff;
   box-shadow: 3px 2px 2px #888;
@@ -2285,13 +2347,108 @@ span.no-validator {
 .forum-dashboard .forum-dashboard-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
   border: 1px solid transparent;
-  margin-bottom: 8px; }
+  margin-bottom: 8px;
+  border-radius: 5px;
+  position: relative; }
   .forum-dashboard .forum-dashboard-container .forum-name {
     font-weight: 600;
     font-size: 22px;
+    border-bottom: #e0e0e0 solid 1px;
+    padding: 8px 16px;
+    position: relative; }
+    .forum-dashboard .forum-dashboard-container .forum-name .date-created {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translate(0, -50%);
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 12px; }
+  .forum-dashboard .forum-dashboard-container .forum-strand {
+    padding-top: 16px; }
+  .forum-dashboard .forum-dashboard-container .forum-user {
+    padding-top: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 600; }
+  .forum-dashboard .forum-dashboard-container .forum-name, .forum-dashboard .forum-dashboard-container .forum-description, .forum-dashboard .forum-dashboard-container .forum-strand, .forum-dashboard .forum-dashboard-container .forum-user {
+    padding-left: 16px;
+    padding-right: 16px; }
+  .forum-dashboard .forum-dashboard-container .forum-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+    width: 200px; }
+  .forum-dashboard .forum-dashboard-container .forum-description {
+    padding-bottom: 16px; }
+  .forum-dashboard .forum-dashboard-container .forum-content {
+    display: flex;
+    padding: 16px; }
+
+.discussion-container {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin-bottom: 0 !important; }
+  .discussion-container .discussion-title {
+    font-weight: 600;
+    font-size: 22px;
+    border-bottom: #e0e0e0 solid 1px;
+    padding: 8px 16px;
+    position: relative; }
+    .discussion-container .discussion-title .date-created {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translate(0, -50%);
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 12px; }
+  .discussion-container .discussion-user {
+    padding-top: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 600; }
+  .discussion-container .discussion-title, .discussion-container .discussion-description, .discussion-container .discussion-user {
+    padding-left: 16px;
+    padding-right: 16px; }
+  .discussion-container .discussion-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+    width: 200px; }
+  .discussion-container .discussion-description {
+    padding-bottom: 16px; }
+  .discussion-container .discussion-content {
+    display: flex;
+    padding: 16px; }
+
+.comment-container {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  border: 1px solid transparent;
+  border-radius: 5px; }
+
+.comment-list {
+  padding-bottom: 0 !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  border: 1px solid transparent;
+  border-radius: 5px; }
+  .comment-list .comment-info-container {
     border-bottom: #e0e0e0 solid 1px; }
-  .forum-dashboard .forum-dashboard-container .forum-name, .forum-dashboard .forum-dashboard-container .forum-description, .forum-dashboard .forum-dashboard-container .forum-strand {
-    padding: 8px 16px; }
+    .comment-list .comment-info-container .comment-info {
+      padding: 8px 16px;
+      position: relative;
+      font-weight: 600; }
+      .comment-list .comment-info-container .comment-info .date-comment {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translate(0, -50%);
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 12px; }
+    .comment-list .comment-info-container .comment-description {
+      padding: 16px;
+      padding-top: 0; }
 
 body {
   padding: 0;
@@ -2313,7 +2470,7 @@ p, span, a {
 .padding-16 {
   padding: 16px; }
 
-.element-container {
+.element-container, .discussion-container, .comment-container, .comment-list {
   background: #fff;
   padding: 16px;
   margin-bottom: 16px;

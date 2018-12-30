@@ -15,8 +15,12 @@ import GeneratedExam from '../../_global-management/GeneratedExam/_routeAdmin'
 
 import ManagementForum from '../../_global-management/Forum/_routeAdminManagement'
 
+import Forum from '../../_global-management/Forum/_routeAdmin'
+
 import UserView from '../../Page.Profile/_routeAdmin'
 
+import LearnerProfile from '../../Page.LearnerProfile/_routeAdmin'
+import LearnerList from '../../Page.Profile/UserLearner'
 
 import User from '../User'
 
@@ -30,12 +34,17 @@ const Routes = () => {
             <Route path='/admin/management/subject' component={Subject} />
             <Route path='/admin/management/forum' component={ManagementForum} />
 
+            <Route path='/admin/forum' component={Forum} />
+
             <Route path='/admin/management/exam' component={Exam} />
             <Route path='/admin/management/exam-type' component={ExamType} />
             <Route path='/admin/management/reviewer' component={Reviewer} />
             <Route path='/admin/user' component={User} />
 
             <Route path='/admin/generated-exam/' component={GeneratedExam} />
+
+            <Route path='/admin/learner-profile/' component={LearnerProfile} />
+            <Route path='/admin/learner-list' component={LearnerList} />
 
             <Route path='/admin/user-view' component={UserView} />
         </div>

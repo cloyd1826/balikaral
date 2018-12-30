@@ -26,10 +26,18 @@ class Layout extends Component {
       active: false,
     
       checkingExam: false,
+
+      learningStrand: [],
+
+      percentagePerLearningStrand: [],
+
       totalHours: 0
     } 
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
+
+    this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
+
   }
   formMessage(message, type, active){
     this.setState({
@@ -52,11 +60,26 @@ class Layout extends Component {
 			let lengthOfCorrectAnswer = checkedExam.filter((attr)=>{
 				return attr.answer === attr.correctAnswer
 			})
+      let percentagePerLearningStrand = []
+      let percentage = result.percentagePerLearningStrand
+      let learningStrand = this.state.learningStrand
+
+      percentage.map((attr)=>{
+        
+        let learningStrandName = learningStrand[ learningStrand.map((ls)=>{return ls._id}).indexOf(attr.learningStrand) ].name
+        let data = {
+          learningStrandName: learningStrandName
+        }
+        data = { ...data, ...attr}
+        percentagePerLearningStrand = [...percentagePerLearningStrand, data ]
+      })
+
 			this.setState({
 				generating: false,
 				checkingExam: true,
 				exam: checkedExam,
-                lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
+        lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
+        percentagePerLearningStrand: percentagePerLearningStrand,
 				examType: result.examType ? result.examType : {}
 			})
         }
@@ -65,13 +88,29 @@ class Layout extends Component {
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
+   fetchLearningStrand(){
+    apiRequest('get', `/learning-strand/all`, false, this.props.token)
+      .then((res)=>{ 
+        if(res.data){
+          let result = res.data.data
+          this.setState({
+            learningStrand: result
+          })
+          this.fetchExamType()
+        }
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
+ 
   
 
   componentDidMount(){
-    this.fetchExamType()
+    
+    this.fetchLearningStrand()
   }
   render() { 
-
     return (
         <div>
           <Grid fluid>
@@ -129,6 +168,7 @@ class Layout extends Component {
                             <QuestionAnswered 
                               exam={this.state.exam}
                               checking={true}
+                              percentagePerLearningStrand={this.state.percentagePerLearningStrand}
                             />
                             
                           </Grid.Cell>

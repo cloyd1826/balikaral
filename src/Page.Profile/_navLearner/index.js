@@ -10,7 +10,6 @@ class Layout extends Component {
     this.state = {  }
   }
   componentDidMount(){
-    console.log(this.props)
   }
   render() { 
     return (
@@ -19,17 +18,18 @@ class Layout extends Component {
             className='link' 
             activeClassName='active' 
             to={ { pathname:'/learner/profile/update-information', state: { id: this.props.location.state.id } } }
-            >Personal Information</NavLink> 
+            >Personal Information</NavLink>
+          <NavLink 
+            className='link' 
+            activeClassName='active' 
+            to={ { pathname:'/learner/profile/update-learner-info', state: { id: this.props.location.state.id } } }
+            >Other Information</NavLink> 
           <NavLink 
             className='link' 
             activeClassName='active' 
             to={ { pathname:'/learner/profile/update-account-info', state: { id: this.props.location.state.id } } }
             >Account Information</NavLink>
-          <NavLink 
-            className='link' 
-            activeClassName='active' 
-            to={ { pathname:'/learner/profile/audit-trail', state: { id: this.props.location.state.id } } }
-            >Audit Trail</NavLink>
+          
         </div>
     )
   }
