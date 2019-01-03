@@ -107,7 +107,7 @@ class Layout extends Component {
                                       pathname: '/admin/user-view/update-information', 
                                       state: { id: attr._id } 
                                     }}>
-                                  {attr.local.email}
+                                  {attr.local ? attr.local.email ? attr.local.email : '' : ''}
                                 </Link>
                               </Table.Cell>
                               <Table.Cell>

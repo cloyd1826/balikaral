@@ -410,7 +410,7 @@ class Layout extends Component {
                                 <Grid.Cell large={6} medium={12} small={12}>
                                   <FileInput 
                                     type='file'
-                                    label='Image for Choice A'
+                                    label='Image for Choice D'
                                     name='imageChoiceD'
                                     fileName={this.state.dImage}
                                     accept="image/*"
