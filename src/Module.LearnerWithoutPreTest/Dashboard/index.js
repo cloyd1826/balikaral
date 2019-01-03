@@ -30,7 +30,7 @@ class Layout extends Component {
                   </Link>
                 </Grid.Cell>
                 <Grid.Cell large={4} medium={6} small={12}>
-                  <Link to='/learner/reviewer/list/learner'>
+                  <Link to='/learner-start/reviewer/list/learner'>
                     <div className='dashboard-link' style={{background: '#0386a2'}}>
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Talino</div>
