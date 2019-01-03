@@ -61,8 +61,15 @@ class Layout extends Component{
                 </Link>
               : null}
 
-              {this.props.role === 'Learner' ? 
+              {this.props.role === 'Learner' && this.props.hadPreTest ? 
                 <Link to='/learner/dashboard'>
+                  <div className='user-bar'>
+                    <span><i className='fa fa-dashboard' />Learner Dashboard</span>
+                  </div>
+                </Link>
+              : null}
+              {this.props.role === 'Learner' && !this.props.hadPreTest ? 
+                <Link to='/learner-start/dashboard'>
                   <div className='user-bar'>
                     <span><i className='fa fa-dashboard' />Learner Dashboard</span>
                   </div>
@@ -97,7 +104,8 @@ class Layout extends Component{
 const mapStateToProps = state => {
   return {
     user: state.user,
-    role: state.role
+    role: state.role,
+    hadPreTest: state.hadPreTest,
   }
 }
 const mapDispatchToProps = dispatch => {

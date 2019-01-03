@@ -8,6 +8,7 @@ import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
 import Textarea from '../../../_component/Form/Textarea'
 import Button from '../../../_component/Form/Button'
+import Pagination from '../../../_component/Pagination'
 
 
 import apiRequest from '../../../_axios'
@@ -27,6 +28,13 @@ class Layout extends Component {
       commentList: [],
       comment: '',
 
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
+
       message: '',
       type: '',
       active: false,
@@ -41,8 +49,17 @@ class Layout extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
 
     this.handleChange = this.handleChange.bind(this)
+
+    this.changePage = this.changePage.bind(this)
+
   }
-  
+  changePage(page){
+   
+    this.setState({
+      currentPage: page
+    })
+    this.fetchComment(page)
+  }
   formMessage(message, type, active, button){
     this.setState({
       message: message,
@@ -60,19 +77,24 @@ class Layout extends Component {
             discussion: res.data.data
           })  
         }
-        this.fetchComment()
+        this.fetchComment(1)
       })
       .catch((err)=>{
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
-  fetchComment(){
-    apiRequest('get', `/comment/forum/${this.props.location.state.discussionId}`, false, this.props.token)
+  fetchComment(page){
+    apiRequest('get', `/comment/forum/${this.props.location.state.discussionId}?page=${page}`, false, this.props.token)
       .then((res)=>{
-        console.log('dis',res.data.data)
         if(res.data){
           this.setState({
-            commentList: res.data.data
+            commentList: res.data.data,
+            currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
           })  
         }
       })
@@ -100,7 +122,8 @@ class Layout extends Component {
   }
   apiRequest('post', '/comment', data, this.props.token)
     .then((res)=>{
-        this.fetchComment()
+        let page = this.state.currentPage
+        this.fetchComment(page)
     })  
     .catch((err)=>{
 
@@ -206,6 +229,20 @@ class Layout extends Component {
                   })
                   
                   }
+                  <div className='forum-pagination'>
+                      <Pagination
+                          changePage={this.changePage}
+                          currentPage={this.state.currentPage}
+                          nextPage={this.state.nextPage}
+                          pageCount={this.state.pageCount}
+                          perPage={this.state.perPage}
+                          previousPage={this.state.previousPage}
+                          totalCount={this.state.totalCount}
+
+                      />
+                  </div>
+
+
                 </div>
               </Grid.Cell>
 

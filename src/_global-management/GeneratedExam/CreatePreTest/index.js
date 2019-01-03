@@ -26,8 +26,8 @@ class Layout extends Component {
       hasPending: false,
       isAvailable: false,
       hasPassed: false,
+      idOfPendingExam: '',
     }
-    this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
 
     this.generateExam = this.generateExam.bind(this)
@@ -49,75 +49,53 @@ class Layout extends Component {
       active: active
     })
   }
-  fetchExamType(){
-    apiRequest('get', `/exam-type-management/all`, false, this.props.token)
-      .then((res)=>{
-        if(res.data){
-          this.setState({
-            examType: res.data.data
-          })  
-        }
-      })
-      .catch((err)=>{
-        console.log(err)
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-      })
-  }
-
-  generateExam(id, level, type){
+  generateExam(){
     this.setState({
       generating: true
     })
     
-    apiRequest('get', `/exam-management/random?examId=${id}&type=${type}&examinerId=${this.props.user.id}`, false, this.props.token)
+    apiRequest('get', `/exam-management/pre-test`, false, this.props.token)
       .then((res)=>{
         console.log(res)
         if(res.data){
           let result = res.data
           console.log('re',res.data)
+         
+          let examList = []
+          let easyExam = []
+          let mediumExam = []
+          let hardExam = []
 
-          if(result.status){
-            this.setState({
-              generating: false,
-              hasPassed: true,
-            })
-          }else{
+          result.easy.map((attr)=>{
+            let data = {
+              answer: '',
+              question: ''
+            }
+            data = {...data, question: attr._id}
+            easyExam = [...easyExam, data]
+          })
+          result.medium.map((attr)=>{
+            let data = {
+              answer: '',
+              question: ''
+            }
+            data = {...data, question: attr._id}
+            mediumExam = [...mediumExam, data]
+          })
+          result.hard.map((attr)=>{
+            let data = {
+              answer: '',
+              question: ''
+            }
+            data = {...data, question: attr._id}
+            hardExam = [...hardExam, data]
 
-            let examList = []
-            let easyExam = []
-            let mediumExam = []
-            let hardExam = []
+          })
 
-            result.easy.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              easyExam = [...easyExam, data]
-            })
-            result.medium.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              mediumExam = [...mediumExam, data]
-            })
-            result.hard.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              hardExam = [...hardExam, data]
-
-            })
-
-            examList = [...examList, ...easyExam, ...mediumExam, ...hardExam ]
-              
-            this.postExam(examList, id, type)
-          }
+          examList = [...examList, ...easyExam, ...mediumExam, ...hardExam ]
+        
+          this.postExam(examList, result.examType)
+          
         }
       })
       .catch((err)=>{
@@ -128,21 +106,20 @@ class Layout extends Component {
       })
   }
 
-  postExam(exam, id, type){
-
+  postExam(exam, type){
     let data = {
-      examType: id,
+      examType: type._id,
       exam: exam,
       examiner: this.props.user.id,
-      type: type,
+      type: 'Pre Test',
       status: 'Pending',
       dateStarted: Date.now()
     }
-
     apiRequest('post', `/generated-exam`, data, this.props.token)
       .then((res)=>{
+          console.log('res',res)
           this.props.history.push({
-            pathname: '/learner/exam/take',
+            pathname: '/learner-start/pre-test/take',
             state: { id: res.data.data._id }
           })
       })
@@ -150,7 +127,6 @@ class Layout extends Component {
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
-
   checkStatus(){
     apiRequest('get', `/generated-exam/check-status/${this.props.user.id}`, false, this.props.token)
       .then((res)=>{
@@ -169,19 +145,12 @@ class Layout extends Component {
                 hasPending: false,
                 isAvailable: true
               })
-             this.fetchExamType()
           }
       })
       .catch((err)=>{
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
-
-
-
-
-
-
   componentDidMount(){
    
     this.checkStatus()
@@ -194,12 +163,8 @@ class Layout extends Component {
               <Grid.Cell large={12} medium={12} small={12}>
                 <div className='element-container'>
                   <div className='title-text-container'>
-                    <div className='title'>Available Exam</div>
-                    <div className='title-action'>
-                      <Link to='/learner/exam/list'>
-                        <div className='button primary small'>List of Taken Exams</div>
-                      </Link>
-                    </div>
+                    <div className='title'>Create Pre Test</div>
+                    
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   
@@ -239,7 +204,7 @@ class Layout extends Component {
                           </span>
                           <div className='subtitle-montserrat'>Pending Exam</div>
                           <div className='context-montserrat'>You cant take any exam since you still have a Pending Exam Status</div>
-                           <Link to={{ 
+                          <Link to={{ 
                                     pathname: '/learner-start/pre-test/take', 
                                     state: { id: this.state.idOfPendingExam } 
                                   }}>
@@ -250,35 +215,18 @@ class Layout extends Component {
 
                   : null }
                   {this.state.isAvailable ? 
-                    <Grid.X className='exam-type-container'>
-                      {this.state.examType.map((attr, index)=> {
-                        return (
-                          <Grid.Cell key={index} className='exam-type' large={4} medium={6} small={12}>
-                            <div className='container'>
-                              <div className='subtitle-montserrat'>{(attr.level ? attr.level.name ? attr.level.name : '' : '') + ' - ' + attr.examType}</div>
-                              <div className='context-montserrat'>{attr.examDescription}</div>
-                              <div className='line-border'></div>
-                              <div className='exam-details'><span>Easy: </span> {attr.easy ? attr.easy : '' } </div>
-                              <div className='exam-details'><span>Medium: </span> {attr.medium ? attr.medium : '' } </div>
-                              <div className='exam-details'><span>Hard: </span> { attr.hard ? attr.hard : '' } </div>
-                              <div className='exam-details'><span>Total No of Questions: </span> {attr.examTotal ? attr.examTotal : '' } </div>
-                              <div className='exam-details'><span>Exam Time: </span> {attr.totalHours ? attr.totalHours : '' } </div>
-                              <div className='exam-button'>
-                                
-                                  <button 
-                                    type='button' 
-                                    className='button primary small' 
-                                    onClick={(e)=> {this.generateExam(attr._id, attr.level._id, attr.examType)}}
-                                    >TAKE EXAM
-                                  </button>
-   
-
-                              </div>
-                            </div>
-                          </Grid.Cell>
-                          )
-                      })}
-                    </Grid.X>
+                   <div className='exam-type-loader'>
+                      <div>
+                        <span>
+                          <i className='la la-file-text-o'></i>
+                        </span>
+                        <div className='subtitle-montserrat'>Create Pre Test</div>
+                        <div className='context-montserrat'>Lorem Ipsum Dolor Sit Amet Consectur Adepescin Elit.</div>
+                       
+                          <div className='button primary' onClick={this.generateExam}>Generate Exam</div>
+                       
+                      </div>
+                    </div>
 
                   : null}
 

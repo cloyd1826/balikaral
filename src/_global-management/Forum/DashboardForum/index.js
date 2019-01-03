@@ -9,6 +9,8 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
+import Pagination from '../../../_component/Pagination'
+
 
 class Layout extends Component {
   constructor(props) {
@@ -20,6 +22,13 @@ class Layout extends Component {
       type: '',
       active: false,
 
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
+
       deleteActive: false,
       link: ''
     }
@@ -27,6 +36,16 @@ class Layout extends Component {
     this.formMessage = this.formMessage.bind(this)
 
     this.toggleDelete = this.toggleDelete.bind(this)
+
+    this.changePage = this.changePage.bind(this)
+
+  }
+  changePage(page){
+   
+    this.setState({
+      currentPage: page
+    })
+    this.fetchSubject(page)
   }
   toggleDelete(link){
     if(this.state.deleteActive){
@@ -34,7 +53,9 @@ class Layout extends Component {
         deleteActive: false,
         link: ''
       })
-      this.fetchSubject()
+      let page = this.state.currentPage
+   
+      this.fetchSubject(page)
     }else{
       this.setState({
         deleteActive: true,
@@ -43,21 +64,27 @@ class Layout extends Component {
     }
   }
   formMessage(message, type, active){
-    this.setState({
+    this.setState({ 
       message: message,
       type: type,
       active: active
     })
   }
 
-  fetchSubject(){
+  fetchSubject(page){
     
-    apiRequest('get', '/management-forum/all', false, this.props.token)
+    apiRequest('get', `/management-forum/all?page=${page}`, false, this.props.token)
       .then((res)=>{
         console.log(res.data.data)
         if(res.data){
           this.setState({
-            forum: res.data.data
+            forum: res.data.data,
+            currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
           })  
         }
       })
@@ -66,7 +93,7 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    this.fetchSubject()
+    this.fetchSubject(1)
   }
   render() { 
     return (
@@ -101,6 +128,18 @@ class Layout extends Component {
                       </div>
                       )
                   })}
+                   <div className='forum-pagination'>
+                      <Pagination
+                          changePage={this.changePage}
+                          currentPage={this.state.currentPage}
+                          nextPage={this.state.nextPage}
+                          pageCount={this.state.pageCount}
+                          perPage={this.state.perPage}
+                          previousPage={this.state.previousPage}
+                          totalCount={this.state.totalCount}
+
+                      />
+                  </div>
                     
                 </div>
             </Grid.Cell>

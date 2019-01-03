@@ -42,8 +42,8 @@ class Layout extends Component {
 			onChange={this.props.onChange ? this.props.onChange : '' }
 			value={this.props.value}
 			name={this.props.name}
-      		required={this.props.required}
-			label='Subject'
+      required={this.props.required}
+			label={this.props.label ? this.props.label : 'Subject'}
 		>
 			<option value=''></option>
         {this.state.subject.map((attr,index)=> {

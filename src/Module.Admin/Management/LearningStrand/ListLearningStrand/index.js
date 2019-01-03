@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../../_component/Grid'
+import Pagination from '../../../../_component/Pagination'
 import Table from '../../../../_component/Table'
 import FormMessage from '../../../../_component/Form/FormMessage'
 
@@ -19,16 +20,33 @@ class Layout extends Component {
     	learningStrand: [],
 
     	message: '',
-        type: '',
-        active: false,
+      type: '',
+      active: false,
 
-        deleteActive: false,
-        link: ''
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
+
+      deleteActive: false,
+      link: ''
     }
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
    	this.formMessage = this.formMessage.bind(this)
 
    	this.toggleDelete = this.toggleDelete.bind(this)
+
+    this.changePage = this.changePage.bind(this)
+
+  }
+  changePage(page){
+
+    this.setState({
+      currentPage: page
+    })
+    this.fetchLearningStrand( page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -36,7 +54,8 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLearningStrand()
+      let page = this.state.currentPage
+  		this.fetchLearningStrand(page)
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -52,14 +71,20 @@ class Layout extends Component {
     })
   }
 
-  fetchLearningStrand(){
+  fetchLearningStrand(page){
   	
-  	apiRequest('get', '/learning-strand/all', false, this.props.token)
+  	apiRequest('get', `/learning-strand/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
         console.log(res.data.data)
   			if(res.data){
   				this.setState({
-	  				learningStrand: res.data.data
+	  				learningStrand: res.data.data,
+             currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
 	  			})	
 	  		}
   		})
@@ -68,7 +93,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLearningStrand()
+  	this.fetchLearningStrand(1)
   }
   render() { 
     return (
@@ -145,6 +170,18 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                <div className='table-pagination'>
+                      <Pagination
+                          changePage={this.changePage}
+                          currentPage={this.state.currentPage}
+                          nextPage={this.state.nextPage}
+                          pageCount={this.state.pageCount}
+                          perPage={this.state.perPage}
+                          previousPage={this.state.previousPage}
+                          totalCount={this.state.totalCount}
+
+                      />
+                  </div>
 			        	</div>
         			</Grid.Cell>
         		</Grid.X>

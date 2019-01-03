@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import Grid from '../../../_component/Grid'
 import Table from '../../../_component/Table'
 import FormMessage from '../../../_component/Form/FormMessage'
+import Pagination from '../../../_component/Pagination'
+
 
 import apiRequest from '../../../_axios'
 
@@ -29,6 +31,13 @@ class Layout extends Component {
       type: '',
       active: false,
 
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
+
       deleteActive: false,
       link: ''
     }
@@ -37,7 +46,18 @@ class Layout extends Component {
 
    	this.toggleDelete = this.toggleDelete.bind(this)
 
+    this.changePage = this.changePage.bind(this)
+
     this.handleChange = this.handleChange.bind(this)
+  }
+  changePage(page){
+   
+    this.setState({
+      currentPage: page
+    })
+    let learningStrand = this.state.learningStrand
+    let validation = this.state.validation
+    this.fetchSubject(validation, learningStrand, page)
   }
   handleChange(e){
     let name = e.target.name
@@ -47,14 +67,14 @@ class Layout extends Component {
     })
     let learningStrand = this.state.learningStrand
     let validation = this.state.validation
-    let level = this.state.level
+    let page = this.state.currentPage
     if(name==='learningStrand'){
       learningStrand = value
     }
     if(name ==='validation'){
       validation = value
     }
-    this.fetchLevel(validation, learningStrand)
+    this.fetchLevel(validation, learningStrand, page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -62,7 +82,11 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-      this.fetchLevel('','')
+      let learningStrand = this.state.learningStrand
+      let validation = this.state.validation
+      let page = this.state.currentPage
+    this.fetchLevel(validation, learningStrand, page)
+      
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -78,20 +102,20 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(validation, learningStrand){
+  fetchLevel(validation, learningStrand, page){
   
     let routeToUse = ''
 
     if(this.props.match.params.type === 'self'){
-      routeToUse = `/reviewer-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}`
+      routeToUse = `/reviewer-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&page=${page}`
     }
 
     if(this.props.match.params.type === 'all'){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}`
     }
 
     if(this.props.match.params.type === 'teachers'){
-      routeToUse = `/reviewer-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}`
+      routeToUse = `/reviewer-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&page=${page}`
     }
 
     if(this.props.match.params.type === 'learner'){
@@ -103,7 +127,13 @@ class Layout extends Component {
   			if(res.data){
           console.log(res)
   				this.setState({
-	  				reviewer: res.data.data
+	  				reviewer: res.data.data,
+            currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
 	  			})	
 	  		}
   		})
@@ -113,7 +143,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel('','')
+  	this.fetchLevel('','',1)
   }
   render() { 
     return (
@@ -251,6 +281,18 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                <div className='table-pagination'>
+                      <Pagination
+                          changePage={this.changePage}
+                          currentPage={this.state.currentPage}
+                          nextPage={this.state.nextPage}
+                          pageCount={this.state.pageCount}
+                          perPage={this.state.perPage}
+                          previousPage={this.state.previousPage}
+                          totalCount={this.state.totalCount}
+
+                      />
+                  </div>
 			        	</div>
         			</Grid.Cell>
         		</Grid.X>

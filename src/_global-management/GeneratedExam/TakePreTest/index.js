@@ -12,9 +12,6 @@ import { connect } from 'react-redux'
 import GridExam from '../View.GridExam'
 import QuestionAnswered from '../View.QuestionAnswered'
 
-import { bindActionCreators } from 'redux';
-import { logInUser } from '../../../_redux/actions/user'
-
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -23,23 +20,19 @@ class Layout extends Component {
       examType: {},
       currentPage: 1,
 
+      idOfExam: undefined,
+
       lengthOfAnsweredQuestion: 0,
 
       learningStrand: [],
 
       percentagePerLearningStrand: [],
 
-      generatingExam: true,
+      generating: true,
       takingExam: false,
       questionAnswered: false,
-      checking: false,
-
-      hadPreTest: false,
-
-
-
+      checking: false
     }
-    this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
 
     this.changePage = this.changePage.bind(this)
@@ -52,6 +45,11 @@ class Layout extends Component {
     this.saveExam = this.saveExam.bind(this)
 
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
+
+    this.generateExam = this.generateExam.bind(this)
+    this.postExam = this.postExam.bind(this)
+
+    this.fetchExamType = this.fetchExamType.bind(this)
   }
   setGrid(currentPage){
     this.setState({
@@ -184,18 +182,7 @@ class Layout extends Component {
         status: 'Pending' 
       }
     }
-
-    this.setState({
-            exam: checkedExam,
-            lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
-            lengthOfAnsweredQuestion: checkedExam.length,
-            percentagePerLearningStrand: percentagePerLearningStrand,
-            takingExam: false,
-            questionAnswered: true,
-            checking: true,
-          })
-
-    apiRequest('put', `/generated-exam/update/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/generated-exam/update/${this.state.idOfExam}`, data, this.props.token)
       .then((res)=>{ 
        if(finished){
           this.setState({
@@ -207,23 +194,6 @@ class Layout extends Component {
             questionAnswered: true,
             checking: true,
           })
-
-           if(!this.props.hadPreTest){
-              let hadPreTest = {
-                hadPreTest: true
-              }
-              apiRequest('put', `/user/update-pre-test/${this.props.user.id}`, hadPreTest, this.props.token)
-                .then((res)=>{ 
-                 this.setState({
-                  hadPreTest: true
-                 })
-                })
-                .catch((err)=>{
-                  this.formMessage('Error: ' + err.message, 'error', true, false)
-                })
-            }
-
-
         }else{
             this.setState({
               cancelExam: true,
@@ -236,53 +206,9 @@ class Layout extends Component {
       .catch((err)=>{
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
-
-   
-  }
-  componentWillUnmount(){
-    if(this.state.hadPreTest){
-      let userData = {
-        user: this.props.user,
-        token: this.props.token,
-        isLoggedIn: true,
-        role: this.props.role,
-        hadPreTest: true
-      }
-      this.props.actions.logIn(userData)
-      this.props.history.push('/learner/dashboard')
-    }
-     
   }
  
-  fetchExamType(){
-    apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
-      .then((res)=>{ 
-        if(res.data){
-          let result = res.data.data
-          console.log('res',result)
-          let exam = [] 
-          result.exam.map((attr)=>{
-            exam = [...exam, {answer: attr.answer, question: attr.question}]
-          })
-          let lengthOfAnsweredQuestion = exam.filter((attr)=>{
-            return attr.answer != '' 
-          })
-
-          this.setState({
-            currentPage: 1,
-            exam: exam,
-            lengthOfAnsweredQuestion: lengthOfAnsweredQuestion.length,
-            examType: result.examType ? result.examType : {},
-            generatingExam: false,  
-            takingExam: true,
-            
-          })
-        }
-      })
-      .catch((err)=>{
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-      })
-  }
+ 
   fetchLearningStrand(){
     apiRequest('get', `/learning-strand/all`, false, this.props.token)
       .then((res)=>{ 
@@ -300,8 +226,117 @@ class Layout extends Component {
   }
  
   componentDidMount(){
-    this.fetchExamType()
+    this.generateExam()
     this.fetchLearningStrand()
+  }
+
+
+  generateExam(){
+    this.setState({
+      generating: true
+    })
+    
+    apiRequest('get', `/exam-management/pre-test`, false, this.props.token)
+      .then((res)=>{
+        console.log(res)
+        if(res.data){
+          let result = res.data
+          console.log('re',res.data)
+         
+          let examList = []
+          let easyExam = []
+          let mediumExam = []
+          let hardExam = []
+
+          result.easy.map((attr)=>{
+            let data = {
+              answer: '',
+              question: ''
+            }
+            data = {...data, question: attr._id}
+            easyExam = [...easyExam, data]
+          })
+          result.medium.map((attr)=>{
+            let data = {
+              answer: '',
+              question: ''
+            }
+            data = {...data, question: attr._id}
+            mediumExam = [...mediumExam, data]
+          })
+          result.hard.map((attr)=>{
+            let data = {
+              answer: '',
+              question: ''
+            }
+            data = {...data, question: attr._id}
+            hardExam = [...hardExam, data]
+
+          })
+
+          examList = [...examList, ...easyExam, ...mediumExam, ...hardExam ]
+        
+          this.postExam(examList, result.examType)
+          
+        }
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+        this.setState({
+          generateExam: false,
+        })
+      })
+  }
+
+  postExam(exam, type){
+    let data = {
+      examType: type._id,
+      exam: exam,
+      examiner: this.props.user.id,
+      type: 'Pre Test',
+      status: 'Pending',
+      dateStarted: Date.now()
+    }
+    apiRequest('post', `/generated-exam`, data, this.props.token)
+      .then((res)=>{
+          console.log('res',res)
+          this.setState({
+            idOfExam: res.data.data._id 
+          })
+          this.fetchExamType(res.data.data._id)
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
+  fetchExamType(id){
+    apiRequest('get', `/generated-exam/${id}`, false, this.props.token)
+      .then((res)=>{ 
+        if(res.data){
+          let result = res.data.data
+          console.log('res',result)
+          let exam = [] 
+          result.exam.map((attr)=>{
+            exam = [...exam, {answer: attr.answer, question: attr.question}]
+          })
+          let lengthOfAnsweredQuestion = exam.filter((attr)=>{
+            return attr.answer != '' 
+          })
+
+          this.setState({
+            currentPage: 1,
+            exam: exam,
+            lengthOfAnsweredQuestion: lengthOfAnsweredQuestion.length,
+            examType: result.examType ? result.examType : {},
+            generating: false,  
+            takingExam: true,
+            
+          })
+        }
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
   }
   render() {
     return (
@@ -325,13 +360,10 @@ class Layout extends Component {
                         <span>
                           <i className='la la-spinner'></i>
                         </span>
-                        <div className='subtitle-montserrat'>Retreiving Exam</div>
+                        <div className='subtitle-montserrat'>Generating Exam</div>
                       </div>
                     </div>
                   : null }
-
-
-                 
 
                    { //cancel exam
                     this.state.cancelExam ?
@@ -342,7 +374,7 @@ class Layout extends Component {
                           </span>
                           <div className='subtitle-montserrat'>Exam Discontinued</div>
                           <div className='context-montserrat'>You can always return to this exam anytime</div>
-                          <Link to={(this.props.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard')}>
+                          <Link to='/learner/dashboard'>
                             <div className='button primary'>Return to Dashboard</div>
                           </Link>
                         </div>
@@ -373,18 +405,6 @@ class Layout extends Component {
                   : null}
 
                   {this.state.checking ?
-                    <div>
-                    <div className='question-card-loader'>
-                        <div className='question-loader-container'>
-                          <span>
-                            <i className='la la-smile-o'></i>
-                          </span>
-                          <div className='subtitle-montserrat'>Congratulations</div>
-                          <div className='context-montserrat'>Lorem Ipsum Dolor Sit Amet. <br />You will be able to view all the actions for a Learner User</div>
-                         
-                        </div>
-                      </div>
-
                     <div className='grid-question-action'>
                       <div className='action'>
                         <i className='la la-list-alt' />
@@ -400,13 +420,12 @@ class Layout extends Component {
                         <i className='la la-hourglass-2' />
                         5:00
                       </div>
-                      <Link to={this.state.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard'}>
+                      <Link to='/learner/dashboard'>
                         <div className='action'>
                             <i className='la la-home' />
                             Return to Dashboard
                         </div>
                       </Link>
-                    </div>
                     </div>
                   : null}
 
@@ -457,17 +476,8 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     role: state.role,
-    user: state.user,
-    hadPreTest: state.hadPreTest
+    user: state.user
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-     actions:{
-       logIn: bindActionCreators(logInUser, dispatch)
-    }
-  }
-}
-
-const ListLevel = connect(mapStateToProps, mapDispatchToProps)(Layout)
+const ListLevel = connect(mapStateToProps)(Layout)
 export default ListLevel  

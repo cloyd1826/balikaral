@@ -10,7 +10,8 @@ const defaultCredentials = {
     },
     token: '',
     isLoggedIn: false,
-    role: ''
+    role: '',
+    hadPreTest: false
 }
 
 const userReducer = (state = defaultCredentials, action) => {
@@ -26,7 +27,8 @@ const userReducer = (state = defaultCredentials, action) => {
       let token = action.data.token
       let isLoggedIn = true
       let role = action.data.role
-      return state = { ...state, user, token, isLoggedIn, role }
+      let hadPreTest = action.data.hadPreTest
+      return state = { ...state, user, token, isLoggedIn, role, hadPreTest }
   }else if(action.type === 'LOG_OUT_USER'){
     let user = {
       id: '',
@@ -39,7 +41,8 @@ const userReducer = (state = defaultCredentials, action) => {
     let token = ''
     let isLoggedIn = false
     let role = ''
-    return state = { ...state, user, token, isLoggedIn, role}
+    let hadPreTest = false
+    return state = { ...state, user, token, isLoggedIn, role, hadPreTest}
   }else{
     return state
   }

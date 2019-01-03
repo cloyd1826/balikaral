@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Grid from '../../../../_component/Grid'
 import Table from '../../../../_component/Table'
 import FormMessage from '../../../../_component/Form/FormMessage'
+import Pagination from '../../../../_component/Pagination'
 
 import apiRequest from '../../../../_axios'
 
@@ -19,16 +20,34 @@ class Layout extends Component {
     	level: [],
 
     	message: '',
-        type: '',
-        active: false,
+      type: '',
+      active: false,
 
-        deleteActive: false,
-        link: ''
+
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
+
+
+      deleteActive: false,
+      link: ''
     }
     this.fetchLevel = this.fetchLevel.bind(this)
    	this.formMessage = this.formMessage.bind(this)
 
    	this.toggleDelete = this.toggleDelete.bind(this)
+    this.changePage = this.changePage.bind(this)
+
+  }
+  changePage(page){
+
+    this.setState({
+      currentPage: page
+    })
+    this.fetchLevel( page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -36,7 +55,8 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLevel()
+      let page = this.state.currentPage
+  		this.fetchLevel(page)
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -52,13 +72,18 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(){
-  	
-  	apiRequest('get', '/level/all', false, this.props.token)
+  fetchLevel(page){
+  	apiRequest('get', `/level/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
-	  				level: res.data.data
+	  				level: res.data.data,
+            currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
 	  			})	
 	  		}
   		})
@@ -68,7 +93,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel()
+  	this.fetchLevel(1)
   }
   render() { 
     return (
@@ -139,6 +164,18 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                 <div className='table-pagination'>
+                  <Pagination
+                      changePage={this.changePage}
+                      currentPage={this.state.currentPage}
+                      nextPage={this.state.nextPage}
+                      pageCount={this.state.pageCount}
+                      perPage={this.state.perPage}
+                      previousPage={this.state.previousPage}
+                      totalCount={this.state.totalCount}
+
+                  />
+                  </div>
 			        	</div>
         			</Grid.Cell>
         		</Grid.X>

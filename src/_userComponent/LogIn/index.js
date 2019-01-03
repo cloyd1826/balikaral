@@ -48,7 +48,7 @@ class Layout extends Component{
         console.log(res)
           let result = res.data
           let userData = {
-            user: {
+            user: { 
               id: result.data ? result.data._id ? result.data._id : '' : '',
               email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
               firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
@@ -58,7 +58,8 @@ class Layout extends Component{
             },
             token: result.token,
             isLoggedIn: true,
-            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
+            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : '',
+            hadPreTest: result.data.userSettings ? result.data.userSettings.hadPreTest ? result.data.userSettings.hadPreTest : '' : '',
           }
           this.props.actions.logIn(userData)
           this.props.close()

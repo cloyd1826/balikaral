@@ -5,18 +5,17 @@ export default (OriginalComponent) => {
   class MixedComponent extends Component {
 
     checkAuth() {
-      if (!this.props.isLoggedIn || !this.props.token || this.props.role !== 'Learner' || !this.props.hadPreTest) {
+      console.log(this.props.hadPreTest)
+      if (!this.props.isLoggedIn || !this.props.token || this.props.role !== 'Learner' || this.props.hadPreTest ) {
         this.props.history.push('/');
       }
     }
-
     componentDidMount() {
       this.checkAuth();
-
-      console.log(this.props.role)
-      
     }
-
+    componentWillRecieveProps(nextProps){
+      this.checkAuth()
+    }
     componentDidUpdate() {
       this.checkAuth();
     }

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Grid from '../../../_component/Grid'
 import Table from '../../../_component/Table'
 import FormMessage from '../../../_component/Form/FormMessage'
+import Pagination from '../../../_component/Pagination'
 
 import apiRequest from '../../../_axios'
 
@@ -21,12 +22,26 @@ class Layout extends Component {
       type: '',
       active: false,
 
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
+
 
     }
     this.fetchUser = this.fetchUser.bind(this)
    	this.formMessage = this.formMessage.bind(this)
+    this.changePage = this.changePage.bind(this)
+
   }
- 
+  changePage(page){
+    this.setState({
+      currentPage: page
+    })
+    this.fetchUser( page)
+  }
   formMessage(message, type, active){
     this.setState({
       message: message,
@@ -35,13 +50,19 @@ class Layout extends Component {
     })
   }
 
-  fetchUser(){
-  	apiRequest('get', '/user/all', false, this.props.token)
+  fetchUser(page){
+  	apiRequest('get', `/user/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
         console.log(res)
   			if(res.data){
   				this.setState({
-	  				user: res.data.data
+	  				user: res.data.data,
+             currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
 	  			})	
 	  		}
   		})
@@ -51,7 +72,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchUser()
+  	this.fetchUser(1)
   }
   render() { 
     return (
@@ -123,6 +144,18 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                 <div className='table-pagination'>
+                  <Pagination
+                      changePage={this.changePage}
+                      currentPage={this.state.currentPage}
+                      nextPage={this.state.nextPage}
+                      pageCount={this.state.pageCount}
+                      perPage={this.state.perPage}
+                      previousPage={this.state.previousPage}
+                      totalCount={this.state.totalCount}
+
+                  />
+                  </div>
 			        	</div>
         			</Grid.Cell>
         		</Grid.X>

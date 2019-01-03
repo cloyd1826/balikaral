@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
 import Table from '../../../_component/Table'
+import Pagination from '../../../_component/Pagination'
 import FormMessage from '../../../_component/Form/FormMessage'
 
 import apiRequest from '../../../_axios'
@@ -28,7 +29,14 @@ class Layout extends Component {
 
       status: '',
       learningStrand: '',
-    
+      
+
+      currentPage: 1,
+      nextPage: null,
+      pageCount: 0,
+      perPage: 10,
+      previousPage: null,
+      totalCount: 1,
 
       deleteActive: false,
       link: ''
@@ -37,7 +45,15 @@ class Layout extends Component {
    	this.formMessage = this.formMessage.bind(this)
    	this.toggleDelete = this.toggleDelete.bind(this)
 
+    this.changePage = this.changePage.bind(this)
     this.handleChange = this.handleChange.bind(this)
+  }
+  changePage(page){
+    let status = this.state.status
+    this.setState({
+      currentPage: page
+    })
+    this.fetchLevel(status, page)
   }
   handleChange(e){
     let name = e.target.name
@@ -48,12 +64,12 @@ class Layout extends Component {
     let learningStrand = this.state.learningStrand
     let status = this.state.status
     let examType = this.state.examType
-
+    let page = this.state.page
    
     if(name ==='status'){
       status = value
     }
-    this.fetchLevel(status)
+    this.fetchLevel(status, page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -61,7 +77,9 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		this.fetchLevel('')
+      let page = this.state.page
+      let status= this.state.status
+  		this.fetchLevel(status, page)
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -77,24 +95,28 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(status){
+  fetchLevel(status, page){
 
     let routeToUse = ''
 
     if(this.props.role === 'Learner'){
-      routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}`
+      routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}&page=${page}`
     }else{
-      routeToUse = `/generated-exam/all?status=${status}`
+      routeToUse = `/generated-exam/all?status=${status}&page=${page}`
     }
-
-   
 
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
           console.log(res)
   				this.setState({
-	  				exam: res.data.data
+	  				exam: res.data.data,
+            currentPage: res.data.currentPage,
+            nextPage: res.data.nextPage,
+            pageCount: res.data.pageCount,
+            perPage: res.data.perPage,
+            previousPage: res.data.previousPage,
+            totalCount: res.data.totalCount,
 	  			})	
 	  		}
   		})
@@ -104,7 +126,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel('')
+  	this.fetchLevel('',1)
   }
   render() { 
     return (
@@ -130,6 +152,7 @@ class Layout extends Component {
                         >
                         <option value=''></option>
                         <option value='Pending'>Pending</option>
+                        <option value='Retake'>Retake</option>
                         <option value='Completed'>Completed</option>
                       </Select>
                     </Grid.Cell>
@@ -236,6 +259,18 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                 <div className='table-pagination'>
+                  <Pagination
+                      changePage={this.changePage}
+                      currentPage={this.state.currentPage}
+                      nextPage={this.state.nextPage}
+                      pageCount={this.state.pageCount}
+                      perPage={this.state.perPage}
+                      previousPage={this.state.previousPage}
+                      totalCount={this.state.totalCount}
+
+                  />
+                  </div>
 			        	</div>
         			</Grid.Cell>
         		</Grid.X>

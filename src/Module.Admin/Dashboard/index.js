@@ -66,6 +66,16 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
 
+                
+                 <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/management/forum/list/'>
+                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                      <span className='la la-list-ul'></span>
+                      <div className='link-title'>Forum</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
               </Grid.X>
 
               
@@ -119,7 +129,7 @@ class Dashboard extends Component {
                   <Link to='/admin/forum/dashboard'>
                     <div className='dashboard-link' style={{background: '#912396'}}>
                       <span className='la la-comment'></span>
-                      <div className='link-title'>Forum</div>
+                      <div className='link-title'>Forum Discussions</div>
                     </div>
                   </Link>
                 </Grid.Cell>

@@ -1,39 +1,5 @@
 import React, { Component } from 'react'
 
-
-class TablePagination extends Component {
-  constructor(props){
-    super(props)
-    this.state = {}
-  }
-  render(){
-    let Pagination = () => {
-      return (
-          <nav aria-label="Pagination">
-            <ul class="pagination">
-              <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
-              <li class="current">1</li>
-              <li><div className='pagination-button' >2</div></li>
-              <li><div className='pagination-button' >3</div></li>
-              <li><div className='pagination-button' >4</div></li>
-              <li class="ellipsis" aria-hidden="true"></li>
-              <li><div className='pagination-button' >12</div></li>
-              <li><div className='pagination-button' >13</div></li>
-              <li class="pagination-next"><div className='pagination-button'>Next <span class="show-for-sr">page</span></div></li>
-            </ul>
-          </nav>
-      )
-    }
-    return(
-        <tfoot>
-          <th>
-            <Pagination />
-          </th>
-        </tfoot>
-    )
-  }
-}
-
 class Table extends Component{
   constructor(props){
     super(props)
@@ -158,6 +124,5 @@ Table.Footer = TableFooter
 Table.Row = TableRow
 Table.HeaderCell = TableHeaderCell
 Table.Cell = TableCell
-Table.Pagination = TablePagination
 
 export default Table
