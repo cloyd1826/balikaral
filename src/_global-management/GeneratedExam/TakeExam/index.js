@@ -374,7 +374,9 @@ class Layout extends Component {
 
                   {this.state.checking ?
                     <div>
-                    <div className='question-card-loader'>
+                    {!this.props.hadPreTest
+                      ? 
+                      <div className='question-card-loader'>
                         <div className='question-loader-container'>
                           <span>
                             <i className='la la-smile-o'></i>
@@ -384,6 +386,12 @@ class Layout extends Component {
                          
                         </div>
                       </div>
+
+                      : null
+
+
+                    }
+                    
 
                     <div className='grid-question-action'>
                       <div className='action'>
@@ -400,7 +408,7 @@ class Layout extends Component {
                         <i className='la la-hourglass-2' />
                         5:00
                       </div>
-                      <Link to={this.state.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard'}>
+                      <Link to={this.props.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard'}>
                         <div className='action'>
                             <i className='la la-home' />
                             Return to Dashboard

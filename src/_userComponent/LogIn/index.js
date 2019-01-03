@@ -47,6 +47,7 @@ class Layout extends Component{
       .then((res)=>{
         console.log(res)
           let result = res.data
+          console.log('suser', result)
           let userData = {
             user: { 
               id: result.data ? result.data._id ? result.data._id : '' : '',
@@ -59,7 +60,7 @@ class Layout extends Component{
             token: result.token,
             isLoggedIn: true,
             role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : '',
-            hadPreTest: result.data.userSettings ? result.data.userSettings.hadPreTest ? result.data.userSettings.hadPreTest : '' : '',
+            hadPreTest: result.data.userSettings ? result.data.userSettings.hadPreTest ? result.data.userSettings.hadPreTest : false : false,
           }
           this.props.actions.logIn(userData)
           this.props.close()

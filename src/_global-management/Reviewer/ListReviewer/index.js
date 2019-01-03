@@ -244,7 +244,10 @@ class Layout extends Component {
                                 : null }
 
                                 <Link to={{ 
-                                    pathname: (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + (this.props.role === 'Learner' ? '/learner/reviewer/view' : ''), 
+                                    pathname: 
+                                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
+                                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
                                     state: { id: attr._id } 
                                   }}>
                                     <span>
@@ -308,7 +311,8 @@ const mapStateToProps = (state) => {
 	return {
 		token: state.token,
     user: state.user,
-    role: state.role
+    role: state.role,
+    hadPreTest: state.hadPreTest
 	}
 }
 const ListReviewer = connect(mapStateToProps)(Layout)

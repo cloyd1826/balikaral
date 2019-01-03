@@ -100,7 +100,7 @@ class Layout extends Component {
     }
     apiRequest('put', `/user/update-account-info/${this.props.location.state.id}`, data, this.props.token)
         .then((res)=>{
-        
+          
           this.formMessage('Data has been updated', 'success', true, false)
       })    
         .catch((err)=>{

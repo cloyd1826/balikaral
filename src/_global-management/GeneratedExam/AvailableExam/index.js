@@ -240,7 +240,7 @@ class Layout extends Component {
                           <div className='subtitle-montserrat'>Pending Exam</div>
                           <div className='context-montserrat'>You cant take any exam since you still have a Pending Exam Status</div>
                            <Link to={{ 
-                                    pathname: '/learner-start/pre-test/take', 
+                                    pathname: '/learner/exam/take', 
                                     state: { id: this.state.idOfPendingExam } 
                                   }}>
                             <div className='button primary'>Continue Pending Exam</div>

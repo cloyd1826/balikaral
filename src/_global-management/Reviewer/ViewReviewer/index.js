@@ -121,7 +121,7 @@ class Layout extends Component {
                       <Link to={
                           (this.props.role === 'Administrator' ? '/admin/management/reviewer/list/all' : '')
                           + (this.props.role === 'Teacher' ? '/teacher/management/reviewer/list/teachers' : '')
-                          + (this.props.role === 'Learner' ? '/learner/reviewer/list/learner' : '')
+                          + (this.props.role === 'Learner' ? (this.props.hadPreTest ?  '/learner/reviewer/list/learner' :  '/learner-start/reviewer/list/learner' ) : '')
                            }>
                         <div className='button primary small'>List of Reviewer</div>
                       </Link>

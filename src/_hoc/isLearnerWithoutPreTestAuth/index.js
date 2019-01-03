@@ -13,9 +13,6 @@ export default (OriginalComponent) => {
     componentDidMount() {
       this.checkAuth();
     }
-    componentWillRecieveProps(nextProps){
-      this.checkAuth()
-    }
     componentDidUpdate() {
       this.checkAuth();
     }

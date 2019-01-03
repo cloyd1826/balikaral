@@ -144,22 +144,24 @@ class Layout extends Component {
         .then((res)=>{
           this.fetchSingle()
           this.formMessage('Personal Information has been updated', 'success', true, false)
-
-          let result = res.data
-          let userData = {
-            user: {
-              id: result.data ? result.data._id ? result.data._id : '' : '',
-              email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
-              firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
-              middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
-              lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
-              image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : '',
-            },
-            token: this.props.token,
-            isLoggedIn: true,
-            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
+          if(this.props.location.state.id === this.props.user.id){
+            let result = res.data
+            let userData = {
+              user: {
+                id: result.data ? result.data._id ? result.data._id : '' : '',
+                email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
+                firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
+                middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
+                lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
+                image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : '',
+              },
+              token: this.props.token,
+              isLoggedIn: true,
+              role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
+            }
+            this.props.actions.logIn(userData)
           }
-          this.props.actions.logIn(userData)
+          
         })    
         .catch((err)=>{
         
@@ -272,7 +274,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const mapDispatchToProps = dispatch => {

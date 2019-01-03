@@ -71,24 +71,20 @@ class Layout extends Component {
   handleSubmit(e){
     e.preventDefault()
     this.formMessage('Updating Data...', 'loading', true, true)
-     let data = {
-      local: {
-        email: this.state.email,
-        userType: this.state.userType,
-        disabled: this.statedisabled
-      },
-      personalInformation: {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        middleName: this.state.middleName,
-        houseNoStreet: this.state.houseNoStreet,
-        barangay: this.state.barangay,
-        city: this.state.city,
-        province: this.state.province,
-        zipcode: this.state.zipcode ,
-      },
+    let data = {
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      middleName: this.state.middleName,
+      houseNoStreet: this.state.houseNoStreet,
+      barangay: this.state.barangay,
+      city: this.state.city,
+      province: this.state.province,
+      zipcode: this.state.zipcode ,
+      userType: this.state.userType 
     }
-    apiRequest('post', `/user/create`, data, this.props.token)
+    apiRequest('post', `/signup`, data, this.props.token)
         .then((res)=>{
           this.formMessage('New User has been created', 'success', true, false)
       })    
@@ -149,10 +145,11 @@ class Layout extends Component {
                                     >
                                     <option value='' disabled></option>
                                     <option value='Administrator'>Administrator</option>
-                                    <option value='Student'>Student</option>
+                                    <option value='Learner'>Learner</option>
                                     <option value='Teacher'>Teacher</option>
                                   </Select>
                                 </Grid.Cell>
+                               
                                 
                                 <Grid.Cell large={4} medium={6}  small={12}>
                                   <Input 

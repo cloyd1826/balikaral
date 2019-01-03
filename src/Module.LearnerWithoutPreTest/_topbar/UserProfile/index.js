@@ -58,7 +58,7 @@ class Layout extends Component{
         <div className='user-name'>
           <div className='name'>
           <Link to={{ 
-                pathname: '/learner/profile/update-information', 
+                pathname: '/learner-start/profile/update-information', 
                 state: { id: this.state.user.id } 
               }}>
             {
@@ -85,7 +85,7 @@ class Layout extends Component{
                 </div>
               </Link>
               <Link to={{ 
-                  pathname: '/learner/profile/update-information', 
+                  pathname: '/learner-start/profile/update-information', 
                   state: { id: this.state.user.id } 
                 }}>
                 <div className='user-bar'>
