@@ -167,7 +167,7 @@ class Layout extends Component {
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
-    formData.append('learningStrandSub', this.state.learningStrandSub)
+   
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
     formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
@@ -194,7 +194,9 @@ class Layout extends Component {
     if(this.state.imageChoiceD != ''){
       formData.append('dImage', this.state.imageChoiceD )
     }
-
+    if(this.state.learningStrandSub != ''){
+       formData.append('learningStrandSub', this.state.learningStrandSub)
+    }
 
     const configPost = {
         headers: {

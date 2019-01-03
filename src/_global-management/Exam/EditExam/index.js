@@ -204,7 +204,6 @@ class Layout extends Component {
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
-    formData.append('learningStrandSub', this.state.learningStrandSub)
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
     formData.append('validation', this.state.validation )
@@ -222,7 +221,9 @@ class Layout extends Component {
     }else{
       formData.append('questionImageText', this.state.questionImage )
     }
-
+    if(this.state.learningStrandSub != ''){
+       formData.append('learningStrandSub', this.state.learningStrandSub)
+    }
     if(this.state.imageChoiceA  != ''){
       formData.append('aImage', this.state.imageChoiceA )
     }else{
