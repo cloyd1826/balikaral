@@ -109,7 +109,7 @@ class Dashboard extends Component {
                   <Link to='/admin/management/subject/list'>
                     <div className='dashboard-link' style={{background: '#00a100'}}>
                       <span className='la la-align-left'></span>
-                      <div className='link-title'>Lesson</div>
+                      <div className='link-title'>Modyul</div>
                     </div>
                   </Link>
                 </Grid.Cell>

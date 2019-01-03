@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import Logo from '../../_images/logo.png'
 
+import { Link } from 'react-router-dom'
+
 import LogIn from '../LogIn'
 import SignUp from '../SignUp'
 import UserProfile from '../UserProfile'
@@ -60,9 +62,11 @@ class Layout extends Component {
 		      <div className='grid-container fluid'>
 		      	<div className='grid-x'>
 		      		<div className='large-6 medium-12'>
+		      			<Link to='/'>
 		      			<div className='nav-icon'>
 		      				<img src={Logo} alt='logo'/>
 		      			</div>
+		      			</Link>
 		      		</div>
 		      		<div className='large-6 medium-12 '>
 		      			<div className='link-container'>

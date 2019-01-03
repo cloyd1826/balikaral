@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
+import { Link } from 'react-router-dom'
+
 import Grid from '../../_component/Grid'
 import Form from '../../_component/Form/Form'
 import Input from '../../_component/Form/Input'
@@ -255,10 +257,17 @@ class Layout extends Component{
                               <option value='Teacher'>Teacher</option>
                             </Select>
                           </Grid.Cell>
+                         
                           <Grid.Cell className='sign-in-button-form'>
                             <span>
                               <button className='sign-in-button' type='submit'>SIGN UP</button>
                             </span>
+                          </Grid.Cell>
+
+                          <Grid.Cell large={12} medium={6} small={12}>
+                            <div className='context-montserrat text-center'>
+                              I have read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral
+                            </div>
                           </Grid.Cell>
                         </Grid.X>
                       </Grid>
