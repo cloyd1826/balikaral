@@ -135,6 +135,32 @@ class Dashboard extends Component {
                 </Grid.Cell>
               </Grid.X>
 
+              <Grid.X>
+                <Grid.Cell large={12} medium={12} small={12}>
+                  <div className='main-link-title'>Galing ng Sistema</div>
+                </Grid.Cell>
+
+
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/statistics/exam-type'>
+                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                      <span className='la la-circle-o-notch'></span>
+                      <div className='link-title'>Statistics of Exam Type</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/statistics/generated-exam'>
+                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                      <span className='la la-tasks'></span>
+                      <div className='link-title'>Statistics of Generated Exam</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+               
+              </Grid.X>
 
               <Grid.X>
                 <Grid.Cell large={12} medium={12} small={12}>

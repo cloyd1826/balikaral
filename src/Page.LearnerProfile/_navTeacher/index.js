@@ -2,48 +2,34 @@ import React, {Component} from 'react'
 
 import Grid from '../../_component/Grid'
 
-import { Route } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 
-import Profile from '../Profile'
-import NavBar from '../_navAdmin'
-
-import UpdateInformation from '../UpdateInformation'
-import UpdatePassword from '../UpdatePassword'
-
-const Routes = () => {
-  return (
-    <div className='user-route-container element-container'>
-      <Route path='/admin/user-view/update-information' component={UpdateInformation} />
-      <Route path='/admin/user-view/update-account-info' component={UpdatePassword} />
-
-    </div>
-  )
-}
-
-
-
-class UserAdmin extends Component {
+class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  }
   }
+  componentDidMount(){
+    console.log(this.props)
+  }
   render() { 
     return (
-        <div>
-          <Grid fluid>
-            <Grid.X>
-                <Grid.Cell large={4} medium={12} small={12}>
-                  <Profile />
-                </Grid.Cell>
-                <Grid.Cell className='user-content' large={8} medium={12} small={12}>
-                  <NavBar />
-                  <Routes />
-                </Grid.Cell>
-            </Grid.X>
-          </Grid>     
+        <div className='nav-bar'>
+          <NavLink 
+            className='link' 
+            activeClassName='active' 
+            to={ { pathname:'/teacher/learner-profile/exam-type', state: { id: this.props.location.state.id } } }
+            >Exam Type</NavLink> 
+          <NavLink 
+            className='link' 
+            activeClassName='active' 
+            to={ { pathname:'/teacher/learner-profile/generated-exam', state: { id: this.props.location.state.id } } }
+            >Taken Exam</NavLink>
+          
         </div>
     )
   }
 }
 
-export default UserAdmin
+const NavAdmin = withRouter(Layout)
+export default NavAdmin

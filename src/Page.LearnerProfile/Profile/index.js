@@ -12,16 +12,9 @@ import { connect } from 'react-redux'
 
 import ProfileImage from '../../_images/vol2.jpeg'
 
-
-import Form from '../../_component/Form/Form'
 import FormMessage from '../../_component/Form/FormMessage'
-import Button from '../../_component/Form/Button'
-
-import axios, { put } from 'axios'
 
 import config from '../../_config'
-
-import { bindActionCreators } from 'redux'
 
 class Layout extends Component {
   constructor(props) {
@@ -54,7 +47,6 @@ class Layout extends Component {
  
     this.formMessage = this.formMessage.bind(this)
   }
-
   formMessage(message, type, active, button){
     this.setState({
       message: message,
@@ -63,9 +55,11 @@ class Layout extends Component {
       buttonDisabled: button
     })
   }
+
   componentDidMount(){
+    let user = this.props.user
     this.fetchSingle()
-  } 
+  }
   fetchSingle(){
     apiRequest('get', `/user/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
@@ -105,29 +99,42 @@ class Layout extends Component {
         .catch((err)=>{
           this.formMessage('Error: ' + err.message, 'error', true, false)
         })
-
   }
-
- 
   render() {
-  console.log(this.state.image) 
     return (
-        <div className='element-container learner-profile'>
-            <div className='user-image-learner'>
-              <div className='hero-image' 
+        <div className='element-container user-profile-container'>
+            <div className='user-image'>
+                <div className='hero-image'
                   style={{backgroundImage: 'url(' + (this.state.imagePreview != '' ? `${config}/${this.state.imagePreview}` : ProfileImage ) + ')'}}>
-              </div>
+                </div>
             </div>
-            <div className='user-description-learner'>
-              <div className='user-name'>{this.state.firstName + ' ' + this.state.middleName.substring(0,1) + ' ' + this.state.lastName}</div>
-              <div className='user-description'>{this.state.about}</div>
-              <div className='other-info'>
-                <div className='info'><span>Learning Center: </span> {this.state.learningCenter}</div> 
-                <div className='info'><span>Grade/Level: </span> {this.state.gradeLevel}</div> 
-                <div className='info'><span>Pinagkaka abalahan sa buhay: </span> {this.state.lifeStatus}</div>
+            <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
+
+            <div className='user-information'>
+              <div className='info-box'>
+                <div className='info-title'>User Information</div>
+                <div className='info'><span>Email:</span>{this.state.email} </div> 
+                <div className='info'><span>Role:</span>{this.state.userType} </div> 
               </div>
-
-
+              <div className='info-box'>
+                <div className='info-title'>Personal Information</div>
+                <div className='info'><span>Name:</span>{this.state.firstName + ' ' + this.state.middleName.substring(0,1) + '. ' + this.state.lastName } </div> 
+                <div className='info'><span>Gender:</span>{this.state.gender } </div> 
+                <div className='info'><span>Address:</span>
+                  {
+                    this.state.houseNoStreet + ' ' +
+                    this.state.barangay + ' ' +
+                    this.state.city + ' ' +
+                    this.state.province                
+                  }
+                </div> 
+              </div>
+              <div className='info-box'>
+                <div className='info-title'>Learner Information</div>
+                <div className='info'><span>Learning Center:</span>{this.state.learningCenter} </div> 
+                <div className='info'><span>Grade/Level:</span>{this.state.gradeLevel} </div> 
+                <div className='info'><span>Reason for Stopping:</span>{this.state.reasongForStopping} </div>
+              </div>
             </div>
         </div>
     )
@@ -142,6 +149,5 @@ const mapStateToProps = (state) => {
     role: state.role
   }
 }
-
 const Profile = connect(mapStateToProps)(Layout)
 export default withRouter(Profile)

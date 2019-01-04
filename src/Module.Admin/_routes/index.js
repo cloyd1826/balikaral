@@ -23,6 +23,7 @@ import LearnerProfile from '../../Page.LearnerProfile/_routeAdmin'
 import LearnerList from '../../Page.Profile/UserLearner'
 
 import User from '../User'
+import Statistics from '../Statistics'
 
 const Routes = () => {
   return (
@@ -40,6 +41,9 @@ const Routes = () => {
             <Route path='/admin/management/exam-type' component={ExamType} />
             <Route path='/admin/management/reviewer' component={Reviewer} />
             <Route path='/admin/user' component={User} />
+
+            <Route path='/admin/statistics/' component={Statistics} />
+
 
             <Route path='/admin/generated-exam/' component={GeneratedExam} />
 

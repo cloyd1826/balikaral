@@ -5,10 +5,17 @@ import Grid from '../../_component/Grid'
 import { Route } from 'react-router-dom'
 
 import Profile from '../Profile'
+import NavBar from '../_navAdmin'
+
+
+import ExamTotal from '../ExamTotal'
+import LearnerGeneratedExam from '../LearnerGeneratedExam'
 
 const Routes = () => {
   return (
     <div className='user-route-container element-container'>
+      <Route path='/admin/learner-profile/exam-type' component={ExamTotal} />
+      <Route path='/admin/learner-profile/generated-exam' component={LearnerGeneratedExam} />
 
     </div>
   )
@@ -26,11 +33,12 @@ class UserAdmin extends Component {
         <div>
           <Grid fluid>
             <Grid.X>
-                <Grid.Cell large={12} medium={12} small={12}>
+                <Grid.Cell large={3} medium={12} small={12}>
                   <Profile />
                 </Grid.Cell>
-                <Grid.Cell className='user-content' large={12} medium={12} small={12}>
-
+                <Grid.Cell className='user-content' large={9} medium={12} small={12}>
+                  <NavBar />
+                  <Routes />
                 </Grid.Cell>
             </Grid.X>
           </Grid>     

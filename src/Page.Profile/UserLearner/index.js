@@ -120,7 +120,7 @@ class Layout extends Component {
                               <Table.Cell isNarrowed>
                                   <Link 
                                     to={{ 
-                                      pathname: ( (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '')  +  '/learner-profile'), 
+                                      pathname: ( (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '')  +  '/learner-profile/exam-type'), 
                                       state: { id: attr._id } 
                                     }}>
                                     <span>
