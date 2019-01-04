@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectSubject from '../../../_special-form/SelectSubject'
 
 class Layout extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class Layout extends Component {
       
       level: '',
       learningStrand: '',
+      learningStrandSub: '',
 
       message: '',
       type: '',
@@ -57,6 +59,7 @@ class Layout extends Component {
 
       level: '',
       learningStrand: '',
+      learningStrandSub: '',
 
     })
     this.fileInput.value = ''
@@ -101,6 +104,9 @@ class Layout extends Component {
     formData.append('validation', (this.props.role === 'Administrator' ? true : false))
     formData.append('uploader', (this.props.user.id))
     formData.append('learningStrand', this.state.learningStrand)
+    if(this.state.learningStrandSub != ''){
+      formData.append('learningStrandSub', this.state.learningStrandSub)
+    }
     const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
@@ -131,7 +137,7 @@ class Layout extends Component {
                       <Grid.Cell large={12} medium={12} small={12}>
                         <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                       </Grid.Cell>
-                       <Grid.Cell large={6} medium={12} small={12}>
+                       <Grid.Cell large={4} medium={12} small={12}>
                         <SelectLevel 
                           required 
                           type='text' 
@@ -142,7 +148,7 @@ class Layout extends Component {
                       </Grid.Cell>
 
 
-                      <Grid.Cell large={6} medium={12} small={12}>
+                      <Grid.Cell large={4} medium={12} small={12}>
                         <SelectLearningStrand 
                           required 
                           type='text' 
@@ -150,6 +156,16 @@ class Layout extends Component {
                           label='Learning Strand' 
                           name='learningStrand' 
                           value={this.state.learningStrand} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+                      <Grid.Cell large={4} medium={12} small={12}>
+                        <SelectSubject
+
+                          type='text' 
+                          learningStrand={this.state.learningStrand}
+                          label='Modyul' 
+                          name='learningStrandSub' 
+                          value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
   	        					<Grid.Cell large={12} medium={12} small={12}>
