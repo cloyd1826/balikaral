@@ -217,7 +217,7 @@ class Layout extends Component {
                       </Grid.Cell>
 
                   </div>
-  	        				<Table hover nostripe>
+  	        				<Table hover nostripe scroll>
   				        		<Table.Header>
   				        			<Table.Row>
                           <Table.HeaderCell>Question</Table.HeaderCell>

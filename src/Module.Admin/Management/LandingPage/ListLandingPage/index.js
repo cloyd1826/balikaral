@@ -12,12 +12,13 @@ import apiRequest from '../../../../_axios'
 import { connect } from 'react-redux'
 
 import ManagementDelete from '../../../../_component/ManagementDelete'
+import SetActive from '../SetActive'
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
-    	level: [],
+    	landingPage: [],
 
     	message: '',
       type: '',
@@ -31,16 +32,25 @@ class Layout extends Component {
       previousPage: null,
       totalCount: 1,
 
+      setActiveData: {},
 
       deleteActive: false,
-      link: ''
+      setActive: false,
+      link: '',
     }
     this.fetchLevel = this.fetchLevel.bind(this)
    	this.formMessage = this.formMessage.bind(this)
 
-   	this.toggleDelete = this.toggleDelete.bind(this)
+    this.toggleDelete = this.toggleDelete.bind(this)
+   	this.toggleSetActive = this.toggleSetActive.bind(this)
     this.changePage = this.changePage.bind(this)
 
+  }
+  toggleSetActive(data){
+    this.setState({
+      setActive: (this.state.setActive ? false : true),
+      setActiveData: (this.state.setActive ? {} : data),
+    })
   }
   changePage(page){
 
@@ -73,11 +83,11 @@ class Layout extends Component {
   }
 
   fetchLevel(page){
-  	apiRequest('get', `/level/all?page=${page}`, false, this.props.token)
+  	apiRequest('get', `/landing-page/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
-	  				level: res.data.data,
+	  				landingPage: res.data.data,
             currentPage: res.data.currentPage,
             nextPage: res.data.nextPage,
             pageCount: res.data.pageCount,
@@ -103,40 +113,55 @@ class Layout extends Component {
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
         					<div className='title-text-container'>
-        						<div className='title'>Level Management</div>
+        						<div className='title'>Landing Page Management</div>
         						<div className='title-action'>
-        							<Link to='/admin/management/level/add'>
-        								<div className='button primary small'>Add New Level</div>
+        							<Link to='/admin/management/landing-page/add'>
+        								<div className='button primary small'>Add New Landing Page</div>
         							</Link>
         						</div>
         					</div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
-	        				<Table hover nostripe>
+	        				<Table hover nostripe scroll>
 				        		<Table.Header>
 				        			<Table.Row>
-				        				<Table.HeaderCell>Name</Table.HeaderCell>
-				        				<Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Page Description</Table.HeaderCell>
+                        <Table.HeaderCell>Tungkol sa Programa</Table.HeaderCell>
+				        				<Table.HeaderCell>Active</Table.HeaderCell>
+                        <Table.HeaderCell>Email</Table.HeaderCell>
+                        <Table.HeaderCell>Contact Number</Table.HeaderCell>
+                        <Table.HeaderCell>Facebook</Table.HeaderCell>
+                        <Table.HeaderCell>Twitter</Table.HeaderCell>
+                        <Table.HeaderCell>Instagram</Table.HeaderCell>
+                        <Table.HeaderCell>Medium</Table.HeaderCell>
+				        				<Table.HeaderCell>Google</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Header>
 				        		<Table.Body>
 				        			{
-					        			this.state.level.map((attr, index) =>{
+					        			this.state.landingPage.map((attr, index) =>{
 					        				return (
 					        					<Table.Row key={index}>
 							        				<Table.Cell>
-							        					<Link 
-							        						to={{ 
-    														    pathname: '/admin/management/level/edit', 
-    														    state: { id: attr._id } 
-    															}}>
-    															{attr.name}
-    														</Link>
-													    </Table.Cell>
-							        				<Table.Cell>{attr.description}</Table.Cell>
+                                <Link to={{ 
+                                    pathname: '/admin/management/landing-page/edit', 
+                                    state: { id: attr._id } 
+                                  }}>
+                                  {attr.pageDescription}
+                                </Link>
+                              </Table.Cell>
+                              <Table.Cell>{attr.tungkolSaProgramaDescription}</Table.Cell>
+							        				<Table.Cell>{(attr.active ? 'Active' : 'Inactive')}</Table.Cell>
+                              <Table.Cell>{attr.email}</Table.Cell>
+                              <Table.Cell>{attr.contact}</Table.Cell>
+                              <Table.Cell>{attr.facebook}</Table.Cell>
+                              <Table.Cell>{attr.twitter}</Table.Cell>
+                              <Table.Cell>{attr.instagram}</Table.Cell>
+                              <Table.Cell>{attr.medium}</Table.Cell>
+                              <Table.Cell>{attr.google}</Table.Cell>
 							        				<Table.Cell isNarrowed>
 							        					<Link to={{ 
-															    pathname: '/admin/management/level/edit', 
+															    pathname: '/admin/management/landing-page/edit', 
 															    state: { id: attr._id } 
 															  }}>
 								        					<span>
@@ -144,9 +169,16 @@ class Layout extends Component {
 								        					</span>
 							        					</Link>
 							        				
-							        					<span onClick={()=>{this.toggleDelete('/level/delete/' + attr._id)}}>
-							        						<i className='fa fa-trash cancel'></i>
-							        					</span>
+                                <span onClick={()=>{this.toggleSetActive(attr)}}>
+                                    <i className='la la-tags primary'></i>
+                                </span>
+                                {!attr.active ? 
+                                  <span onClick={()=>{this.toggleDelete('/landing-page/delete/' + attr._id)}}>
+                                  <i className='fa fa-trash cancel'></i>
+                                </span>
+                                : null}
+
+							        					
 							        				</Table.Cell>
 							        			</Table.Row>
 					        				)
@@ -158,9 +190,18 @@ class Layout extends Component {
 				        		</Table.Body>
 				        		<Table.Footer>
 				        			<Table.Row>
-				        				<Table.HeaderCell>Name</Table.HeaderCell>
-				        				<Table.HeaderCell>Description</Table.HeaderCell>
-				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
+				        			 <Table.HeaderCell>Page Description</Table.HeaderCell>
+                        <Table.HeaderCell>Tungkol sa Programa</Table.HeaderCell>
+                        <Table.HeaderCell>Active</Table.HeaderCell>
+
+                        <Table.HeaderCell>Email</Table.HeaderCell>
+                        <Table.HeaderCell>Contact Number</Table.HeaderCell>
+                        <Table.HeaderCell>Facebook</Table.HeaderCell>
+                        <Table.HeaderCell>Twitter</Table.HeaderCell>
+                        <Table.HeaderCell>Instagram</Table.HeaderCell>
+                        <Table.HeaderCell>Medium</Table.HeaderCell>
+                        <Table.HeaderCell>Google</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
@@ -182,7 +223,14 @@ class Layout extends Component {
         	</Grid>
 
 
-        	<ManagementDelete item='Level Name' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+          <ManagementDelete item='Landing Page' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+        	<SetActive 
+            data={this.state.setActiveData} 
+            close={this.toggleSetActive} 
+            active={this.state.setActive} 
+            fetch={this.fetchLevel} 
+            currentPage={this.state.currentPage}
+            />
 
         </div>
     )

@@ -2,23 +2,23 @@ import React, {Component} from 'react'
 
 import {Route} from 'react-router-dom'
 
-import AddLevel from './AddLevel'
-import ListLevel from './ListLevel'
-import EditLevel from './EditLevel'
+import AddLandingPage from './AddLandingPage'
+import ListLandingPage from './ListLandingPage'
+import EditLandingPage from './EditLandingPage'
 
 const Routes = () => {
 	return (
 		<div>
-			<Route path='/admin/management/level/add' component={AddLevel} />
-			<Route path='/admin/management/level/list' component={ListLevel} />
-			<Route path='/admin/management/level/edit' component={EditLevel} />
+			<Route path='/admin/management/landing-page/add' component={AddLandingPage} />
+			<Route path='/admin/management/landing-page/list' component={ListLandingPage} />
+			<Route path='/admin/management/landing-page/edit' component={EditLandingPage} />
 		</div>
 	)
 }
 
 
 
-class Level extends Component {
+class LandingPage extends Component {
   constructor(props) {
     super(props)
     this.state = {  }
@@ -32,4 +32,4 @@ class Level extends Component {
   }
 }
 
-export default Level
+export default LandingPage

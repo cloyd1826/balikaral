@@ -61,10 +61,9 @@ class Layout extends Component {
 		    <div className='nav-container'>
 		      <div className='grid-container fluid'>
 		      	<div className='grid-x'>
-		      		<div className='large-6 medium-12'>
+		      		<div className='large-6 medium-12 nav-icon-container'>
 		      			<Link to='/'>
-		      			<div className='nav-icon'>
-		      				<img src={Logo} alt='logo'/>
+		      				<div className='nav-icon' style={{backgroundImage: 'url(' + this.props.logo + ')'}}>
 		      			</div>
 		      			</Link>
 		      		</div>

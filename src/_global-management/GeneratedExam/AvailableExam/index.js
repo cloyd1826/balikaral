@@ -35,11 +35,17 @@ class Layout extends Component {
 
     this.checkStatus = this.checkStatus.bind(this)
 
-    this.toggleModal = this.toggleModal.bind(this)
+    this.toggleHasPassed = this.toggleHasPassed.bind(this)
+    this.toggleTakeAdaptiveTest = this.toggleTakeAdaptiveTest.bind(this)
   }
-  toggleModal(){
+  toggleHasPassed(){
     this.setState({
-      hasPassed: (this.state.hasPassed ? false : true)
+      hasPassed: (this.state.hasPassed ? false : true),
+    })
+  }
+  toggleTakeAdaptiveTest(){
+    this.setState({
+      takeAdaptiveTest: (this.state.takeAdaptiveTest ? false : true),
     })
   }
   formMessage(message, type, active){
@@ -69,19 +75,24 @@ class Layout extends Component {
       generating: true
     })
     
-    apiRequest('get', `/exam-management/random?examId=${id}&type=${type}&examinerId=${this.props.user.id}`, false, this.props.token)
+    apiRequest('get', `/exam-management/random?examId=${id}&type=${type}&examinerId=${this.props.user.id}&level=${level}`, false, this.props.token)
       .then((res)=>{
         console.log(res)
         if(res.data){
           let result = res.data
           console.log('re',res.data)
 
-          if(result.status){
+          if(result.status === 'Passed'){
             this.setState({
               generating: false,
               hasPassed: true,
             })
-          }else{
+          }else if(result.status === 'Take Adaptive Test'){
+            this.setState({
+              generating: false,
+              takeAdaptiveTest: true,
+            })
+          }else if(result.status === 'Taking'){
 
             let examList = []
             let easyExam = []
@@ -291,11 +302,23 @@ class Layout extends Component {
           {this.state.hasPassed ? 
             <div className='modal'>
               <div className='delete-modal'>
-                <span className='close-button la la-close' onClick={this.toggleModal}></span>
+                <span className='close-button la la-close' onClick={this.toggleHasPassed}></span>
                 <div className='delete-title text-center'>You have already passed this exam.</div>
                 <div className='context-montserrat text-center'>Please choose another exam</div>
                 <div className='delete-button-group'>
-                  <button type='button' className='button yes small' onClick={this.toggleModal}>Ok</button>
+                  <button type='button' className='button yes small' onClick={this.toggleHasPassed}>Ok</button>
+                </div>
+              </div> 
+            </div>
+        : null}
+        {this.state.takeAdaptiveTest ? 
+            <div className='modal'>
+              <div className='delete-modal'>
+                <span className='close-button la la-close' onClick={this.toggleTakeAdaptiveTest}></span>
+                <div className='delete-title text-center'>You have must first pass the Adaptive Test for the same Level.</div>
+                <div className='context-montserrat text-center'>Please choose another exam</div>
+                <div className='delete-button-group'>
+                  <button type='button' className='button yes small' onClick={this.toggleTakeAdaptiveTest}>Ok</button>
                 </div>
               </div> 
             </div>

@@ -9,53 +9,93 @@ import Three from '../_images/vol3.jpeg'
 
 import NavBar from '../_userComponent/NavBar'
 
-let subjects = [
-    {
-      subject: 'Filipino',
-      reviewer: '3'
-    },
-    {
-      subject: 'English',
-      reviewer: '3'
-    },
-    {
-      subject: 'Math',
-      reviewer: '3'
-    },
-    {
-      subject: 'Science',
-      reviewer: '3'
-    },
-    {
-      subject: 'MAPEH',
-      reviewer: '3'
-    },
-    {
-      subject: 'Sining',
-      reviewer: '3'
-    },
-    {
-      subject: 'Araling Panlipunan',
-      reviewer: '3'
-    },
-    {
-      subject: 'Economics',
-      reviewer: '3'
-    },
-    {
-      subject: 'T.L.E',
-      reviewer: '3'
-    },
-]
+import apiRequest from '../_axios'
+import config from '../_config'
 
-
-
+import Slider from "react-slick"
 
 class Home extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        logo: '',
+        pageDescription: '',
+        pageLogo: '',
+        tungkolSaProgramaDescription: '',
+        tungkolSaProgramaLogo: '',
+       
+        email: '',
+        contact: '',
+        
+        facebook: '',
+        twitter: '',
+        instagram: '',
+        medium: '',
+        google: '',
+
+        learningStrand: [],
+        teacher: [],
+
+        userLength: 0,
+    }
+  }
+  componentDidMount(){
+    apiRequest('get', `/landing-page/fetch-active`, false, false)
+      .then((res)=>{
+          if(res.data){
+            console.log(res)
+            let landingPage = res.data.landingPage
+            this.setState({
+              logo: landingPage.logo,
+              pageDescription: landingPage.pageDescription,
+              pageLogo: landingPage.pageLogo,
+              tungkolSaProgramaDescription: landingPage.tungkolSaProgramaDescription,
+              tungkolSaProgramaLogo: landingPage.tungkolSaProgramaLogo,
+             
+              email: landingPage.email,
+              contact: landingPage.contact,
+              
+              facebook: landingPage.facebook,
+              twitter: landingPage.twitter,
+              instagram: landingPage.instagram,
+              medium: landingPage.medium,
+              google: landingPage.google,
+              userLength: res.data.userLength,
+              teacher: res.data.teacher,
+            })
+           
+          }
+          
+        
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+
+    apiRequest('get', `/learning-strand/fetchAllReviewer?page=1`, false, false)
+      .then((res)=>{
+            if(res.data){
+             this.setState({
+                learningStrand: res.data.data
+              })  
+            }    
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    
+  }
   render() {
+    let settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4
+    };
     return (
       <div  className='home-container'>
-        <NavBar />
+        <NavBar logo={`${config}/${this.state.logo}`} />
 
         <div className='home-banner'>
           <div className='home-banner-text'>
@@ -68,22 +108,12 @@ class Home extends Component {
               <span></span>
             </p>
             <p className='home-description'>
-              Lorem ipsum dolor sit amet, 
-              consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut 
-              labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud 
-              exercitation ullamco laboris nisi ut 
-              aliquip ex ea commodo consequat. 
-              Duis aute irure dolor in reprehenderit 
-              in voluptate velit esse cillum dolore 
-              eu fugiat nulla pariatur.
+              {this.state.pageDescription}
             </p>
             <button type='button' className='button primary'>Magsimula</button>
           
           </div>
-          <div className='home-image-banner'>
-            <img alt='banner' src={Banner} />
+          <div className='home-image-banner' style={{backgroundImage: 'url(' + `${config}/${this.state.pageLogo}` + ')'}}>
           </div>
         </div>
 
@@ -103,7 +133,7 @@ class Home extends Component {
               <div className='large-6 medium-12-12'>
                 <div className='counter'>
                  <span>
-                  <p className='counter-number'>3543</p>
+                  <p className='counter-number'>{this.state.userLength}</p>
                   <p className='counter-text'>Mga Gumagamit ng Programa</p>
                 </span>
               </div>
@@ -118,43 +148,33 @@ class Home extends Component {
         {/*mga boluntaryo*/}
         <div className='volunteer-container container'>
           <div className='subtitle-montserrat bold home-title-text'>Mga Boluntaryo</div>
+          <Slider {...settings}>
 
 
-          <div className='volunteer-slide'>
 
-            <div className='volunteer-card'>
-              <div className='card-image' style={{backgroundImage:'url('+ Two +')'}}></div>
-              <div className='card-text'>
-                <p className='card-name'>John Doe</p>
-                
-              </div>
-            </div>
+            {this.state.teacher.map((attr, index)=>{
+               return (
+                <div key={index}>
+                  <div className='volunteer-card'>
+                    <div className='card-image' style={{backgroundImage:'url('+ ( attr.personalInformation ? attr.personalInformation.image ? `${config}/${attr.personalInformation.image}` : Two : Two ) + ')'}}></div>
+                     <div className='card-text'>
+                       <p className='card-name'>{
+                                       attr.personalInformation ? 
+                                       (attr.personalInformation.firstName ? attr.personalInformation.firstName : '') 
+                                       + ' ' + 
+                                       (attr.personalInformation.middleName ? attr.personalInformation.middleName.substring(0,1) : '')
+                                       + ' ' + 
+                                       (attr.personalInformation.lastName ? attr.personalInformation.lastName : '')
+                                       : '' 
+                                     }</p>
+                       
+                     </div>
+                   </div>
+                </div>
+                )
+            })}
+          </Slider>
 
-            <div className='volunteer-card'>
-              <div className='card-image' style={{backgroundImage:'url('+ One +')'}}></div>
-              <div className='card-text'>
-                <p className='card-name'>John Doe</p>
-                
-              </div>
-            </div>
-
-            <div className='volunteer-card'>
-              <div className='card-image' style={{backgroundImage:'url('+ Three +')'}}></div>
-              <div className='card-text'>
-                <p className='card-name'>John Doe</p>
-                
-              </div>
-            </div>
-
-            <div className='volunteer-card'>
-              <div className='card-image' style={{backgroundImage:'url('+ One +')'}}></div>
-              <div className='card-text'>
-                <p className='card-name'>John Doe</p>
-                
-              </div>
-            </div>
-
-          </div>
         </div>
 
 
@@ -163,23 +183,13 @@ class Home extends Component {
           <div className='grid-container fluid'>
             <div className='grid-x'>
               <div className='cell large-6 medium-12'>
-                <div className='about-image'>
-                  <img src={Logo} alt='tungkol sa programa' />
+                <div className='about-image' style={{backgroundImage: 'url(' + `${config}/${this.state.tungkolSaProgramaLogo}` + ')'}}>
                 </div>
               </div>
               <div className='cell large-6 medium-12'>
                 <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>
                 <p className='context-montserrat'>
-                    Lorem ipsum dolor sit amet, 
-                    consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud 
-                    exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit 
-                    in voluptate velit esse cillum dolore 
-                    eu fugiat nulla pariatur.
+                    {this.state.tungkolSaProgramaDescription}
                 </p>
                 <button className='button primary'>Magsimula</button>
               </div>
@@ -198,13 +208,13 @@ class Home extends Component {
             </div>
           </div>
           <div className='grid-x'>
-          {subjects.map((attr, index)=>{
+          {this.state.learningStrand.map((attr, index)=>{
             return (
                 <div className='large-4 medium-6 small-12' key={index}>
                   <div className='subject-card'>
                     <div className='subject'>
-                      <span className='sub'>{attr.subject}</span>
-                      <span className='reviewer'>{attr.reviewer} Reviewers</span>
+                      <span className='sub'>{attr.name}</span>
+                      <span className='reviewer'>{attr.reviewer.length} Reviewers</span>
                     </div>
                   </div>
                 </div>
@@ -224,17 +234,17 @@ class Home extends Component {
 
               <span>
                   <p>Follow Us</p>
-                  <p>Facebook</p>
-                  <p>Twitter</p>
-                  <p>Instagram</p>
-                  <p>Medium</p>
-                  <p>Google</p>
+                  <p><a href={this.state.facebook} target='_blank'>Facebook</a></p>
+                  <p><a href={this.state.twitter} target='_blank'>Twitter</a></p>
+                  <p><a href={this.state.instagram} target='_blank'>Instagram</a></p>
+                  <p><a href={this.state.medium} target='_blank'>Medium</a></p>
+                  <p><a href={this.state.google} target='_blank'>Google</a></p>
               </span>
 
               <span>
                   <p>Contact Us</p>
-                  <p>info@balikaral.com</p>
-                  <p>+63 936 777 238  </p>
+                  <p>{this.state.email}</p>
+                  <p>{this.state.contact}</p>
               </span>
               
 
@@ -248,16 +258,7 @@ class Home extends Component {
             <div className='large-6 medium-12'>
                 <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>
                 <p className='context-montserrat'>
-                    Lorem ipsum dolor sit amet, 
-                    consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud 
-                    exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit 
-                    in voluptate velit esse cillum dolore 
-                    eu fugiat nulla pariatur.
+                   {this.state.tungkolSaProgramaDescription}
                 </p>
                 <p className='context-montserrat bold'>©2018 Balik Aral</p>
 

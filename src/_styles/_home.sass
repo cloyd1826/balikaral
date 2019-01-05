@@ -31,12 +31,10 @@
 		left: 55%
 		transform: translate(0, -50%)
 		width: 35%
-		img
-			width: 100%
-			height: auto
-			background-size: cover
-			background-repeat: no-repeat
-			background-position: center
+		height: 50vh
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
 
 
 
@@ -63,17 +61,13 @@
 	padding: 64px 10vw
 
 
-.volunteer-slide
-	display: flex
-	justify-content: center
-	align-items: center
-
 .volunteer-card
-	flex: 1
+	overflow: hidden
 	margin: 12px
 	border-radius: 5px
-	overflow: hidden
 	.card-image
+		border-top-left-radius: 5px!important
+	    border-top-right-radius: 5px!important
 		height: 40vh
 		width: 100%
 		max-height: 40vh
@@ -86,24 +80,36 @@
 		background: $red-color
 		color: #fff
 		padding: 16px
+		border-bottom-right-radius: 5px!important
+	    border-bottom-left-radius: 5px!important
+		transition: $transition-fast
 		.card-name
 			font-size: 16px
 			font-weight: 600
+			transition: $transition-fast
 		.card-description
 			font-size: 10px
+			transition: $transition-fast
+
+
 .volunteer-card:hover
 	.card-image
 		transform: scale(1.1)
 		height: 40vh
+	.card-text
+		transform: scale(1.1)
+		padding-left: 32px
+	
 
 .about-container
 	background: #f5f5f5
 	padding: 64px 10vw
 	.about-image
 		width: 70%
-		img
-			width: 100%
-			height: auto
+		height: 50vh
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
 	p
 		padding: 16px 0
 .subject-container

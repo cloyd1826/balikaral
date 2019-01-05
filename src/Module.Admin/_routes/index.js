@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard'
 import Level from '../Management/Level'
 import LearningStrand from '../Management/LearningStrand'
 import Subject from '../Management/Subject'
+import LandingPage from '../Management/LandingPage'
 
 import Exam from '../../_global-management/Exam/_routeAdmin'
 import ExamType from '../../_global-management/ExamType/_routeAdmin'
@@ -34,6 +35,7 @@ const Routes = () => {
             <Route path='/admin/management/learning-strand' component={LearningStrand} />
             <Route path='/admin/management/subject' component={Subject} />
             <Route path='/admin/management/forum' component={ManagementForum} />
+            <Route path='/admin/management/landing-page' component={LandingPage} />
 
             <Route path='/admin/forum' component={Forum} />
 

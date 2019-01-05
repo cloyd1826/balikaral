@@ -189,6 +189,24 @@ class Dashboard extends Component {
                
               </Grid.X>
 
+              <Grid.X>
+                <Grid.Cell large={12} medium={12} small={12}>
+                  <div className='main-link-title'>Landing Page</div>
+                </Grid.Cell>
+
+
+                <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/admin/management/landing-page/list'>
+                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
+                      <span className='la la-home'></span>
+                      <div className='link-title'>Details</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+               
+              </Grid.X>
+
             </Grid>
 
           </div>

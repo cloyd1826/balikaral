@@ -157,6 +157,7 @@ class Layout extends Component {
   handleSubmit(e){
   	e.preventDefault()
     this.formMessage('Saving Data', 'loading', true, true)
+    let total = parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyMedium) + parseInt(this.state.difficultyHard)
   	let data = {
       examType: this.state.examType,
       examDescription: this.state.examDescription,
@@ -165,7 +166,7 @@ class Layout extends Component {
       easy: this.state.difficultyEasy,
       medium: this.state.difficultyMedium,
       hard: this.state.difficultyHard,
-      examTotal: this.state.learningStrandQuestion.length,
+      examTotal: total,
       totalHours: this.state.totalHours,
   	}
   	apiRequest('post', '/exam-type-management', data, this.props.token)
@@ -268,7 +269,7 @@ class Layout extends Component {
                           type='number'
                           min={0}
                           max={this.state.easyCount}
-                          label='Number of Easy Questions'
+                          label={'Easy - (max: ' +this.state.easyCount+ ')'}
                           name='difficultyEasy'
                           value={this.state.difficultyEasy}
                           onChange={(e)=>{this.changeQuestion(e, this.state.easyCount)}}
@@ -280,7 +281,7 @@ class Layout extends Component {
                           type='number'
                           min={0}
                           max={this.state.mediumCount}
-                          label='Number of Medium Questions'
+                          label={'Medium - (max: ' + this.state.mediumCount + ')'}
                           name='difficultyMedium'
                           value={this.state.difficultyMedium}
                           onChange={(e)=>{this.changeQuestion(e, this.state.mediumCount)}}
@@ -292,7 +293,7 @@ class Layout extends Component {
                           type='number'
                           min={0}
                           max={this.state.hardCount}
-                          label='Number of Hard Questions'
+                          label={'Hard - (max: ' + this.state.hardCount + ')'}
                           name='difficultyHard'
                           value={this.state.difficultyHard}
                           onChange={(e)=>{this.changeQuestion(e, this.state.hardCount)}}

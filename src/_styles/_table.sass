@@ -33,6 +33,11 @@ table
     th.is-narrowed, td.is-narrowed
       white-space: nowrap!important
       width: 1px
+    th, td
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      max-width: 20rem
 table.unstriped 
   tbody 
     background-color: #fefefe
