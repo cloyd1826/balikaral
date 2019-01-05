@@ -204,19 +204,35 @@ class Layout extends Component {
             lengthOfAnsweredQuestion: checkedExam.length,
             percentagePerLearningStrand: percentagePerLearningStrand,
             takingExam: false,
-            questionAnswered: true,
-            checking: true,
+            questionAnswered: (this.props.hadPreTest ? true : false),
+            checking: (this.props.hadPreTest ? true : false),
+            hadPreTest: (this.props.hadPreTest ? false : true),
+
           })
 
            if(!this.props.hadPreTest){
               let hadPreTest = {
                 hadPreTest: true
-              }
+              } 
               apiRequest('put', `/user/update-pre-test/${this.props.user.id}`, hadPreTest, this.props.token)
                 .then((res)=>{ 
-                 this.setState({
-                  hadPreTest: true
-                 })
+                    let userData = {
+                      user: this.props.user,
+                      token: this.props.token,
+                      isLoggedIn: true,
+                      role: this.props.role,
+                      hadPreTest: true
+                    }
+                    this.props.actions.logIn(userData)
+                   this.props.history.push({
+                      pathname: '/pre-test-result',
+                      state: { 
+                        exam: checkedExam,
+                        lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
+                        percentagePerLearningStrand: percentagePerLearningStrand,
+                        examType: this.state.examType
+                      }
+                    })
                 })
                 .catch((err)=>{
                   this.formMessage('Error: ' + err.message, 'error', true, false)
@@ -239,20 +255,20 @@ class Layout extends Component {
 
    
   }
-  componentWillUnmount(){
-    if(this.state.hadPreTest){
-      let userData = {
-        user: this.props.user,
-        token: this.props.token,
-        isLoggedIn: true,
-        role: this.props.role,
-        hadPreTest: true
-      }
-      this.props.actions.logIn(userData)
-      this.props.history.push('/learner/dashboard')
-    }
+  // componentWillUnmount(){
+  //   if(this.state.hadPreTest){
+  //     let userData = {
+  //       user: this.props.user,
+  //       token: this.props.token,
+  //       isLoggedIn: true,
+  //       role: this.props.role,
+  //       hadPreTest: true
+  //     }
+  //     this.props.actions.logIn(userData)
+  //     this.props.history.push('/learner/dashboard')
+  //   }
      
-  }
+  // }
  
   fetchExamType(){
     apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
@@ -304,6 +320,7 @@ class Layout extends Component {
     this.fetchLearningStrand()
   }
   render() {
+    console.log(this.props)
     return (
         <div>
           <Grid fluid>
@@ -372,51 +389,44 @@ class Layout extends Component {
                       </div>
                   : null}
 
+                  {this.state.hadPreTest ? 
+                    <div className='question-card-loader'>
+                      <div className='question-loader-container'>
+                        <span>
+                          <i className='la la-spinner'></i>
+                        </span>
+                        <div className='subtitle-montserrat'>Please Wait.</div>
+                      </div>
+                    </div>
+
+                  : null}
+
                   {this.state.checking ?
                     <div>
-                    {!this.props.hadPreTest
-                      ? 
-                      <div className='question-card-loader'>
-                        <div className='question-loader-container'>
-                          <span>
-                            <i className='la la-smile-o'></i>
-                          </span>
-                          <div className='subtitle-montserrat'>Congratulations</div>
-                          <div className='context-montserrat'>Lorem Ipsum Dolor Sit Amet. <br />You will be able to view all the actions for a Learner User</div>
-                         
-                        </div>
-                      </div>
-
-                      : null
-
-
-                    }
-                    
-
-                    <div className='grid-question-action'>
-                      <div className='action'>
-                        <i className='la la-list-alt' />
-                        Result: &nbsp;
-                        {this.state.lengthOfCorrectAnswer}/{this.state.exam.length}
-                      </div>
-                      <div className='action'>
-                        <i className='la la-smile-o' />
-                        Percent: &nbsp;
-                        {Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)} %
-                      </div>
-                      <div className='action'>
-                        <i className='la la-hourglass-2' />
-                        5:00
-                      </div>
-                      <Link to={this.props.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard'}>
+                      <div className='grid-question-action'>
                         <div className='action'>
-                            <i className='la la-home' />
-                            Return to Dashboard
+                          <i className='la la-list-alt' />
+                          Result: &nbsp;
+                          {this.state.lengthOfCorrectAnswer}/{this.state.exam.length}
                         </div>
-                      </Link>
-                    </div>
-                    </div>
-                  : null}
+                        <div className='action'>
+                          <i className='la la-smile-o' />
+                          Percent: &nbsp;
+                          {Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)} %
+                        </div>
+                        <div className='action'>
+                          <i className='la la-hourglass-2' />
+                          5:00
+                        </div>
+                        <Link to={this.props.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard'}>
+                          <div className='action'>
+                              <i className='la la-home' />
+                              Return to Dashboard
+                          </div>
+                        </Link>
+                      </div>
+                      </div>
+                    : null }
 
                   {this.state.takingExam ?
                       <GridExam 
