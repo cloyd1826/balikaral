@@ -44,12 +44,17 @@ class Layout extends Component {
       message: '',
       type: '',
       active: false,
-      buttonDisabled: false
+      buttonDisabled: false,
+
+      easyCount: '',
+      mediumCount: '',
+      hardCount: '',
       
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
+    this.changeQuestion = this.changeQuestion.bind(this)
  
     this.clearData = this.clearData.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -61,6 +66,14 @@ class Layout extends Component {
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
 
     this.levelChange = this.levelChange.bind(this)
+  }
+  changeQuestion(e, max){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: ( value > max ? max : value || value < 0 ? 0 : value)
+    })
+  
   }
   levelChange(e){
     let name = e.target.name
@@ -181,6 +194,19 @@ class Layout extends Component {
       .catch((err)=>{
         
       })
+    apiRequest('get', `/exam-management/difficulty-count`, false, this.props.token)
+      .then((res)=>{
+        if(res.data){
+          this.setState({
+            easyCount: res.data.easy,
+            mediumCount: res.data.medium,
+            hardCount: res.data.hard,
+          })  
+        }
+      })
+      .catch((err)=>{
+        
+      })
   }
   render() { 
     return (
@@ -241,10 +267,11 @@ class Layout extends Component {
                         <Input
                           type='number'
                           min={0}
+                          max={this.state.easyCount}
                           label='Number of Easy Questions'
                           name='difficultyEasy'
                           value={this.state.difficultyEasy}
-                          onChange={this.handleChange}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.easyCount)}}
                         />
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={12} small={12}>
@@ -252,10 +279,11 @@ class Layout extends Component {
                           
                           type='number'
                           min={0}
+                          max={this.state.mediumCount}
                           label='Number of Medium Questions'
                           name='difficultyMedium'
                           value={this.state.difficultyMedium}
-                          onChange={this.handleChange}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.mediumCount)}}
                         />
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={12} small={12}>
@@ -263,10 +291,11 @@ class Layout extends Component {
                           
                           type='number'
                           min={0}
+                          max={this.state.hardCount}
                           label='Number of Hard Questions'
                           name='difficultyHard'
                           value={this.state.difficultyHard}
-                          onChange={this.handleChange}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.hardCount)}}
                         />
                       </Grid.Cell>
 

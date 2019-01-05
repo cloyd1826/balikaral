@@ -50,7 +50,7 @@ class Layout extends Component {
     })
   }
   fetchExamType(){
-    apiRequest('get', `/exam-type-management/all`, false, this.props.token)
+    apiRequest('get', `/exam-type-management/all?hidePreTest=true`, false, this.props.token)
       .then((res)=>{
         if(res.data){
           this.setState({

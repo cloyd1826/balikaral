@@ -3,9 +3,9 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../../_component/Grid'
-import Pagination from '../../../../_component/Pagination'
 import Table from '../../../../_component/Table'
 import FormMessage from '../../../../_component/Form/FormMessage'
+import Pagination from '../../../../_component/Pagination'
 
 import apiRequest from '../../../../_axios'
 
@@ -17,11 +17,12 @@ class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
-    	learningStrand: [],
+    	level: [],
 
     	message: '',
       type: '',
       active: false,
+
 
       currentPage: 1,
       nextPage: null,
@@ -30,14 +31,14 @@ class Layout extends Component {
       previousPage: null,
       totalCount: 1,
 
+
       deleteActive: false,
       link: ''
     }
-    this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
+    this.fetchLevel = this.fetchLevel.bind(this)
    	this.formMessage = this.formMessage.bind(this)
 
    	this.toggleDelete = this.toggleDelete.bind(this)
-
     this.changePage = this.changePage.bind(this)
 
   }
@@ -46,7 +47,7 @@ class Layout extends Component {
     this.setState({
       currentPage: page
     })
-    this.fetchLearningStrand( page)
+    this.fetchLevel( page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -55,7 +56,7 @@ class Layout extends Component {
   			link: ''
   		})
       let page = this.state.currentPage
-  		this.fetchLearningStrand(page)
+  		this.fetchLevel(page)
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -71,14 +72,12 @@ class Layout extends Component {
     })
   }
 
-  fetchLearningStrand(page){
-  	
-  	apiRequest('get', `/learning-strand/fetchAllQuestion?page=${page}`, false, this.props.token)
+  fetchLevel(page){
+  	apiRequest('get', `/level/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
-        console.log(res.data.data)
   			if(res.data){
   				this.setState({
-	  				learningStrand: res.data.data,
+	  				level: res.data.data,
             currentPage: res.data.currentPage,
             nextPage: res.data.nextPage,
             pageCount: res.data.pageCount,
@@ -89,24 +88,25 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
+        console.log(err)
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }
   componentDidMount(){
-  	this.fetchLearningStrand(1)
+  	this.fetchLevel(1)
   }
   render() { 
     return (
         <div>
         	<Grid fluid>
         		<Grid.X>
-        			<Grid.Cell large={12} medium={12} small={12}>
+        			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
         					<div className='title-text-container'>
-        						<div className='title'>Learning Strand Management</div>
+        						<div className='title'>Level Management</div>
         						<div className='title-action'>
-        							<Link to='/admin/management/learning-strand/add'>
-        								<div className='button primary small'>Add New Learning Strand</div>
+        							<Link to='/admin/management/level/add'>
+        								<div className='button primary small'>Add New Level</div>
         							</Link>
         						</div>
         					</div>
@@ -114,33 +114,29 @@ class Layout extends Component {
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Level</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-				        				<Table.HeaderCell>No Of Questions</Table.HeaderCell>
+				        				<Table.HeaderCell>Name</Table.HeaderCell>
+				        				<Table.HeaderCell>Description</Table.HeaderCell>
 				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Header>
 				        		<Table.Body>
 				        			{
-					        			this.state.learningStrand.map((attr, index) =>{
+					        			this.state.level.map((attr, index) =>{
 					        				return (
 					        					<Table.Row key={index}>
 							        				<Table.Cell>
 							        					<Link 
 							        						to={{ 
-														    pathname: '/admin/management/learning-strand/edit', 
-														    state: { id: attr._id } 
+    														    pathname: '/admin/management/level/edit', 
+    														    state: { id: attr._id } 
     															}}>
     															{attr.name}
     														</Link>
-    													</Table.Cell>
-                              <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
+													    </Table.Cell>
 							        				<Table.Cell>{attr.description}</Table.Cell>
-                              <Table.Cell>{attr.questions ? attr.questions.length : 0}</Table.Cell>
 							        				<Table.Cell isNarrowed>
 							        					<Link to={{ 
-															    pathname: '/admin/management/learning-strand/edit', 
+															    pathname: '/admin/management/level/edit', 
 															    state: { id: attr._id } 
 															  }}>
 								        					<span>
@@ -148,7 +144,7 @@ class Layout extends Component {
 								        					</span>
 							        					</Link>
 							        				
-							        					<span onClick={()=>{this.toggleDelete('/learning-strand/delete/' + attr._id)}}>
+							        					<span onClick={()=>{this.toggleDelete('/level/delete/' + attr._id)}}>
 							        						<i className='fa fa-trash cancel'></i>
 							        					</span>
 							        				</Table.Cell>
@@ -163,24 +159,22 @@ class Layout extends Component {
 				        		<Table.Footer>
 				        			<Table.Row>
 				        				<Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Level</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-                        <Table.HeaderCell>No Of Questions</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
+				        				<Table.HeaderCell>Description</Table.HeaderCell>
+				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
-                <div className='table-pagination'>
-                      <Pagination
-                          changePage={this.changePage}
-                          currentPage={this.state.currentPage}
-                          nextPage={this.state.nextPage}
-                          pageCount={this.state.pageCount}
-                          perPage={this.state.perPage}
-                          previousPage={this.state.previousPage}
-                          totalCount={this.state.totalCount}
+                 <div className='table-pagination'>
+                  <Pagination
+                      changePage={this.changePage}
+                      currentPage={this.state.currentPage}
+                      nextPage={this.state.nextPage}
+                      pageCount={this.state.pageCount}
+                      perPage={this.state.perPage}
+                      previousPage={this.state.previousPage}
+                      totalCount={this.state.totalCount}
 
-                      />
+                  />
                   </div>
 			        	</div>
         			</Grid.Cell>
@@ -188,17 +182,17 @@ class Layout extends Component {
         	</Grid>
 
 
-        	<ManagementDelete item='Learning Strand' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+        	<ManagementDelete item='Level Name' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
 
         </div>
     )
   }
-} 
+}
 
 const mapStateToProps = (state) => {
 	return {
 		token: state.token
 	}
 }
-const ListLearningStrand = connect(mapStateToProps)(Layout)
-export default ListLearningStrand
+const ListLevel = connect(mapStateToProps)(Layout)
+export default ListLevel
