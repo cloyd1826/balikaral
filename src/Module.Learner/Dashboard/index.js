@@ -22,7 +22,7 @@ class Layout extends Component {
                
                  <Grid.Cell large={4} medium={6} small={12}>
                     <Link to='/learner/exam/available'>
-                    <div className='dashboard-link' style={{background: '#912396'}}>
+                    <div className='dashboard-link' >
                       <span className='la la-list-ol'></span>
                       <div className='link-title'>Tapang</div>
                     </div>
@@ -30,7 +30,7 @@ class Layout extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={4} medium={6} small={12}>
                   <Link to='/learner/reviewer/list/learner'>
-                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                    <div className='dashboard-link' >
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Talino</div>
                     </div>
@@ -38,7 +38,7 @@ class Layout extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={4} medium={6} small={12}>
                   <Link to='/learner/exam/learning-strand'>
-                    <div className='dashboard-link' style={{background: '#00a100'}}>
+                    <div className='dashboard-link' >
                       <span className='la la-copy'></span>
                       <div className='link-title'>Tiyaga</div>
                     </div>
@@ -46,7 +46,7 @@ class Layout extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={4} medium={6} small={12}>
                   <Link to='/learner/forum/dashboard'>
-                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
+                    <div className='dashboard-link' >
                       <span className='la la-comment'></span>
                       <div className='link-title'>Forum</div>
                     </div>

@@ -23,7 +23,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/teacher/learner-list'>
-                    <div className='dashboard-link' style={{background: '#5736b1'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-user'></span>
                       <div className='link-title'>Mga Learner</div>
                     </div>
@@ -31,7 +31,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/teacher/generated-exam/learner'>
-                    <div className='dashboard-link' style={{background: '#be1e4b'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-list-ol'></span>
                       <div className='link-title'>Learner Exam</div>
                     </div>
@@ -46,7 +46,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
                  <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/teacher/management/reviewer/list/teachers'>
-                    <div className='dashboard-link' style={{background: '#00a100'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Reviewer</div>
                     </div>
@@ -54,7 +54,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/teacher/management/exam/list/teachers'>
-                    <div className='dashboard-link' style={{background: '#5736b1'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>
                     </div>
@@ -71,7 +71,7 @@ class Dashboard extends Component {
                 
                 <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/teacher/forum/dashboard'>
-                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-comment'></span>
                       <div className='link-title'>Forum</div>
                     </div>

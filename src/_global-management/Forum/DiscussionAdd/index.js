@@ -130,7 +130,7 @@ class Layout extends Component {
         <div>
           <Grid fluid>
             <Grid.X>
-              <Grid.Cell large={12}>
+              <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
                   <div className='title-text-container'>
                     <div className='title'>Add New Discussion</div>

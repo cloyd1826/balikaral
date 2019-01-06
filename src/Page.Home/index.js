@@ -8,6 +8,7 @@ import config from '../_config'
 import Slider from "react-slick"
 
 import ImageLoader from '../_component/ImageLoader'
+import Grid from '../_component/Grid'
 
 class Home extends Component {
   constructor(props){
@@ -89,64 +90,59 @@ class Home extends Component {
       slidesToScroll: 4
     };
     return (
-      <div  className='home-container'>
+      <div className='home-container'>
         <NavBar logo={this.state.logo} />
 
-        <div className='home-banner'>
-          <div className='home-banner-text'>
-            <p className='home-subtitle bold subtitle-montserrat'>
-                Tayo na at mag
-            </p>
-            <p className='home-title'>
-              <span className='blue-color'>Balik</span>&nbsp;
-              <span className='red-color'>Aral</span>
-              <span></span>
-            </p>
-            <p className='home-description'>
-              {this.state.pageDescription}
-            </p>
-            <button type='button' className='button primary'>Magsimula</button>
-          
-          </div>
-          
-          <ImageLoader className='home-image-banner' image={this.state.pageLogo} />
-         
-        </div>
+        <Grid fluid>
+          <Grid.X className='home-banner'>
+            <Grid.Cell large={6} medium={12} small={12} className='home-banner-text'>
+              <div>
+                <p className='home-subtitle bold subtitle-montserrat'>
+                    Tayo na at mag
+                </p>
+                <p className='home-title'>
+                  <span className='blue-color'>Balik</span>&nbsp;
+                  <span className='red-color'>Aral</span>
+                  <span></span>
+                </p>
+                <p className='home-description'>
+                  {this.state.pageDescription}
+                </p>
+                <button type='button' className='button primary'>Magsimula</button>
+              </div>
+            </Grid.Cell>
+            <Grid.Cell large={6} medium={12} small={12} className='home-image-container'>
+              <ImageLoader className='home-image-banner' image={this.state.pageLogo} />
+            </Grid.Cell>
 
-
-        <div className='home-counter'>
-          <div className='grid-container'>
-            <div className='grid-x'>
-              <div className='large-6 medium-12-12'>
-                <div className='counter'>
+          </Grid.X>
+          <Grid.X className='home-counter'>
+            <Grid.Cell large={6} medium={12} small={12}>
+              <div className='counter'>
                   <span>
                     <p className='counter-number'>4728</p>
                     <p className='counter-text'>Mga Pumasa</p>
                   </span>
                 </div>
-              </div>
-              <div className='large-6 medium-12-12'>
-                <div className='counter'>
+            </Grid.Cell>
+            <Grid.Cell large={6} medium={12} small={12}>
+              <div className='counter'>
                  <span>
                   <p className='counter-number'>{this.state.userLength}</p>
                   <p className='counter-text'>Mga Gumagamit ng Programa</p>
                 </span>
               </div>
-              </div>
+            </Grid.Cell>
 
-            </div> 
+          </Grid.X>
+        </Grid>
 
-          </div>
-        </div>
 
 
         {/*mga boluntaryo*/}
         <div className='volunteer-container container'>
           <div className='subtitle-montserrat bold home-title-text'>Mga Boluntaryo</div>
           <Slider {...settings}>
-
-
-
             {this.state.teacher.map((attr, index)=>{
                return (
                 <div key={index}>
@@ -175,24 +171,23 @@ class Home extends Component {
 
 
       {/*about*/}
-        <div className='about-container'>
-          <div className='grid-container fluid'>
-            <div className='grid-x'>
-              <div className='cell large-6 medium-12'>
-          
-                <ImageLoader className='about-image' image={this.state.tungkolSaProgramaLogo}/>
-               
-              </div>
-              <div className='cell large-6 medium-12'>
+
+         <Grid.X className='about-container'>
+            <Grid.Cell large={6} medium={12} small={12} className='about-banner-text'>
+
+              <ImageLoader className='about-image' image={this.state.tungkolSaProgramaLogo}/>
+            </Grid.Cell>
+            <Grid.Cell large={6} medium={12} small={12} className='about-image-container'>
+              <span>
                 <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>
                 <p className='context-montserrat'>
                     {this.state.tungkolSaProgramaDescription}
                 </p>
                 <button className='button primary'>Magsimula</button>
-              </div>
-            </div>
-          </div>
-        </div>
+              </span>
+            </Grid.Cell>
+
+          </Grid.X>
 
 
 

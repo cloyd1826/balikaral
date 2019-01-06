@@ -22,7 +22,7 @@ class Layout extends Component {
                
                  <Grid.Cell large={4} medium={6} small={12}>
                     <Link to='/learner-start/pre-test/create'>
-                    <div className='dashboard-link' style={{background: '#912396'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-list-ol'></span>
                       <div className='link-title'>Pre Test</div>
                     </div>
@@ -30,7 +30,7 @@ class Layout extends Component {
                 </Grid.Cell>
                 <Grid.Cell large={4} medium={6} small={12}>
                   <Link to='/learner-start/reviewer/list/learner'>
-                    <div className='dashboard-link' style={{background: '#0386a2'}}>
+                    <div className='dashboard-link'>
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Talino</div>
                     </div>
