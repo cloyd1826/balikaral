@@ -70,10 +70,17 @@ class Layout extends Component {
   changeQuestion(e, max){
     let name = e.target.name
     let value = e.target.value
+    let valueToChange = value
+    
+    if(value > max){
+      valueToChange = max
+    }
+    if(value < 0){
+      valueToChange = 0
+    }
     this.setState({
-      [name]: ( value > max ? max : value || value < 0 ? 0 : value)
+      [name]: valueToChange
     })
-  
   }
   levelChange(e){
     let name = e.target.name
