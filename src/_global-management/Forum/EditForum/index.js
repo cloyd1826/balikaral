@@ -53,8 +53,12 @@ class Layout extends Component {
   }
   
   componentDidMount(){
+    if(this.props.location.state){
+      this.fetchSingle()
+    }else{
+      this.props.history.push('/')
+    }
     
-    this.fetchSingle()
   }
   fetchSingle(){
     apiRequest('get', `/management-forum/${this.props.location.state.id}`, false, this.props.token)

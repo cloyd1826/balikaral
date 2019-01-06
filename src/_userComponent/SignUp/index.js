@@ -150,7 +150,7 @@ class Layout extends Component{
                           </Grid.Cell>
                         </Grid.X>
                         <Grid.X>
-                          <Grid.Cell large={12} medium={12} small={12}>
+                          <Grid.Cell large={4} medium={12} small={12}>
                             <Input 
                               label='Email' 
                               type='email' 
@@ -161,7 +161,7 @@ class Layout extends Component{
 
                               />
                           </Grid.Cell>
-                          <Grid.Cell large={12} medium={12} small={12}>
+                          <Grid.Cell large={4} medium={12} small={12}>
                             <Input 
                               label='Password' 
                               type='password' 
@@ -172,7 +172,7 @@ class Layout extends Component{
                               />
                           </Grid.Cell>
 
-                          <Grid.Cell large={12} medium={12} small={12}>
+                          <Grid.Cell large={4} medium={12} small={12}>
                             <Select
                               label='User Type'
                               required

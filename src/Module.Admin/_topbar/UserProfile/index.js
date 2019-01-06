@@ -4,12 +4,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { logOutUser } from '../../../_redux/actions/user'
 
-
-import Profile from '../../../_images/vol3.jpeg'
-
 import { Link } from 'react-router-dom'
 
 import config from '../../../_config'
+import ImageLoader from '../../../_component/ImageLoader'
 
 class Layout extends Component{
   constructor(props){
@@ -64,8 +62,8 @@ class Layout extends Component{
             this.props.role ? this.props.role : ''
           }</div>
         </div>
-        <div className='user-image'  onClick={this.toggleUserLink} style={{backgroundImage: 'url(' + (this.props.user.image ? `${config}/${this.props.user.image}` : Profile ) +')'}}></div>
         
+        <ImageLoader className='user-image' onClick={this.toggleUserLink} image={this.props.user.image} type='user' />
         {this.state.userLink ? 
             <div className='user-container'>
               <Link to='/'>

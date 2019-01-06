@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import config from '../../../_config'
 
 import Grid from '../../../_component/Grid'
+import ImageLoader from '../../../_component/ImageLoader'
 
 class Layout extends Component {
   constructor(props) {

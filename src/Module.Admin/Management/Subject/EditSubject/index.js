@@ -49,7 +49,12 @@ class Layout extends Component {
     })
   }
   componentDidMount(){
-    this.fetchSingle()
+    
+    if(this.props.location.state){
+      this.fetchSingle()
+    }else{
+      this.props.history.push('/')
+    }
   }
   fetchSingle(){
     apiRequest('get', `/learning-strand-sub/${this.props.location.state.id}`, false, this.props.token)

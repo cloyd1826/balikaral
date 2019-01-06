@@ -65,6 +65,22 @@ class Layout extends Component {
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
 
     this.levelChange = this.levelChange.bind(this)
+    this.changeQuestion = this.changeQuestion.bind(this)
+  }
+  changeQuestion(e, max){
+    let name = e.target.name
+    let value = e.target.value
+    let valueToChange = value
+    
+    if(value > max){
+      valueToChange = max
+    }
+    if(value < 0){
+      valueToChange = 0
+    }
+    this.setState({
+      [name]: valueToChange
+    })
   }
   levelChange(e){
     let name = e.target.name
@@ -131,8 +147,12 @@ class Layout extends Component {
   }
   
   componentDidMount(){
+    if(this.props.location.state){
+      this.fetchLearningStrand()
+    }else{
+      this.props.history.push('/')
+    }
     
-    this.fetchLearningStrand()
   }
   fetchSingle(learningStrandList){
     apiRequest('get', `/exam-type-management/${this.props.location.state.id}`, false, this.props.token)

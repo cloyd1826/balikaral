@@ -120,6 +120,11 @@ class Layout extends Component {
     }
     return post(url, formData, configPost)
   } 
+  componentDidMount(){
+    if(!this.props.location.state){
+      this.props.history.push('/')
+    }
+  }
   render() { 
     return (
         <div>

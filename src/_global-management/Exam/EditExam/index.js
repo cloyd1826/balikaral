@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
+import ImageLoader from '../../../_component/ImageLoader'
 
 import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
@@ -124,7 +125,11 @@ class Layout extends Component {
   }
   
   componentDidMount(){
-    this.fetchSingle()
+    if(this.props.location.state){
+      this.fetchSingle()
+    }else{
+      this.props.history.push('/')
+    }
   }
   fetchSingle(){
     apiRequest('get', `/exam-management/${this.props.location.state.id}`, false, this.props.token)
@@ -469,7 +474,12 @@ class Layout extends Component {
                                     <div className='question'>{this.state.question}</div>
                                     {
                                       this.state.questionImage != '' ?
-                                      <div className='question-image' style={{backgroundImage: `url(${config}/` + this.state.questionImage + ')'}}></div>
+                                      
+                                      <ImageLoader
+                                        className='question-image'
+                                        image={this.state.questionImage}
+                                        />
+
                                       : null }                                  
                                     <div className='answer-container'>
 
@@ -479,7 +489,11 @@ class Layout extends Component {
                                             <span className='answer'>
                                                {
                                                 this.state.aImage != '' ?
-                                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.aImage + ')'}}></div>
+                                                <ImageLoader 
+                                                  className='answer-image'
+                                                  image={this.state.aImage}
+                                                />
+                                                
                                                 : null }
                                               {this.state.a}
                                             </span>
@@ -492,7 +506,11 @@ class Layout extends Component {
                                             <span className='answer'>
                                               {
                                                 this.state.bImage != '' ?
-                                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.bImage + ')'}}></div>
+                                                <ImageLoader 
+                                                  className='answer-image'
+                                                  image={this.state.bImage}
+                                                />
+                                                
                                                 : null }
                                               {this.state.b}
                                             </span>
@@ -505,7 +523,10 @@ class Layout extends Component {
                                             <span className='answer'>
                                              {
                                                 this.state.cImage != '' ?
-                                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.cImage + ')'}}></div>
+                                                 <ImageLoader 
+                                                  className='answer-image'
+                                                  image={this.state.cImage}
+                                                  />
                                                 : null }
                                               {this.state.c}
                                             </span>
@@ -517,7 +538,10 @@ class Layout extends Component {
                                             <span className='answer'>
                                               {
                                                 this.state.dImage != '' ?
-                                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.state.dImage + ')'}}></div>
+                                                 <ImageLoader 
+                                                    className='answer-image'
+                                                    image={this.state.dImage}
+                                                  />
                                                 : null }
                                               {this.state.d}
                                             </span>

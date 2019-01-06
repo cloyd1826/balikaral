@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Logo from '../../_images/logo.png'
+import ImageLoader from '../../_component/ImageLoader'
 
 import { Link } from 'react-router-dom'
 
@@ -63,8 +63,9 @@ class Layout extends Component {
 		      	<div className='grid-x'>
 		      		<div className='large-6 medium-12 nav-icon-container'>
 		      			<Link to='/'>
-		      				<div className='nav-icon' style={{backgroundImage: 'url(' + this.props.logo + ')'}}>
-		      			</div>
+		      				
+		      				<ImageLoader className='nav-icon' image={this.props.logo ? this.props.logo : ''} />
+		      			
 		      			</Link>
 		      		</div>
 		      		<div className='large-6 medium-12 '>

@@ -400,7 +400,7 @@ class Layout extends Component {
                       </Grid.Cell>
 
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>
-  	        						<Button type='submit' text='Save' className='secondary small' />
+  	        						<Button type='submit' disabled={this.state.buttonDisabled} text='Save' className='secondary small' />
                         <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '') }>
   	        						 <Button disabled={this.state.buttonDisabled} type='button' text='Return' className='cancel small'/>
                         </Link>

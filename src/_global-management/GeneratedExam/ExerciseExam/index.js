@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
+import ImageLoader from '../../../_component/ImageLoader'
 import FormMessage from '../../../_component/Form/FormMessage'
 
 import apiRequest from '../../../_axios'
@@ -19,6 +20,7 @@ class Layout extends Component {
       question: {},
       learningStrand: '',
       answer: '',
+      examFalse: false
     }
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -48,11 +50,14 @@ class Layout extends Component {
     
     apiRequest('get', `/exam-management/exercise/${this.props.location.state.id}`, false, this.props.token)
       .then((res)=>{ 
-        let result = res.data
-     
+        let result = res.data.data
         if(result){
           this.setState({
-            question: result.data[0] ? result.data[0].question ? result.data[0].question : {} : {}
+            question: result ? result[0].question ? result[0].question : {} : {}
+          })
+        }else{
+          this.setState({
+            examFalse: true
           })
         }
       })
@@ -62,7 +67,12 @@ class Layout extends Component {
   }
  
   componentDidMount(){
-    this.fetchExamType()
+    
+    if(this.props.location.state){
+      this.fetchExamType()
+    }else{
+      this.props.history.push('/')
+    }
   }
   render() {
     let question =  this.state.question
@@ -86,77 +96,99 @@ class Layout extends Component {
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
 
-                  <div className={'grid-exam-container ' + (this.state.answer !== '' ? 'answered' : '')}>
-                    <div className='prev-icon' onClick={this.newExam}>
-                      <i className='la la-chevron-circle-left' />
-                    </div>
-                    <div className='next-icon' onClick={this.newExam}>
-                      <i className='la la-chevron-circle-right' />
-                    </div>
-                    <div className='grid-exam'>
-                      <div className='grid-question-details'>
-                        <span>
-                          {question.details ? question.details : ''}
 
-                        </span>
+
+                  {!this.state.examFalse ? 
+                    <div className={'grid-exam-container ' + (this.state.answer !== '' ? 'answered' : '')}>
+                      <div className='prev-icon' onClick={this.newExam}>
+                        <i className='la la-chevron-circle-left' />
                       </div>
-                      { question.images ? 
-                          <div className='grid-question-image' style={{backgroundImage: `url(${config}/` + question.images + ')'}}></div>
-                      : ''}  
+                      <div className='next-icon' onClick={this.newExam}>
+                        <i className='la la-chevron-circle-right' />
+                      </div>
+                      <div className='grid-exam'>
+                        <div className='grid-question-details'>
+                          <span>
+                            {question.details ? question.details : ''}
 
-
-                      {this.state.answer !== '' ? 
-                        this.state.answer === question.answer ? 
-                          <div className='grid-correct-answer'>TAMA KA!</div>
-                        : 
-                          <div className='grid-wrong-answer'>MALI ang sagot mo, pero OKs lang. Ang TAMANG sagot ay: {question.answer} </div>
-                      : null}
-
-                      <div className='grid-answer'>
-                        
-                        <div className={'answer-text ' + (this.state.answer === 'A' ? 'active' : '' )} onClick={()=>{this.setAnswer('A')}}>
-                          <span className='letter'>A.</span>
-                          <span className='answer'>
-                              {question.choices ? question.choices.a ? question.choices.a.image ? question.choices.a.image != '' ?  
-                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + question.choices.a.image + ')'}}></div>
-                              : '' : '' : '' : '' }
-                            { question.choices ? question.choices.a ? question.choices.a.details ? question.choices.a.details : '' : '' : '' }
                           </span>
                         </div>
-
-                        <div className={'answer-text ' + (this.state.answer === 'B' ? 'active' : '' )}  onClick={()=>{this.setAnswer('B')}}>
-                          <span className='letter'>B.</span>
-                          <span className='answer'>
-                              {question.choices ? question.choices.b ? question.choices.b.image ? question.choices.b.image != '' ?  
-                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + question.choices.b.image + ')'}}></div>
-                              : '' : '' : '' : '' }
-                            { question.choices ? question.choices.b ? question.choices.b.details ? question.choices.b.details : '' : '' : '' }
-                          </span>
-                        </div>
+                        { question.images ? 
+                            <ImageLoader className='grid-question-image' image={question.images} />
+                        : ''}  
 
 
-                        <div className={'answer-text ' + (this.state.answer === 'C' ? 'active' : '' )}  onClick={()=>{this.setAnswer('C')}}>
-                          <span className='letter'>C.</span>
-                          <span className='answer'>
-                              {question.choices ? question.choices.c ? question.choices.c.image ? question.choices.c.image != '' ?  
-                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + question.choices.c.image + ')'}}></div>
-                              : '' : '' : '' : '' }
-                            { question.choices ? question.choices.c ? question.choices.c.details ? question.choices.c.details : '' : '' : '' }
-                          </span>
-                        </div>
+                        {this.state.answer !== '' ? 
+                          this.state.answer === question.answer ? 
+                            <div className='grid-correct-answer'>TAMA KA!</div>
+                          : 
+                            <div className='grid-wrong-answer'>MALI ang sagot mo, pero OKs lang. Ang TAMANG sagot ay: {question.answer} </div>
+                        : null}
 
-                        <div className={'answer-text ' + (this.state.answer === 'D' ? 'active' : '' )}  onClick={()=>{this.setAnswer('D')}}>
-                          <span className='letter'>D.</span>
-                          <span className='answer'>
-                              {question.choices ? question.choices.d ? question.choices.d.image ? question.choices.d.image != '' ?  
-                                <div className='answer-image' style={{backgroundImage: `url(${config}/` + question.choices.d.image + ')'}}></div>
-                              : '' : '' : '' : '' }
-                            { question.choices ? question.choices.d ? question.choices.d.details ? question.choices.d.details : '' : '' : '' }
-                          </span>
-                        </div>
-                      </div>    
+                        <div className='grid-answer'>
+                          
+                          <div className={'answer-text ' + (this.state.answer === 'A' ? 'active' : '' )} onClick={()=>{this.setAnswer('A')}}>
+                            <span className='letter'>A.</span>
+                            <span className='answer'>
+                                {question.choices ? question.choices.a ? question.choices.a.image ? question.choices.a.image != '' ?  
+                                  <ImageLoader className='grid-question-image' image={question.choices.a.image} />
+                                : '' : '' : '' : '' }
+                              { question.choices ? question.choices.a ? question.choices.a.details ? question.choices.a.details : '' : '' : '' }
+                            </span>
+                          </div>
+
+                          <div className={'answer-text ' + (this.state.answer === 'B' ? 'active' : '' )}  onClick={()=>{this.setAnswer('B')}}>
+                            <span className='letter'>B.</span>
+                            <span className='answer'>
+                                {question.choices ? question.choices.b ? question.choices.b.image ? question.choices.b.image != '' ?  
+                                  <ImageLoader className='grid-question-image' image={question.choices.b.image} />
+                                : '' : '' : '' : '' }
+                              { question.choices ? question.choices.b ? question.choices.b.details ? question.choices.b.details : '' : '' : '' }
+                            </span>
+                          </div>
+
+
+                          <div className={'answer-text ' + (this.state.answer === 'C' ? 'active' : '' )}  onClick={()=>{this.setAnswer('C')}}>
+                            <span className='letter'>C.</span>
+                            <span className='answer'>
+                                {question.choices ? question.choices.c ? question.choices.c.image ? question.choices.c.image != '' ?  
+                                  <ImageLoader className='grid-question-image' image={question.choices.c.image} />
+                                : '' : '' : '' : '' }
+                              { question.choices ? question.choices.c ? question.choices.c.details ? question.choices.c.details : '' : '' : '' }
+                            </span>
+                          </div>
+
+                          <div className={'answer-text ' + (this.state.answer === 'D' ? 'active' : '' )}  onClick={()=>{this.setAnswer('D')}}>
+                            <span className='letter'>D.</span>
+                            <span className='answer'>
+                                {question.choices ? question.choices.d ? question.choices.d.image ? question.choices.d.image != '' ?  
+                                  <ImageLoader className='grid-question-image' image={question.choices.d.image} />
+                                : '' : '' : '' : '' }
+                              { question.choices ? question.choices.d ? question.choices.d.details ? question.choices.d.details : '' : '' : '' }
+                            </span>
+                          </div>
+                        </div>    
+                      </div>
+                    </div>
+                  : 
+
+
+                  <div className='question-card-loader'>
+                    <div className='question-loader-container'>
+                      <span>
+                        <i className='la la-commenting'></i>
+                      </span>
+                      <div className='subtitle-montserrat'>Pasensya kaibigan</div>
+                      <div className='context-montserrat'>Walang tanong na nakasave sa Learning Strand na ito.</div>
+                      <Link to={'/learner/dashboard'}>
+                        <div className='button primary'>Dashboard</div>
+                      </Link>
                     </div>
                   </div>
+                   }
+
+
+
                 </div>
               </Grid.Cell>
             </Grid.X>

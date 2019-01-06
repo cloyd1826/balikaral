@@ -57,7 +57,12 @@ class Layout extends Component {
     })
   }
   componentDidMount(){
-    this.fetchGeneratedExam('', 1)
+    
+    if(this.props.location.state){
+      this.fetchGeneratedExam('', 1)
+    }else{
+      this.props.history.push('/')
+    }
   }
   fetchGeneratedExam(status, page){
   	apiRequest('get', `/generated-exam/all?examiner=${this.props.location.state.id}&status=${status}&page=${page}`, false, this.props.token)

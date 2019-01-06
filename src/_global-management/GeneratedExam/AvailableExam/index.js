@@ -70,7 +70,7 @@ class Layout extends Component {
       })
   }
 
-  generateExam(id, level, type){
+  generateExam(id, level, type, time){
     this.setState({
       generating: true
     })
@@ -126,7 +126,7 @@ class Layout extends Component {
 
             examList = [...examList, ...easyExam, ...mediumExam, ...hardExam ]
               
-            this.postExam(examList, id, type)
+            this.postExam(examList, id, type, time)
           }
         }
       })
@@ -138,13 +138,14 @@ class Layout extends Component {
       })
   }
 
-  postExam(exam, id, type){
+  postExam(exam, id, type, timeRemaining){
 
     let data = {
       examType: id,
       exam: exam,
       examiner: this.props.user.id,
       type: type,
+      timeRemaining: timeRemaining,
       status: 'Pending',
       dateStarted: Date.now()
     }
@@ -280,7 +281,7 @@ class Layout extends Component {
                                   <button 
                                     type='button' 
                                     className='button primary small' 
-                                    onClick={(e)=> {this.generateExam(attr._id, attr.level._id, attr.examType)}}
+                                    onClick={(e)=> {this.generateExam(attr._id, attr.level._id, attr.examType, attr.totalHours)}}
                                     >TAKE EXAM
                                   </button>
    

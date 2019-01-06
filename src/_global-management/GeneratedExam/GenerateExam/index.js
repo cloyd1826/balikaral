@@ -159,7 +159,11 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    this.fetchExamType()
+    if(this.props.location.state){
+      this.fetchExamType()
+    }else{
+      this.props.history.push('/')
+    }
   }
   render() { 
 

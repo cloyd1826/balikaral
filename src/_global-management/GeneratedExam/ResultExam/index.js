@@ -31,7 +31,11 @@ class Layout extends Component {
 
       percentagePerLearningStrand: [],
 
-      totalHours: 0
+      totalHours: 0,
+      hours:0,
+      minutes: 0,
+      seconds: 0,
+      timeRemaining: 0,
     } 
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -73,6 +77,10 @@ class Layout extends Component {
               data = { ...data, ...attr}
               percentagePerLearningStrand = [...percentagePerLearningStrand, data ]
             })
+            let timeRemaining = result.timeRemaining ? parseInt(result.timeRemaining * 60) : 0 
+            let hours = Math.floor(((timeRemaining * 1000) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor(((timeRemaining * 1000) % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor(((timeRemaining * 1000) % (1000 * 60)) / 1000);
 
       			this.setState({
       				generating: false,
@@ -80,7 +88,11 @@ class Layout extends Component {
       				exam: checkedExam,
               lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
               percentagePerLearningStrand: percentagePerLearningStrand,
-      				examType: result.examType ? result.examType : {}
+      				examType: result.examType ? result.examType : {},
+              timeRemaining: (result.timeRemaining ? parseInt(result.timeRemaining * 60) : 0),
+              hours: hours,
+              minutes: minutes,
+              seconds: seconds
       			})
           }
         })
@@ -107,8 +119,11 @@ class Layout extends Component {
   
 
   componentDidMount(){
-    
-    this.fetchLearningStrand()
+    if(this.props.location.state){
+      this.fetchLearningStrand()
+    }else{
+      this.props.history.push('/')
+    }
   }
   render() { 
     return (
@@ -159,7 +174,7 @@ class Layout extends Component {
                               </div>
                               <div className='action'>
                                 <i className='la la-hourglass-2' />
-                                5:00
+                                {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}
                               </div>
                             </div>
                           

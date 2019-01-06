@@ -10,6 +10,9 @@ class Layout extends Component {
     this.state = {  }
   }
   componentDidMount(){
+    if(!this.props.location.state){
+       this.props.history.push('/')
+    }
  
   }
   render() { 

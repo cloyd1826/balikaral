@@ -60,7 +60,12 @@ class Layout extends Component {
     })
   }
   componentDidMount(){
-    this.fetchExamType(1)
+    
+    if(this.props.location.state){
+      this.fetchExamType(1)
+    }else{
+      this.props.history.push('/')
+    }
   }
   fetchExamType(page){
   	apiRequest('get', `/exam-type-management/all?page=${page}`, false, this.props.token)

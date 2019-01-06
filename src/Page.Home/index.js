@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
 
-import Banner from '../_images/banner.png'
-import Logo from '../_images/logo.png'
-
-import One from '../_images/vol1.jpeg'
-import Two from '../_images/vol2.jpeg'
-import Three from '../_images/vol3.jpeg'
-
 import NavBar from '../_userComponent/NavBar'
 
 import apiRequest from '../_axios'
 import config from '../_config'
 
 import Slider from "react-slick"
+
+import ImageLoader from '../_component/ImageLoader'
 
 class Home extends Component {
   constructor(props){
@@ -95,7 +90,7 @@ class Home extends Component {
     };
     return (
       <div  className='home-container'>
-        <NavBar logo={`${config}/${this.state.logo}`} />
+        <NavBar logo={this.state.logo} />
 
         <div className='home-banner'>
           <div className='home-banner-text'>
@@ -113,12 +108,12 @@ class Home extends Component {
             <button type='button' className='button primary'>Magsimula</button>
           
           </div>
-          <div className='home-image-banner' style={{backgroundImage: 'url(' + `${config}/${this.state.pageLogo}` + ')'}}>
-          </div>
+          
+          <ImageLoader className='home-image-banner' image={this.state.pageLogo} />
+         
         </div>
 
 
-        {/* counter */}
         <div className='home-counter'>
           <div className='grid-container'>
             <div className='grid-x'>
@@ -139,7 +134,7 @@ class Home extends Component {
               </div>
               </div>
 
-            </div>
+            </div> 
 
           </div>
         </div>
@@ -156,7 +151,8 @@ class Home extends Component {
                return (
                 <div key={index}>
                   <div className='volunteer-card'>
-                    <div className='card-image' style={{backgroundImage:'url('+ ( attr.personalInformation ? attr.personalInformation.image ? `${config}/${attr.personalInformation.image}` : Two : Two ) + ')'}}></div>
+                    
+                    <ImageLoader className='card-image' image={attr.personalInformation ? attr.personalInformation.image ? attr.personalInformation.image : '' : '' } type='user' />
                      <div className='card-text'>
                        <p className='card-name'>{
                                        attr.personalInformation ? 
@@ -183,8 +179,9 @@ class Home extends Component {
           <div className='grid-container fluid'>
             <div className='grid-x'>
               <div className='cell large-6 medium-12'>
-                <div className='about-image' style={{backgroundImage: 'url(' + `${config}/${this.state.tungkolSaProgramaLogo}` + ')'}}>
-                </div>
+          
+                <ImageLoader className='about-image' image={this.state.tungkolSaProgramaLogo}/>
+               
               </div>
               <div className='cell large-6 medium-12'>
                 <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>

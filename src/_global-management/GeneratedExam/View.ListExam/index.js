@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 import config from '../../../_config'
+import ImageLoader from '../../../_components/ImageLoader'
 
 class Layout extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class Layout extends Component {
           <div className={'ex-container ' +  (this.state.answered ? 'answered' : '') + (this.props.checking ? (this.props.answer === this.props.correctAnswer ? ' correct' : ' wrong') : '')}>
             <div className='question'>{(this.props.index + 1) + '. ' +  (this.props.question.question ? this.props.question.question.details ? this.props.question.question.details : '' : '')}</div>
               {this.props.question.question ? this.props.question.question.images ?  
-                  <div className='question-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.images + ')'}}></div>
+                  <ImageLoader className='question-image' image={this.props.question.question.images} />
+
                 : '' : ''}
 
             <div className='answer'>
@@ -62,7 +64,9 @@ class Layout extends Component {
                 <span>A. </span>
                 <div className='text'>
                 {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.a ? this.props.question.question.choices.a.image ? 
-                  <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.choices.a.image + ')'}}></div>
+                  
+                  <ImageLoader className='question-image' image={this.props.question.question.choices.a.image} />
+                  
                   : '' : '' : '' : '' )}
                   {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.a ? this.props.question.question.choices.a.details ? this.props.question.question.choices.a.details : '' : '' : '' : '' )}
                 </div>
@@ -75,7 +79,9 @@ class Layout extends Component {
                 <span>B. </span>
                 <div className='text'>
                 {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.b ? this.props.question.question.choices.b.image ? 
-                  <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.choices.b.image + ')'}}></div>
+                
+                  <ImageLoader className='question-image' image={this.props.question.question.choices.b.image} />
+                  
                   : '' : '' : '' : '' )}
                   {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.b ? this.props.question.question.choices.b.details ? this.props.question.question.choices.b.details : '' : '' : '' : '' )}
                 </div>
@@ -88,7 +94,9 @@ class Layout extends Component {
                 <span>C. </span>
                 <div className='text'>
                 {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.c ? this.props.question.question.choices.c.image ? 
-                  <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.choices.c.image + ')'}}></div>
+                  
+                  <ImageLoader className='question-image' image={this.props.question.question.choices.c.image} />
+                  
                   : '' : '' : '' : '' )}
                   {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.c ? this.props.question.question.choices.c.details ? this.props.question.question.choices.c.details : '' : '' : '' : '' )}
                 </div>
@@ -101,7 +109,9 @@ class Layout extends Component {
                 <span>D. </span>
                 <div className='text'>
                 {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.d ? this.props.question.question.choices.d.image ? 
-                  <div className='answer-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.choices.d.image + ')'}}></div>
+                 
+                  <ImageLoader className='question-image' image={this.props.question.question.choices.d.image} />
+                  
                   : '' : '' : '' : '' )}
                   {(this.props.question.question ? this.props.question.question.choices ? this.props.question.question.choices.d ? this.props.question.question.choices.d.details ? this.props.question.question.choices.d.details : '' : '' : '' : '' )}
                 </div>

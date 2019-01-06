@@ -47,7 +47,7 @@ class Layout extends Component{
       .then((res)=>{
  
           let result = res.data
-          console.log(result)
+          
           let userData = {
             user: { 
               id: result.data ? result.data._id ? result.data._id : '' : '',

@@ -32,19 +32,37 @@ class Layout extends Component {
 
       percentagePerLearningStrand: [],
 
-      totalHours: 0
+      totalHours: 0,
+
+      hours:0,
+      minutes: 0,
+      seconds: 0,
+      timeRemaining: 0,
     }
   }
   componentDidMount(){
-    
-     this.setState({
-      generating: false,
-      checkingExam: true,
-      exam: this.props.location.state.exam,
-      lengthOfCorrectAnswer: this.props.location.state.lengthOfCorrectAnswer,
-      percentagePerLearningStrand: this.props.location.state.percentagePerLearningStrand,
-      examType: this.props.location.state.examType
-    })
+    if(!this.props.location.state){
+      this.props.history.push('/')
+    }else{
+       let timeRemaining = parseInt(this.props.location.state.timeRemaining) * 60
+        let hours = Math.floor(((timeRemaining * 1000) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor(((timeRemaining * 1000) % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor(((timeRemaining * 1000) % (1000 * 60)) / 1000);
+
+         this.setState({
+          generating: false,
+          checkingExam: true,
+          exam: this.props.location.state.exam,
+          lengthOfCorrectAnswer: this.props.location.state.lengthOfCorrectAnswer,
+          percentagePerLearningStrand: this.props.location.state.percentagePerLearningStrand,
+          examType: this.props.location.state.examType,
+          timeRemaining: this.props.location.state.timeRemaining,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds
+        })
+    }
+   
   }
   render() { 
     return (
@@ -102,7 +120,7 @@ class Layout extends Component {
                               </div>
                               <div className='action'>
                                 <i className='la la-hourglass-2' />
-                                5:00
+                                {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}
                               </div>
                             </div>
                           

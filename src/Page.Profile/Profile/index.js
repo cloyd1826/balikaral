@@ -3,14 +3,13 @@ import React, {Component} from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import Grid from '../../_component/Grid'
+import ImageLoader from '../../_component/ImageLoader'
 
 import apiRequest from '../../_axios'
 
 import { logInUser } from '../../_redux/actions/user'
 
 import { connect } from 'react-redux'
-
-import ProfileImage from '../../_images/vol2.jpeg'
 
 
 import Form from '../../_component/Form/Form'
@@ -76,8 +75,13 @@ class Layout extends Component {
   }
 
   componentDidMount(){
-    let user = this.props.user
-    this.fetchSingle()
+    
+    if(this.props.location.state){
+      let user = this.props.user
+      this.fetchSingle()
+    }else{
+      this.props.history.push('/')
+    }
   }
 
 
@@ -198,28 +202,25 @@ class Layout extends Component {
         <div className='element-container user-profile-container'>
             <div className='user-image'>
               <Form onSubmit={this.handleSubmit}>
-                <div className='hero-image' 
-
-                  style={{backgroundImage: 'url(' + (this.state.imagePreview != '' ? `${config}/${this.state.imagePreview}` : ProfileImage ) + ')'}}
-
-                  >
-                  <div className='user-image-input'>
-                      <div className='icon-camera'>
-                        <div>
-                          <i className='la la-camera'></i>
-                          <div className='change-image'>Change Image</div>
+                
+                    <ImageLoader className='hero-image' image={this.state.imagePreview} type='user'>
+                      <div className='user-image-input'>
+                        <div className='icon-camera'>
+                          <div>
+                            <i className='la la-camera'></i>
+                            <div className='change-image'>Change Image</div>
+                          </div>
                         </div>
-                      </div>
-                      <input 
-                        required
-                        type='file'
-                        accept='image/*'
-                        onChange={this.handleFileChange}
-                        name='image'
-                        ref = { ref => this.fileInput = ref }
-                        />
-                  </div>
-                </div>
+                        <input 
+                          required
+                          type='file'
+                          accept='image/*'
+                          onChange={this.handleFileChange}
+                          name='image'
+                          ref = { ref => this.fileInput = ref }
+                          />
+                    </div>
+                  </ImageLoader>
                 {this.state.image != '' ? 
                   <button className='button small' type='submit'>Update Image</button>
                 : null}

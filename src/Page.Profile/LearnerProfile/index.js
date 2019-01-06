@@ -8,8 +8,6 @@ import apiRequest from '../../_axios'
 
 import { connect } from 'react-redux'
 
-import ProfileImage from '../../_images/vol2.jpeg'
-
 import axios, { put } from 'axios'
 
 import config from '../../_config'
@@ -56,8 +54,12 @@ class Layout extends Component {
   }
 
   componentDidMount(){
-    let user = this.props.user
-    this.fetchSingle()
+    if(this.props.location.state){
+      let user = this.props.user
+      this.fetchSingle()
+    }else{
+      this.props.history.push('/')
+    }
   }
   fetchSingle(){
     apiRequest('get', `/user/${this.props.location.state.id}`, false, this.props.token)

@@ -36,6 +36,11 @@ class Layout extends Component {
 
       hadPreTest: false,
 
+      timeRemaining: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+
 
 
     }
@@ -52,6 +57,8 @@ class Layout extends Component {
     this.saveExam = this.saveExam.bind(this)
 
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
+
+    this.timer = this.timer.bind(this)
   }
   setGrid(currentPage){
     this.setState({
@@ -98,7 +105,9 @@ class Layout extends Component {
 
     
     if(lengthOfAnsweredQuestion.length === exam.length){
-      this.updateExam(exam, true)
+      let timeRemaining = Math.floor(this.state.timeRemaining / 60)
+      clearInterval(this.timerID);
+      this.updateExam(exam, true, timeRemaining)
     }else{
       this.setState({
         exam: exam,
@@ -109,11 +118,41 @@ class Layout extends Component {
       })
     }
   }
+  timer(){
+    let timeRemaining = this.state.timeRemaining
+    timeRemaining = timeRemaining - 1
+    let hours = Math.floor(((timeRemaining * 1000) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor(((timeRemaining * 1000) % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor(((timeRemaining * 1000) % (1000 * 60)) / 1000);
+   
+    this.setState({
+        timeRemaining: timeRemaining,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds
+    })
+    if(this.state.timeRemaining === 0){
+        clearInterval(this.timerID);
+        let exam = this.state.exam
+
+       
+        this.updateExam(exam, true, 0)
+    }
+  }
   saveExam(){
     let exam = this.state.exam
-    this.updateExam(exam, false)
+    let timeRemaining = Math.floor(this.state.timeRemaining / 60)
+    clearInterval(this.timerID);
+    this.updateExam(exam, false, timeRemaining)
   }
-  updateExam(exam, finished){
+  componentWillUnmout(){
+    let exam = this.state.exam
+    let timeRemaining = Math.floor(this.state.timeRemaining / 60)
+    this.updateExam(exam, false, timeRemaining)
+    clearInterval(this.timerID);
+
+  }
+  updateExam(exam, finished, timeRemaining){
     let newExam = []
     let checkedExam = []
     exam.map((attr)=>{
@@ -169,10 +208,10 @@ class Layout extends Component {
       })
       if(Math.round((lengthOfCorrectAnswer.length/exam.length) * 100) < 90 ){
         //retake
-        data = {...data, status: 'Retake', percentagePerLearningStrand: percentagePerLearningStrand}
+        data = {...data, status: 'Retake', percentagePerLearningStrand: percentagePerLearningStrand, timeRemaining: timeRemaining,}
       }else{
         //completed
-        data = {...data, status: 'Completed',  percentagePerLearningStrand: percentagePerLearningStrand}
+        data = {...data, status: 'Completed',  percentagePerLearningStrand: percentagePerLearningStrand, timeRemaining: timeRemaining,}
 
       }
 
@@ -180,7 +219,7 @@ class Layout extends Component {
     }else{
       data = {
         exam: newExam,
-        timeRemaining: 120, 
+        timeRemaining: timeRemaining, 
         status: 'Pending' 
       }
     }
@@ -230,7 +269,8 @@ class Layout extends Component {
                         exam: checkedExam,
                         lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
                         percentagePerLearningStrand: percentagePerLearningStrand,
-                        examType: this.state.examType
+                        examType: this.state.examType,
+                        timeRemaining: timeRemaining
                       }
                     })
                 })
@@ -255,27 +295,13 @@ class Layout extends Component {
 
    
   }
-  // componentWillUnmount(){
-  //   if(this.state.hadPreTest){
-  //     let userData = {
-  //       user: this.props.user,
-  //       token: this.props.token,
-  //       isLoggedIn: true,
-  //       role: this.props.role,
-  //       hadPreTest: true
-  //     }
-  //     this.props.actions.logIn(userData)
-  //     this.props.history.push('/learner/dashboard')
-  //   }
-     
-  // }
- 
+
   fetchExamType(){
     apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
       .then((res)=>{ 
         if(res.data){
           let result = res.data.data
-       
+            
           let exam = [] 
           result.exam.map((attr)=>{
             exam = [...exam, {answer: attr.answer, question: attr.question}]
@@ -291,8 +317,12 @@ class Layout extends Component {
             examType: result.examType ? result.examType : {},
             generatingExam: false,  
             takingExam: true,
-            
+            timeRemaining: (result.timeRemaining ? parseInt(result.timeRemaining) * 60 : '' )
           })
+          this.timerID = setInterval(
+            () => this.timer(),
+            1000
+          );
         }
       })
       .catch((err)=>{
@@ -316,8 +346,13 @@ class Layout extends Component {
   }
  
   componentDidMount(){
-    this.fetchExamType()
-    this.fetchLearningStrand()
+    
+    if(this.props.location.state){
+      this.fetchExamType()
+      this.fetchLearningStrand()
+    }else{
+      this.props.history.push('/')
+    }
   }
   render() {
    
@@ -377,7 +412,7 @@ class Layout extends Component {
                         </div>
                         <div className='action'>
                           <i className='la la-hourglass-2' />
-                          5:00
+                          {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}
                         </div>
                         <div className='action' onClick={this.toggleQuestionAnswered}>
                             <i className='la la-list' /> 
@@ -417,7 +452,7 @@ class Layout extends Component {
                         </div>
                         <div className='action'>
                           <i className='la la-hourglass-2' />
-                          5:00
+                          {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}
                         </div>
                         <Link to={this.props.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard'}>
                           <div className='action'>

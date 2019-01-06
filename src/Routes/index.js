@@ -7,7 +7,11 @@ import isTeacherAuth from '../_hoc/isTeacherAuth'
 import isLearnerAuth from '../_hoc/isLearnerAuth'
 import isLearnerWithoutPreTestAuth from '../_hoc/isLearnerWithoutPreTestAuth'
 
+import Test from '../Test'
+
+
 import Home from '../Page.Home'
+import ErrorPage from '../Page.Error'
 import TermsOfService from '../Page.TermsOfService'
 import PrivacyPolicy from '../Page.PrivacyPolicy'
 import PreTestResult from '../Page.PreTestResult'
@@ -23,12 +27,15 @@ const Routes = () => {
 		<div>
 			<Route path='/' exact component={ Home } />
 			<Route path='/terms-of-service' component={ TermsOfService } />
+			<Route path='/error' component={ ErrorPage } />
 			<Route path='/privacy-policy' component={ PrivacyPolicy } />
 			<Route path='/admin' component={ isAuth(Admin) } />
 			<Route path='/teacher' component={ isTeacherAuth(Teacher) } />
 			<Route path='/learner' component={ isLearnerAuth(Learner) } />
 			<Route path='/learner-start' component={ isLearnerWithoutPreTestAuth(LearnerWithoutPreTest) } />
 			<Route path='/pre-test-result' component={ PreTestResult } />
+
+			<Route path='/test' component={ Test } />
 
 		</div>
 	)

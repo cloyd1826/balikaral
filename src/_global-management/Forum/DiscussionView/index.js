@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
+import ImageLoader from '../../../_component/ImageLoader'
 
 import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
@@ -104,7 +105,12 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    this.fetchDiscussion()
+    if(this.props.location.state){
+      this.fetchDiscussion()
+    }else{
+      this.props.history.push('/')
+    }
+    
   }
   handleChange(e){
    let name = e.target.name
@@ -160,7 +166,7 @@ class Layout extends Component {
                   <div className='discussion-content'>
                      {
                         discussion.image && discussion.image != '' ?
-                        <div className='discussion-image' style={{backgroundImage: `url(${config}/` + discussion.image + ')'}}></div>
+                        <ImageLoader className='discussion-image' image={discussion.image} />
                       : null }  
                      
                       <div className='discussion-description'>{discussion.description}</div>

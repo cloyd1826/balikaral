@@ -16,7 +16,9 @@ export default (OriginalComponent) => {
     componentDidUpdate() {
       this.checkAuth();
     }
-
+    componentDidCatch(){
+      this.props.history.push('/error')
+    }
     render() {
       return <OriginalComponent {...this.props} />;
     }

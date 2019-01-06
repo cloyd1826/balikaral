@@ -9,16 +9,14 @@ export default (OriginalComponent) => {
         this.props.history.push('/');
       }
     }
-
     componentDidMount() {
       this.checkAuth();
-
-  
-      
     }
-
     componentDidUpdate() {
       this.checkAuth();
+    }
+    componentDidCatch(){
+      this.props.history.push('/error')
     }
 
     render() {

@@ -1147,6 +1147,20 @@ td, th {
 .home-container {
   background: #fff; }
 
+.error-container-page {
+  margin: 20vh;
+  background: #fff;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; }
+  .error-container-page i {
+    font-size: 200px; }
+  .error-container-page .message {
+    font-size: 32px;
+    font-weight: 600; }
+
 .home-banner {
   position: relative;
   height: 100vh; }
@@ -2218,6 +2232,13 @@ span.no-validator {
   border-radius: 5px;
   cursor: pointer;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+  .learning-strand-container .learning-strand .question-length {
+    font-weight: 500;
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translate(0, -50%); }
   .learning-strand-container .learning-strand i.la {
     font-weight: 500;
     font-size: 32px;

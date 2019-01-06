@@ -57,7 +57,7 @@ class Layout extends Component {
     })
     let learningStrand = this.state.learningStrand
     let validation = this.state.validation
-    this.fetchSubject(validation, learningStrand, page)
+    this.fetchLevel(validation, learningStrand, page)
   }
   handleChange(e){
     let name = e.target.name

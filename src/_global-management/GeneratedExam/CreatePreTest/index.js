@@ -112,6 +112,7 @@ class Layout extends Component {
       examiner: this.props.user.id,
       type: 'Pre Test',
       status: 'Pending',
+      timeRemaining: type.totalHours,
       dateStarted: Date.now()
     }
     apiRequest('post', `/generated-exam`, data, this.props.token)

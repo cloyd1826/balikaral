@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import Grid from '../../_component/Grid'
+import ImageLoader from '../../_component/ImageLoader'
 
 import apiRequest from '../../_axios'
 
@@ -10,7 +11,6 @@ import { logInUser } from '../../_redux/actions/user'
 
 import { connect } from 'react-redux'
 
-import ProfileImage from '../../_images/vol2.jpeg'
 
 import FormMessage from '../../_component/Form/FormMessage'
 
@@ -57,8 +57,14 @@ class Layout extends Component {
   }
 
   componentDidMount(){
-    let user = this.props.user
-    this.fetchSingle()
+    
+    if(this.props.location.state){
+      let user = this.props.user
+      this.fetchSingle()
+    }else{
+      this.props.history.push('/')
+    }
+    
   }
   fetchSingle(){
     apiRequest('get', `/user/${this.props.location.state.id}`, false, this.props.token)
@@ -104,9 +110,11 @@ class Layout extends Component {
     return (
         <div className='element-container user-profile-container'>
             <div className='user-image'>
-                <div className='hero-image'
-                  style={{backgroundImage: 'url(' + (this.state.imagePreview != '' ? `${config}/${this.state.imagePreview}` : ProfileImage ) + ')'}}>
-                </div>
+                
+                <ImageLoader 
+                  className='hero-image'
+                  image={this.state.imagePreview}
+                />
             </div>
             <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
 

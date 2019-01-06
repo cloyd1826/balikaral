@@ -32,15 +32,7 @@ class Layout extends Component {
  
     return (
   
-          <div className={'ex-container ' +  (this.state.answered ? 'answered' : '')}>
-            <div className='question'>{(this.props.index + 1) + '. ' +  (this.props.question.question ? this.props.question.question.details ? this.props.question.question.details : '' : '')}</div>
-              {this.props.question.question ? this.props.question.question.images ?  
-                  <div className='question-image' style={{backgroundImage: `url(${config}/` + this.props.question.question.images + ')'}}></div>
-                : '' : ''}
-
-        
-
-          </div>
+          <div></div>
     )
   }
 }

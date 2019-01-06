@@ -12,15 +12,13 @@ export default (OriginalComponent) => {
 
     componentDidMount() {
       this.checkAuth();
-
-     
-      
     }
-
+    componentDidCatch(){
+      this.props.history.push('/error')
+    }
     componentDidUpdate() {
       this.checkAuth();
     }
-
     render() {
       return <OriginalComponent {...this.props} />;
     }

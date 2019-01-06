@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
+import ImageLoader from '../../../_component/ImageLoader'
 import FormMessage from '../../../_component/Form/FormMessage'
 import Pagination from '../../../_component/Pagination'
 
@@ -95,7 +96,12 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    this.fetchSubject(1)
+    if(this.props.location.state){
+      this.fetchSubject(1)
+    }else{
+      this.props.history.push('/')
+    }
+    
   }
   render() { 
     return (
@@ -149,7 +155,7 @@ class Layout extends Component {
                             <div className='forum-content'>
                                {
                                   attr.image && attr.image !== '' ?
-                                  <div className='forum-image' style={{backgroundImage: `url(${config}/` + attr.image + ')'}}></div>
+                                  <ImageLoader className='forum-image' image={attr.image} />
                                 : null }  
                                
                                 <div className='forum-description'>{attr.description}</div>

@@ -6,7 +6,6 @@ import Grid from '../../_component/Grid'
 
 import { connect } from 'react-redux'
 
-import Profile from '../../_images/vol1.jpeg'
 
 class Layout extends Component {
   constructor(props) {
