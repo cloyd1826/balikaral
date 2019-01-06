@@ -42,7 +42,7 @@ class Layout extends Component{
   }
  
   componentWillReceiveProps(nextProps){
-      console.log(nextProps)
+   
       this.setState({
         user: nextProps.user,
         role: nextProps.role
@@ -52,7 +52,7 @@ class Layout extends Component{
     this.props.actions.logOut()
   }
   render() {
-    console.log(this.state)
+ 
     return (
       <div className='user-top-bar'>
         <div className='user-name'>

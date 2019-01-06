@@ -137,7 +137,7 @@ class Layout extends Component {
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
-          console.log(res)
+         
   				this.setState({
 	  				exam: res.data.data,
             currentPage: res.data.currentPage,
@@ -150,7 +150,7 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
-        console.log(err)
+        
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }

@@ -135,7 +135,7 @@ class Layout extends Component {
     }
     apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}`, data, this.props.token)
       .then((res)=>{
-        console.log(res)
+        
          this.formMessage('Data has been updated...', 'success', true, false)
          this.setState({
             modalActive: false
@@ -143,13 +143,13 @@ class Layout extends Component {
          this.fetchSingle()
       })
       .catch((err)=>{
-        console.log(err)
+    
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
 
   render() { 
-    console.log(this.state)
+   
     return (
         <div>
         	<Grid fluid>

@@ -65,7 +65,7 @@ class Layout extends Component {
   fetchSingle(){
     apiRequest('get', `/reviewer-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-          console.log(res)
+        
             if(res.data){
                 let result = res.data.data
                 let validator = result.validator
@@ -100,7 +100,7 @@ class Layout extends Component {
             
         })    
         .catch((err)=>{
-          console.log(err)
+        
           this.formMessage('Error: ' + err.message, 'error', true, false)
         })
 
@@ -160,7 +160,8 @@ const mapStateToProps = (state) => {
 	return {
 		token: state.token,
     user: state.user,
-    role: state.role
+    role: state.role,
+    hadPreTest: state.hadPreTest
 	}
 }
 const ViewReviewer = connect(mapStateToProps)(Layout)

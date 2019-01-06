@@ -108,7 +108,7 @@ class Layout extends Component {
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
-          console.log(res)
+        
   				this.setState({
 	  				exam: res.data.data,
             currentPage: res.data.currentPage,
@@ -121,7 +121,7 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
-        console.log(err)
+       
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }
@@ -136,7 +136,7 @@ class Layout extends Component {
         			<Grid.Cell large={12}>
         				<div className='element-container'>
         					<div className='title-text-container'>
-        						<div className='title'>Generated Exam</div>
+        						<div className='title'>Listahan ng mga Exam</div>
         						<div className='title-action'>
                      
         						</div>
@@ -175,6 +175,7 @@ class Layout extends Component {
 				        		<Table.Body>
 				        			{
 					        			this.state.exam.map((attr, index) =>{
+                        
 					        				return (
 					        					<Table.Row key={index}>
                               <Table.Cell>{attr.examType ? attr.examType.examType ? attr.examType.examType : '' : ''}</Table.Cell>
@@ -195,7 +196,7 @@ class Layout extends Component {
                               <Table.Cell>{attr.dateFinished ? new Date(attr.dateFinished).toLocaleDateString() : '' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
 
-                                { (attr.status === 'Completed' || attr.status === 'Retake' )&& this.props.role === 'Learner' && this.props.role !== 'Teacher' && this.props.role === 'Administrator' ? 
+                                { (attr.status === 'Completed' || attr.status === 'Retake' ) && this.props.role === 'Learner' ? 
                                   <Link to={{ 
                                     pathname: '/learner/exam/result', 
                                     state: { id: attr._id } 

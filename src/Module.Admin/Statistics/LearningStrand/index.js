@@ -63,8 +63,6 @@ class Layout extends Component {
   	apiRequest('get', `/learning-strand/generated-exam`, false, this.props.token)
         .then((res)=>{
             if(res.data){
-            	console.log(res)
-               
               
             }
         })    

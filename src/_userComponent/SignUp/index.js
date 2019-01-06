@@ -136,12 +136,12 @@ class Layout extends Component{
               <div className='close-button fa fa-close'  onClick={this.props.close}></div>
               <div className='log-in-text'>
                 <div className='subtitle-montserrat'>Become a Member</div>
-                <div className='context-montserrat'>Lorem Ipsum Dolor Sit Amet Consectur Adepescin Elit.</div>
+                <div className='context-montserrat'></div>
               </div>
 
               {this.state.isCreating ? 
 
-                 <div className='log-in-form'>
+                 <div className='log-in-form sign-up-form'>
                     <Form onSubmit={this.handleSubmit} size='small'>
                       <Grid>
                         <Grid.X>
@@ -150,7 +150,7 @@ class Layout extends Component{
                           </Grid.Cell>
                         </Grid.X>
                         <Grid.X>
-                          <Grid.Cell large={6} medium={6} small={12}>
+                          <Grid.Cell large={12} medium={12} small={12}>
                             <Input 
                               label='Email' 
                               type='email' 
@@ -161,7 +161,7 @@ class Layout extends Component{
 
                               />
                           </Grid.Cell>
-                          <Grid.Cell large={6} medium={6} small={12}>
+                          <Grid.Cell large={12} medium={12} small={12}>
                             <Input 
                               label='Password' 
                               type='password' 
@@ -171,80 +171,8 @@ class Layout extends Component{
                               onChange={this.handleChange}
                               />
                           </Grid.Cell>
-                         
-                          <Grid.Cell large={4} medium={6}  small={12}>
-                            <Input 
-                              label='First Name'
-                              required
-                              name='firstName'
-                              value={this.state.firstName}
-                              onChange={this.handleChange}
-                              />
-                          </Grid.Cell>
-                          <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='Middle Name' 
-                              
-                              name='middleName'
-                              value={this.state.middleName}
-                              onChange={this.handleChange}
-                              />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='Last Name'
-                              required
-                              name='lastName'
-                              value={this.state.lastName}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='House No'
-                              
-                              name='houseNoStreet'
-                              value={this.state.houseNoStreet}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='Baranggay'
-                              
-                              name='barangay'
-                              value={this.state.barangay}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='City'
-                              
-                              name='city'
-                              value={this.state.city}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='Province'
-                              
-                              name='province'
-                              value={this.state.province}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
-                            <Input 
-                              label='Zip Code'
-                              
-                              name='zipcode'
-                              value={this.state.zipcode}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={6} small={12}>
+
+                          <Grid.Cell large={12} medium={12} small={12}>
                             <Select
                               label='User Type'
                               required
@@ -257,6 +185,72 @@ class Layout extends Component{
                               <option value='Teacher'>Teacher</option>
                             </Select>
                           </Grid.Cell>
+                         
+                          <Grid.Cell large={4} medium={12}  small={12}>
+                            <Input 
+                              label='First Name'
+                              required
+                              name='firstName'
+                              value={this.state.firstName}
+                              onChange={this.handleChange}
+                              />
+                          </Grid.Cell>
+                          <Grid.Cell large={4} medium={12} small={12}>
+                            <Input 
+                              label='Middle Name' 
+                              
+                              name='middleName'
+                              value={this.state.middleName}
+                              onChange={this.handleChange}
+                              />
+                          </Grid.Cell>
+                           <Grid.Cell large={4} medium={12} small={12}>
+                            <Input 
+                              label='Last Name'
+                              required
+                              name='lastName'
+                              value={this.state.lastName}
+                              onChange={this.handleChange}
+                               />
+                          </Grid.Cell>
+                           <Grid.Cell large={6} medium={12} small={12}>
+                            <Input 
+                              label='House No'
+                              
+                              name='houseNoStreet'
+                              value={this.state.houseNoStreet}
+                              onChange={this.handleChange}
+                               />
+                          </Grid.Cell>
+                           <Grid.Cell large={6} medium={12} small={12}>
+                            <Input 
+                              label='Baranggay'
+                              
+                              name='barangay'
+                              value={this.state.barangay}
+                              onChange={this.handleChange}
+                               />
+                          </Grid.Cell>
+                           <Grid.Cell large={6} medium={12} small={12}>
+                            <Input 
+                              label='City'
+                              
+                              name='city'
+                              value={this.state.city}
+                              onChange={this.handleChange}
+                               />
+                          </Grid.Cell>
+                           <Grid.Cell large={6} medium={12} small={12}>
+                            <Input 
+                              label='Province'
+                              
+                              name='province'
+                              value={this.state.province}
+                              onChange={this.handleChange}
+                               />
+                          </Grid.Cell>
+                          
+                           
                          
                           <Grid.Cell className='sign-in-button-form'>
                             <span>

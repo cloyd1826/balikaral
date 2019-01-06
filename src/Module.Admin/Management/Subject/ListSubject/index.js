@@ -75,7 +75,7 @@ class Layout extends Component {
   	
   	apiRequest('get', `/learning-strand-sub/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
-        console.log(res.data.data)
+   
   			if(res.data){
   				this.setState({
 	  				subject: res.data.data,

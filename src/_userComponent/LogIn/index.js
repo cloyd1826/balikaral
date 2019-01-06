@@ -45,9 +45,9 @@ class Layout extends Component{
     e.preventDefault()
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
-        console.log(res)
+ 
           let result = res.data
-          console.log('suser', result)
+          console.log(result)
           let userData = {
             user: { 
               id: result.data ? result.data._id ? result.data._id : '' : '',
@@ -81,7 +81,7 @@ class Layout extends Component{
               <div className='close-button fa fa-close'  onClick={this.props.close}></div>
               <div className='log-in-text'>
                 <div className='subtitle-montserrat'>Log in to your account</div>
-                <div className='context-montserrat'>Lorem Ipsum Dolor Sit Amet Consectur Adepescin Elit.</div>
+                <div className='context-montserrat'></div>
               </div>
               <div className='log-in-form'>
                   <Form onSubmit={this.handleSubmit} size='small'>

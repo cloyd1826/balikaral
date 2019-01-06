@@ -1,5 +1,6 @@
 .admin-sidebar
 	padding-top: 16px
+	padding-bottom: 32px
 	min-width: 300px
 	position: fixed
 	z-index: 999
@@ -7,7 +8,8 @@
 	left: 0
 	background: #fff
 	box-shadow: 3px 2px 2px #888
-	height: calc(100vh - 50px)
+	height: calc(100vh - 50px - 48px)
+	overflow-y: auto
 	animation: LogIn $transition-fast
 	.sidebar-content
 		border-bottom: #e0e0e0 solid 1px

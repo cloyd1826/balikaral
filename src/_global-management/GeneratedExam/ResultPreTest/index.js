@@ -36,7 +36,7 @@ class Layout extends Component {
     }
   }
   componentDidMount(){
-    console.log(this.props)
+    
      this.setState({
       generating: false,
       checkingExam: true,
@@ -80,8 +80,8 @@ class Layout extends Component {
                                 <span>
                                   <i className='la la-commenting'></i>
                                 </span>
-                                <div className='subtitle-montserrat'>Congratulations</div>
-                                <div className='context-montserrat'>You have had finished the Pre Test.</div>
+                                <div className='subtitle-montserrat'>Binabati kita.</div>
+                                <div className='context-montserrat'>Naitapos mo ang iyong Pre-Test. Maari mo ng gamiting ang lahat ng prebilehiyo ng isang Learner</div>
                                 <Link to='/learner/dashboard'>
                                   <div className='button primary'>Dashboard</div>
                                 </Link>

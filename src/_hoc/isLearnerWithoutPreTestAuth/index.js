@@ -5,7 +5,7 @@ export default (OriginalComponent) => {
   class MixedComponent extends Component {
 
     checkAuth() {
-      console.log(this.props.hadPreTest)
+     
       if (!this.props.isLoggedIn || !this.props.token || this.props.role !== 'Learner' || this.props.hadPreTest ) {
         this.props.history.push('/');
       }

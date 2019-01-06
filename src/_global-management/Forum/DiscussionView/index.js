@@ -71,7 +71,8 @@ class Layout extends Component {
   fetchDiscussion(){
     apiRequest('get', `/forum/${this.props.location.state.discussionId}`, false, this.props.token)
       .then((res)=>{
-        console.log('dis',res.data.data)
+        
+        
         if(res.data){
           this.setState({
             discussion: res.data.data

@@ -49,7 +49,7 @@ class Layout extends Component {
     apiRequest('get', `/exam-management/exercise/${this.props.location.state.id}`, false, this.props.token)
       .then((res)=>{ 
         let result = res.data
-        console.log(result)
+     
         if(result){
           this.setState({
             question: result.data[0] ? result.data[0].question ? result.data[0].question : {} : {}
@@ -66,7 +66,7 @@ class Layout extends Component {
   }
   render() {
     let question =  this.state.question
-    console.log(this.state.answer)
+   
     return (
         <div>
           <Grid fluid>

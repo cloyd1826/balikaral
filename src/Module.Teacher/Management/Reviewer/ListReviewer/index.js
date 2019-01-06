@@ -57,14 +57,14 @@ class Layout extends Component {
   	apiRequest('get', `/reviewer-management/all?disclude=${this.props.user.id}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
-          console.log(res)
+         
   				this.setState({
 	  				reviewer: res.data.data
 	  			})	
 	  		}
   		})
   		.catch((err)=>{
-        console.log(err)
+      
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }

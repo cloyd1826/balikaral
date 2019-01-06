@@ -32,7 +32,7 @@ class Layout extends Component{
     }
   }
   componentDidMount(){
-    console.log(this.props)
+  
   }
  
   componentWillReceiveProps(nextProps){
@@ -82,12 +82,7 @@ class Layout extends Component{
                   <span><i className='fa fa-user' />Profile</span>
                 </div>
               </Link>
-              <div className='user-bar'>
-                <span><i className='fa fa-calendar' />Link Two</span>
-              </div>
-              <div className='user-bar'>
-                <span><i className='fa fa-code' />Link Three</span>
-              </div>
+              
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>
               </div>

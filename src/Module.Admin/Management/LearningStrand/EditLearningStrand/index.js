@@ -55,7 +55,7 @@ class Layout extends Component {
             
             if(res.data){
                 let result = res.data.data
-                console.log(result)
+               
                 this.setState({
                     name: result.name,
                     description: result.description,

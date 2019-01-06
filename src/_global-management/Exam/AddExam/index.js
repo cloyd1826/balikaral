@@ -153,7 +153,7 @@ class Layout extends Component {
     this.formMessage('Saving Data', 'loading', true, true)
   	this.postFile()
   		.then((res)=>{
-         console.log(res)
+       
           this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
       })	

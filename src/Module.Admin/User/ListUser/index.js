@@ -53,7 +53,7 @@ class Layout extends Component {
   fetchUser(page){
   	apiRequest('get', `/user/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
-        console.log(res)
+  
   			if(res.data){
   				this.setState({
 	  				user: res.data.data,
@@ -67,7 +67,7 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
-        console.log(err)
+        
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }

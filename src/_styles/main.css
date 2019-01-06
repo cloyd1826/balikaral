@@ -1028,6 +1028,7 @@ td, th {
 
 .sign-in-container {
   padding: 16px;
+  min-width: 40vw;
   background: #fff;
   border-radius: 5px;
   max-width: 45vw;
@@ -1433,6 +1434,7 @@ td, th {
 
 .admin-sidebar {
   padding-top: 16px;
+  padding-bottom: 32px;
   min-width: 300px;
   position: fixed;
   z-index: 999;
@@ -1440,7 +1442,8 @@ td, th {
   left: 0;
   background: #fff;
   box-shadow: 3px 2px 2px #888;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px - 48px);
+  overflow-y: auto;
   animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
   .admin-sidebar .sidebar-content {
     border-bottom: #e0e0e0 solid 1px;
@@ -2078,8 +2081,7 @@ span.no-validator {
   .percentage-per-ls-container .percentage-per-ls {
     margin-bottom: 8px; }
     .percentage-per-ls-container .percentage-per-ls .learning-strand, .percentage-per-ls-container .percentage-per-ls .score {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 20px;
       margin-bottom: 4px; }
       .percentage-per-ls-container .percentage-per-ls .learning-strand span, .percentage-per-ls-container .percentage-per-ls .score span {
         font-weight: 500; }
@@ -2101,6 +2103,25 @@ span.no-validator {
         background: #f2dede;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px; }
+
+.summary-learning-strand {
+  padding: 16px;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  margin-bottom: 8px;
+  border-radius: 5px; }
+  .summary-learning-strand .summary-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px; }
+  .summary-learning-strand .summary-text {
+    font-size: 20px;
+    margin-left: 16px; }
+    .summary-learning-strand .summary-text .learning-strand {
+      margin-left: 16px;
+      margin-top: 8px;
+      border-left: #2f5597 solid 10px;
+      padding-left: 16px; }
 
 .question-answered-container {
   width: 100%;

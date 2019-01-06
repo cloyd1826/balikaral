@@ -275,7 +275,7 @@ class Layout extends Component {
       .then((res)=>{ 
         if(res.data){
           let result = res.data.data
-          console.log('res',result)
+       
           let exam = [] 
           result.exam.map((attr)=>{
             exam = [...exam, {answer: attr.answer, question: attr.question}]
@@ -304,7 +304,7 @@ class Layout extends Component {
       .then((res)=>{ 
         if(res.data){
           let result = res.data.data
-          console.log('ls', result)
+        
           this.setState({
             learningStrand: result
           })
@@ -320,7 +320,7 @@ class Layout extends Component {
     this.fetchLearningStrand()
   }
   render() {
-    console.log(this.props)
+   
     return (
         <div>
           <Grid fluid>
@@ -342,7 +342,8 @@ class Layout extends Component {
                         <span>
                           <i className='la la-spinner'></i>
                         </span>
-                        <div className='subtitle-montserrat'>Retreiving Exam</div>
+                        <div className='subtitle-montserrat'>Inihahanda ang iyong exam.</div>
+                        <div className='context-montserrat'>Maaring mag-antay muna ng konting minuto.</div>
                       </div>
                     </div>
                   : null }
@@ -357,10 +358,10 @@ class Layout extends Component {
                           <span>
                             <i className='la la-commenting'></i>
                           </span>
-                          <div className='subtitle-montserrat'>Exam Discontinued</div>
-                          <div className='context-montserrat'>You can always return to this exam anytime</div>
+                          <div className='subtitle-montserrat'>Itinigil muna ang iyong Exam</div>
+                          <div className='context-montserrat'>Maari mong balikan ang exam na ito kahit kailan.</div>
                           <Link to={(this.props.hadPreTest ? '/learner/dashboard' : '/learner-start/dashboard')}>
-                            <div className='button primary'>Return to Dashboard</div>
+                            <div className='button primary'>Dashboard</div>
                           </Link>
                         </div>
                       </div>

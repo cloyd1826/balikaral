@@ -29,15 +29,47 @@ class Layout extends Component {
   }
 
   render() {  
+    let passedLearningStrand = this.props.percentagePerLearningStrand.filter((attr)=>{
+      return attr.percentage >= 90
+    })
+    let failedLearningStrand = this.props.percentagePerLearningStrand.filter((attr)=>{
+      return attr.percentage < 90
+    })
+
     return (
           <div className='question-answered-container'>
 
-
+          {this.props.checking ? 
+          <div className='summary-learning-strand'>
+            <div className='summary-title'>Ito ang resulta ng iyong exam: </div>
+           
+            {passedLearningStrand.length > 0 ?
+               <div className='summary-text'>
+                  Matataas ang mga nakuha mo sa:
+                 
+                    {passedLearningStrand.map((attr, index)=>{
+                      return <div  key={index} className='learning-strand'>{attr.learningStrandName}</div>
+                    })}
+                 
+               </div>
+            : null}
+            {failedLearningStrand.length > 0 ?
+             <div className='summary-text'>
+                Kailangan mo pang pag-aralan maigi ang:
+               
+                  {failedLearningStrand.map((attr, index)=>{
+                    return  <div key={index} className='learning-strand'>{attr.learningStrandName}</div>
+                  })}
+                
+             </div>
+            : null}
+          </div>  
+          : null}
+            {this.props.checking ? 
           <div className='percentage-per-ls-container'>
             {this.props.percentagePerLearningStrand.map((attr,index)=>{
               return (
                 <div key={index} className='percentage-per-ls'>
-
                     <div className='learning-strand'><span>Learning Strand:</span> {attr.learningStrandName}</div>
                     <div className='score'><span>Score:</span> {attr.score + '/' + attr.totalQuestion}</div>
                     <div className='score-bar'>
@@ -45,11 +77,10 @@ class Layout extends Component {
                       <div className='wrong' style={{width: (100 - attr.percentage) + '%'}}></div>
                     </div>
                 </div>
-
-
               )
             })}
           </div>
+          : null}
 
 
 

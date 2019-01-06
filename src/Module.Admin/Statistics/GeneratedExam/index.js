@@ -63,7 +63,7 @@ class Layout extends Component {
   	apiRequest('get', `/generated-exam/all?status=${status}&page=${page}`, false, this.props.token)
         .then((res)=>{
             if(res.data){
-            	console.log(res)
+            	
                this.setState({
                	generatedExam: res.data.data,
                	currentPage: res.data.currentPage,

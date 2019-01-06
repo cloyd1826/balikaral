@@ -88,12 +88,12 @@ class Layout extends Component {
   		.then((res)=>{
           this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
-          console.log(res)
+        
       })	
   		.catch((err)=>{
           this.clearData() 
           this.formMessage('Error: ' + err.message, 'error', true, false)
-          console.log(err)
+         
   		})
   }
   postFile(){

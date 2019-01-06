@@ -91,10 +91,10 @@ class Layout extends Component {
     this.fetchSingle()
   }
   fetchSingle(){
-    console.log(this.props.location.state.id)
+    
     apiRequest('get', `/exam-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-            console.log('result', res.data.data)
+          
             if(res.data){
                 let result = res.data.data
                 let validator = result.validator

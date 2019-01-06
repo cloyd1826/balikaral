@@ -33,7 +33,7 @@ class Layout extends Component {
   fetchLearningStrand(){
     apiRequest('get', '/learning-strand/all', false, this.props.token)
       .then((res)=>{
-        console.log(res.data.data)
+      
         if(res.data){
           this.setState({
             learningStrand: res.data.data

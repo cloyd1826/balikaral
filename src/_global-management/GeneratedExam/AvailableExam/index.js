@@ -65,7 +65,7 @@ class Layout extends Component {
         }
       })
       .catch((err)=>{
-        console.log(err)
+      
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
@@ -77,10 +77,9 @@ class Layout extends Component {
     
     apiRequest('get', `/exam-management/random?examId=${id}&type=${type}&examinerId=${this.props.user.id}&level=${level}`, false, this.props.token)
       .then((res)=>{
-        console.log(res)
+        
         if(res.data){
           let result = res.data
-          console.log('re',res.data)
 
           if(result.status === 'Passed'){
             this.setState({
@@ -165,7 +164,7 @@ class Layout extends Component {
   checkStatus(){
     apiRequest('get', `/generated-exam/check-status/${this.props.user.id}`, false, this.props.token)
       .then((res)=>{
-          console.log(res)
+         
           let result = res.data.data
           if(result.length > 0){
             this.setState({
@@ -218,12 +217,13 @@ class Layout extends Component {
                   
                   {this.state.generating ?
                   
-                      <div className='exam-type-loader'>
+                       <div className='exam-type-loader'>
                         <div>
                           <span>
                             <i className='la la-spinner'></i>
                           </span>
-                          <div className='subtitle-montserrat'>Generating Exam</div>
+                          <div className='subtitle-montserrat'>Ginagawa pa ang iyong napiling exam.</div>
+                          <div className='context-montserrat'>Maaring mag-antay muna ng ilang minuto.</div>
                         </div>
                       </div>
                     : null
@@ -236,7 +236,8 @@ class Layout extends Component {
                           <span>
                             <i className='la la-spinner'></i>
                           </span>
-                          <div className='subtitle-montserrat'>Checking Exam Status</div>
+                          <div className='subtitle-montserrat'>Tinitingnan ang status ng iyong Exam</div>
+                          <div className='context-montserrat'>Maaring mag-antay muna ng konting minuto.</div>
                         </div>
                       </div>
 
@@ -246,21 +247,21 @@ class Layout extends Component {
                     <div className='exam-type-loader'>
                         <div>
                           <span>
-                            <i className='la la-frown-o'></i>
+                            <i className='la la-pencil-square'></i>
                           </span>
-                          <div className='subtitle-montserrat'>Pending Exam</div>
-                          <div className='context-montserrat'>You cant take any exam since you still have a Pending Exam Status</div>
+                          <div className='subtitle-montserrat'>May Exam ka pa na hindi natatapos</div>
+                          <div className='context-montserrat'>Pwede mong ipagpatuloy ang iyong exam na hindi pa natatapos. I-click mo lang ang button sa baba.</div>
                            <Link to={{ 
                                     pathname: '/learner/exam/take', 
                                     state: { id: this.state.idOfPendingExam } 
                                   }}>
-                            <div className='button primary'>Continue Pending Exam</div>
+                            <div className='button primary'>Ipagpatuloy ang iyong Exam.</div>
                           </Link>
                         </div>
                       </div>
 
                   : null }
-                  {this.state.isAvailable ? 
+                  {this.state.isAvailable && !this.state.generating ? 
                     <Grid.X className='exam-type-container'>
                       {this.state.examType.map((attr, index)=> {
                         return (
@@ -303,8 +304,8 @@ class Layout extends Component {
             <div className='modal'>
               <div className='delete-modal'>
                 <span className='close-button la la-close' onClick={this.toggleHasPassed}></span>
-                <div className='delete-title text-center'>You have already passed this exam.</div>
-                <div className='context-montserrat text-center'>Please choose another exam</div>
+                <div className='delete-title text-center'>Naipasa mo na ang exam na ito kaibigan.</div>
+                <div className='context-montserrat text-center'>Maari mo ng piliin ang ibang exam</div>
                 <div className='delete-button-group'>
                   <button type='button' className='button yes small' onClick={this.toggleHasPassed}>Ok</button>
                 </div>
@@ -315,8 +316,8 @@ class Layout extends Component {
             <div className='modal'>
               <div className='delete-modal'>
                 <span className='close-button la la-close' onClick={this.toggleTakeAdaptiveTest}></span>
-                <div className='delete-title text-center'>You have must first pass the Adaptive Test for the same Level.</div>
-                <div className='context-montserrat text-center'>Please choose another exam</div>
+                <div className='delete-title text-center'>Hindi ka pa pwede kaibigan sa Post Test na ito.</div>
+                <div className='context-montserrat text-center'>Kailangan mo munang maipasa ang Adaptive Test sa parehong Level bago ka mag test nito</div>
                 <div className='delete-button-group'>
                   <button type='button' className='button yes small' onClick={this.toggleTakeAdaptiveTest}>Ok</button>
                 </div>

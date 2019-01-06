@@ -63,7 +63,6 @@ class Layout extends Component {
       return attr.answer != '' 
     })
 
-    console.log(lengthOfAnsweredQuestion.length)
 
     this.setState({
       exam: exam,
@@ -76,14 +75,14 @@ class Layout extends Component {
 
   }
   fetchExamType(){
-    console.log(this.props.location)
+   
     apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
       .then((res)=>{  
-        console.log(res)
+      
         if(res.data){
           let result = res.data.data
           let counter = result.examType ? result.examType.totalHours ?  result.examType.totalHours : 0 : 0
-          console.log((parseInt(counter) * 60 * 60 * 1000))
+       
           this.setState({
             generating: false,
             takingExam: true,
@@ -134,7 +133,7 @@ class Layout extends Component {
         status: 'Pending' 
       }
     }
-    console.log(data)
+   
 
     apiRequest('put', `/generated-exam/update/${this.props.location.state.id}`, data, this.props.token)
       .then((res)=>{ 
@@ -152,7 +151,7 @@ class Layout extends Component {
               checkingExam: false,
             })
           }
-          console.log(res)
+       
           
       })
       .catch((err)=>{

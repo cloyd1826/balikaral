@@ -61,7 +61,7 @@ class Layout extends Component {
   fetchSingle(){
     apiRequest('get', `/user/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-            console.log(res.data)
+           
             if(res.data){
                 let result = res.data.data
                 this.setState({

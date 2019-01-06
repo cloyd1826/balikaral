@@ -112,7 +112,7 @@ class Layout extends Component {
         .then((res)=>{
             if(res.data){
                 let result = res.data.data
-                console.log(result)
+               
                 this.setState({
                     siteLogoName: result.logo,
                     pageLogoName: result.pageLogo,

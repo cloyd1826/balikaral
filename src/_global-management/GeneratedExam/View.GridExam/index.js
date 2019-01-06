@@ -50,10 +50,10 @@ class Layout extends Component {
    
   }
   render() { 
-    console.log(this.state.isAnswered)
+   
     let  question  = this.state.question ? this.state.question.question ? this.state.question.question : {} : {} 
     let answer = this.state.answer ? this.state.answer : ''
-    console.log(question)
+  
     const RenderPagination = () => {
     const pageNumbers = [];
       for (let i = 1; i <= this.state.totalPage; i++) {

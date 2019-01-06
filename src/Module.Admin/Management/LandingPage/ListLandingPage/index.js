@@ -98,7 +98,7 @@ class Layout extends Component {
 	  		}
   		})
   		.catch((err)=>{
-        console.log(err)
+       
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }

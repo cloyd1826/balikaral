@@ -12,7 +12,6 @@ class PdfErrorHandle extends Component {
 		}
 	}
 	componentDidCatch(error, info){
-		console.log('error', error, 'info', info)
 		this.setState({
 			hasError: true
 		})
@@ -57,8 +56,7 @@ class PdfViewer extends Component {
 
   }
   componentWillReceiveProps(nextProps){
-  	console.log(nextProps)
-  	let pdf = nextProps.pdf
+   	let pdf = nextProps.pdf
   	this.setState({
   		pdf: pdf,
   		hasPdf: true

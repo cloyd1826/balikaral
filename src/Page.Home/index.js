@@ -43,7 +43,7 @@ class Home extends Component {
     apiRequest('get', `/landing-page/fetch-active`, false, false)
       .then((res)=>{
           if(res.data){
-            console.log(res)
+      
             let landingPage = res.data.landingPage
             this.setState({
               logo: landingPage.logo,
@@ -69,7 +69,7 @@ class Home extends Component {
         
       })
       .catch((err)=>{
-        console.log(err)
+      
       })
 
     apiRequest('get', `/learning-strand/fetchAllReviewer?page=1`, false, false)
@@ -81,7 +81,7 @@ class Home extends Component {
             }    
       })
       .catch((err)=>{
-        console.log(err)
+        
       })
     
   }

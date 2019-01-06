@@ -10,7 +10,7 @@ class Layout extends Component {
     this.state = {  }
   }
   componentDidMount(){
-    console.log(this.props)
+ 
   }
   render() { 
     return (
