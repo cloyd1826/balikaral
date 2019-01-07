@@ -3,6 +3,8 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
+import ToggleButton from '../../../_component/ToggleButton'
+
 import ImageLoader from '../../../_component/ImageLoader'
 import Table from '../../../_component/Table'
 import FormMessage from '../../../_component/Form/FormMessage'
@@ -10,6 +12,7 @@ import Pagination from '../../../_component/Pagination'
 
 
 import apiRequest from '../../../_axios'
+import config from '../../../_config'
 
 import { connect } from 'react-redux'
 
@@ -44,7 +47,9 @@ class Layout extends Component {
       deleteActive: false,
       link: '',
 
-      view: true
+      view: false,
+      selectedData: [],
+
     }
     this.fetchLevel = this.fetchLevel.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -56,7 +61,59 @@ class Layout extends Component {
     this.handleChange = this.handleChange.bind(this)
 
     this.toggleView = this.toggleView.bind(this)
+    this.setSelected = this.setSelected.bind(this)
+    this.validateMultiple = this.validateMultiple.bind(this)
   }
+
+   setSelected(data){
+    let selectedData = this.state.selectedData
+
+    let index = selectedData.map((attr)=>{
+      return attr._id
+    }).indexOf(data._id)
+
+    if(index > -1){
+      selectedData = [...selectedData.slice(0,index),...selectedData.slice(index + 1)]
+    }else{
+      selectedData = [...selectedData, data]
+    } 
+    
+    this.setState({
+      selectedData: selectedData
+    })
+  }
+  validateMultiple(){
+    let selectedData = this.state.selectedData
+    let idOfSelectedData = []
+    selectedData.map((attr)=>{
+      idOfSelectedData = [...idOfSelectedData, attr._id]
+    })
+    let data = {
+      id: idOfSelectedData,
+      validator: [{ user: this.props.user.id}]
+    }
+    this.formMessage('Validating Selected Data', 'loading', true, false)
+    apiRequest('put', `/reviewer-management/validate-multiple`, data, this.props.token)
+      .then((res)=>{
+        let learningStrand = this.state.learningStrand
+        let validation = this.state.validation
+        let level = this.state.level
+        let subject = this.state.subject
+        let page = this.state.currentPage
+
+        this.fetchLevel(validation, learningStrand, level, subject, page)
+        this.formMessage('Reviewer has been validated', 'success', true, false)
+        this.setState({
+          selectedData: []
+        })
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
+
+
+
   toggleView(){
     this.setState({
       view: this.state.view ? false : true
@@ -168,7 +225,27 @@ class Layout extends Component {
                     <div className='title'>Reviewer List</div>
                     <div className='title-action'>
 
-                    <div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>
+                    {this.props.role === 'Teacher' ? 
+                      <Link 
+                        to={'/teacher/management/reviewer/list' 
+                          + (this.props.match.params.type === 'teachers' ? '/self' : '')
+                          + (this.props.match.params.type === 'self' ? '/teachers' : '')
+                          }>
+                        <div className='button primary small'>
+                        { (this.props.match.params.type === 'teachers' ? 'Your Reviewer List' : '')
+                          + (this.props.match.params.type === 'self' ? 'Other Teacher`s List' : '') }
+
+                        </div>
+                      </Link>
+
+                    : null}
+
+                    {this.state.selectedData.length > 0 ? 
+                      <div className='button primary small' onClick={this.validateMultiple}>Validate Selected Reviewer</div>
+                    : null}
+
+                    {/*<div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>*/}
+
                     {this.props.role === 'Learner' ? null : 
                       <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/add'}>
                         <div className='button primary small'>Add New Reviewer</div>
@@ -217,9 +294,9 @@ class Layout extends Component {
                   <Table hover nostripe>
                     <Table.Header>
                       <Table.Row>
+                        <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
-                        <Table.HeaderCell>PDF Title</Table.HeaderCell>
                         <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
@@ -228,8 +305,19 @@ class Layout extends Component {
                     <Table.Body>
                       {
                         this.state.reviewer.map((attr, index) =>{
+                          let selectedData = this.state.selectedData
+                          let indexOfSelectedData = selectedData.map((sd)=>{
+                            return sd._id
+                          }).indexOf(attr._id)
                           return (
                             <Table.Row key={index}>
+                              <Table.Cell isNarrowed>
+                                  {!attr.validation && this.props.role === 'Administrator' ?   
+                                    <ToggleButton key={attr._id} setSelected={()=>{this.setSelected(attr)}} isSelected={(indexOfSelectedData > -1 ? true : false)} />
+                                  :
+                                    null 
+                                  }
+                              </Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                               <Table.Cell>{
                                 attr.uploader ? attr.uploader.personalInformation ? 
@@ -240,10 +328,14 @@ class Layout extends Component {
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
                                 : '' : ''
                               }</Table.Cell>
-                              <Table.Cell>{attr.pdf}</Table.Cell>
+                              
                               <Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
                               <Table.Cell isNarrowed>
+
+                                <span>
+                                  <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-pdf-o primary'/></a>
+                                </span>
 
                                 { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
                                   <Link to={{ 
@@ -298,9 +390,9 @@ class Layout extends Component {
                     </Table.Body>
                     <Table.Footer>
                       <Table.Row>
-                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                         <Table.HeaderCell>Teacher</Table.HeaderCell>
-                        <Table.HeaderCell>PDF Title</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
+                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                        <Table.HeaderCell>Teacher</Table.HeaderCell>
                         <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
 

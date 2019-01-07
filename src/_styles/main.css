@@ -1180,8 +1180,7 @@ td, th {
       padding: 8px; }
     .home-banner .home-banner-text .home-description, .home-banner .home-image-container .home-description {
       color: rgba(0, 0, 0, 0.4);
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 14px;
       padding: 8px;
       text-align: justify; }
   .home-banner .home-image-banner {
@@ -1262,6 +1261,9 @@ td, th {
     background-position: center; }
   .about-container p {
     padding: 16px 0; }
+  .about-container p.context-montserrat, .about-container p.form-subtitle, .about-container .footer-contact span p, .footer-contact span .about-container p {
+    font-size: 14px;
+    text-align: justify; }
   .about-container .about-banner-text, .about-container .about-image-container {
     align-items: center;
     justify-content: center;
@@ -1277,7 +1279,8 @@ td, th {
       font-weight: 900;
       cursor: pointer;
       position: relative;
-      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
+      color: #fff; }
       .subject-container .subject-card .subject .sub {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -1309,10 +1312,10 @@ td, th {
     margin-right: 32px;
     padding: 0 16px; }
     .footer-contact span p {
-      font-weight: 900;
       color: rgba(0, 0, 0, 0.4);
-      font-size: 12px;
-      padding: 4px 0; }
+      padding: 4px 0;
+      font-size: 14px;
+      text-align: justify; }
 
 .tos-container {
   padding: 32px;
@@ -1347,8 +1350,7 @@ td, th {
   font-weight: 600;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
   .sign-up:hover {
-    background: #3ccfcf;
-    color: #000; }
+    background: #3ccfcf; }
 
 .log-in {
   font-size: 0.9rem;
@@ -1402,8 +1404,7 @@ td, th {
         font-weight: 600;
         transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
         .nav-container .link-container .user-top-bar .user-name:hover {
-          background: #3ccfcf;
-          color: #000; }
+          background: #3ccfcf; }
       .nav-container .link-container .user-top-bar .user-circle {
         border-radius: 50%;
         height: 44px;
@@ -1443,8 +1444,7 @@ td, th {
           .nav-container .link-container .user-top-bar .user-container .user-bar i {
             margin-right: 8px; }
           .nav-container .link-container .user-top-bar .user-container .user-bar:hover {
-            background: #3ccfcf;
-            color: #0a0a0a; }
+            background: #3ccfcf; }
 
 .admin-sidebar {
   padding-top: 16px;
