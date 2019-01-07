@@ -1281,11 +1281,11 @@ td, th {
       position: relative;
       transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
       color: #fff; }
-      .subject-container .subject-card .subject .sub {
+      .subject-container .subject-card .subject .subject-title {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 300px; }
+        max-width: 10em; }
       .subject-container .subject-card .subject .reviewer {
         font-size: 12px;
         position: absolute;
@@ -2278,7 +2278,11 @@ span.no-validator {
       font-size: 16px;
       margin-right: 8px;
       padding-right: 8px;
-      border-right: #e0e0e0 solid 2px; }
+      border-right: #e0e0e0 solid 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 5rem; }
     .grid-reviewer-container .reviewer-info .user {
       display: flex;
       align-items: center; }
@@ -2300,7 +2304,11 @@ span.no-validator {
         color: rgba(0, 0, 0, 0.4); }
   .grid-reviewer-container .reviewer-title {
     padding: 4px 16px;
-    font-size: 22px; }
+    font-size: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20rem; }
   .grid-reviewer-container .reviewer-action {
     position: absolute;
     top: 16px;

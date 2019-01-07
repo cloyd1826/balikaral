@@ -59,7 +59,7 @@ class Layout extends Component {
                       (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
                     state: { id: this.props.data._id } 
                   }}>
-              <div className='reviewer-title'>{this.props.data.pdf}</div>
+              <div className='reviewer-title'>{this.props.data.description}</div>
             </Link>
 
             <div className='reviewer-action'>

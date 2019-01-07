@@ -205,7 +205,7 @@ class Home extends Component {
                 <div className='large-4 medium-6 small-12' key={index}>
                   <div className='subject-card'>
                     <div className='subject'>
-                      <span className='sub'>{attr.name}</span>
+                      <div className='subject-title'>{attr.name}</div>
                       <span className='reviewer'>{attr.reviewer.length} Reviewers</span>
                     </div>
                   </div>
