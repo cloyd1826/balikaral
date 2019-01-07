@@ -6,6 +6,7 @@ import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom'
 
 import Grid from '../../_component/Grid'
+import ImageLoader from '../../_component/ImageLoader'
 import Form from '../../_component/Form/Form'
 import Input from '../../_component/Form/Input'
 import Select from '../../_component/Form/Select'
@@ -19,6 +20,9 @@ import { logInUser } from '../../_redux/actions/user'
 import axios from 'axios'
 import apiRequest from '../../_axios'
 
+import FacebookLogo from '../../_images/facebook-logo.png'
+import GoogleLogo from '../../_images/google-logo.png'
+
 class Layout extends Component{
   constructor(props){
     super(props)
@@ -28,13 +32,9 @@ class Layout extends Component{
       lastName: '',
       firstName: '',
       middleName: '',
+      userType: '',
 
-      houseNoStreet: '',
-      barangay: '',
-      city: '',
-      province: '',
-      zipcode:  '',
-      userType:  '',
+    
 
 
       message: '',
@@ -81,11 +81,7 @@ class Layout extends Component{
       firstName: '',
       middleName: '',
 
-      houseNoStreet: '',
-      barangay: '',
-      city: '',
-      province: '',
-      zipcode:  '',
+      
       userType:  '',
     })
   }
@@ -99,11 +95,7 @@ class Layout extends Component{
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       middleName: this.state.middleName,
-      houseNoStreet: this.state.houseNoStreet,
-      barangay: this.state.barangay,
-      city: this.state.city,
-      province: this.state.province,
-      zipcode: this.state.zipcode ,
+      
       userType: this.state.userType 
     }
 
@@ -132,195 +124,165 @@ class Layout extends Component{
     return (
       <div className='modal'>
         <div className='modal-container'>
-            <div className='sign-in-container'>
-              <div className='close-button fa fa-close'  onClick={this.props.close}></div>
-              <div className='log-in-text'>
-                <div className='subtitle-montserrat'>Become a Member</div>
-                <div className='context-montserrat'></div>
-              </div>
 
+
+
+        <div className='sign-in-container'>
+
+          <div className='sign-in-form'>
+              
               {this.state.isCreating ? 
-
-                 <div className='log-in-form sign-up-form'>
-                    <Form onSubmit={this.handleSubmit} size='small'>
-                      <Grid>
-                        <Grid.X>
-                          <Grid.Cell large={12} medium={6} small={12}>
-                            <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
-                          </Grid.Cell>
-                        </Grid.X>
-                        <Grid.X>
-                          <Grid.Cell large={4} medium={12} small={12}>
-                            <Input 
-                              label='Email' 
-                              type='email' 
-                              required
-                              name='email'
-                              value={this.state.email}
-                              onChange={this.handleChange}
-
-                              />
-                          </Grid.Cell>
-                          <Grid.Cell large={4} medium={12} small={12}>
-                            <Input 
-                              label='Password' 
-                              type='password' 
-                              required 
-                              name='password'
-                              value={this.state.password}
-                              onChange={this.handleChange}
-                              />
-                          </Grid.Cell>
-
-                          <Grid.Cell large={4} medium={12} small={12}>
-                            <Select
-                              label='User Type'
-                              required
-                              name='userType'
-                              value={this.state.userType}
-                              onChange={this.handleChange}
-                              >
-                              <option value='' disabled></option>
-                              <option value='Learner'>Learner</option>
-                              <option value='Teacher'>Teacher</option>
-                            </Select>
-                          </Grid.Cell>
-                         
-                          <Grid.Cell large={4} medium={12}  small={12}>
-                            <Input 
-                              label='First Name'
-                              required
-                              name='firstName'
-                              value={this.state.firstName}
-                              onChange={this.handleChange}
-                              />
-                          </Grid.Cell>
-                          <Grid.Cell large={4} medium={12} small={12}>
-                            <Input 
-                              label='Middle Name' 
-                              
-                              name='middleName'
-                              value={this.state.middleName}
-                              onChange={this.handleChange}
-                              />
-                          </Grid.Cell>
-                           <Grid.Cell large={4} medium={12} small={12}>
-                            <Input 
-                              label='Last Name'
-                              required
-                              name='lastName'
-                              value={this.state.lastName}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={6} medium={12} small={12}>
-                            <Input 
-                              label='House No'
-                              
-                              name='houseNoStreet'
-                              value={this.state.houseNoStreet}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={6} medium={12} small={12}>
-                            <Input 
-                              label='Baranggay'
-                              
-                              name='barangay'
-                              value={this.state.barangay}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={6} medium={12} small={12}>
-                            <Input 
-                              label='City'
-                              
-                              name='city'
-                              value={this.state.city}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                           <Grid.Cell large={6} medium={12} small={12}>
-                            <Input 
-                              label='Province'
-                              
-                              name='province'
-                              value={this.state.province}
-                              onChange={this.handleChange}
-                               />
-                          </Grid.Cell>
-                          
-                           
-                         
-                          <Grid.Cell className='sign-in-button-form'>
-                            <span>
-                              <button className='sign-in-button' type='submit'>SIGN UP</button>
-                            </span>
-                          </Grid.Cell>
-
-                          <Grid.Cell large={12} medium={6} small={12}>
-                            <div className='context-montserrat text-center'>
-                              I have read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral
-                            </div>
-                          </Grid.Cell>
-                        </Grid.X>
-                      </Grid>
-
-                    </Form>
-                    <div className='log-in-border'>
-                      <div className='context-montserrat'>or</div>
-                    </div>
-                    <div  className='log-in-button'>
-                      <span>
-                        <FacebookLogin
-                          appId="353023298781537"
-                          autoLoad={true}                    
-                          fields="name,email,picture"
-                          onClick={this.componentClicked}
-                          callback={this.responseFacebook}
-                          cssClass='facebook-button'
-                          textButton='SIGN UP USING FACEBOOK'
-
-                          />
-                        </span>
-                        <span>
+              <Grid>
+                <Grid.X>
+                  <Grid.Cell large={12} medium={12} small={12} className='log-in-header'>
+                    <div className='subtitle-montserrat'>Sign in</div>
+                    <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
+                    <div className='close-button la la-close '  onClick={this.props.close}></div>
+                  </Grid.Cell>
+                </Grid.X>
+                <Grid.X>
+                  <Grid.Cell large={6} medium={12} small={12}>
+                    <span className='facebook-button-container'>
+                      <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
+                      <FacebookLogin
+                        appId="353023298781537"
+                        autoLoad={true}                    
+                        fields="name,email,picture"
+                        onClick={this.componentClicked}
+                        callback={this.responseFacebook}
+                        cssClass='facebook-button'
+                        textButton='Sign up with Facebook'
+                        icon='element'
+                        />
+                      </span>
+                      
+                     
+                  </Grid.Cell>
+                  <Grid.Cell large={6} medium={12} small={12}>
+                     <span className='google-button-container'>
+                        <div className='google-logo' style={{backgroundImage: 'url(' + GoogleLogo + ')'}} />
                         <GoogleLogin
                           clientId="293000110428-lm6klam4patr7ojnk0e9md79gkip32jd.apps.googleusercontent.com"
                           render={renderProps => (
-                            <button className='google-button' onClick={renderProps.onClick}>SIGN UP USING GOOGLE</button>
+                            <button className='google-button' onClick={renderProps.onClick}>Sign up with Google</button>
                           )}
                           onSuccess={this.responseGoogle}
                           onFailure={this.responseGoogle}
                         />
                       </span>
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <div className='log-in-border'>
+                      <div className='context-montserrat'>OR EMAIL</div>
                     </div>
-                  </div>
-              : 
-                 <div className='sign-in-message'>
-                    <div className='confirmation'>
-                       Your account has been created 
-                       and is waiting for access approval from the Administrator. 
-                       You will receive an email once your account has been given access.
+                  </Grid.Cell>
+                </Grid.X>
+               <Form onSubmit={this.handleSubmit}>
+                <Grid.X>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <Input 
+                      label='Email' 
+                      type='email' 
+                      placeholder='email@mail.com'
+                      required
+                      name='email'
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      />
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <Input 
+                      label='Password' 
+                      type='password' 
+                      required 
+                      placeholder='●●●●●●●●'
+                      name='password'
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      />
+                  </Grid.Cell>
+
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <Select
+                      label='User Type'
+                      required
+                      name='userType'
+                      value={this.state.userType}
+                      onChange={this.handleChange}
+                      >
+                      <option value='' disabled></option>
+                      <option value='Learner'>Learner</option>
+                      <option value='Teacher'>Teacher</option>
+                    </Select>
+                  </Grid.Cell>
+                 
+                  <Grid.Cell large={12} medium={12}  small={12}>
+                    <Input 
+                      label='First Name'
+                      required
+                      placeholder='Juan'
+                      name='firstName'
+                      value={this.state.firstName}
+                      onChange={this.handleChange}
+                      />
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <Input 
+                      label='Middle Name' 
+                      placeholder='Dela'
+                      name='middleName'
+                      value={this.state.middleName}
+                      onChange={this.handleChange}
+                      />
+                  </Grid.Cell>
+                   <Grid.Cell large={12} medium={12} small={12}>
+                    <Input 
+                      label='Last Name'
+                      placeholder='Cruz'
+                      required
+                      name='lastName'
+                      value={this.state.lastName}
+                      onChange={this.handleChange}
+                       />
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12} className='tos'>
+                     <div className='context-montserrat text-center'>
+                        I have had read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral
+                      </div>
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
+                    <button type='submit' className='button primary'>Sign up</button>
+                  </Grid.Cell>
+                </Grid.X>
+                </Form>
+              </Grid>
+              :
+              <Grid>
+                <Grid.X className='confirm-message'>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <div className='subtitle-montserrat text-center'>Congratulations!</div>
+                    <div className='context-montserrat text-center'>
+                      Your account has been created and will undergo validation from our administrators before you can use our service.
                     </div>
-                    <div className='credentials'>
-                     <p>Email: <span>{this.state.email}</span></p>
-                     <p>Name: <span>{this.state.firstName + ' ' + this.state.lastName}</span></p>
-                     <p>User Role: <span>{this.state.userType}</span></p>
-                    </div>
-                    <div className='create-new-text' onClick={this.createNewAccount}>Create New Account ?</div>
-                  </div>
-              }
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
+                    <button type='submit' className='button primary' onClick={this.props.close}>Confirm</button>
+                  </Grid.Cell>
+                </Grid.X>
+              </Grid>
+            }
              
+          </div>
+        </div>
 
 
-             
-              
-               
-                
-              
 
 
-            </div>
+
+
+
+
+            
         </div>
       </div>
 

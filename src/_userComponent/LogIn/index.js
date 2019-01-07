@@ -4,15 +4,24 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { logInUser } from '../../_redux/actions/user'
 
+import Grid from '../../_component/Grid/' 
 import Form from '../../_component/Form/Form' 
 import Input from '../../_component/Form/Input'
 import Button from '../../_component/Form/Button'
 import FormMessage from '../../_component/Form/FormMessage'
 
+import { Link } from 'react-router-dom'
+
 
 import axios from 'axios'
 import apiRequest from '../../_axios'
 
+
+import FacebookLogo from '../../_images/facebook-logo.png'
+import GoogleLogo from '../../_images/google-logo.png'
+
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 
 class Layout extends Component{
   constructor(props){
@@ -77,28 +86,106 @@ class Layout extends Component{
     return (
       <div className='modal'>
         <div className='modal-container'>
-            <div className='sign-in-container'>
-              <div className='close-button fa fa-close'  onClick={this.props.close}></div>
-              <div className='log-in-text'>
-                <div className='subtitle-montserrat'>Log in to your account</div>
-                <div className='context-montserrat'></div>
-              </div>
-              <div className='log-in-form'>
-                  <Form onSubmit={this.handleSubmit} size='small'>
+
+
+          <div className='sign-in-container'>
+
+          <div className='sign-in-form'>
+              
+              <Grid>
+              
+               <Form onSubmit={this.handleSubmit}>
+                <Grid.X>
+                  <Grid.Cell large={12} medium={12} small={12} className='log-in-header'>
+                    <div className='subtitle-montserrat'>Log in</div>
                     <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
-                    <Input onChange={this.handleChange} label='Email' name='email' type='email' placeholder='email@email.com' value={this.state.email} /> 
-                    <Input onChange={this.handleChange} label='Password' name='password' placeholder='password' type='password' value={this.state.password} />
-                   
-                    <div className='sign-in-button-form'>
-                      <span>
-                        <button className='sign-in-button' type='submit'>LOG IN</button>
-                      </span>
+                    <div className='close-button la la-close '  onClick={this.props.close}></div>
+
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <Input 
+                      label='Email' 
+                      type='email' 
+                      placeholder='email@mail.com'
+                      required
+                      name='email'
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      />
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <Input 
+                      label='Password' 
+                      type='password' 
+                      required 
+                      placeholder='●●●●●●●●'
+                      name='password'
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      />
+                  </Grid.Cell>
+
+                 
+                  
+                  <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
+                    <button type='submit' className='button primary'>Log In</button>
+                  </Grid.Cell>
+                </Grid.X>
+                </Form>
+                <Grid.X>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <div className='log-in-border'>
+                      <div className='context-montserrat'>OR</div>
                     </div>
-                  </Form>
-              </div>
+                  </Grid.Cell>
+                  <Grid.Cell large={6} medium={12} small={12}>
+                    <span className='facebook-button-container'>
+                      <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
+                      <FacebookLogin
+                        appId="353023298781537"
+                        autoLoad={true}                    
+                        fields="name,email,picture"
+                        onClick={this.componentClicked}
+                        callback={this.responseFacebook}
+                        cssClass='facebook-button'
+                        textButton='Log in with Facebook'
+                        icon='element'
+                        />
+                      </span>
+                      
+                     
+                  </Grid.Cell>
+                  <Grid.Cell large={6} medium={12} small={12}>
+                     <span className='google-button-container'>
+                        <div className='google-logo' style={{backgroundImage: 'url(' + GoogleLogo + ')'}} />
+                        <GoogleLogin
+                          clientId="293000110428-lm6klam4patr7ojnk0e9md79gkip32jd.apps.googleusercontent.com"
+                          render={renderProps => (
+                            <button className='google-button' onClick={renderProps.onClick}>Log in with Google</button>
+                          )}
+                          onSuccess={this.responseGoogle}
+                          onFailure={this.responseGoogle}
+                        />
+                      </span>
+                  </Grid.Cell>
+                  
+                </Grid.X>
+              </Grid>
              
-             
-            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+            
+
         </div>
       </div>
 
