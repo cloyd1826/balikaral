@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import YouTube from 'react-youtube'
 
 class Test extends Component{
   constructor(props){
@@ -62,9 +63,25 @@ class Test extends Component{
       	 {this.state.endTime}
          <br />
          {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}
+         <YouTube
+            videoId='sstGezJYsf0'                  
+                                  
+            className='youtube-player'                
+            containerClassName='youtube-player-container'       
+             
+          />
       </div>
     );
   }
 }
 
 export default Test
+// onReady={func}                    
+// onPlay={func}                     
+// onPause={func}                    
+// onEnd={func}                      
+// onError={func}                    
+// onStateChange={func}              
+// onPlaybackRateChange={func}       
+// onPlaybackQualityChange={func} 
+// opts={} 

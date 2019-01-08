@@ -7,6 +7,7 @@ import Grid from '../../../_component/Grid'
 import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
 import Input from '../../../_component/Form/Input'
+import Select from '../../../_component/Form/Select'
 import FileInput from '../../../_component/Form/FileInput'
 import Button from '../../../_component/Form/Button'
 
@@ -29,6 +30,9 @@ class Layout extends Component {
       description: '',
       pdfName: '',
      
+      youtubeVideo: '',
+      typeReviewer: '',
+
       message: '',
       type: '',
       active: false,
@@ -44,6 +48,17 @@ class Layout extends Component {
     this.formMessage = this.formMessage.bind(this)
 
     this.postFile = this.postFile.bind(this)
+    this.changeTypeReviewer = this.changeTypeReviewer.bind(this)
+  }
+  changeTypeReviewer(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      youtubeVideo: '',
+      pdf: '',
+      pdfName: ''
+    })
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -58,9 +73,10 @@ class Layout extends Component {
       learningStrand: '',
       pdf: '',
       description: '',
-      pdfName: ''
+      pdfName: '',
+      typeReviewer: '',
+      youtubeVideo: '',
     })
-    this.fileInput.value = ''
   }
 
 
@@ -90,7 +106,7 @@ class Layout extends Component {
   		.then((res)=>{
           this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
-         
+          console.log(res)
       })	
   		.catch((err)=>{
           this.clearData() 
@@ -101,14 +117,22 @@ class Layout extends Component {
   postFile(){
     const url = `${config}/balikaral/reviewer-management/`
     const formData = new FormData()
-    formData.append('pdf', this.state.pdf)
+    
     formData.append('learningStrand', this.state.learningStrand)
     formData.append('description', this.state.description)
     formData.append('uploader', this.props.user.id )
     formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
+
+    if(this.state.pdfName !== ''){
+      formData.append('pdf', this.state.pdf)
+    }
+    if(this.state.youtubeVideo !== ''){
+      formData.append('youtubeVideo', this.state.youtubeVideo)
+    }
     if(this.props.role === 'Administrator'){
       formData.append('validator', this.props.user.id )
     }
+
     const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
@@ -156,17 +180,64 @@ class Layout extends Component {
                           value={this.state.description} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
-  	        					<Grid.Cell large={6} medium={12} small={12}>
-  	        						<FileInput 
-  	        							type='file'
-  	        							label='PDF' 
-                          required
-  	        							name='pdf'
-                          fileName={this.state.pdfName}
-                          accept="application/pdf"
-                          ref={ref => this.fileInput = ref}
-  	        							onChange={this.handleFileChange}/>
-  	        					</Grid.Cell>
+
+                      <Grid.Cell large={6} medium={12} small={12}>
+                        <Select
+                          label='Type of Reviewer' 
+                          placeholder='Type of Reviewer' 
+                          name='typeReviewer' 
+                          value={this.state.typeReviewer} 
+                          onChange={this.changeTypeReviewer}>
+                          <option value=''></option>                          
+                          <option value='pdf'>PDF</option>                          
+                          <option value='yt-video'>Youtube Video</option>                          
+                        </Select>
+                      </Grid.Cell>    
+
+                      {this.state.typeReviewer === 'pdf' ? 
+    	        					<Grid.Cell large={6} medium={12} small={12}>
+    	        						<FileInput 
+    	        							type='file'
+    	        							label='PDF' 
+                            required
+    	        							name='pdf'
+                            fileName={this.state.pdfName}
+                            accept="application/pdf"
+                            ref={ref => this.fileInput = ref}
+    	        							onChange={this.handleFileChange}/>
+    	        					</Grid.Cell>
+                      : null}
+                      {this.state.typeReviewer === 'yt-video' ?
+                        <Grid.Cell large={6} medium={12} small={12}>
+                          <Input 
+                            type='text'
+                            label='Youtube Video ID' 
+                            placeholder='Youtube Video ID' 
+                            name='youtubeVideo' 
+                            value={this.state.youtubeVideo} 
+                            onChange={this.handleChange}/>
+                           
+                              
+                            
+                        </Grid.Cell>
+                      : null}
+                      {this.state.typeReviewer === 'yt-video' ?
+                        <Grid.Cell large={12} medium={12} small={12}>
+                         <div className='form-message success'>
+                            <i className='la la-info-circle' />
+                            The Youtube Video ID is the alphanumeric code that is unique for each video in YouTube.
+                            Search for this pattern in the selected video on YouTube and copy to the Youtube Video ID Input. <br/>
+                            <br/>
+                            Youtube Link: https://www.youtube.com/watch?v=<strong>QC7Ll9ROkZg</strong> <br/>
+                            Youtube Video ID: <strong>QC7Ll9ROkZg</strong>
+                          </div>
+                        </Grid.Cell>
+                      : null }
+
+
+
+
+
                      
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>
   	        						<Button type='submit' text='Save' className='secondary small' />

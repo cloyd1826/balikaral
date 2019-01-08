@@ -2500,6 +2500,13 @@ span.no-validator {
 .grid-reviewer-container:hover {
   border-bottom-color: #4257b2; }
 
+.youtube-player-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  margin-top: 16px; }
+
 .user-profile-container .user-image {
   display: flex;
   justify-content: center;

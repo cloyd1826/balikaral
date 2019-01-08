@@ -296,11 +296,14 @@ class Layout extends Component {
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                       
                         <Table.HeaderCell>Status</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
+
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -348,6 +351,8 @@ class Layout extends Component {
                                       </Link>
                                    : null}
                               </Table.Cell>
+                              <Table.Cell>{attr.description}</Table.Cell>
+                              <Table.Cell>{(attr.pdf ? 'PDF Reviewer' : '') + (attr.youtubeVideo ? 'Youtube Video' : '')}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                               <Table.Cell>{
                                 attr.uploader ? attr.uploader.personalInformation ? 
@@ -359,13 +364,35 @@ class Layout extends Component {
                                 : '' : ''
                               }</Table.Cell>
                               
-                              <Table.Cell>{attr.description}</Table.Cell>
+                              
                               <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
                               <Table.Cell isNarrowed>
+                                {attr.pdf ?
+                                  <span>
+                                    <a href={`${config}/${attr.pdf}`} download='reviewer.pdf' target='_blank'><i className='la la-file-pdf-o primary'/></a>
+                                  </span>
+                                 : null}
 
-                                <span>
-                                  <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-pdf-o primary'/></a>
-                                </span>
+                                 {attr.youtubeVideo ?
+                                  <span>
+                                    <a href={`https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'><i className='la la-youtube-play primary'/></a>
+                                  </span>
+                                 : null}
+
+
+                                 
+
+                                 <Link to={{ 
+                                    pathname: 
+                                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
+                                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='la la-folder-open-o primary'></i>
+                                    </span>
+                                  </Link>
 
                                 { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
                                   <Link to={{ 
@@ -389,17 +416,7 @@ class Layout extends Component {
                                   </Link>
                                 : null }
 
-                                <Link to={{ 
-                                    pathname: 
-                                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
-                                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
-                                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
-                                    state: { id: attr._id } 
-                                  }}>
-                                    <span>
-                                      <i className='la la-folder-open-o primary'></i>
-                                    </span>
-                                  </Link>
+                                
 
                                 { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
                                   <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id)}}>
@@ -421,10 +438,13 @@ class Layout extends Component {
                     <Table.Footer>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                       
                         <Table.HeaderCell>Status</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
 
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
                       </Table.Row>
