@@ -10,13 +10,15 @@ import FormMessage from '../../../_component/Form/FormMessage'
 
 import { connect } from 'react-redux'
 
+import YouTube from 'react-youtube'
+
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = { 
         learningStrand: '',
-        pdf: '',
+        pdf: null,
         description: '',
         uploader: '',
         validation: '',
@@ -30,7 +32,9 @@ class Layout extends Component {
 
         disableReview: false,
 
-        modalActive: false
+        modalActive: false,
+        youtubeVideo: null,
+
 
 
       
@@ -68,9 +72,11 @@ class Layout extends Component {
     }
   }
   fetchSingle(){
+    this.formMessage('Loading Content', 'loading', true, false)
+
     apiRequest('get', `/reviewer-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-        
+            
             if(res.data){
                 let result = res.data.data
                 let validator = result.validator
@@ -84,6 +90,8 @@ class Layout extends Component {
                 this.setState({
                     learningStrand: (result.learningStrand ? result.learningStrand.name ? result.learningStrand.name : '' : '') ,
                     pdf: result.pdf,
+                    youtubeVideo: result.youtubeVideo ? result.youtubeVideo : null,
+
                     description: result.description,
                     uploader: (result.uploader ? result.uploader.personalInformation ? 
                               (result.uploader.personalInformation.firstName ? result.uploader.personalInformation.firstName : '') 
@@ -98,6 +106,8 @@ class Layout extends Component {
                     disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id ? true : false )
                     // result.validation || 
                 })
+            this.formMessage('Content Loaded', 'success', true, false)
+
 
 
 
@@ -143,9 +153,24 @@ class Layout extends Component {
                       <Grid.Cell large={3} medium={6} small={12}>
                         <div className='context-montserrat'>Title: <span>{this.state.pdf}</span></div>
                       </Grid.Cell>
-                      <Grid.Cell large={12} medium={12} small={12}>
-                        <PdfViewer pdf={this.state.pdf}/>
-                      </Grid.Cell>
+
+                       {this.state.pdf ? 
+                         <Grid.Cell large={12} medium={12} small={12}>
+                            <PdfViewer pdf={this.state.pdf}/>
+                          </Grid.Cell>
+                      : null}
+                      {this.state.youtubeVideo ? 
+                        <Grid.Cell large={12} medium={12} small={12}>
+                             <YouTube
+                                videoId={this.state.youtubeVideo.trim()}
+                                className='youtube-player'                
+                                containerClassName='youtube-player-container'       
+                                
+                              />
+                        </Grid.Cell>
+                      : null}
+
+
                   </Grid.X>
                 </div>
               </Grid.Cell>

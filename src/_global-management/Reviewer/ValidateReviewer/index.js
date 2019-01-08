@@ -10,19 +10,20 @@ import FormMessage from '../../../_component/Form/FormMessage'
 
 import { connect } from 'react-redux'
 
+import YouTube from 'react-youtube'
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = { 
         learningStrand: '',
-        pdf: '',
+        pdf: null,
         description: '',
         uploader: '',
         validation: '',
         validator: [],
 
-     
+        youtubeVideo: null,
         message: '',
         type: '',
         active: false,
@@ -71,9 +72,10 @@ class Layout extends Component {
     }
   }
   fetchSingle(){
+    this.formMessage('Loading Content', 'loading', true, false)
     apiRequest('get', `/reviewer-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
-        
+            this.formMessage('Content Loaded', 'success', true, false)
             if(res.data){
                 let result = res.data.data
                 let validator = result.validator
@@ -82,11 +84,12 @@ class Layout extends Component {
                 let isValidatedByCurrentUser = validator.map((attr)=>{
                   return attr.user._id
                 }).indexOf(this.props.user.id)
-
+                console.log(res.data)
 
                 this.setState({
                     learningStrand: (result.learningStrand ? result.learningStrand.name ? result.learningStrand.name : '' : '') ,
-                    pdf: result.pdf,
+                    pdf: result.pdf ? result.pdf : null,
+                    youtubeVideo: result.youtubeVideo ? result.youtubeVideo : null,
                     description: result.description,
                     uploader: (result.uploader ? result.uploader.personalInformation ? 
                               (result.uploader.personalInformation.firstName ? result.uploader.personalInformation.firstName : '') 
@@ -156,6 +159,7 @@ class Layout extends Component {
   }
 
   render() { 
+    console.log(this.state.youtubeVideo)
     return (
         <div>
         	<Grid fluid>
@@ -211,10 +215,24 @@ class Layout extends Component {
                           
                         </div>
                       </Grid.Cell>
-                     
-                      <Grid.Cell large={12} medium={12} small={12}>
-                        <PdfViewer pdf={this.state.pdf}/>
-                      </Grid.Cell>
+                      {this.state.pdf ? 
+                         <Grid.Cell large={12} medium={12} small={12}>
+                            <PdfViewer pdf={this.state.pdf}/>
+                          </Grid.Cell>
+                      : null}
+                      {this.state.youtubeVideo ? 
+                        <Grid.Cell large={12} medium={12} small={12}>
+                             <YouTube
+                                videoId={this.state.youtubeVideo.trim()}
+                                className='youtube-player'                
+                                containerClassName='youtube-player-container'       
+                                
+                              />
+                        </Grid.Cell>
+                      : null}
+
+
+
                   </Grid.X>
                 </div>
               </Grid.Cell>
@@ -224,7 +242,7 @@ class Layout extends Component {
           {this.state.modalActive ? 
             <div className='modal'>
               <div className='confirm-modal'>
-                <span className='close-button la la-close' onClick={this.toggleModal}></span>
+                <span className='close-button la la-times-circle' onClick={this.toggleModal}></span>
                 <div className='delete-title text-center'>Validate Reviewer {this.state.pdf} ?</div>
                 <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
                 <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 

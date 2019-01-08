@@ -20,7 +20,7 @@
 		.context-montserrat
 			text-align: center
 	.form-message
-		font-size: 12px
+		font-size: 22px
 	.log-in-form
 		.sign-in-button-form
 			display: flex
@@ -114,6 +114,104 @@
 			border-radius: 50%
 
 
+.sign-in-container
+	max-height: 70vh
+	overflow-y: auto
+	width: 60vw
+.sign-in-form
+	background: #fff
+	padding: 16px
+	form
+		.input-container,.select-container
+			font-size: 16px!important
+			label,.label
+				font-weight: 600!important
+				color: rgba(0,0,0,0.6)!important
+			input,select
+				border: #e0e0e0 solid 3px!important
+				border-radius: 0
+				box-shadow: none
+				font-weight: 600!important
+				color: rgba(0,0,0,0.6)!important
+		.sign-up-button
+			.button
+				width: 100%
+	.tos
+		.context-montserrat
+			font-size: 16px!important
+			font-weight: 600!important
+			color: rgba(0,0,0,0.6)!important
+			a
+				color: $yellow-color
+	.log-in-header
+		border-bottom: #e0e0e0 solid 3px!important
+		padding-bottom: 8px
+		margin-bottom: 16px
+		position: relative
+		.close-button
+			position: absolute
+			top: 50%
+			right: 16px
+			transform: translate(0,-50%)
+			font-size: 24px
+			color: rgba(0,0,0,0.6)
+		.subtitle-montserrat
+			font-weight: 600
+			color: rgba(0,0,0,0.6)!important
+	.confirm-message
+		padding: 32px 0
+		.subtitle-montserrat
+			margin-bottom: 32px
+			color: rgba(0,0,0,0.6)!important
+		.context-montserrat
+			font-size: 16px!important
+			font-weight: 600!important
+			color: rgba(0,0,0,0.6)!important
+			text-align: center
+		.button
+			width: 100%
+	.log-in-border
+		width: 100%
+		height: 1px
+		border-bottom: #e0e0e0 solid 3px!important
+		position: relative
+		z-index: 1
+		margin: 8px 0
+		.context-montserrat
+			position: absolute
+			top: 0
+			left: 50%
+			transform: translate(-50%, -50%)
+			background: #fff
+			font-weight: 600
+			color: rgba(0,0,0,0.6)
+			font-size: 14px
+			padding: 8px
+			line-height: 1
+			z-index: 2
+			border-radius: 50%
+	.facebook-button-container,.google-button-container
+		width: 100%
+		padding: 8px
+		position: relative
+		.fb-logo,.google-logo
+			position: absolute
+			top: 50%
+			left: 2em
+			transform: translate(0, -50%)
+			background-size: cover
+			background-repeat: no-repeat
+			background-position: center
+			height: 2em
+			width: 2em
+		.facebook-button,.google-button
+			width: calc(100% - 16px)
+			border: #e0e0e0 solid 3px!important
+			border-radius: 0
+			background: #fff
+			font-weight: 600!important
+			color: rgba(0,0,0,0.6)!important
+			font-size: 16px!important
 @keyframes LogIn
 	from
 		transform: translate(0, 20px)

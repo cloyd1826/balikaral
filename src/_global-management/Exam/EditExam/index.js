@@ -452,8 +452,8 @@ class Layout extends Component {
                                     >
                                     <option value='' disabled></option>
                                     <option value='Easy'>Easy</option>
-                                    <option value='Medium'>Medium</option>
-                                    <option value='Hard'>Hard</option>
+                                    <option value='Average'>Average</option>
+                                    <option value='Difficult'>Difficult</option>
                                   </Select>
                                 </Grid.Cell>
 

@@ -44,7 +44,7 @@ class Layout extends Component {
           <div className='delete-modal'>
             
 
-            <span className='close-button la la-close' onClick={this.props.close}></span>
+            <span className='close-button la la-times-circle' onClick={this.props.close}></span>
             <div className='delete-title text-center'>Set this as the active Landing Page</div>
             <div className='context-montserrat text-center'>You can always change the active data for the landing page</div>
             <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 

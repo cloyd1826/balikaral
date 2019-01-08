@@ -49,14 +49,14 @@ class Layout extends Component{
               {this.props.role === 'Administrator' ? 
                 <Link to='/admin/dashboard'>
                   <div className='user-bar'>
-                    <span><i className='fa fa-dashboard' />Administrator Dashboard</span>
+                    <span><i className='la la-home' />Dashboard</span>
                   </div>
                 </Link>
               : null}
               {this.props.role === 'Teacher' ? 
                 <Link to='/teacher/dashboard'>
                   <div className='user-bar'>
-                    <span><i className='fa fa-dashboard' />Teacher Dashboard</span>
+                    <span><i className='la la-home' />Dashboard</span>
                   </div>
                 </Link>
               : null}
@@ -64,14 +64,14 @@ class Layout extends Component{
               {this.props.role === 'Learner' && this.props.hadPreTest ? 
                 <Link to='/learner/dashboard'>
                   <div className='user-bar'>
-                    <span><i className='fa fa-dashboard' />Learner Dashboard</span>
+                    <span><i className='la la-home' />Dashboard</span>
                   </div>
                 </Link>
               : null}
               {this.props.role === 'Learner' && !this.props.hadPreTest ? 
                 <Link to='/learner-start/dashboard'>
                   <div className='user-bar'>
-                    <span><i className='fa fa-dashboard' />Learner Dashboard</span>
+                    <span><i className='la la-home' />Dashboard</span>
                   </div>
                 </Link>
               : null}

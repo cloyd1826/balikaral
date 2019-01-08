@@ -35,8 +35,8 @@ class Layout extends Component {
       learningStrandName: '',
 
       difficultyEasy: '',
-      difficultyMedium: '',
-      difficultyHard: '',
+      difficultyAverage: '',
+      difficultyDifficult: '',
 
       passingRate: '',
       totalHours: '',
@@ -47,8 +47,8 @@ class Layout extends Component {
       buttonDisabled: false,
 
       easyCount: '',
-      mediumCount: '',
-      hardCount: '',
+      averageCount: '',
+      difficultCount: '',
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -145,8 +145,8 @@ class Layout extends Component {
         examDescription: '',
         level: '',
         difficultyEasy: '',
-        difficultyMedium: '',
-        difficultyHard: '',
+        difficultyAverage: '',
+        difficultyDifficult: '',
         passingRate: '',
         totalHours: ''
     })
@@ -164,15 +164,15 @@ class Layout extends Component {
   handleSubmit(e){
   	e.preventDefault()
     this.formMessage('Saving Data', 'loading', true, true)
-    let total = parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyMedium) + parseInt(this.state.difficultyHard)
+    let total = parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyAverage) + parseInt(this.state.difficultyDifficult)
   	let data = {
       examType: this.state.examType,
       examDescription: this.state.examDescription,
       level: this.state.level,
       learningStrandQuestions: this.state.learningStrandQuestion,
       easy: this.state.difficultyEasy,
-      medium: this.state.difficultyMedium,
-      hard: this.state.difficultyHard,
+      average: this.state.difficultyAverage,
+      difficult: this.state.difficultyDifficult,
       examTotal: total,
       totalHours: this.state.totalHours,
   	}
@@ -207,8 +207,8 @@ class Layout extends Component {
         if(res.data){
           this.setState({
             easyCount: res.data.easy,
-            mediumCount: res.data.medium,
-            hardCount: res.data.hard,
+            averageCount: res.data.average,
+            difficultCount: res.data.difficult,
           })  
         }
       })
@@ -275,7 +275,7 @@ class Layout extends Component {
                         <Input
                           type='number'
                           min={0}
-                          max={this.state.easyCount}
+                          max={this.state.easyCount1}
                           label={'Easy - (max: ' +this.state.easyCount+ ')'}
                           name='difficultyEasy'
                           value={this.state.difficultyEasy}
@@ -287,11 +287,11 @@ class Layout extends Component {
                           
                           type='number'
                           min={0}
-                          max={this.state.mediumCount}
-                          label={'Medium - (max: ' + this.state.mediumCount + ')'}
-                          name='difficultyMedium'
-                          value={this.state.difficultyMedium}
-                          onChange={(e)=>{this.changeQuestion(e, this.state.mediumCount)}}
+                          max={this.state.averageCount}
+                          label={'Average - (max: ' + this.state.averageCount + ')'}
+                          name='difficultyAverage'
+                          value={this.state.difficultyAverage}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.averageCount)}}
                         />
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={12} small={12}>
@@ -299,11 +299,11 @@ class Layout extends Component {
                           
                           type='number'
                           min={0}
-                          max={this.state.hardCount}
-                          label={'Hard - (max: ' + this.state.hardCount + ')'}
-                          name='difficultyHard'
-                          value={this.state.difficultyHard}
-                          onChange={(e)=>{this.changeQuestion(e, this.state.hardCount)}}
+                          max={this.state.difficultCount}
+                          label={'Difficult - (max: ' + this.state.difficultCount + ')'}
+                          name='difficultyDifficult'
+                          value={this.state.difficultyDifficult}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.difficultCount)}}
                         />
                       </Grid.Cell>
 

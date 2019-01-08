@@ -90,8 +90,9 @@ class Layout extends Component {
     })
     let data = {
       id: idOfSelectedData,
-      validator: [{ user: this.props.user.id}]
+      validator: [{ user: this.props.user.id }]
     }
+   
     this.formMessage('Validating Selected Data', 'loading', true, false)
     apiRequest('put', `/reviewer-management/validate-multiple`, data, this.props.token)
       .then((res)=>{
@@ -100,7 +101,7 @@ class Layout extends Component {
         let level = this.state.level
         let subject = this.state.subject
         let page = this.state.currentPage
-
+        
         this.fetchLevel(validation, learningStrand, level, subject, page)
         this.formMessage('Reviewer has been validated', 'success', true, false)
         this.setState({
@@ -244,7 +245,7 @@ class Layout extends Component {
                       <div className='button primary small' onClick={this.validateMultiple}>Validate Selected Reviewer</div>
                     : null}
 
-                    {/*<div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>*/}
+                    <div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>
 
                     {this.props.role === 'Learner' ? null : 
                       <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/add'}>
@@ -295,11 +296,14 @@ class Layout extends Component {
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                       
                         <Table.HeaderCell>Status</Table.HeaderCell>
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
+
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -309,15 +313,46 @@ class Layout extends Component {
                           let indexOfSelectedData = selectedData.map((sd)=>{
                             return sd._id
                           }).indexOf(attr._id)
+                          let isValidatedByUser = attr.validator.map((v)=>{
+                            return v.user._id
+                          }).indexOf(this.props.user.id)
+                         
                           return (
                             <Table.Row key={index}>
-                              <Table.Cell isNarrowed>
+                              <Table.Cell isNarrowed >
                                   {!attr.validation && this.props.role === 'Administrator' ?   
                                     <ToggleButton key={attr._id} setSelected={()=>{this.setSelected(attr)}} isSelected={(indexOfSelectedData > -1 ? true : false)} />
                                   :
                                     null 
                                   }
+                                  {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
+                                     <Link to={{ 
+                                        pathname: 
+                                          (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                          (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : ''),
+                                        state: { id: attr._id } 
+                                      }}>
+                                        <span>
+                                          <i className='la la-star-half-full primary'></i>
+                                        </span>
+                                      </Link>
+                                  : null}
+                                  {attr.validation && this.props.role !== 'Learner'  ?
+                                    <Link to={{ 
+                                        pathname: 
+                                          (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                          (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : ''),  
+  
+                                        state: { id: attr._id } 
+                                      }}>
+                                        <span>
+                                          <i className='la la-star primary'></i>
+                                        </span>
+                                      </Link>
+                                   : null}
                               </Table.Cell>
+                              <Table.Cell>{attr.description}</Table.Cell>
+                              <Table.Cell>{(attr.pdf ? 'PDF Reviewer' : '') + (attr.youtubeVideo ? 'Youtube Video' : '')}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                               <Table.Cell>{
                                 attr.uploader ? attr.uploader.personalInformation ? 
@@ -329,13 +364,35 @@ class Layout extends Component {
                                 : '' : ''
                               }</Table.Cell>
                               
-                              <Table.Cell>{attr.description}</Table.Cell>
+                              
                               <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
                               <Table.Cell isNarrowed>
+                                {attr.pdf ?
+                                  <span>
+                                    <a href={`${config}/${attr.pdf}`} download='reviewer.pdf' target='_blank'><i className='la la-file-pdf-o primary'/></a>
+                                  </span>
+                                 : null}
 
-                                <span>
-                                  <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-pdf-o primary'/></a>
-                                </span>
+                                 {attr.youtubeVideo ?
+                                  <span>
+                                    <a href={`https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'><i className='la la-youtube-play primary'/></a>
+                                  </span>
+                                 : null}
+
+
+                                 
+
+                                 <Link to={{ 
+                                    pathname: 
+                                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
+                                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
+                                    state: { id: attr._id } 
+                                  }}>
+                                    <span>
+                                      <i className='la la-folder-open-o primary'></i>
+                                    </span>
+                                  </Link>
 
                                 { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
                                   <Link to={{ 
@@ -359,17 +416,7 @@ class Layout extends Component {
                                   </Link>
                                 : null }
 
-                                <Link to={{ 
-                                    pathname: 
-                                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
-                                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
-                                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
-                                    state: { id: attr._id } 
-                                  }}>
-                                    <span>
-                                      <i className='la la-folder-open-o primary'></i>
-                                    </span>
-                                  </Link>
+                                
 
                                 { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
                                   <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id)}}>
@@ -391,10 +438,13 @@ class Layout extends Component {
                     <Table.Footer>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                       
                         <Table.HeaderCell>Status</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
 
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
                       </Table.Row>

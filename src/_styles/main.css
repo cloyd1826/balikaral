@@ -624,13 +624,18 @@ label {
   .file-input .file-input-container .file-button-icon {
     background: #f5f5f5;
     font-size: 16px;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer; }
     .file-input .file-input-container .file-button-icon .la {
       margin-right: 4px; }
   .file-input .file-input-container .file-name {
     font-size: 16px;
-    padding: 8px; }
+    padding: 0 8px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20rem; }
   .file-input .file-input-container input[type='file'] {
     font-size: 16px;
     padding: 8px;
@@ -689,7 +694,7 @@ table {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 20rem; }
+    max-width: 15rem; }
 
 table.unstriped tbody {
   background-color: #fefefe; }
@@ -725,7 +730,7 @@ table.hover tfoot tr:hover {
   background-color: #ececec; }
 
 table.hover tbody tr:hover {
-  background-color: #f9f9f9; }
+  background-color: #d9edf7; }
 
 table.hover:not(.unstriped) tr:nth-of-type(even):hover {
   background-color: #ececec; }
@@ -771,6 +776,16 @@ td, th {
     padding: 4px !important;
     height: auto !important;
     margin-bottom: 0 !important; }
+
+tr.blue {
+  background: #d9edf7 !important; }
+
+tr.green {
+  background: #d1f4da !important; }
+
+.la-star, .la-star-half-full {
+  color: #4257b2;
+  background: #d9edf7; }
 
 .pagination {
   margin-left: 0;
@@ -976,7 +991,7 @@ td, th {
   color: #fff; }
   .button.secondary:hover, .sign-in-container .log-in-form .sign-in-button-form span .secondary.sign-in-button:hover, .sign-in-container .log-in-button span .secondary.facebook-button:hover, .sign-in-container .log-in-button span .secondary.google-button:hover {
     background-color: #3ccfcf;
-    color: #0a0a0a; }
+    color: #fff; }
 
 .button.cancel, .sign-in-container .log-in-form .sign-in-button-form span .cancel.sign-in-button, .sign-in-container .log-in-button span .cancel.facebook-button, .sign-in-container .log-in-button span .cancel.google-button {
   color: #fff; }
@@ -1005,17 +1020,22 @@ td, th {
   .delete-modal .close-button, .confirm-modal .close-button {
     position: absolute;
     top: 5px;
-    right: 10px;
+    right: 5px;
     cursor: pointer;
-    color: #fe0000; }
+    font-size: 32px;
+    color: rgba(0, 0, 0, 0.8);
+    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+    .delete-modal .close-button:hover, .confirm-modal .close-button:hover {
+      color: #fe0000; }
   .delete-modal .delete-title, .confirm-modal .delete-title {
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 600;
     text-align: center;
     padding-bottom: 8px; }
   .delete-modal .context-montserrat, .delete-modal .form-subtitle, .delete-modal .footer-contact span p, .footer-contact span .delete-modal p, .confirm-modal .context-montserrat, .confirm-modal .form-subtitle, .confirm-modal .footer-contact span p, .footer-contact span .confirm-modal p {
     padding-bottom: 8px;
-    color: rgba(0, 0, 0, 0.7); }
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 16px; }
   .delete-modal .delete-button-group, .confirm-modal .delete-button-group {
     padding-top: 32px; }
     .delete-modal .delete-button-group .button, .delete-modal .delete-button-group .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .delete-modal .delete-button-group .sign-in-button, .delete-modal .delete-button-group .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .delete-modal .delete-button-group .facebook-button, .delete-modal .delete-button-group .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .delete-modal .delete-button-group .google-button, .delete-modal .delete-button-group button, .confirm-modal .delete-button-group .button, .confirm-modal .delete-button-group .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .confirm-modal .delete-button-group .sign-in-button, .confirm-modal .delete-button-group .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .confirm-modal .delete-button-group .facebook-button, .confirm-modal .delete-button-group .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .confirm-modal .delete-button-group .google-button, .confirm-modal .delete-button-group button {
@@ -1050,7 +1070,7 @@ td, th {
     .sign-in-container .log-in-text .context-montserrat, .sign-in-container .log-in-text .form-subtitle, .sign-in-container .log-in-text .footer-contact span p, .footer-contact span .sign-in-container .log-in-text p {
       text-align: center; }
   .sign-in-container .form-message {
-    font-size: 12px; }
+    font-size: 22px; }
   .sign-in-container .log-in-form .sign-in-button-form {
     display: flex;
     width: 100%;
@@ -1137,6 +1157,103 @@ td, th {
       line-height: 1;
       z-index: 2;
       border-radius: 50%; }
+
+.sign-in-container {
+  max-height: 70vh;
+  overflow-y: auto;
+  width: 60vw; }
+
+.sign-in-form {
+  background: #fff;
+  padding: 16px; }
+  .sign-in-form form .input-container, .sign-in-form form .select-container {
+    font-size: 16px !important; }
+    .sign-in-form form .input-container label, .sign-in-form form .input-container .label, .sign-in-form form .select-container label, .sign-in-form form .select-container .label {
+      font-weight: 600 !important;
+      color: rgba(0, 0, 0, 0.6) !important; }
+    .sign-in-form form .input-container input, .sign-in-form form .input-container select, .sign-in-form form .select-container input, .sign-in-form form .select-container select {
+      border: #e0e0e0 solid 3px !important;
+      border-radius: 0;
+      box-shadow: none;
+      font-weight: 600 !important;
+      color: rgba(0, 0, 0, 0.6) !important; }
+  .sign-in-form form .sign-up-button .button, .sign-in-form form .sign-up-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-form form .sign-up-button .sign-in-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .facebook-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .google-button {
+    width: 100%; }
+  .sign-in-form .tos .context-montserrat, .sign-in-form .tos .form-subtitle, .sign-in-form .tos .footer-contact span p, .footer-contact span .sign-in-form .tos p {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: rgba(0, 0, 0, 0.6) !important; }
+    .sign-in-form .tos .context-montserrat a, .sign-in-form .tos .form-subtitle a, .sign-in-form .tos .footer-contact span p a, .footer-contact span .sign-in-form .tos p a {
+      color: #3ccfcf; }
+  .sign-in-form .log-in-header {
+    border-bottom: #e0e0e0 solid 3px !important;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    position: relative; }
+    .sign-in-form .log-in-header .close-button {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translate(0, -50%);
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.6); }
+    .sign-in-form .log-in-header .subtitle-montserrat, .sign-in-form .log-in-header .form-title, .sign-in-form .log-in-header .home-banner .home-banner-text .home-subtitle, .home-banner .home-banner-text .sign-in-form .log-in-header .home-subtitle, .sign-in-form .log-in-header .home-banner .home-image-container .home-subtitle, .home-banner .home-image-container .sign-in-form .log-in-header .home-subtitle {
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.6) !important; }
+  .sign-in-form .confirm-message {
+    padding: 32px 0; }
+    .sign-in-form .confirm-message .subtitle-montserrat, .sign-in-form .confirm-message .form-title, .sign-in-form .confirm-message .home-banner .home-banner-text .home-subtitle, .home-banner .home-banner-text .sign-in-form .confirm-message .home-subtitle, .sign-in-form .confirm-message .home-banner .home-image-container .home-subtitle, .home-banner .home-image-container .sign-in-form .confirm-message .home-subtitle {
+      margin-bottom: 32px;
+      color: rgba(0, 0, 0, 0.6) !important; }
+    .sign-in-form .confirm-message .context-montserrat, .sign-in-form .confirm-message .form-subtitle, .sign-in-form .confirm-message .footer-contact span p, .footer-contact span .sign-in-form .confirm-message p {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: rgba(0, 0, 0, 0.6) !important;
+      text-align: center; }
+    .sign-in-form .confirm-message .button, .sign-in-form .confirm-message .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-form .confirm-message .sign-in-button, .sign-in-form .confirm-message .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .sign-in-form .confirm-message .facebook-button, .sign-in-form .confirm-message .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .sign-in-form .confirm-message .google-button {
+      width: 100%; }
+  .sign-in-form .log-in-border {
+    width: 100%;
+    height: 1px;
+    border-bottom: #e0e0e0 solid 3px !important;
+    position: relative;
+    z-index: 1;
+    margin: 8px 0; }
+    .sign-in-form .log-in-border .context-montserrat, .sign-in-form .log-in-border .form-subtitle, .sign-in-form .log-in-border .footer-contact span p, .footer-contact span .sign-in-form .log-in-border p {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 14px;
+      padding: 8px;
+      line-height: 1;
+      z-index: 2;
+      border-radius: 50%; }
+  .sign-in-form .facebook-button-container, .sign-in-form .google-button-container {
+    width: 100%;
+    padding: 8px;
+    position: relative; }
+    .sign-in-form .facebook-button-container .fb-logo, .sign-in-form .facebook-button-container .google-logo, .sign-in-form .google-button-container .fb-logo, .sign-in-form .google-button-container .google-logo {
+      position: absolute;
+      top: 50%;
+      left: 2em;
+      transform: translate(0, -50%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 2em;
+      width: 2em; }
+    .sign-in-form .facebook-button-container .facebook-button, .sign-in-form .facebook-button-container .google-button, .sign-in-form .google-button-container .facebook-button, .sign-in-form .google-button-container .google-button {
+      width: calc(100% - 16px);
+      border: #e0e0e0 solid 3px !important;
+      border-radius: 0;
+      background: #fff;
+      font-weight: 600 !important;
+      color: rgba(0, 0, 0, 0.6) !important;
+      font-size: 16px !important; }
 
 @keyframes LogIn {
   from {
@@ -1432,10 +1549,13 @@ td, th {
         top: calc(100%);
         right: 0;
         z-index: 999;
-        background: #4257b2;
         padding: 8px 4px;
-        color: #fff;
-        font-size: 14px;
+        background: #fff;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+        border: 1px solid transparent;
+        padding: 0;
+        font-size: 18px;
+        min-width: 200px;
         animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
         .nav-container .link-container .user-top-bar .user-container .user-bar {
           padding: 8px 16px;
@@ -1444,7 +1564,8 @@ td, th {
           .nav-container .link-container .user-top-bar .user-container .user-bar i {
             margin-right: 8px; }
           .nav-container .link-container .user-top-bar .user-container .user-bar:hover {
-            background: #3ccfcf; }
+            background: #4257b2;
+            color: #fff; }
 
 .admin-sidebar {
   padding-top: 16px;
@@ -1534,18 +1655,19 @@ td, th {
         cursor: pointer; }
       .admin-topbar .topbar-right .user-top-bar .user-container {
         position: absolute;
-        top: calc(100% + 8px);
-        box-shadow: 3px 2px 2px #888;
-        border-radius: 5px;
-        z-index: 998;
-        right: 24px;
+        top: calc(100% + 4px);
+        right: 16px;
+        z-index: 999;
+        padding: 8px 4px;
         background: #fff;
-        padding: 8px 0px;
-        color: #000;
-        font-size: 14px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+        border: 1px solid transparent;
+        padding: 0;
+        font-size: 18px;
+        min-width: 200px;
         animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
         .admin-topbar .topbar-right .user-top-bar .user-container .user-bar {
-          padding: 8px 32px;
+          padding: 8px 16px;
           cursor: pointer;
           transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
           .admin-topbar .topbar-right .user-top-bar .user-container .user-bar i {
@@ -1691,7 +1813,7 @@ span.no-validator {
   margin-right: 8px;
   border-radius: 5px;
   text-align: center;
-  padding: 32px 0; }
+  padding: 32px 8px; }
   .exam-type-container .exam-type .container .context-montserrat, .exam-type-container .exam-type .container .form-subtitle, .exam-type-container .exam-type .container .footer-contact span p, .footer-contact span .exam-type-container .exam-type .container p {
     font-size: 14px;
     padding: 4px 0;
@@ -1713,7 +1835,6 @@ span.no-validator {
     margin-top: 16px; }
     .exam-type-container .exam-type .container .exam-button .button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .exam-type-container .exam-type .container .exam-button .sign-in-button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .exam-type-container .exam-type .container .exam-button .facebook-button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .exam-type-container .exam-type .container .exam-button .google-button {
       margin: 0 auto;
-      border-radius: 50px;
       width: 50%; }
 
 .exam-type-loader {
@@ -1750,7 +1871,8 @@ span.no-validator {
   .question-card .question {
     font-size: 22px;
     text-align: center;
-    margin-bottom: 32px; }
+    margin-bottom: 32px;
+    margin-top: 32px; }
   .question-card .difficulty {
     font-size: 22px;
     text-align: center;
@@ -1768,20 +1890,27 @@ span.no-validator {
       cursor: pointer; }
       .question-card .answer-container .answer-box .answer-text {
         display: flex;
-        cursor: pointer; }
+        cursor: pointer;
+        width: 100%;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+        border-radius: 5px; }
         .question-card .answer-container .answer-box .answer-text .letter {
           background: #4257b2;
           padding: 16px;
           color: #fff;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
           font-weight: 600; }
         .question-card .answer-container .answer-box .answer-text .letter.correct {
           background: #3ccfcf;
-          color: #000; }
+          color: #fff; }
         .question-card .answer-container .answer-box .answer-text .answer {
           background: #fff;
           padding: 16px;
           color: rgba(0, 0, 0, 0.8);
-          width: 100%; }
+          width: 100%;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px; }
           .question-card .answer-container .answer-box .answer-text .answer .answer-image {
             background-size: cover;
             background-repeat: no-repeat;
@@ -1865,7 +1994,7 @@ span.no-validator {
   width: 100% !important; }
   .answer-box.correct-answer span {
     background: #3ccfcf !important;
-    color: #000 !important; }
+    color: #fff !important; }
   .answer-box.correct-answer .text {
     font-weight: 600;
     width: auto !important; }
@@ -1893,7 +2022,7 @@ span.no-validator {
     background: #fff; }
   .ex-container.answered .answer-box.active span {
     background: #3ccfcf;
-    color: #000; }
+    color: #fff; }
 
 .question-card-loader {
   min-height: 70vh;
@@ -1923,7 +2052,7 @@ span.no-validator {
     color: #fff;
     padding: 16px;
     background: #3ccfcf;
-    color: #000;
+    color: #fff;
     margin-left: 4px;
     border-radius: 5px; }
   .question-actions .la {
@@ -1996,7 +2125,7 @@ span.no-validator {
           border-bottom-left-radius: 5px; }
         .grid-exam-container .grid-exam .grid-answer .answer-text .letter.active {
           background: #3ccfcf;
-          color: #000; }
+          color: #fff; }
         .grid-exam-container .grid-exam .grid-answer .answer-text .answer {
           background: #fff;
           box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
@@ -2057,7 +2186,7 @@ span.no-validator {
 
 .grid-exam-container.answered .answer-text.active .letter {
   background: #3ccfcf;
-  color: #000;
+  color: #fff;
   border: #3ccfcf solid 1px; }
 
 .grid-exam-container.answered .answer-text.active .answer {
@@ -2079,8 +2208,8 @@ span.no-validator {
   .grid-pagination .pagination-button {
     background: #fff; }
   .grid-pagination .current {
-    background: #3ccfcf;
-    color: #000;
+    background: #4257b2;
+    color: #fff;
     font-weight: 600; }
 
 .percentage-per-ls-container {
@@ -2187,7 +2316,7 @@ span.no-validator {
       .question-answered-container .answer-box .answered-list .letter.correct {
         background: #3ccfcf;
         border: #3ccfcf solid 1px;
-        color: #000; }
+        color: #fff; }
       .question-answered-container .answer-box .answered-list .letter.active {
         background: #fe0000;
         border: #fe0000 solid 1px;
@@ -2370,6 +2499,13 @@ span.no-validator {
 
 .grid-reviewer-container:hover {
   border-bottom-color: #4257b2; }
+
+.youtube-player-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  margin-top: 16px; }
 
 .user-profile-container .user-image {
   display: flex;

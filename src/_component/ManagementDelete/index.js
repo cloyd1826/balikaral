@@ -41,7 +41,7 @@ class Layout extends Component {
           <div className='delete-modal'>
             
 
-            <span className='close-button la la-close' onClick={this.props.close}></span>
+            <span className='close-button la la-times-circle' onClick={this.props.close}></span>
             <div className='delete-title text-center'>Do you want to delete {this.props.item}</div>
             <div className='context-montserrat text-center'>Once you delete the {this.props.item}, you wont be able to undo this action</div>
             <FormMessage type={this.state.type} active={this.state.active}>{this.state.message}</FormMessage> 

@@ -26,6 +26,7 @@ class Layout extends Component {
       hasPending: false,
       isAvailable: false,
       hasPassed: false,
+      notEnoughQuestion: false,
     }
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -37,12 +38,20 @@ class Layout extends Component {
 
     this.toggleHasPassed = this.toggleHasPassed.bind(this)
     this.toggleTakeAdaptiveTest = this.toggleTakeAdaptiveTest.bind(this)
+    this.toggleNotEnoughQuestion = this.toggleNotEnoughQuestion.bind(this)
+
   }
   toggleHasPassed(){
     this.setState({
       hasPassed: (this.state.hasPassed ? false : true),
     })
   }
+  toggleNotEnoughQuestion(){
+    this.setState({
+      notEnoughQuestion: (this.state.notEnoughQuestion ? false : true),
+    })
+  }
+
   toggleTakeAdaptiveTest(){
     this.setState({
       takeAdaptiveTest: (this.state.takeAdaptiveTest ? false : true),
@@ -85,18 +94,26 @@ class Layout extends Component {
             this.setState({
               generating: false,
               hasPassed: true,
+              notEnoughQuestion: false,
             })
           }else if(result.status === 'Take Adaptive Test'){
             this.setState({
               generating: false,
               takeAdaptiveTest: true,
+              notEnoughQuestion: false,
+            })
+          }else if(result.status === 'Not Enough Number of Question'){
+            this.setState({
+              generating: false,
+              takeAdaptiveTest: false,
+              notEnoughQuestion: true,
             })
           }else if(result.status === 'Taking'){
 
             let examList = []
             let easyExam = []
-            let mediumExam = []
-            let hardExam = []
+            let averageExam = []
+            let difficultExam = []
 
             result.easy.map((attr)=>{
               let data = {
@@ -106,25 +123,25 @@ class Layout extends Component {
               data = {...data, question: attr._id}
               easyExam = [...easyExam, data]
             })
-            result.medium.map((attr)=>{
+            result.average.map((attr)=>{
               let data = {
                 answer: '',
                 question: ''
               }
               data = {...data, question: attr._id}
-              mediumExam = [...mediumExam, data]
+              averageExam = [...averageExam, data]
             })
-            result.hard.map((attr)=>{
+            result.difficult.map((attr)=>{
               let data = {
                 answer: '',
                 question: ''
               }
               data = {...data, question: attr._id}
-              hardExam = [...hardExam, data]
+              difficultExam = [...difficultExam, data]
 
             })
 
-            examList = [...examList, ...easyExam, ...mediumExam, ...hardExam ]
+            examList = [...examList, ...easyExam, ...averageExam, ...difficultExam ]
               
             this.postExam(examList, id, type, time)
           }
@@ -272,15 +289,15 @@ class Layout extends Component {
                               <div className='context-montserrat'>{attr.examDescription}</div>
                               <div className='line-border'></div>
                               <div className='exam-details'><span>Easy: </span> {attr.easy ? attr.easy : '' } </div>
-                              <div className='exam-details'><span>Medium: </span> {attr.medium ? attr.medium : '' } </div>
-                              <div className='exam-details'><span>Hard: </span> { attr.hard ? attr.hard : '' } </div>
+                              <div className='exam-details'><span>Average: </span> {attr.average ? attr.average : '' } </div>
+                              <div className='exam-details'><span>Difficult: </span> { attr.difficult ? attr.difficult : '' } </div>
                               <div className='exam-details'><span>Total No of Questions: </span> {attr.examTotal ? attr.examTotal : '' } </div>
                               <div className='exam-details'><span>Exam Time: </span> {attr.totalHours ? attr.totalHours : '' } </div>
                               <div className='exam-button'>
                                 
                                   <button 
                                     type='button' 
-                                    className='button primary small' 
+                                    className='button secondary small' 
                                     onClick={(e)=> {this.generateExam(attr._id, attr.level._id, attr.examType, attr.totalHours)}}
                                     >TAKE EXAM
                                   </button>
@@ -304,7 +321,7 @@ class Layout extends Component {
           {this.state.hasPassed ? 
             <div className='modal'>
               <div className='delete-modal'>
-                <span className='close-button la la-close' onClick={this.toggleHasPassed}></span>
+                <span className='close-button la la-times-circle' onClick={this.toggleHasPassed}></span>
                 <div className='delete-title text-center'>Naipasa mo na ang exam na ito kaibigan.</div>
                 <div className='context-montserrat text-center'>Maari mo ng piliin ang ibang exam</div>
                 <div className='delete-button-group'>
@@ -313,10 +330,27 @@ class Layout extends Component {
               </div> 
             </div>
         : null}
+
+        {this.state.notEnoughQuestion ? 
+            <div className='modal'>
+              <div className='delete-modal'>
+                <span className='close-button la la-times-circle' onClick={this.toggleNotEnoughQuestion}></span>
+                <div className='delete-title text-center'>Pasensya kaibigan.</div>
+                <div className='context-montserrat text-center'>Kulang ang number ng question para sa exam na ito na nakasave sa database. <br/> Maaring kumuha ka muna ng ibang exam.</div>
+                <div className='delete-button-group'>
+                  <button type='button' className='button yes small' onClick={this.toggleNotEnoughQuestion}>Ok</button>
+                </div>
+              </div> 
+            </div>
+        : null}
+
+
+        
+
         {this.state.takeAdaptiveTest ? 
             <div className='modal'>
               <div className='delete-modal'>
-                <span className='close-button la la-close' onClick={this.toggleTakeAdaptiveTest}></span>
+                <span className='close-button la la-times-circle' onClick={this.toggleTakeAdaptiveTest}></span>
                 <div className='delete-title text-center'>Hindi ka pa pwede kaibigan sa Post Test na ito.</div>
                 <div className='context-montserrat text-center'>Kailangan mo munang maipasa ang Adaptive Test sa parehong Level bago ka mag test nito</div>
                 <div className='delete-button-group'>
