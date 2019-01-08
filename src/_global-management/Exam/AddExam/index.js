@@ -179,6 +179,10 @@ class Layout extends Component {
     formData.append('cDetails', this.state.c )
     formData.append('dDetails', this.state.d )
 
+
+    if(this.props.role === 'Administrator'){
+      formData.append('validator', this.props.user.id )
+    }
     if(this.state.imageQuestion != ''){
       formData.append('questionImage', this.state.imageQuestion )
     }
@@ -394,8 +398,8 @@ class Layout extends Component {
                           >
                           <option value='' disabled></option>
                           <option value='Easy'>Easy</option>
-                          <option value='Medium'>Medium</option>
-                          <option value='Hard'>Hard</option>
+                          <option value='Average'>Average</option>
+                          <option value='Difficult'>Difficult</option>
                         </Select>
                       </Grid.Cell>
 

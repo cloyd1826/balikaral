@@ -29,6 +29,11 @@ class Layout extends Component{
     this.state = {
       email: '',
       password: '',
+
+      message: '',
+      type: '',
+      active: false,
+      buttonDisabled: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -50,8 +55,10 @@ class Layout extends Component{
       [name]: value
     })
   }
+
   handleSubmit(e){
     e.preventDefault()
+    this.formMessage('Logging in', 'loading', true, false)
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
  
@@ -98,9 +105,12 @@ class Layout extends Component{
                 <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='log-in-header'>
                     <div className='subtitle-montserrat'>Log in</div>
-                    <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
+                   
                     <div className='close-button la la-close '  onClick={this.props.close}></div>
 
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                     <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   </Grid.Cell>
                   <Grid.Cell large={12} medium={12} small={12}>
                     <Input 
@@ -128,7 +138,7 @@ class Layout extends Component{
                  
                   
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
-                    <button type='submit' className='button primary'>Log In</button>
+                    <button type='submit' disabled={this.state.buttonDisabled} className='button primary'>Log In</button>
                   </Grid.Cell>
                 </Grid.X>
                 </Form>

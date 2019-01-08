@@ -312,14 +312,30 @@ class Layout extends Component {
                             let indexOfSelectedData = selectedData.map((sd)=>{
                               return sd._id
                             }).indexOf(attr._id)
-  					        				return (
-  					        					<Table.Row key={index}>
+  					        				let isValidatedByUser = attr.validator.map((v)=>{
+                                return v.user._id
+                            }).indexOf(this.props.user.id)
+                             
+                          return (
+                            <Table.Row key={index}>
                                 <Table.Cell isNarrowed>
                                   {!attr.validation && this.props.role === 'Administrator' ?   
                                     <ToggleButton key={attr._id} setSelected={()=>{this.setSelected(attr)}} isSelected={(indexOfSelectedData > -1 ? true : false)} />
                                   :
                                     null 
                                   }
+                                  {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
+                                    
+                                        <span>
+                                          <i className='la la-star-half-full primary'></i>
+                                        </span>
+                                  : null}
+                                  {attr.validation && this.props.role !== 'Learner'  ?
+                                    
+                                        <span>
+                                          <i className='la la-star primary'></i>
+                                        </span>
+                                   : null}
                                 </Table.Cell>
       							        		<Table.Cell>
       							        					<Link 

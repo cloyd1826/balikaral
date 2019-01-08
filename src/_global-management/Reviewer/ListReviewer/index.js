@@ -90,8 +90,9 @@ class Layout extends Component {
     })
     let data = {
       id: idOfSelectedData,
-      validator: [{ user: this.props.user.id}]
+      validator: [{ user: this.props.user.id }]
     }
+   
     this.formMessage('Validating Selected Data', 'loading', true, false)
     apiRequest('put', `/reviewer-management/validate-multiple`, data, this.props.token)
       .then((res)=>{
@@ -100,7 +101,7 @@ class Layout extends Component {
         let level = this.state.level
         let subject = this.state.subject
         let page = this.state.currentPage
-
+        
         this.fetchLevel(validation, learningStrand, level, subject, page)
         this.formMessage('Reviewer has been validated', 'success', true, false)
         this.setState({
@@ -244,7 +245,7 @@ class Layout extends Component {
                       <div className='button primary small' onClick={this.validateMultiple}>Validate Selected Reviewer</div>
                     : null}
 
-                    {/*<div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>*/}
+                    <div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>
 
                     {this.props.role === 'Learner' ? null : 
                       <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/add'}>
@@ -309,14 +310,43 @@ class Layout extends Component {
                           let indexOfSelectedData = selectedData.map((sd)=>{
                             return sd._id
                           }).indexOf(attr._id)
+                          let isValidatedByUser = attr.validator.map((v)=>{
+                            return v.user._id
+                          }).indexOf(this.props.user.id)
+                         
                           return (
                             <Table.Row key={index}>
-                              <Table.Cell isNarrowed>
+                              <Table.Cell isNarrowed >
                                   {!attr.validation && this.props.role === 'Administrator' ?   
                                     <ToggleButton key={attr._id} setSelected={()=>{this.setSelected(attr)}} isSelected={(indexOfSelectedData > -1 ? true : false)} />
                                   :
                                     null 
                                   }
+                                  {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
+                                     <Link to={{ 
+                                        pathname: 
+                                          (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                          (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : ''),
+                                        state: { id: attr._id } 
+                                      }}>
+                                        <span>
+                                          <i className='la la-star-half-full primary'></i>
+                                        </span>
+                                      </Link>
+                                  : null}
+                                  {attr.validation && this.props.role !== 'Learner'  ?
+                                    <Link to={{ 
+                                        pathname: 
+                                          (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                                          (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : ''),  
+  
+                                        state: { id: attr._id } 
+                                      }}>
+                                        <span>
+                                          <i className='la la-star primary'></i>
+                                        </span>
+                                      </Link>
+                                   : null}
                               </Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                               <Table.Cell>{

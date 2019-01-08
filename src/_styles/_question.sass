@@ -15,6 +15,7 @@
 		font-size: 22px
 		text-align: center
 		margin-bottom: 32px
+		margin-top: 32px
 	.difficulty
 		font-size: 22px
 		text-align: center
@@ -28,25 +29,31 @@
 		justify-content: center
 		.answer-box
 			margin-bottom: 4px
-			
 			padding: 8px
 			cursor: pointer
 			.answer-text
 				display: flex
 				cursor: pointer
+				width: 100%
+				box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+				border-radius: 5px
 				.letter
 					background: $blue-color
 					padding: 16px
 					color: #fff
+					border-top-left-radius: 5px
+					border-bottom-left-radius: 5px
 					font-weight: 600
 				.letter.correct
 					background: $yellow-color
-					color: #000
+					color: #fff
 				.answer
 					background: #fff
 					padding: 16px
 					color: rgba(0,0,0,0.8)
 					width: 100%
+					border-top-right-radius: 5px
+					border-bottom-right-radius: 5px
 					.answer-image
 						background-size: cover
 						background-repeat: no-repeat
@@ -127,7 +134,7 @@
 	width: 100%!important
 	span
 		background: $yellow-color!important
-		color: #000!important
+		color: #fff!important
 	.text
 		font-weight: 600
 		width: auto!important
@@ -155,7 +162,7 @@
 	.answer-box.active
 		span
 			background: $yellow-color
-			color: #000
+			color: #fff
 .question-card-loader
 	min-height: 70vh
 	width: 100%
@@ -183,7 +190,7 @@
 		color: #fff
 		padding: 16px
 		background: $yellow-color
-		color: #000
+		color: #fff
 		margin-left: 4px
 		border-radius: 5px
 	.la
@@ -255,7 +262,7 @@
 					border-bottom-left-radius: 5px
 				.letter.active
 					background: $yellow-color
-					color: #000
+					color: #fff
 				.answer
 					background: #fff
 					box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
@@ -320,7 +327,7 @@
 	.answer-text.active
 		.letter
 			background: $yellow-color
-			color: #000
+			color: #fff
 			border: $yellow-color solid 1px
 		.answer
 			background: $lightBlue
@@ -340,8 +347,8 @@
 	.pagination-button
 		background: #fff
 	.current
-		background: $yellow-color
-		color: #000
+		background: $blue-color
+		color: #fff
 		font-weight: 600
 
 
@@ -448,7 +455,7 @@
 			.letter.correct
 				background: $yellow-color
 				border: $yellow-color solid 1px
-				color: #000
+				color: #fff
 			.letter.active
 				background: $red-color
 				border: $red-color solid 1px

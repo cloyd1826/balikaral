@@ -218,7 +218,7 @@ class Layout extends Component {
           {this.state.modalActive ? 
             <div className='modal'>
               <div className='confirm-modal'>
-                <span className='close-button la la-close' onClick={this.toggleModal}></span>
+                <span className='close-button la la-times-circle' onClick={this.toggleModal}></span>
                 <div className='delete-title text-center'>Validate Reviewer {this.state.pdf} ?</div>
                 <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
                 <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 

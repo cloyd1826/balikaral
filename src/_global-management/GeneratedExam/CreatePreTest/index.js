@@ -27,6 +27,7 @@ class Layout extends Component {
       isAvailable: false,
       hasPassed: false,
       idOfPendingExam: '',
+      notEnoughQuestion: false,
     }
     this.formMessage = this.formMessage.bind(this)
 
@@ -59,41 +60,50 @@ class Layout extends Component {
      
         if(res.data){
           let result = res.data
-        
-          let examList = []
-          let easyExam = []
-          let mediumExam = []
-          let hardExam = []
+          
+          if(result.status === 'Not Enough Number of Question'){
+            this.setState({
+              generating: false,
+              notEnoughQuestion: true,
+            })
 
-          result.easy.map((attr)=>{
-            let data = {
-              answer: '',
-              question: ''
-            }
-            data = {...data, question: attr._id}
-            easyExam = [...easyExam, data]
-          })
-          result.medium.map((attr)=>{
-            let data = {
-              answer: '',
-              question: ''
-            }
-            data = {...data, question: attr._id}
-            mediumExam = [...mediumExam, data]
-          })
-          result.hard.map((attr)=>{
-            let data = {
-              answer: '',
-              question: ''
-            }
-            data = {...data, question: attr._id}
-            hardExam = [...hardExam, data]
+          }else{
+            let examList = []
+            let easyExam = []
+            let averageExam = []
+            let difficultExam = []
 
-          })
+            result.easy.map((attr)=>{
+              let data = {
+                answer: '',
+                question: ''
+              }
+              data = {...data, question: attr._id}
+              easyExam = [...easyExam, data]
+            })
+            result.average.map((attr)=>{
+              let data = {
+                answer: '',
+                question: ''
+              }
+              data = {...data, question: attr._id}
+              averageExam = [...averageExam, data]
+            })
+            result.difficult.map((attr)=>{
+              let data = {
+                answer: '',
+                question: ''
+              }
+              data = {...data, question: attr._id}
+              difficultExam = [...difficultExam, data]
 
-          examList = [...examList, ...easyExam, ...mediumExam, ...hardExam ]
-        
-          this.postExam(examList, result.examType)
+            })
+
+            examList = [...examList, ...easyExam, ...averageExam, ...difficultExam ]
+          
+            this.postExam(examList, result.examType)
+          }
+          
           
         }
       })
@@ -216,6 +226,23 @@ class Layout extends Component {
                       </div>
 
                   : null }
+
+                  {this.state.notEnoughQuestion ? 
+                    <div className='exam-type-loader'>
+                        <div>
+                          <span>
+                            <i className='la la-frown-o'></i>
+                          </span>
+                          <div className='subtitle-montserrat'>Pasensya Kaibigan</div>
+                          <div className='context-montserrat'>Kulang ang number ng question para sa exam na ito na nakasave sa database.</div>
+                            <Link to='/learner-start/dashboard'>
+                              <div className='button primary'>Ok</div>
+                            </Link>
+                        </div>
+                      </div>
+
+                  : null }
+
                   {this.state.isAvailable ? 
                    <div className='exam-type-loader'>
                       <div>
@@ -246,7 +273,7 @@ class Layout extends Component {
           {this.state.hasPassed ? 
             <div className='modal'>
               <div className='delete-modal'>
-                <span className='close-button la la-close' onClick={this.toggleModal}></span>
+                <span className='close-button la la-times-circle' onClick={this.toggleModal}></span>
                 <div className='delete-title text-center'>Naipasa mo na ang exam na ito kaibigan.</div>
                 <div className='context-montserrat text-center'>Maari mo ng piliin ang ibang exam</div>
                 <div className='delete-button-group'>

@@ -250,51 +250,51 @@ class Layout extends Component {
                                       <div className='answer-box'>
                                         <div className='answer-text'>
                                           <span className={'letter ' + (this.state.answer === 'A' ? 'correct' : '')}>A.</span>
-                                          <span className='answer'>
+                                          <div className='answer'>
                                              {
                                               this.state.aImage != '' ?
                                               <ImageLoader className='answer-image' image={this.state.aImage} />
                                               : null }
                                             {this.state.a}
-                                          </span>
+                                          </div>
                                         </div>
                                         
                                       </div>
                                       <div className='answer-box'>
                                         <div className='answer-text'>
                                           <span className={'letter ' + (this.state.answer === 'B' ? 'correct' : '')}>B.</span>
-                                          <span className='answer'>
+                                          <div className='answer'>
                                             {
                                               this.state.bImage != '' ?
                                               <ImageLoader className='answer-image' image={this.state.bImage} />
                                               : null }
                                             {this.state.b}
-                                          </span>
+                                          </div>
                                         </div>
                                        
                                       </div>
                                       <div className='answer-box'>
                                         <div className='answer-text'>
                                           <span className={'letter ' + (this.state.answer === 'C' ? 'correct' : '')}>C.</span>
-                                          <span className='answer'>
+                                          <div className='answer'>
                                            {
                                               this.state.cImage != '' ?
                                               <ImageLoader className='answer-image' image={this.state.cImage} />
                                               : null }
                                             {this.state.c}
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                       <div className='answer-box'>
                                         <div className='answer-text'>
                                           <span className={'letter ' + (this.state.answer === 'D' ? 'correct' : '')}>D.</span>
-                                          <span className='answer'>
+                                          <div className='answer'>
                                             {
                                               this.state.dImage != '' ?
                                               <ImageLoader className='answer-image' image={this.state.dImage} />
                                               : null }
                                             {this.state.d}
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
 
@@ -311,7 +311,7 @@ class Layout extends Component {
             {this.state.modalActive ? 
               <div className='modal'>
                 <div className='confirm-modal'>
-                  <span className='close-button la la-close' onClick={this.toggleModal}></span>
+                  <span className='close-button la la-times-circle' onClick={this.toggleModal}></span>
                   <div className='delete-title text-center'>Validate Question: {this.state.question} ?</div>
                   <div className='context-montserrat text-center'>You will be recorded as a validator of this question.</div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 

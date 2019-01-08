@@ -15,7 +15,9 @@ class FileInput extends Component {
 						<i className='la la-cloud-upload'></i>
 						Choose a file ...
 					</span>
-					<span className='file-name'>{this.props.fileName ? this.props.fileName : 'No file chosen'}</span>
+					<div className='file-name'>
+						{this.props.fileName ? this.props.fileName : 'No file chosen'}
+					</div>
 					<input 
 						required={this.props.required}
 						disabled={this.props.disabled}
