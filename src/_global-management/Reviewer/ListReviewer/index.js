@@ -189,7 +189,7 @@ class Layout extends Component {
     }
 
     if(this.props.match.params.type === 'learner'){
-      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}`
+      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}&page=${page}`
     }
 
     apiRequest('get', routeToUse, false, this.props.token)

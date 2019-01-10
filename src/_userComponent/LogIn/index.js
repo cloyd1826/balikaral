@@ -39,6 +39,21 @@ class Layout extends Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.formMessage = this.formMessage.bind(this)
 
+    this.responseFacebook = this.responseFacebook.bind(this)
+    this.componentClicked = this.componentClicked.bind(this)
+  }
+  componentClicked(){
+
+  }
+  responseFacebook(fbRes){
+    console.log(fbRes)
+    apiRequest('post', '/oauth/facebook', { access_token: fbRes.accessToken }, false)
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -152,8 +167,8 @@ class Layout extends Component{
                     <span className='facebook-button-container'>
                       <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
                       <FacebookLogin
-                        appId="353023298781537"
-                        autoLoad={true}                    
+                        appId="344679316117018"
+                        autoLoad={false}                    
                         fields="name,email,picture"
                         onClick={this.componentClicked}
                         callback={this.responseFacebook}
