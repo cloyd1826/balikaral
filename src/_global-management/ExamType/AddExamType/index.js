@@ -34,6 +34,8 @@ class Layout extends Component {
       learningStrandQuestion: [],
       learningStrandName: '',
 
+      learningStrandList: [],
+
       difficultyEasy: '',
       difficultyAverage: '',
       difficultyDifficult: '',
@@ -66,6 +68,8 @@ class Layout extends Component {
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
 
     this.levelChange = this.levelChange.bind(this)
+
+    this.fetchDifficultyCount = this.fetchDifficultyCount.bind(this)
   }
   changeQuestion(e, max){
     let name = e.target.name
@@ -85,11 +89,14 @@ class Layout extends Component {
   levelChange(e){
     let name = e.target.name
     let value = e.target.value
+
+
     this.setState({
       [name]: value,
       learningStrandQuestion: [],
       learningStrand: '',
     })
+    this.fetchDifficultyCount(value)
   }
   addLearningStrand(){
     let learningStrandQuestion = this.state.learningStrandQuestion
@@ -102,14 +109,17 @@ class Layout extends Component {
     }).indexOf(this.state.learningStrand)
     if(checkIfExist === -1){
       learningStrandQuestion = [...learningStrandQuestion, data]
+      
     }else{
       learningStrandQuestion = [...learningStrandQuestion.slice(0, checkIfExist), data, ...learningStrandQuestion.slice(checkIfExist + 1)]
     }
     this.setState({
       learningStrandQuestion: learningStrandQuestion,
       learningStrand: '',
-      learningStrandName: ''
+      learningStrandName: '',
     })
+
+   
   }
   changeLearningStrand(e){
     let name = e.target.name
@@ -188,6 +198,7 @@ class Layout extends Component {
   }
 
   componentDidMount(){
+      this.fetchDifficultyCount('')
       this.fetchLearningStrand()
   }
   fetchLearningStrand(){
@@ -202,7 +213,10 @@ class Layout extends Component {
       .catch((err)=>{
         
       })
-    apiRequest('get', `/exam-management/difficulty-count`, false, this.props.token)
+    
+  }
+  fetchDifficultyCount(level){
+    apiRequest('get', `/exam-management/difficulty-count?level=${level}`, false, this.props.token)
       .then((res)=>{
         if(res.data){
           this.setState({
@@ -257,6 +271,7 @@ class Layout extends Component {
                         <Textarea
                           name='examDescription'
                           placeholder='Exam Description'
+                          label='Exam Description'
                           value={this.state.examDescription}
                           onChange={this.handleChange}
                         />

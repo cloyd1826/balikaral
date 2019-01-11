@@ -189,7 +189,7 @@ class Layout extends Component {
     }
 
     if(this.props.match.params.type === 'learner'){
-      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}`
+      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}&page=${page}`
     }
 
     apiRequest('get', routeToUse, false, this.props.token)
@@ -296,7 +296,7 @@ class Layout extends Component {
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
@@ -438,14 +438,12 @@ class Layout extends Component {
                     <Table.Footer>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
                        
                         <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
-
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
                       </Table.Row>
                     </Table.Footer>

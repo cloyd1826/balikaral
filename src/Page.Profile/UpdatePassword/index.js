@@ -73,7 +73,7 @@ class Layout extends Component {
                     email: result.local.email,
                     disabled: result.local.disabled,
                     userType:  result.local.userType,
-                    password: result.local.password
+                    password: ''
                 })
             }
         })    

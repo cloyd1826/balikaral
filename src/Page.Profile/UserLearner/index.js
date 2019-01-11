@@ -44,7 +44,7 @@ class Layout extends Component {
     this.setState({
       currentPage: page
     })
-    this.fetchUser( page)
+    this.fetchUser(page)
   }
   formMessage(message, type, active){
     this.setState({

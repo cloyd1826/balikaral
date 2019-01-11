@@ -37,12 +37,15 @@ class Layout extends Component{
     
 
 
+ 
       message: '',
       type: '',
       active: false,
       buttonDisabled: false,
 
-      isCreating: true
+      isCreating: true,
+
+      isFacebookConfirm: false,
     }
     this.componentClicked = this.componentClicked.bind(this)
 
@@ -89,36 +92,76 @@ class Layout extends Component{
   handleSubmit(e){
     e.preventDefault()
     this.formMessage('Saving Data', 'loading', true, true)
-    let data = {
-      email: this.state.email,
-      password: this.state.password,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      middleName: this.state.middleName,
-      
-      userType: this.state.userType 
-    }
 
-    apiRequest('post', '/signup', data,)
-      .then((res)=>{
-          this.setState({
-            isCreating: false,
-            active: false,
-            buttonDisabled: false
-          })
-      })
-      .catch((err)=>{
-         this.formMessage('Error: ' + err.message, 'error', true, false)
-      })
+    if(this.state.isFacebookConfirm){
+      let data = {
+        email: this.state.email,
+        id: this.state.id,
+        userType: this.state.userType,
+      }
+      apiRequest('post', '/signup-facebook', data, false)
+        .then((res)=>{
+            this.setState({
+              isCreating: false,
+              active: false,
+              buttonDisabled: false
+            })
+        })
+        .catch((err)=>{
+           this.formMessage('Error: ' + err.message, 'error', true, false)
+        })
+    }else{
+      let data = {
+        email: this.state.email,
+        password: this.state.password,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        middleName: this.state.middleName,
+        userType: this.state.userType 
+      }
+
+      apiRequest('post', '/signup', data,)
+        .then((res)=>{
+            this.setState({
+              isCreating: false,
+              active: false,
+              buttonDisabled: false
+            })
+        })
+        .catch((err)=>{
+           this.formMessage('Error: ' + err.message, 'error', true, false)
+        })
+    }
   }
   componentClicked(){
 
   }
   responseFacebook(res){
-    
+    // console.log(fbRes) 
+    // apiRequest('post', `/oauth/facebook`, {access_token: fbRes.accessToken}, false)
+    //   .then((res)=>{
+    //     console.log(res)
+    //   })
+    //   .catch((err)=>{
+    //     console.log(err)
+    //   })
+    console.log(res)
+
+    this.setState({
+      isFacebookConfirm: true,
+      email: res.email,
+      name: res.name,
+      image: res.picture.data.url,
+      id: res.id
+    })
+
+    let data = {
+      email: res.email,
+      id: res.id
+    }
   }
   responseGoogle(res){
-    
+    console.log(res)
   }
   render() {
     return (
@@ -136,23 +179,28 @@ class Layout extends Component{
                 <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='log-in-header'>
                     <div className='subtitle-montserrat'>Sign in</div>
-                    <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
+                    
                     <div className='close-button la la-close '  onClick={this.props.close}></div>
                   </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12} >
+                    <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
+                  </Grid.Cell>
                 </Grid.X>
+                <a href="#" onClick={(e)=>{e.preventDefault(); window.FB.logout()}}>logout</a>
                 <Grid.X>
                   <Grid.Cell large={6} medium={12} small={12}>
                     <span className='facebook-button-container'>
                       <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
                       <FacebookLogin
-                        appId="353023298781537"
-                        autoLoad={true}                    
+                        appId="344679316117018"
+                        autoLoad={false}                    
                         fields="name,email,picture"
                         onClick={this.componentClicked}
                         callback={this.responseFacebook}
                         cssClass='facebook-button'
                         textButton='Sign up with Facebook'
                         icon='element'
+
                         />
                       </span>
                       
@@ -178,30 +226,51 @@ class Layout extends Component{
                   </Grid.Cell>
                 </Grid.X>
                <Form onSubmit={this.handleSubmit}>
-                <Grid.X>
-                  <Grid.Cell large={12} medium={12} small={12}>
-                    <Input 
-                      label='Email' 
-                      type='email' 
-                      placeholder='email@mail.com'
-                      required
-                      name='email'
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                      />
-                  </Grid.Cell>
-                  <Grid.Cell large={12} medium={12} small={12}>
-                    <Input 
-                      label='Password' 
-                      type='password' 
-                      required 
-                      placeholder='●●●●●●●●'
-                      name='password'
-                      value={this.state.password}
-                      onChange={this.handleChange}
-                      />
-                  </Grid.Cell>
 
+               {!this.state.isFacebookConfirm ? 
+                  <Grid.X>
+                    <Grid.Cell large={12} medium={12} small={12}>
+                      <Input 
+                        label='Email' 
+                        type='email' 
+                        placeholder='email@mail.com'
+                        required
+                        name='email'
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        />
+                    </Grid.Cell>
+                    <Grid.Cell large={12} medium={12} small={12}>
+                      <Input 
+                        label='Password' 
+                        type='password' 
+                        required 
+                        placeholder='●●●●●●●●'
+                        name='password'
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        />
+                    </Grid.Cell>
+                  </Grid.X>
+                : null}
+
+
+                {this.state.isFacebookConfirm ? 
+                  <Grid.X>
+                    <Grid.Cell  large={12} medium={12} small={12}>
+                      <div className='facebook-account'>
+                        <div className='facebook-image' style={{backgroundImage: 'url(' + this.state.image + ')'}} />
+                        <div className='facebook-name'>{this.state.name}</div>
+                        <div className='facebook-email'>{this.state.email}</div>
+                        <div className='context-montserrat text-center'>
+                          Your account will be saved in Balikaral.
+                        </div>
+                      </div>
+                    </Grid.Cell>
+                  </Grid.X>
+                : null}
+
+                <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12}>
                     <Select
                       label='User Type'
@@ -215,36 +284,44 @@ class Layout extends Component{
                       <option value='Teacher'>Teacher</option>
                     </Select>
                   </Grid.Cell>
-                 
-                  <Grid.Cell large={12} medium={12}  small={12}>
-                    <Input 
-                      label='First Name'
-                      required
-                      placeholder='Juan'
-                      name='firstName'
-                      value={this.state.firstName}
-                      onChange={this.handleChange}
-                      />
-                  </Grid.Cell>
-                  <Grid.Cell large={12} medium={12} small={12}>
-                    <Input 
-                      label='Middle Name' 
-                      placeholder='Dela'
-                      name='middleName'
-                      value={this.state.middleName}
-                      onChange={this.handleChange}
-                      />
-                  </Grid.Cell>
-                   <Grid.Cell large={12} medium={12} small={12}>
-                    <Input 
-                      label='Last Name'
-                      placeholder='Cruz'
-                      required
-                      name='lastName'
-                      value={this.state.lastName}
-                      onChange={this.handleChange}
-                       />
-                  </Grid.Cell>
+                </Grid.X>
+
+               {!this.state.isFacebookConfirm ?
+                  <Grid.X>
+                    <Grid.Cell large={12} medium={12}  small={12}>
+                      <Input 
+                        label='First Name'
+                        required
+                        placeholder='Juan'
+                        name='firstName'
+                        value={this.state.firstName}
+                        onChange={this.handleChange}
+                        />
+                    </Grid.Cell>
+                    <Grid.Cell large={12} medium={12} small={12}>
+                      <Input 
+                        label='Middle Name' 
+                        placeholder='Dela'
+                        name='middleName'
+                        value={this.state.middleName}
+                        onChange={this.handleChange}
+                        />
+                    </Grid.Cell>
+                     <Grid.Cell large={12} medium={12} small={12}>
+                      <Input 
+                        label='Last Name'
+                        placeholder='Cruz'
+                        required
+                        name='lastName'
+                        value={this.state.lastName}
+                        onChange={this.handleChange}
+                         />
+                    </Grid.Cell>
+                  </Grid.X>
+                : null }
+
+
+                <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='tos'>
                      <div className='context-montserrat text-center'>
                         I have had read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral

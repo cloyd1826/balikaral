@@ -1189,6 +1189,27 @@ tr.green {
       color: rgba(0, 0, 0, 0.6) !important; }
   .sign-in-form form .sign-up-button .button, .sign-in-form form .sign-up-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-form form .sign-up-button .sign-in-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .facebook-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .google-button {
     width: 100%; }
+  .sign-in-form form .facebook-account {
+    text-align: center;
+    padding: 16px; }
+    .sign-in-form form .facebook-account .facebook-image {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 4em;
+      width: 4em;
+      margin: auto; }
+    .sign-in-form form .facebook-account .facebook-name {
+      padding-top: 16px;
+      font-size: 22px;
+      font-weight: 600; }
+    .sign-in-form form .facebook-account .facebook-email {
+      font-size: 16px; }
+    .sign-in-form form .facebook-account .context-montserrat, .sign-in-form form .facebook-account .form-subtitle, .sign-in-form form .facebook-account .footer-contact span p, .footer-contact span .sign-in-form form .facebook-account p {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: rgba(0, 0, 0, 0.6) !important;
+      padding-top: 16px; }
   .sign-in-form .tos .context-montserrat, .sign-in-form .tos .form-subtitle, .sign-in-form .tos .footer-contact span p, .footer-contact span .sign-in-form .tos p {
     font-size: 16px !important;
     font-weight: 600 !important;
