@@ -769,7 +769,8 @@ td, th {
 .table-filter {
   display: flex;
   justify-content: flex-end;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  padding: 0px 16px; }
   .table-filter .select, .table-filter select, .table-filter .label, .table-filter label {
     font-size: 12px !important; }
   .table-filter .select, .table-filter select {
@@ -789,7 +790,8 @@ tr.green {
 
 .pagination {
   margin-left: 0;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  padding: 16px 16px 16px 16px; }
   .pagination:before, .pagination:after {
     display: table;
     content: ' ';
@@ -814,20 +816,24 @@ tr.green {
 
 .pagination .pagination-button, .pagination button {
   display: block;
-  padding: 0.1875rem 0.625rem;
+  padding: 7px 14px;
   border-radius: 3px;
-  color: #0a0a0a; }
+  color: #0a0a0a;
+  border-radius: 4px; }
   .pagination .pagination-button:hover, .pagination button:hover {
     background: #d9edf7; }
 
 .pagination .current {
-  padding: 0.1875rem 0.625rem;
+  padding: 7px 14px;
   background: #4257b2;
   color: #fefefe;
-  cursor: default; }
+  cursor: default;
+  border-radius: 4px; }
 
 .pagination .disabled {
   padding: 0.1875rem 0.625rem;
+  padding: 7px 14px;
+  border-radius: 4px;
   color: #cacaca;
   cursor: not-allowed; }
   .pagination .disabled:hover {
@@ -928,7 +934,11 @@ tr.green {
     font-weight: 600;
     padding-bottom: 16px;
     margin-bottom: 8px;
-    border-bottom: #4257b2 solid 2px; }
+    background: #4257b2 !important;
+    padding: 16px;
+    color: #fff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px; }
   .title-text-container .title-action {
     position: absolute;
     top: 0;
@@ -1486,7 +1496,7 @@ tr.green {
   width: calc(100% - 10vw);
   background: #fff;
   z-index: 998;
-  box-shadow: 0px 1px 4px #888; }
+  box-shadow: 0px 0px 3px #a1a1a1; }
   .nav-container .nav-icon {
     width: 50px;
     padding: 1em;
@@ -1551,21 +1561,27 @@ tr.green {
         z-index: 999;
         padding: 8px 4px;
         background: #fff;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-        border: 1px solid transparent;
+        box-shadow: 0px 0px 1px #a1a1a1;
         padding: 0;
         font-size: 18px;
-        min-width: 200px;
-        animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+        min-width: 230px;
+        border-radius: 4px;
+        animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
+        overflow: hidden; }
         .nav-container .link-container .user-top-bar .user-container .user-bar {
-          padding: 8px 16px;
+          font-size: 17px;
+          padding: 16px 16px;
           cursor: pointer;
           transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
           .nav-container .link-container .user-top-bar .user-container .user-bar i {
-            margin-right: 8px; }
+            margin-right: 15px;
+            font-weight: 600;
+            color: #4257b2; }
           .nav-container .link-container .user-top-bar .user-container .user-bar:hover {
             background: #4257b2;
             color: #fff; }
+            .nav-container .link-container .user-top-bar .user-container .user-bar:hover i {
+              color: #fff; }
 
 .admin-sidebar {
   padding-top: 16px;
@@ -1576,10 +1592,14 @@ tr.green {
   top: 50px;
   left: 0;
   background: #fff;
-  box-shadow: 3px 2px 2px #888;
+  box-shadow: 2px 0px 3px #e1e1e1;
   height: calc(100vh - 50px - 48px);
   overflow-y: auto;
   animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+  .admin-sidebar:-webkit-scrollbar {
+    width: 3px; }
+  .admin-sidebar:-webkit-scrollbar-thumb {
+    background-color: #4257b2; }
   .admin-sidebar .sidebar-content {
     border-bottom: #e0e0e0 solid 1px;
     padding: 8px 0; }
@@ -1610,7 +1630,7 @@ tr.green {
   width: 100vw;
   background: #4257b2;
   display: flex;
-  box-shadow: 3px 2px 2px #888; }
+  box-shadow: 0px 2px 3px #a1a1a1; }
   .admin-topbar .topbar-left {
     width: 50%;
     padding-left: 16px;
@@ -1689,34 +1709,42 @@ tr.green {
     .admin-dashboard .dashboard-link-container .grid-container {
       padding: 0;
       margin: 0; }
-      .admin-dashboard .dashboard-link-container .grid-container .main-link-title {
-        font-size: 20px;
-        padding: 8px 0;
-        margin-bottom: 8px;
-        border-bottom: #e0e0e0 solid 1px;
-        color: black;
-        font-weight: 600; }
-      .admin-dashboard .dashboard-link-container .grid-container .dashboard-link {
-        cursor: pointer;
-        line-height: 1;
-        text-align: center;
-        position: relative;
-        margin: 0 8px 8px 0;
-        padding: 16px;
-        background: #fff;
-        box-shadow: 0 0.3125rem 1rem 0 rgba(0, 0, 0, 0.24);
-        border: 1px solid transparent; }
-        .admin-dashboard .dashboard-link-container .grid-container .dashboard-link span {
-          font-size: 38px;
-          color: #fff;
-          width: 100%;
-          padding-bottom: 16px;
-          color: #4257b2; }
-        .admin-dashboard .dashboard-link-container .grid-container .dashboard-link .link-title {
-          width: 100%;
-          color: rgba(0, 0, 0, 0.8);
-          font-size: 22px;
-          font-weight: 500; }
+      .admin-dashboard .dashboard-link-container .grid-container .grid-x {
+        margin-bottom: 30px; }
+        .admin-dashboard .dashboard-link-container .grid-container .grid-x .main-link-title {
+          font-size: 20px;
+          padding: 20px 24px;
+          margin-bottom: 14px;
+          border-bottom: #e0e0e0 solid 1px;
+          color: #ffffff;
+          font-weight: 600;
+          background: #4257b2;
+          border-radius: 4px; }
+        .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link {
+          cursor: pointer;
+          line-height: 1;
+          text-align: center;
+          position: relative;
+          margin: 0 8px 8px 0;
+          padding: 60px 16px;
+          background: #fff;
+          box-shadow: 0px 0px 2px #a9a9a9;
+          border-bottom: solid 16px #4257b2; }
+          .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link:hover {
+            background: #f5f7ff; }
+          .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link span {
+            transition: .3s;
+            font-size: 45px;
+            color: #fff;
+            width: 100%;
+            padding-bottom: 16px;
+            color: #fe0000; }
+          .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link .link-title {
+            width: 100%;
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 17px;
+            font-weight: 600;
+            transition: .3s; }
 
 .admin-container {
   max-height: 100vh;
@@ -2800,13 +2828,14 @@ span.no-validator {
     width: 100% !important;
     overflow-x: auto !important; }
   .title-text-container {
-    border-bottom: #4257b2 solid 2px !important;
+    background: #4257b2 !important;
     padding-bottom: 4px !important;
     margin-bottom: 4px !important; }
     .title-text-container .title {
       border: none !important;
       margin-bottom: 4px !important;
-      padding-bottom: 4px !important; }
+      padding-bottom: 4px !important;
+      color: #fff; }
     .title-text-container .title-action {
       position: initial !important;
       width: 100% !important; }
@@ -2840,7 +2869,6 @@ p, span, a {
 
 .element-container, .discussion-container, .comment-container, .comment-list {
   background: #fff;
-  padding: 16px;
   margin-bottom: 16px;
   margin-top: 16px;
   box-shadow: 3px 2px 2px #888; }
