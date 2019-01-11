@@ -150,6 +150,7 @@ class Layout extends Component {
           this.fetchSingle()
           this.formMessage('Personal Information has been updated', 'success', true, false)
           if(this.props.location.state.id === this.props.user.id){
+            console.log(res)
             let result = res.data
             let userData = {
               user: {
@@ -159,10 +160,13 @@ class Layout extends Component {
                 middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
                 lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
                 image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : '',
+
               },
               token: this.props.token,
               isLoggedIn: true,
-              role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
+              role: this.props.role,
+              hadPreTest: this.props.hadPreTest
+
             }
             this.props.actions.logIn(userData)
           }
@@ -280,7 +284,8 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     role: state.role,
-    user: state.user
+    user: state.user,
+    hadPreTest: state.hadPreTest
   }
 }
 const mapDispatchToProps = dispatch => {

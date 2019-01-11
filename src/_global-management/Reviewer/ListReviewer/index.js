@@ -296,7 +296,7 @@ class Layout extends Component {
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
@@ -438,14 +438,12 @@ class Layout extends Component {
                     <Table.Footer>
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
                        
                         <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
-
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
                       </Table.Row>
                     </Table.Footer>

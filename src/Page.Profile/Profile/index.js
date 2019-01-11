@@ -104,6 +104,7 @@ class Layout extends Component {
           this.formMessage('Image has been updated', 'success', true, false)
 
           let result = res.data
+          console.log(result)
           let userData = {
             user: {
               id: result.data ? result.data._id ? result.data._id : '' : '',
@@ -115,7 +116,8 @@ class Layout extends Component {
             },
             token: this.props.token,
             isLoggedIn: true,
-            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : ''
+            role: this.props.role,
+            hadPreTest: this.props.hadPreTest
           }
           this.props.actions.logIn(userData)
 
@@ -258,7 +260,8 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     user: state.user,
-    role: state.role
+    role: state.role,
+    hadPreTest: state.hadPreTest
   }
 }
 const mapDispatchToProps = dispatch => {

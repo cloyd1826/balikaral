@@ -31,7 +31,9 @@ class Layout extends Component {
       totalCount: 1,
 
       deleteActive: false,
-      link: ''
+      link: '',
+
+      level: [],
     }
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
    	this.formMessage = this.formMessage.bind(this)
@@ -40,7 +42,25 @@ class Layout extends Component {
 
     this.changePage = this.changePage.bind(this)
 
+    this.fetchLevel = this.fetchLevel.bind(this)
   }
+  fetchLevel(){
+
+    apiRequest('get', `/level/fetchAllWithoutPagination`, false, this.props.token)
+      .then((res)=>{
+       
+        if(res.data){
+          this.setState({
+            level: res.data.data,
+           
+          })  
+        }
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
+  }
+
   changePage(page){
 
     this.setState({
@@ -93,9 +113,19 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
+    this.fetchLevel()
   	this.fetchLearningStrand(1)
+
   }
   render() { 
+    const renderLevelName = (levelId) => {
+      let level = this.state.level
+      let index = level.map((attr)=>{
+        return attr._id
+      }).indexOf(levelId)
+      return level[index].name
+    }
+
     return (
         <div>
         	<Grid fluid>
@@ -135,7 +165,7 @@ class Layout extends Component {
     															{attr.name}
     														</Link>
     													</Table.Cell>
-                              <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
+                              <Table.Cell>{attr.level ? renderLevelName(attr.level) : ''}</Table.Cell>
 							        				<Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{attr.questions ? attr.questions.length : 0}</Table.Cell>
 							        				<Table.Cell isNarrowed>

@@ -188,7 +188,7 @@ class Layout extends Component {
                         <div className='context-montserrat'>Validation Status: <span>{this.state.validation ? 'Validated' : 'For Validation' }</span></div>
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={6} small={12}>
-                        <div className='context-montserrat'>Title: <span>{this.state.pdf}</span></div>
+                        <div className='context-montserrat'>Title: <span>{this.state.description}</span></div>
                       </Grid.Cell>
                       <Grid.Cell large={12} medium={6} small={12}>
                         <div className='context-montserrat'>Validators: 

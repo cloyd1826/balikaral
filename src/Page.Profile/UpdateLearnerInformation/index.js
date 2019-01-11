@@ -7,6 +7,7 @@ import Grid from '../../_component/Grid'
 import Form from '../../_component/Form/Form'
 import FormMessage from '../../_component/Form/FormMessage'
 import Input from '../../_component/Form/Input'
+import Select from '../../_component/Form/Select'
 import Textarea from '../../_component/Form/Textarea'
 import Button from '../../_component/Form/Button'
 
@@ -164,7 +165,7 @@ class Layout extends Component {
                   <Grid.Cell large={12} medium={6} small={12}>
                     <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   </Grid.Cell>
-                </Grid.X>
+                </Grid.X> 
                 <Grid.X>
                   <Grid.Cell large={4} medium={6}  small={12}>
                     <Input 
@@ -176,13 +177,26 @@ class Layout extends Component {
                       />
                   </Grid.Cell>
                   <Grid.Cell large={4} medium={6}  small={12}>
-                    <Input 
-                      label='Grade o Level na inabot'
-                      
-                      name='gradeLevel'
-                      value={this.state.gradeLevel}
-                      onChange={this.handleChange}
-                      />
+                   
+                      <Select 
+                        label='Grade o Level na inabot'
+                        name='gradeLevel'
+                        value={this.state.gradeLevel}
+                        onChange={this.handleChange}>
+                        <option value=''></option>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='10'>10</option>
+                        <option value='11'>11</option>
+                        <option value='12'>12</option>
+                      </Select>
                   </Grid.Cell>
                   <Grid.Cell large={4} medium={6}  small={12}>
                     <Input 
@@ -193,8 +207,8 @@ class Layout extends Component {
                       onChange={this.handleChange}
                       />
                   </Grid.Cell>
-                  <Grid.Cell large={4} medium={6}  small={12}>
-                    <Input 
+                  <Grid.Cell large={12} medium={6}  small={12}>
+                    <Textarea 
                       label='Pinagkaka-abalahan ngayon'
                       
                       name='lifeStatus'
