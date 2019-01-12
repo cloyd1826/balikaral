@@ -46,7 +46,8 @@ class Layout extends Component{
       type: '',
       active: false,
       buttonDisabled: false,
-
+      
+      checked: false,
       isCreating: true,
 
       isFacebookConfirm: false,
@@ -58,6 +59,8 @@ class Layout extends Component{
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCheck = this.handleCheck.bind(this)
+
 
     this.formMessage = this.formMessage.bind(this)
 
@@ -77,6 +80,14 @@ class Layout extends Component{
     let value = e.target.value
     this.setState({
       [name]: value
+    })
+  }
+
+  handleCheck(e){
+    let checked = this.state.checked
+
+    this.setState({
+      checked: !checked
     })
   }
 
@@ -362,12 +373,12 @@ class Layout extends Component{
 
                 <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='tos'>
-                     <div className='context-montserrat text-center'>
-                        I have had read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral
+                     <div className='context-montserrat text-center terms-container'>
+                        <span className={this.state.checked ? 'signup-checkmark checked' : 'signup-checkmark'} onClick={this.handleCheck}><i className="la la-check"></i></span>I have had read the <strong><Link to='/terms-of-service' target="_blank">Terms of Service</Link></strong> and <strong><Link to='/privacy-policy' target="_blank">Privacy Policy</Link></strong> of Balikaral
                       </div>
                   </Grid.Cell>
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
-                    <button type='submit' className='button primary'>Sign up</button>
+                    <button type='submit' disabled={!this.state.checked} className='button sign-up'>Sign up</button>
                   </Grid.Cell>
                 </Grid.X>
                 </Form>

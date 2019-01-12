@@ -93,7 +93,7 @@ class Layout extends Component {
 	            <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
 	          </Grid.Cell>
 	        </Grid.X>
-	        <Grid.X>
+	        <Grid.X className="chart-data-container">
 	          
 	            {this.state.generatedExam.map((attr, index)=>{
 	            	

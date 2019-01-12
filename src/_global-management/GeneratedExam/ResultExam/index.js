@@ -160,18 +160,28 @@ class Layout extends Component {
 
                       {this.state.checkingExam ?
                         <Grid.X className="exams-container">
-                          <Grid.Cell large={12} medium={12} small={12}>
+                          <Grid.Cell large={4} medium={4} small={12}>
                              <div className='grid-question-action'>
                               <div className='action'>
                                 <i className='la la-list-alt' />
                                 Result: &nbsp;
                                 {this.state.lengthOfCorrectAnswer}/{this.state.exam.length}
                               </div>
+                            </div>
+                          
+                          </Grid.Cell>
+                          <Grid.Cell large={4} medium={4} small={12}>
+                             <div className='grid-question-action'>
                               <div className='action'>
                                 <i className='la la-smile-o' />
                                 Percent: &nbsp;
                                 {Math.round((this.state.lengthOfCorrectAnswer/this.state.exam.length) * 100)} %
                               </div>
+                            </div>
+                          
+                          </Grid.Cell>
+                          <Grid.Cell large={4} medium={4} small={12}>
+                             <div className='grid-question-action'>
                               <div className='action'>
                                 <i className='la la-hourglass-2' />
                                 {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}

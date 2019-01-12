@@ -539,6 +539,10 @@ select {
   padding: 4px 8px; }
   .input-container input {
     width: 100%; }
+    .input-container input::-webkit-input-placeholder {
+      color: #a3a3a3;
+      font-weight: 400;
+      font-size: 15px; }
 
 .form-button {
   display: flex;
@@ -985,7 +989,8 @@ tr.green {
   border: solid 1px transparent; }
 
 .button.cancel, .sign-in-container .log-in-form .sign-in-button-form span .cancel.sign-in-button, .sign-in-container .log-in-button span .cancel.facebook-button, .sign-in-container .log-in-button span .cancel.google-button {
-  background-color: #fe0000; }
+  background-color: #fe0000;
+  border: solid 1px transparent; }
 
 .button.tiny, .sign-in-container .log-in-form .sign-in-button-form span .tiny.sign-in-button, .sign-in-container .log-in-button span .tiny.facebook-button, .sign-in-container .log-in-button span .tiny.google-button {
   font-size: 0.6rem; }
@@ -1179,7 +1184,9 @@ tr.green {
 .sign-in-container {
   max-height: 70vh;
   overflow-y: auto;
-  width: 60vw; }
+  width: 40vw;
+  max-width: 750px;
+  min-width: 314px; }
 
 .sign-in-form {
   background: #fff;
@@ -1197,6 +1204,19 @@ tr.green {
       color: rgba(0, 0, 0, 0.6) !important; }
   .sign-in-form form .sign-up-button .button, .sign-in-form form .sign-up-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-form form .sign-up-button .sign-in-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .facebook-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .google-button {
     width: 100%; }
+  .sign-in-form form .tos .terms-container {
+    margin-top: 10px;
+    margin-bottom: 10px; }
+    .sign-in-form form .tos .terms-container .signup-checkmark {
+      border: solid 3px #e0e0e0;
+      padding: 1px 2px;
+      margin-right: 10px; }
+      .sign-in-form form .tos .terms-container .signup-checkmark i.la {
+        color: #fff; }
+    .sign-in-form form .tos .terms-container .signup-checkmark.checked {
+      border: solid 3px #4257b2;
+      background: #4257b2;
+      font-weight: 600; }
   .sign-in-form form .facebook-account {
     text-align: center;
     padding: 16px; }
@@ -1487,6 +1507,31 @@ tr.green {
 .tos-content {
   padding-left: 16px; }
 
+.tos-container.privacy-policy {
+  padding: 0px;
+  margin: 60px;
+  box-shadow: none; }
+  .tos-container.privacy-policy .privacy-policy-title {
+    background: #4257b2;
+    color: #ffffff;
+    padding: 20px 16px; }
+  .tos-container.privacy-policy .privacy-policy-content {
+    padding: 0px 16px; }
+    .tos-container.privacy-policy .privacy-policy-content p {
+      line-height: 1.3;
+      margin-left: 30px;
+      margin-bottom: 17px; }
+    .tos-container.privacy-policy .privacy-policy-content ul li strong {
+      color: #383838;
+      margin-right: 6px; }
+    .tos-container.privacy-policy .privacy-policy-content h1, .tos-container.privacy-policy .privacy-policy-content h2, .tos-container.privacy-policy .privacy-policy-content h3, .tos-container.privacy-policy .privacy-policy-content h4, .tos-container.privacy-policy .privacy-policy-content h5, .tos-container.privacy-policy .privacy-policy-content h6 {
+      color: #383838;
+      margin-top: 35px; }
+    .tos-container.privacy-policy .privacy-policy-content h1, .tos-container.privacy-policy .privacy-policy-content h2 {
+      color: #4257b2; }
+    .tos-container.privacy-policy .privacy-policy-content h3, .tos-container.privacy-policy .privacy-policy-content h4, .tos-container.privacy-policy .privacy-policy-content h5, .tos-container.privacy-policy .privacy-policy-content h6 {
+      margin-left: 20px; }
+
 .sign-up {
   display: inline-block;
   vertical-align: middle;
@@ -1494,6 +1539,7 @@ tr.green {
   font-family: inherit;
   padding: 1em;
   -webkit-appearance: none;
+  border: solid 1px transparent;
   border-radius: 3px;
   font-size: 0.9rem;
   line-height: 1;
@@ -1504,7 +1550,9 @@ tr.green {
   font-weight: 600;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
   .sign-up:hover {
-    background: #3ccfcf; }
+    background: #28346b; }
+  .sign-up:disabled {
+    background: #c5cfff; }
 
 .log-in {
   font-size: 0.9rem;
@@ -1765,10 +1813,13 @@ tr.green {
           margin: 0 8px 8px 0;
           padding: 60px 16px;
           background: #fff;
-          box-shadow: 0px 0px 2px #a9a9a9;
+          box-shadow: 0px 0px 2px #e1e1e1;
           border-bottom: solid 8px #4257b2; }
           .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link:hover {
-            background: #f5f7ff; }
+            transition: .3s;
+            background: #4257b2; }
+            .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link:hover .link-title {
+              color: #fff; }
           .admin-dashboard .dashboard-link-container .grid-container .grid-x .dashboard-link span {
             transition: .3s;
             font-size: 45px;
@@ -2216,12 +2267,10 @@ span.no-validator {
     padding: 16px;
     box-shadow: 0px 0px 3px #a9a9a9;
     border-radius: 5px;
-    margin-right: 4px;
+    margin: 0px 5px;
     text-align: center;
     cursor: pointer;
     position: relative; }
-    .grid-question-action .action:last-child {
-      margin-right: 0; }
     .grid-question-action .action i.la {
       font-weight: 500;
       font-size: 32px;
@@ -2907,3 +2956,7 @@ p, span, a {
   margin-bottom: 16px;
   margin-top: 16px;
   box-shadow: 0px 0px 3px #a9a9a9; }
+  .element-container .chart-data-container, .discussion-container .chart-data-container, .comment-container .chart-data-container, .comment-list .chart-data-container {
+    padding: 16px; }
+    .element-container .chart-data-container canvas, .discussion-container .chart-data-container canvas, .comment-container .chart-data-container canvas, .comment-list .chart-data-container canvas {
+      margin-bottom: 80px; }

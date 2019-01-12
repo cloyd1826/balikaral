@@ -168,7 +168,7 @@ class Layout extends Component{
                  
                   
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
-                    <button type='submit' disabled={this.state.buttonDisabled} className='button primary'>Log In</button>
+                    <button type='submit' disabled={this.state.buttonDisabled} className='button sign-up'>Log In</button>
                   </Grid.Cell>
                 </Grid.X>
                 </Form>
