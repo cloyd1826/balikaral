@@ -67,7 +67,7 @@
 		right: 8px
 .question-card-list-container
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-	border: 1px solid transparent
+	
 	padding: 0
 .question-card-list
 	width: 100%
@@ -210,7 +210,7 @@
 .grid-exam-container
 	width: 100%
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-	border: 1px solid transparent
+	
 	border-radius: 5px
 	position: relative
 	.next-icon,.prev-icon
@@ -266,7 +266,7 @@
 				.answer
 					background: #fff
 					box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-					border: 1px solid transparent
+					
 					padding: 16px
 					color: rgba(0,0,0,0.8)
 					width: 100%
@@ -290,15 +290,12 @@
 	.action
 		flex: 1
 		padding: 16px
-		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-		border: 1px solid transparent
+		box-shadow: $boxShadow
 		border-radius: 5px
-		margin-right: 4px
+		margin: 0px 5px
 		text-align: center
 		cursor: pointer
 		position: relative
-		&:last-child
-			margin-right: 0
 		i.la
 			font-weight: 500
 			font-size: 32px
@@ -306,11 +303,12 @@
 			top: 50%
 			left: 16px
 			transform: translate(0,-50%)
+			color: $blue-color
 	a
 		flex: 1
 		padding: 16px
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-		border: 1px solid transparent
+		
 		border-radius: 5px
 		margin-right: 4px
 		text-align: center
@@ -342,7 +340,7 @@
 		height: 30px!important
 		width: 30px!important
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-		border: 1px solid transparent
+		
 		margin-right: 4px
 	.pagination-button
 		background: #fff
@@ -357,8 +355,7 @@
 	border-radius: 5px
 	position: relative
 	padding: 16px
-	border: 1px solid transparent
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+	box-shadow: $boxShadow
 	margin-bottom: 8px
 	.percentage-per-ls
 		margin-bottom: 8px
@@ -374,7 +371,7 @@
 			display: flex
 			.correct
 				height: 40px
-				background: $lightGreen
+				background: #3ccfcf
 				border-top-left-radius: 5px
 				border-bottom-left-radius: 5px
 				display: flex
@@ -383,13 +380,12 @@
 				font-weight: 600
 			.wrong
 				height: 40px
-				background: $lightRed
+				background: #f3f3f3
 				border-top-right-radius: 5px
 				border-bottom-right-radius: 5px
 .summary-learning-strand
 	padding: 16px
-	border: 1px solid transparent
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+	box-shadow: $boxShadow
 	margin-bottom: 8px
 	border-radius: 5px
 	.summary-title
@@ -414,8 +410,8 @@
 		margin-bottom: 8px
 		cursor: pointer
 		.number,.question
-			border: 1px solid transparent
-			box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
+			
+			box-shadow: $boxShadow
 			padding: 16px
 		.number
 			border-top-left-radius: 5px
@@ -446,7 +442,7 @@
 			.letter,.answer
 				padding: 8px 16px
 				box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-				border: 1px solid transparent
+				
 				background: #fff
 			.letter
 				font-weight: 600
@@ -469,7 +465,7 @@
 	margin: 8px auto
 	padding: 16px
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-	border: 1px solid transparent
+	
 	text-align: center
 	font-weight: 600
 	border-radius: 5px
@@ -477,7 +473,7 @@
 		padding: 8px
 		margin: 0
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-		border: 1px solid transparent
+		
 		background: #fff
 		font-weight: 500
 .grid-correct-answer
@@ -492,7 +488,7 @@
 	.learning-strand
 		padding: 16px
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-		border: 1px solid transparent
+		
 		margin-right: 4px
 		margin-bottom: 4px
 		text-align: center

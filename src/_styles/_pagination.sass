@@ -1,6 +1,7 @@
 .pagination
   margin-left: 0
   margin-bottom: 1rem 
+  padding: 16px 16px 16px 16px
   &:before, &:after
     display: table
     content: ' '
@@ -25,19 +26,23 @@
 .pagination 
   .pagination-button, button
     display: block
-    padding: 0.1875rem 0.625rem
+    padding: 7px 14px
     border-radius: 3px
     color: #0a0a0a 
+    border-radius: 4px
     &:hover,
       background: $lightBlue
 .pagination 
   .current
-    padding: 0.1875rem 0.625rem
+    padding: 7px 14px
     background: $blue-color
     color: #fefefe
     cursor: default 
+    border-radius: 4px
   .disabled
     padding: 0.1875rem 0.625rem
+    padding: 7px 14px
+    border-radius: 4px
     color: #cacaca
     cursor: not-allowed 
     &:hover

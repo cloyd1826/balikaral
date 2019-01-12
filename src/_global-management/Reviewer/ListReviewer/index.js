@@ -292,6 +292,7 @@ class Layout extends Component {
                     })}
                   </Grid.X>
                   :
+                  <div className="table-container">
                   <Table hover nostripe>
                     <Table.Header>
                       <Table.Row>
@@ -369,7 +370,7 @@ class Layout extends Component {
                               <Table.Cell isNarrowed>
                                 {attr.pdf ?
                                   <span>
-                                    <a href={`${config}/${attr.pdf}`} download='reviewer.pdf' target='_blank'><i className='la la-file-pdf-o primary'/></a>
+                                    <a href={`${config}/${attr.pdf}`} download='reviewer.pdf' target='_blank'><i className='la la-download primary'/></a>
                                   </span>
                                  : null}
 
@@ -448,6 +449,7 @@ class Layout extends Component {
                       </Table.Row>
                     </Table.Footer>
                 </Table>
+                </div>
                 }
                 <div className='table-pagination'>
                       <Pagination

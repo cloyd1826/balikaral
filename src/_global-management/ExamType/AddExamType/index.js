@@ -318,6 +318,7 @@ class Layout extends Component {
 
                   </Grid.X>
                     <Grid.X>
+                      <div className="table-container">
                         <Table hover nostripe>
                           <Table.Header>
                             <Table.Row>
@@ -347,7 +348,8 @@ class Layout extends Component {
                               <Table.HeaderCell isNarrowed></Table.HeaderCell>
                             </Table.Row>
                           </Table.Footer>
-                      </Table>
+                        </Table>
+                      </div>
                     </Grid.X>
 
                     <Grid.X>

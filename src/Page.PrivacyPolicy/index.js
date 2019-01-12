@@ -9,116 +9,111 @@ class TermsOfServices extends Component {
         <NavBar />
 
 
-        <div className='tos-container'>
-          <div className='subtitle-montserrat'>Privacy Policy</div>
-          <div className='tos-content'>
-            <div className='subtitle-montserrat'>Our approach</div>  
-            <div className='context-montserrat'>
-            Balikaral Inc. (Balikaral) is dedicated to helping people around the world practice and master whatever they are learning. When you share information with us we can help you achieve that goal by helping you find the right content and making your studying quicker and more effective.
-            <br />
-            It is Balikaral's policy to respect your privacy regarding any information we may collect while operating our website and the two Balikaral mobile applications. To accomplish this, we have a few fundamental principles:
-            </div>
-            <div className='tos-content context-montserrat'>
-              <div>We only collect your personal information when we need it, and only what we need to provide you with our services.</div>
-              <div>We don't share your personal information with anyone except to provide and develop our services, comply with the law, or protect the rights, property or safety of Balikaral, our users or the public.</div>
-              <div>We don't store your personal information unless it’s required for the ongoing operation of our services.</div>
-              <div>We give you control over how your personal information is used, including what's made visible to the public, seen by search engines, kept private, and deleted.</div>
-            </div>  
+        <div className='tos-container privacy-policy'>
+        <h1 className="privacy-policy-title">Privacy Policy</h1>
+        <div className="privacy-policy-content">
+            <p>Effective date: January 12, 2019</p>
 
 
-            <div className='subtitle-montserrat'>Privacy Notice</div>  
-            <div className='context-montserrat'>Whether you are new to Balikaral or a long-time user, please take some time to get to know our practices. This Privacy Notice is meant to help you understand how we collect and use the personal information you provide on our website, www.quizlet.com, and the two official Balikaral iOS and Android mobile applications. This Notice explains:
+            <p>Balikaral ("us", "we", or "our") operates the www.balikaral.com website (the "Service").</p>
 
-            </div>
-            <div className='tos-content context-montserrat'>
-              <div>What information we collect and why we collect it.</div>
-              <div>How we use and share that information.</div>
-              <div>The choices we offer you to protect your privacy and the rights you have, including how you can access and update your information.</div>
-              <div>How to contact us if you have questions or concerns.</div>
-            </div>  
+            <p>This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data. Our Privacy Policy  for Balikaral is based on the <a href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/">Free Privacy Policy Template Website</a>.</p>
 
-            <div className='subtitle-montserrat'>What information we collect</div>  
-            <div className='context-montserrat'>We need to collect certain information about you to provide you with the Service or the support you request. The type of information we collect can vary depending on how you access and use our Service. Additionally, you can choose to voluntarily provide information to us.</div>
+            <p>We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible from www.balikaral.com</p>
+
+
+            <h2>Information Collection And Use</h2>
+
+            <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+
+            <h3>Types of Data Collected</h3>
+
+            <h4>Personal Data</h4>
+
+            <p>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). Personally identifiable information may include, but is not limited to:</p>
+
+            <ul>
+            <li>Email address</li><li>Cookies and Usage Data</li>
+            </ul>
+
+            <h4>Usage Data</h4>
+
+            <p>We may also collect information how the Service is accessed and used ("Usage Data"). This Usage Data may include information such as your computer's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
+
+            <h4>Tracking & Cookies Data</h4>
+            <p>We use cookies and similar tracking technologies to track the activity on our Service and hold certain information.</p>
+            <p>Cookies are files with small amount of data which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your device. Tracking technologies also used are beacons, tags, and scripts to collect and track information and to improve and analyze our Service.</p>
+            <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+            <p>Examples of Cookies we use:</p>
+            <ul>
+                <li><strong>Session Cookies.</strong> We use Session Cookies to operate our Service.</li>
+                <li><strong>Preference Cookies.</strong> We use Preference Cookies to remember your preferences and various settings.</li>
+                <li><strong>Security Cookies.</strong> We use Security Cookies for security purposes.</li>
+            </ul>
+
+            <h2>Use of Data</h2>
+
+            <p>Balikaral uses the collected data for various purposes:</p>    
+            <ul>
+                <li>To provide and maintain the Service</li>
+                <li>To notify you about changes to our Service</li>
+                <li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+                <li>To provide customer care and support</li>
+                <li>To provide analysis or valuable information so that we can improve the Service</li>
+                <li>To monitor the usage of the Service</li>
+                <li>To detect, prevent and address technical issues</li>
+            </ul>
+
+            <h2>Transfer Of Data</h2>
+            <p>Your information, including Personal Data, may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction.</p>
+            <p>If you are located outside Philippines and choose to provide information to us, please note that we transfer the data, including Personal Data, to Philippines and process it there.</p>
+            <p>Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.</p>
+            <p>Balikaral will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of your data and other personal information.</p>
+
+            <h2>Disclosure Of Data</h2>
+
+            <h3>Legal Requirements</h3>
+            <p>Balikaral may disclose your Personal Data in the good faith belief that such action is necessary to:</p>
+            <ul>
+                <li>To comply with a legal obligation</li>
+                <li>To protect and defend the rights or property of Balikaral</li>
+                <li>To prevent or investigate possible wrongdoing in connection with the Service</li>
+                <li>To protect the personal safety of users of the Service or the public</li>
+                <li>To protect against legal liability</li>
+            </ul>
+
+            <h2>Security Of Data</h2>
+            <p>The security of your data is important to us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.</p>
+
+            <h2>Service Providers</h2>
+            <p>We may employ third party companies and individuals to facilitate our Service ("Service Providers"), to provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our Service is used.</p>
+            <p>These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+
+
+
+            <h2>Links To Other Sites</h2>
+            <p>Our Service may contain links to other sites that are not operated by us. If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit.</p>
+            <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
+
+
+            <h2>Children's Privacy</h2>
+            <p>Our Service does not address anyone under the age of 18 ("Children").</p>
+            <p>We do not knowingly collect personally identifiable information from anyone under the age of 18. If you are a parent or guardian and you are aware that your Children has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from children without verification of parental consent, we take steps to remove that information from our servers.</p>
+
+
+            <h2>Changes To This Privacy Policy</h2>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+            <p>We will let you know via email and/or a prominent notice on our Service, prior to the change becoming effective and update the "effective date" at the top of this Privacy Policy.</p>
+            <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy, please contact us:</p>
+            <ul>
+        <li>By email: balikaralsocmed@gmail.com</li>
           
-            <div className='subtitle-montserrat'>Information you provide to us to use the Service</div>
-            <div className='context-montserrat'>We collect the information you provide when you sign up for a Balikaral account, log in to your account, communicate with us, answer our surveys, upload content, or otherwise use the Services.</div>
-            <div className='context-montserrat'>We request an email address and date of birth when you choose to sign up for the Service so we can provide the Services to you and allow us to comply with applicable regulations. Without this information, we are not be able to provide you with the Service.</div>
-            <div className='context-montserrat'>Users who engage in financial transactions with Balikaral, for example to purchase an upgraded membership subscription, are asked to provide additional information in order to complete the transaction, such as a credit card number, billing address and full name.</div>
-            <div className='context-montserrat'>Visitors can always refrain from supplying certain information, but it may prevent them from engaging in certain Balikaral services which require that information.</div>
-
-            <div className='subtitle-montserrat'>Information you provide to enhance your experience</div>
-            <div className='context-montserrat'>You can choose to provide us with additional information in order to obtain a better user experience when using the Service. This additional information will be processed with your consent and/or to provide you with services you request. This information includes your survey responses, participation in contests, promotions or other marketing efforts, suggestions for improvements, referrals, or any other actions on the Service.</div>
-
-            <div className='subtitle-montserrat'>Information we get automatically when you use Balikaral</div>
-            <div className='context-montserrat'>We automatically collect information about you and how you use the Service, like when you create a study set, join a class, or view and interact with your or other users’ content. This information we collect includes:</div>
-            <div className='tos-content'>
-              <div className='context-montserrat'>Device information</div>
-              <div className='context-montserrat'>Like most website operators, Balikaral collects information about how users visit our site and the devices they use. We collect device-specific information (such as your hardware model, operating system version, device identifiers like IDFA and UDID, and mobile network information). Balikaral may associate your device identifiers or other device information with your Balikaral Account to help us provide consistent services across your devices.</div>
-
-              <div className='context-montserrat'>Geolocation information</div>
-              <div className='context-montserrat'>We may use your IP address to generate a general approximation of where you are located in order to provide you with an improved experience. We do not request access to or collect location sensor information, such as GPS or Bluetooth beacons, from your mobile device while downloading or using our mobile apps or services.</div>
-
-              <div className='context-montserrat'>Log information</div>
-              <div className='context-montserrat'>When you use Balikaral, we automatically collect and store certain information about this activity. This data includes details of how you used our service, like your search queries, clicks and site navigation information, or study activity. It also may include data such as:</div>
-
-              <div className='tos-content'>
-                <div className='context-montserrat'>Browser type</div>
-                <div className='context-montserrat'>Language preference and time zone</div>
-                <div className='context-montserrat'>Referring site, and the date and time of each visitor request</div>
-                <div className='context-montserrat'>Connection information like ISP or mobile operator</div>
-                <div className='context-montserrat'>Internet Protocol (IP) address</div>
-                <div className='context-montserrat'>Log-in and Log-out times</div>
-              </div>
-            </div>
-
-
-            <div className='subtitle-montserrat'>Information we collect from other sources</div>
-            <div className='context-montserrat'>We also collect some information from other sources and combine that with information we collect from you. We do not control, supervise or respond for how the third parties providing your information process your personal data, and any information request regarding the disclosure of your personal information to us should be directed to such third parties.</div>
-            <div className='context-montserrat'>The information we collect about you from third parties includes:</div>
-
-            <div className='tos-content'>
-              <div className='context-montserrat'>Facebook Connect and Google Login</div>
-              <div className='context-montserrat'>You have the option to log in to our site using sign-in services such as Facebook Connect and Google Login. These services authenticate your identity and provide you the option to share certain personal information with us, such as your name, date of birth, and email address, to pre-populate our sign-up form. You may, optionally, choose to provide additional information during the sign-up or linking process, such as a friends list, to enable certain features on Balikaral.</div>
-
-              <div className='context-montserrat'>Other users</div>
-              <div className='context-montserrat'>Balikaral may receive information about you from other users. For example, if another user chooses to use our referral service to tell a friend about our website, we may ask that user for their friend’s name and email address so we can send the invites on their behalf. You may contact us at quizlet.com/feedback to request that we remove your information from our database.</div>
-
-              <div className='context-montserrat'>Other partners and companies</div>
-              <div className='context-montserrat'>Balikaral may also receive information about you from other sources, including our partners, service providers or other third parties.</div>
-
-
-            </div>
-
-
-
-            <div className='subtitle-montserrat'>Information from Children</div>
-            <div className='context-montserrat'>While Balikaral is intended for users age 13 and over, if a child requests access to our website we accommodate them by offering a limited feature set and restricted website experience that removes certain features. We offer this restricted experience (“Child Account”) for accounts of all users below the age of 13 and for some users below the age of 16 where applicable under local law.</div>
-            <div className='context-montserrat'>Balikaral does not accumulate personal information about any Child Account for distribution, sharing, or selling, except as described in this Privacy Notice. To create an account, we require the user to submit a date of birth, username and email address. We collect a parent’s email address from a child under the age of consent if they attempt to register in order to notify the parent of their child’s use of Balikaral and, where required, to seek parental consent for use of that data.</div>
-            <div className='context-montserrat'>We do not condition a child's participation or access to any activity on Balikaral on the child providing any personally-identifying information or any more information than is reasonably necessary for that activity.</div>
-            <div className='context-montserrat'>We may use aggregated or de-identified information about children for research, analysis, marketing and other commercial purposes.</div>
-
-            <div className='context-montserrat'>Third Party Service Providers</div>
-            <div className='context-montserrat'>Where necessary, we use restricted versions of our third-party services (for example, Google Analytics) that limit data sharing and tracking on areas of our site and mobile apps that are accessed by children to support our internal operations.</div>
-            
-            <div className='context-montserrat'>Parental Rights</div>
-            <div className='context-montserrat'>Parents and legal guardians of children under 13 can consent to collection and use of a child's personal information without consenting to the disclosure of that information to third parties.</div>
-            <div className='context-montserrat'>Parents or guardians can review information their children under 13 have contributed to Balikaral by accessing their child's account via password reset. Parents can also request that Balikaral delete that information and refuse to allow Balikaral to collect further information from their children by contacting Balikaral at support@quizlet.com. Balikaral may ask additional questions or take other steps to verify the identity of a parent or guardian before responding to a request to review or delete a child's information or a request to refuse further collection from a child.</div>
-            <div className='context-montserrat'></div>
-
-
-
-            <div className='subtitle-montserrat'>How we use your information</div>
-            <div className='context-montserrat'>We collect information about you when you use the Service for a variety of reasons in order to support Balikaral and to enable our team to continue to create engaging experiences for our users.</div>
-
-            <div className='subtitle-montserrat'>Providing, Analyzing, Improving and Developing the Service</div>
-            <div className='context-montserrat'>We process the data we collect about you to operate, improve and develop the Balikaral Service, including providing, maintaining, securing and improving our services, developing new ones, and protecting Balikaral and our users. We are able to deliver our services, personalize content, and make suggestions for you by using this information to understand how you use and interact with our services. We conduct surveys and research, test features in development, and analyze the information we have to evaluate and improve products and services, develop new products or features, and conduct audits and troubleshooting activities</div>
-
-            <div className='subtitle-montserrat'>Communicating with You About the Service</div>
-            <div className='context-montserrat'>We also process the data we collect about you to provide you with relevant information about the Service and to assist you in using the Service if required.</div>
-
-
-          </div>
-
+        </ul>
+        </div>
         </div>
 
  

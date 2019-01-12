@@ -7,10 +7,14 @@
 	top: 50px
 	left: 0
 	background: #fff
-	box-shadow: 3px 2px 2px #888
+	box-shadow: 2px 0px 3px #e1e1e1
 	height: calc(100vh - 50px - 48px)
 	overflow-y: auto
 	animation: LogIn $transition-fast
+	&::-webkit-scrollbar
+		width: 3px
+	&::-webkit-scrollbar-thumb
+		background-color: $blue-color
 	.sidebar-content
 		border-bottom: #e0e0e0 solid 1px
 		padding: 8px 0
@@ -19,8 +23,9 @@
 			color: rgba(0,0,0,0.5)
 			padding: 8px 16px 8px 16px
 			font-weight: 600
+			text-transform: uppercase
 		.sidebar-link
-			font-size: 14px
+			font-size: 15px
 			padding: 8px 16px 8px 16px
 			color: #000
 			cursor: pointer
@@ -28,6 +33,7 @@
 			display: block
 			i
 				margin-right: 8px
+				color: $blue-color
 			&:hover
 				background: #d1f4da
 				color: #000
@@ -35,3 +41,5 @@
 			background: $blue-color
 			color: #fff
 			transition: $transition-fast
+			i
+				color: #fff

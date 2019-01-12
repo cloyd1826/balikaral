@@ -93,7 +93,7 @@ class Home extends Component {
       <div className='home-container'>
         <NavBar logo={this.state.logo} />
 
-        <Grid fluid>
+        <Grid full>
           <Grid.X className='home-banner'>
             <Grid.Cell large={6} medium={12} small={12} className='home-banner-text'>
               <div>

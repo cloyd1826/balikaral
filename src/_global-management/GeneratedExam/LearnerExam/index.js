@@ -161,7 +161,8 @@ class Layout extends Component {
                    
 
                   </div>
-	        				<Table hover nostripe>
+	        			<div className='table-container'>
+                <Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
                         <Table.HeaderCell>Exam Type</Table.HeaderCell>
@@ -262,6 +263,7 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                </div>
                  <div className='table-pagination'>
                   <Pagination
                       changePage={this.changePage}

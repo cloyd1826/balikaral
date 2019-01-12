@@ -357,6 +357,7 @@ class Layout extends Component {
 
 
                             <Grid.X>
+                              <div className="table-container">
                                 <Table hover nostripe>
                                   <Table.Header>
                                     <Table.Row>
@@ -387,6 +388,7 @@ class Layout extends Component {
                                     </Table.Row>
                                   </Table.Footer>
                               </Table>
+                              </div>
                             </Grid.X>
 
                             <Grid.X>

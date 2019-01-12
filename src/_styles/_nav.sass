@@ -5,7 +5,7 @@
   font-family: inherit
   padding: 1em
   -webkit-appearance: none
-  border: 1px solid transparent
+  border: solid 1px transparent
   border-radius: 3px
   font-size: 0.9rem
   line-height: 1
@@ -16,7 +16,9 @@
   font-weight: 600
   transition: $transition-fast 
   &:hover
-    background: $yellow-color
+    background: #28346b
+  &:disabled
+    background: #c5cfff
 .log-in
   font-size: 0.9rem
   line-height: 1
@@ -36,7 +38,7 @@
   width: calc(100% - 10vw)
   background: #fff
   z-index: 998
-  box-shadow: 0px 1px 4px #888
+  box-shadow: 0px 0px 3px #a1a1a1
   .nav-icon
       width: 50px
       padding: 1em
@@ -60,7 +62,7 @@
         font-family: inherit
         padding: 1em
         -webkit-appearance: none
-        border: 1px solid transparent
+        
         border-radius: 3px
         font-size: 0.9rem
         line-height: 1
@@ -101,18 +103,24 @@
         z-index: 999
         padding: 8px 4px
         background: #fff
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-        border: 1px solid transparent
+        box-shadow: 0px 0px 1px #a1a1a1
         padding: 0
         font-size: 18px
-        min-width: 200px
+        min-width: 230px
+        border-radius: 4px
         animation: LogIn $transition-fast
+        overflow: hidden
         .user-bar
-          padding: 8px 16px
+          font-size: 17px
+          padding: 16px 16px
           cursor: pointer
           transition: $transition-fast
           i
-            margin-right: 8px
+            margin-right: 15px
+            font-weight: 600
+            color: $blue-color
           &:hover
             background: $blue-color
             color: #fff
+            i
+              color: #fff
