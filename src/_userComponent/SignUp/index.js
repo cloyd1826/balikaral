@@ -23,6 +23,8 @@ import apiRequest from '../../_axios'
 import FacebookLogo from '../../_images/facebook-logo.png'
 import GoogleLogo from '../../_images/google-logo.png'
 
+import SelectLevel from '../../_special-form/SelectLevel'
+
 class Layout extends Component{
   constructor(props){
     super(props)
@@ -34,9 +36,11 @@ class Layout extends Component{
       middleName: '',
       userType: '',
 
+      gender: '',
+      birthday: '',
     
 
-
+      level: '',
  
       message: '',
       type: '',
@@ -58,6 +62,7 @@ class Layout extends Component{
     this.formMessage = this.formMessage.bind(this)
 
     this.createNewAccount = this.createNewAccount.bind(this)
+
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -117,8 +122,14 @@ class Layout extends Component{
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         middleName: this.state.middleName,
-        userType: this.state.userType 
+        userType: this.state.userType,
+        gender: this.state.gender,
+        birthday: this.state.birthday
       }
+      if(this.state.userType === 'Learner'){
+        data = {...data, level: this.state.level}
+      }
+
 
       apiRequest('post', '/signup', data,)
         .then((res)=>{
@@ -154,11 +165,6 @@ class Layout extends Component{
       image: res.picture.data.url,
       id: res.id
     })
-
-    let data = {
-      email: res.email,
-      id: res.id
-    }
   }
   responseGoogle(res){
     console.log(res)
@@ -167,9 +173,6 @@ class Layout extends Component{
     return (
       <div className='modal'>
         <div className='modal-container'>
-
-
-
         <div className='sign-in-container'>
 
           <div className='sign-in-form'>
@@ -186,7 +189,6 @@ class Layout extends Component{
                     <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   </Grid.Cell>
                 </Grid.X>
-                <a href="#" onClick={(e)=>{e.preventDefault(); window.FB.logout()}}>logout</a>
                 <Grid.X>
                   <Grid.Cell large={6} medium={12} small={12}>
                     <span className='facebook-button-container'>
@@ -271,7 +273,7 @@ class Layout extends Component{
                 : null}
 
                 <Grid.X>
-                  <Grid.Cell large={12} medium={12} small={12}>
+                  <Grid.Cell large={(this.state.userType === 'Learner' ? 6 : 12)} medium={12} small={12}>
                     <Select
                       label='User Type'
                       required
@@ -284,11 +286,25 @@ class Layout extends Component{
                       <option value='Teacher'>Teacher</option>
                     </Select>
                   </Grid.Cell>
+                  {this.state.userType === 'Learner' ? 
+                    <Grid.Cell large={6} medium={12} small={12}>
+                      <SelectLevel
+                        label='Level'
+                        required
+                        name='level'
+                        value={this.state.level}
+                        onChange={this.handleChange}
+                        />
+                    </Grid.Cell>
+                  : null}
+
+                  
+
                 </Grid.X>
 
                {!this.state.isFacebookConfirm ?
                   <Grid.X>
-                    <Grid.Cell large={12} medium={12}  small={12}>
+                    <Grid.Cell large={4} medium={12}  small={12}>
                       <Input 
                         label='First Name'
                         required
@@ -298,7 +314,7 @@ class Layout extends Component{
                         onChange={this.handleChange}
                         />
                     </Grid.Cell>
-                    <Grid.Cell large={12} medium={12} small={12}>
+                    <Grid.Cell large={4} medium={12} small={12}>
                       <Input 
                         label='Middle Name' 
                         placeholder='Dela'
@@ -307,13 +323,36 @@ class Layout extends Component{
                         onChange={this.handleChange}
                         />
                     </Grid.Cell>
-                     <Grid.Cell large={12} medium={12} small={12}>
+                     <Grid.Cell large={4} medium={12} small={12}>
                       <Input 
                         label='Last Name'
                         placeholder='Cruz'
                         required
                         name='lastName'
                         value={this.state.lastName}
+                        onChange={this.handleChange}
+                         />
+                    </Grid.Cell>
+                     <Grid.Cell large={4} medium={12} small={12}>
+                      <Select
+                        label='Gender'
+                        required
+                        name='gender'
+                        value={this.state.gender}
+                        onChange={this.handleChange}
+                        >
+                        <option value=''></option>
+                        <option value='Male'>Male</option>
+                        <option value='Female'>Female</option>
+                      </Select>
+                    </Grid.Cell>
+                     <Grid.Cell large={4} medium={12} small={12}>
+                      <Input 
+                        type='date'
+                        label='Birthday'
+                        required
+                        name='birthday'
+                        value={this.state.birthday}
                         onChange={this.handleChange}
                          />
                     </Grid.Cell>

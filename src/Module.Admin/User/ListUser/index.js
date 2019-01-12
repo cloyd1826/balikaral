@@ -11,6 +11,8 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
+import ManagementDelete from '../../../_component/ManagementDelete'
+
 
 class Layout extends Component {
   constructor(props) {
@@ -35,6 +37,9 @@ class Layout extends Component {
    	this.formMessage = this.formMessage.bind(this)
     this.changePage = this.changePage.bind(this)
 
+    this.toggleDelete = this.toggleDelete.bind(this)
+
+
   }
   changePage(page){
     this.setState({
@@ -48,6 +53,21 @@ class Layout extends Component {
       type: type,
       active: active
     })
+  }
+  toggleDelete(link){
+    if(this.state.deleteActive){
+      this.setState({
+        deleteActive: false,
+        link: ''
+      })
+      let page = this.state.currentPage
+      this.fetchUser(page)
+    }else{
+      this.setState({
+        deleteActive: true,
+        link: link
+      })
+    }
   }
 
   fetchUser(page){
@@ -129,6 +149,9 @@ class Layout extends Component {
                                       <i className='fa fa-user primary'></i>
                                     </span>
                                   </Link>
+                                  <span onClick={()=>{this.toggleDelete('/user/delete/' + attr._id)}}>
+                                  <i className='fa fa-trash cancel'></i>
+                                </span>
                               </Table.Cell>
                             </Table.Row>
 					        				)
@@ -162,6 +185,9 @@ class Layout extends Component {
         			</Grid.Cell>
         		</Grid.X>
         	</Grid>
+
+          <ManagementDelete item='User' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+
 
         </div>
     )

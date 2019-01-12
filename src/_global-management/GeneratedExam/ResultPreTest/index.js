@@ -92,20 +92,7 @@ class Layout extends Component {
                       {this.state.checkingExam ?
 
                         <Grid.X >
-                          <Grid.Cell large={12} medium={12} small={12}>
-                            <div className='question-card-loader'>
-                              <div className='question-loader-container'>
-                                <span>
-                                  <i className='la la-commenting'></i>
-                                </span>
-                                <div className='subtitle-montserrat'>Binabati kita.</div>
-                                <div className='context-montserrat'>Naitapos mo ang iyong Pre-Test. Maari mo ng gamiting ang lahat ng prebilehiyo ng isang Learner</div>
-                                <Link to='/learner/dashboard'>
-                                  <div className='button primary'>Dashboard</div>
-                                </Link>
-                              </div>
-                            </div>
-                          </Grid.Cell>
+                          
                           <Grid.Cell large={12} medium={12} small={12}>
                              <div className='grid-question-action'>
                               <div className='action'>
@@ -122,9 +109,16 @@ class Layout extends Component {
                                 <i className='la la-hourglass-2' />
                                 {this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds}
                               </div>
+                              <Link to='/learner/dashboard'>
+                                <div className='action'>
+                                  <i className='la la-home' />
+                                  Dashboard
+                                </div>
+                              </Link>
                             </div>
                           
                           </Grid.Cell>
+                          
                           <Grid.Cell large={12} medium={12} small={12}>
                             <QuestionAnswered 
                               exam={this.state.exam}
@@ -160,3 +154,21 @@ const mapStateToProps = (state) => {
 const LayoutWithRouter = connect(mapStateToProps)(Layout)
 const ResultPreTest = withRouter(LayoutWithRouter)
 export default ResultPreTest
+
+
+{/*
+<Grid.Cell large={12} medium={12} small={12}>
+<div className='question-card-loader'>
+<div className='question-loader-container'>
+<span>
+<i className='la la-commenting'></i>
+</span>
+<div className='subtitle-montserrat'>Binabati kita.</div>
+<div className='context-montserrat'>Naitapos mo ang iyong Pre-Test. Maari mo ng gamiting ang lahat ng prebilehiyo ng isang Learner</div>
+<Link to='/learner/dashboard'>
+<div className='button primary'>Dashboard</div>
+</Link>
+</div>
+</div>
+</Grid.Cell>
+*/}

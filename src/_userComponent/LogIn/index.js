@@ -76,9 +76,8 @@ class Layout extends Component{
     this.formMessage('Logging in', 'loading', true, false)
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
- 
           let result = res.data
-          
+          console.log(result)
           let userData = {
             user: { 
               id: result.data ? result.data._id ? result.data._id : '' : '',
@@ -91,10 +90,26 @@ class Layout extends Component{
             token: result.token,
             isLoggedIn: true,
             role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : '',
-            hadPreTest: result.data.userSettings ? result.data.userSettings.hadPreTest ? result.data.userSettings.hadPreTest : false : false,
           }
-          this.props.actions.logIn(userData)
-          this.props.close()
+          if(userData.role === 'Learner'){
+            let level = result.data.userSettings ? result.data.userSettings.level ? result.data.userSettings.level : '' : ''
+            apiRequest('get', `/generated-exam/learner-pre-test?level=${level}&examiner=${userData.user.id}`, false, userData.token)
+              .then((res)=>{
+                console.log(res)
+                if(res.data){
+                  userData = {...userData, level: level, hadPreTest: res.data.pretest }
+                  console.log(userData)
+                  this.props.actions.logIn(userData)
+                  this.props.close()
+                }
+              })
+              .catch((err)=>{
+                this.formMessage('Error: ' + err.message, 'error', true, false)
+              })
+          }else{
+            this.props.actions.logIn(userData)
+            this.props.close()
+          }
       })
       .catch((err)=>{
           this.formMessage('Error: ' + err.message, 'error', true, false)

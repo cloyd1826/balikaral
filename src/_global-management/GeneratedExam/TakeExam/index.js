@@ -250,33 +250,27 @@ class Layout extends Component {
           })
 
            if(!this.props.hadPreTest){
-              let hadPreTest = {
-                hadPreTest: true
-              } 
-              apiRequest('put', `/user/update-pre-test/${this.props.user.id}`, hadPreTest, this.props.token)
-                .then((res)=>{ 
-                    let userData = {
-                      user: this.props.user,
-                      token: this.props.token,
-                      isLoggedIn: true,
-                      role: this.props.role,
-                      hadPreTest: true
-                    }
-                    this.props.actions.logIn(userData)
-                   this.props.history.push({
-                      pathname: '/pre-test-result',
-                      state: { 
-                        exam: checkedExam,
-                        lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
-                        percentagePerLearningStrand: percentagePerLearningStrand,
-                        examType: this.state.examType,
-                        timeRemaining: timeRemaining
-                      }
-                    })
-                })
-                .catch((err)=>{
-                  this.formMessage('Error: ' + err.message, 'error', true, false)
-                })
+              
+              let userData = {
+                user: this.props.user,
+                token: this.props.token,
+                isLoggedIn: true,
+                role: this.props.role,
+                hadPreTest: true,
+                level: this.props.level
+              }
+              this.props.actions.logIn(userData)
+              this.props.history.push({
+                pathname: '/pre-test-result',
+                state: { 
+                exam: checkedExam,
+                lengthOfCorrectAnswer: lengthOfCorrectAnswer.length,
+                percentagePerLearningStrand: percentagePerLearningStrand,
+                examType: this.state.examType,
+                timeRemaining: timeRemaining
+                }
+              })
+              
             }
 
 
@@ -512,7 +506,8 @@ const mapStateToProps = (state) => {
     token: state.token,
     role: state.role,
     user: state.user,
-    hadPreTest: state.hadPreTest
+    hadPreTest: state.hadPreTest,
+    level: state.level
   }
 }
 const mapDispatchToProps = dispatch => {

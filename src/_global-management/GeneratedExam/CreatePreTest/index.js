@@ -28,6 +28,7 @@ class Layout extends Component {
       hasPassed: false,
       idOfPendingExam: '',
       notEnoughQuestion: false,
+      noPreTestAvailable: false,
     }
     this.formMessage = this.formMessage.bind(this)
 
@@ -55,18 +56,25 @@ class Layout extends Component {
       generating: true
     })
     
-    apiRequest('get', `/exam-management/pre-test`, false, this.props.token)
+    apiRequest('get', `/exam-management/pre-test?level=${this.props.level}`, false, this.props.token)
       .then((res)=>{
      
         if(res.data){
           let result = res.data
-          
+          console.log(result)
           if(result.status === 'Not Enough Number of Question'){
             this.setState({
               generating: false,
               notEnoughQuestion: true,
+              noPreTestAvailable: false,
             })
 
+          }else if(result.status === 'No pre test available for your level'){
+            this.setState({
+              generating: false,
+              notEnoughQuestion: false,
+              noPreTestAvailable: true,
+            })
           }else{
             let examList = []
             let easyExam = []
@@ -123,7 +131,8 @@ class Layout extends Component {
       type: 'Pre Test',
       status: 'Pending',
       timeRemaining: type.totalHours,
-      dateStarted: Date.now()
+      dateStarted: Date.now(),
+      level: this.props.level
     }
     apiRequest('post', `/generated-exam`, data, this.props.token)
       .then((res)=>{
@@ -162,8 +171,8 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-   
     this.checkStatus()
+    console.log(this.props.level)
   }
   render() { 
     return (
@@ -243,6 +252,24 @@ class Layout extends Component {
 
                   : null }
 
+                  {this.state.noPreTestAvailable ? 
+                    <div className='exam-type-loader'>
+                        <div>
+                          <span>
+                            <i className='la la-frown-o'></i>
+                          </span>
+                          <div className='subtitle-montserrat'>Pasensya Kaibigan</div>
+                          <div className='context-montserrat'>Walang Pre Test na available sa iyong level</div>
+                            <Link to='/learner-start/dashboard'>
+                              <div className='button primary'>Ok</div>
+                            </Link>
+                        </div>
+                      </div>
+
+                  : null }
+
+                  
+
                   {this.state.isAvailable ? 
                    <div className='exam-type-loader'>
                       <div>
@@ -292,7 +319,8 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     role: state.role,
-    user: state.user
+    user: state.user,
+    level: state.level
   }
 }
 const AvailableExam = connect(mapStateToProps)(Layout)
