@@ -35,6 +35,7 @@ class Layout extends Component {
       learningStrandName: '',
 
       learningStrandList: [],
+      learningStrandRequest: [],
 
       difficultyEasy: '',
       difficultyAverage: '',
@@ -96,10 +97,12 @@ class Layout extends Component {
       learningStrandQuestion: [],
       learningStrand: '',
     })
-    this.fetchDifficultyCount(value)
+
+    this.fetchDifficultyCount(value, this.state.learningStrandRequest)
   }
   addLearningStrand(){
     let learningStrandQuestion = this.state.learningStrandQuestion
+    let learningStrandRequest = this.state.learningStrandRequest
     let data = {
       learningStrand: this.state.learningStrand,
       learningStrandName: this.state.learningStrandName
@@ -109,7 +112,7 @@ class Layout extends Component {
     }).indexOf(this.state.learningStrand)
     if(checkIfExist === -1){
       learningStrandQuestion = [...learningStrandQuestion, data]
-      
+      learningStrandRequest = [...learningStrandRequest, this.state.learningStrand ]
     }else{
       learningStrandQuestion = [...learningStrandQuestion.slice(0, checkIfExist), data, ...learningStrandQuestion.slice(checkIfExist + 1)]
     }
@@ -117,8 +120,9 @@ class Layout extends Component {
       learningStrandQuestion: learningStrandQuestion,
       learningStrand: '',
       learningStrandName: '',
+      learningStrandRequest: learningStrandRequest
     })
-
+    this.fetchDifficultyCount(this.state.level, learningStrandRequest)
    
   }
   changeLearningStrand(e){
@@ -136,10 +140,14 @@ class Layout extends Component {
   }
   removeLearningStrand(index){
     let learningStrandQuestion = this.state.learningStrandQuestion
+    let learningStrandRequest = this.state.learningStrandRequest
     learningStrandQuestion = [...learningStrandQuestion.slice(0,index), ...learningStrandQuestion.slice(index + 1)]
+    learningStrandRequest = [...learningStrandRequest.slice(0,index), ...learningStrandRequest.slice(index + 1)]
     this.setState({
-      learningStrandQuestion: learningStrandQuestion
+      learningStrandQuestion: learningStrandQuestion,
+      learningStrandRequest: learningStrandRequest
     })
+    this.fetchDifficultyCount(this.state.level, learningStrandRequest)
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -198,7 +206,7 @@ class Layout extends Component {
   }
 
   componentDidMount(){
-      this.fetchDifficultyCount('')
+      this.fetchDifficultyCount('',[])
       this.fetchLearningStrand()
   }
   fetchLearningStrand(){
@@ -215,14 +223,21 @@ class Layout extends Component {
       })
     
   }
-  fetchDifficultyCount(level){
-    apiRequest('get', `/exam-management/difficulty-count?level=${level}`, false, this.props.token)
+  fetchDifficultyCount(level, learningStrand){
+    let data = {
+      level: level,
+      learningStrand: learningStrand
+    }
+    apiRequest('post', `/exam-management/difficulty-count`, data, this.props.token)
       .then((res)=>{
         if(res.data){
           this.setState({
             easyCount: res.data.easy,
             averageCount: res.data.average,
             difficultCount: res.data.difficult,
+            difficultyEasy: this.state.difficultyEasy > res.data.easy ? res.data.easy : this.state.difficultyEasy,
+            difficultyAverage: this.state.difficultyAverage > res.data.average ? res.data.average : this.state.difficultyAverage,
+            difficultyDifficult: this.state.difficultyDifficult > res.data.difficult ? res.data.difficult : this.state.difficultyDifficult,
           })  
         }
       })
@@ -276,7 +291,7 @@ class Layout extends Component {
                           onChange={this.handleChange}
                         />
                       </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
+                      <Grid.Cell large={5} medium={12} small={12}>
                         <SelectLevel 
                           required 
                           type='text' 
@@ -285,49 +300,7 @@ class Layout extends Component {
                           value={this.state.level} 
                           onChange={this.levelChange}/>
                       </Grid.Cell>
-
-                       <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          type='number'
-                          min={0}
-                          max={this.state.easyCount1}
-                          label={'Easy - (max: ' +this.state.easyCount+ ')'}
-                          name='difficultyEasy'
-                          value={this.state.difficultyEasy}
-                          onChange={(e)=>{this.changeQuestion(e, this.state.easyCount)}}
-                        />
-                      </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          
-                          type='number'
-                          min={0}
-                          max={this.state.averageCount}
-                          label={'Average - (max: ' + this.state.averageCount + ')'}
-                          name='difficultyAverage'
-                          value={this.state.difficultyAverage}
-                          onChange={(e)=>{this.changeQuestion(e, this.state.averageCount)}}
-                        />
-                      </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          
-                          type='number'
-                          min={0}
-                          max={this.state.difficultCount}
-                          label={'Difficult - (max: ' + this.state.difficultCount + ')'}
-                          name='difficultyDifficult'
-                          value={this.state.difficultyDifficult}
-                          onChange={(e)=>{this.changeQuestion(e, this.state.difficultCount)}}
-                        />
-                      </Grid.Cell>
-
-                  </Grid.X>
-
-
-
-                  <Grid.X>
-                      <Grid.Cell large={3} medium={12} small={12}>
+                       <Grid.Cell large={5} medium={12} small={12}>
                         <SelectLearningStrand 
                            
                           type='text' 
@@ -338,11 +311,12 @@ class Layout extends Component {
                           onChange={this.changeLearningStrand}
                         />
                       </Grid.Cell>
-                     
-                      <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
-                        <Button type='button' text='Add Exam Data' className='secondary small' onClick={this.addLearningStrand} />
+                      <Grid.Cell className='form-button right' large={2} medium={12} small={12}>
+                        <Button type='button' text='Add Learning Strand' className='secondary small' onClick={this.addLearningStrand} />
                       </Grid.Cell>
-                    </Grid.X>
+                       
+
+                  </Grid.X>
                     <Grid.X>
                         <Table hover nostripe>
                           <Table.Header>
@@ -377,7 +351,42 @@ class Layout extends Component {
                     </Grid.X>
 
                     <Grid.X>
-                      <Grid.Cell large={4} medium={12} small={12}>
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <Input
+                          type='number'
+                          min={0}
+                          max={this.state.easyCount1}
+                          label={'Easy - (max: ' +this.state.easyCount+ ')'}
+                          name='difficultyEasy'
+                          value={this.state.difficultyEasy}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.easyCount)}}
+                        />
+                      </Grid.Cell>
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <Input
+                          
+                          type='number'
+                          min={0}
+                          max={this.state.averageCount}
+                          label={'Average - (max: ' + this.state.averageCount + ')'}
+                          name='difficultyAverage'
+                          value={this.state.difficultyAverage}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.averageCount)}}
+                        />
+                      </Grid.Cell>
+                      <Grid.Cell large={3} medium={12} small={12}>
+                        <Input
+                          
+                          type='number'
+                          min={0}
+                          max={this.state.difficultCount}
+                          label={'Difficult - (max: ' + this.state.difficultCount + ')'}
+                          name='difficultyDifficult'
+                          value={this.state.difficultyDifficult}
+                          onChange={(e)=>{this.changeQuestion(e, this.state.difficultCount)}}
+                        />
+                      </Grid.Cell>
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <Input
                           required
                           type='number'

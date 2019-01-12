@@ -65,18 +65,41 @@ class Layout extends Component {
     })
   }
   fetchExamType(){
-    apiRequest('get', `/exam-type-management/all?hidePreTest=true`, false, this.props.token)
+    let hasPassedAdaptiveTest = false
+    console.log(this.props.level)
+    apiRequest('get', `/generated-exam/learner-adaptive-test?level=${this.props.level}&examiner=${this.props.user.id}`, false, this.props.token)
       .then((res)=>{
         if(res.data){
-          this.setState({
-            examType: res.data.data
-          })  
+          hasPassedAdaptiveTest = res.data.adaptivetest
+          let requestTest = ''
+          if(hasPassedAdaptiveTest){ //passed the adaptive test, show post test too.
+            requestTest = 'hidePreTest=true'
+          }else{//failed or no adaptive test, show adaptive test only
+            requestTest = 'hidePostTest=true'
+          }
+          apiRequest('get', `/exam-type-management/all?level=${this.props.level}&${requestTest}`, false, this.props.token)
+            .then((res)=>{
+              console.log(res)
+              if(res.data){
+                this.setState({
+                  examType: res.data.data
+                })  
+              }
+            })
+            .catch((err)=>{
+            
+              this.formMessage('Error: ' + err.message, 'error', true, false)
+            })
+
         }
       })
       .catch((err)=>{
       
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
+
+
+    
   }
 
   generateExam(id, level, type, time){
@@ -164,7 +187,8 @@ class Layout extends Component {
       type: type,
       timeRemaining: timeRemaining,
       status: 'Pending',
-      dateStarted: Date.now()
+      dateStarted: Date.now(),
+      level: this.props.level
     }
 
     apiRequest('post', `/generated-exam`, data, this.props.token)
@@ -369,7 +393,8 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     role: state.role,
-    user: state.user
+    user: state.user,
+    level: state.level
   }
 }
 const AvailableExam = connect(mapStateToProps)(Layout)
