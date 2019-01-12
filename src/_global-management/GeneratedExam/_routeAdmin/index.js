@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import LearnerExam from '../LearnerExam'
 import ResultExam from '../ResultExam'
@@ -24,6 +24,17 @@ class Exam extends Component {
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink to='/admin/generated-exam/learner' className='link' activeClassName='active'>
+              List of Generated Exam
+            </NavLink>
+            {this.props.location.pathname === '/admin/generated-exam/result' ? 
+              <div className='link active'>
+                Result of Exam
+              </div>
+            : null}
+            
+          </div>
         	<Routes />
         </div>
     )

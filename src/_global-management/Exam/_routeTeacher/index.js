@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import AddExam from '../AddExam'
 import ListExam from '../ListExam'
@@ -28,6 +28,31 @@ class Exam extends Component {
   render() { 
     return (
         <div>
+           <div className='third-top-bar'>
+            <NavLink to='/teacher/management/exam/list/teachers' className='link' activeClassName='active'>
+              Exam Questions by other Teachers
+            </NavLink>
+             <NavLink to='/teacher/management/exam/list/self' className='link' activeClassName='active'>
+              Exam Questions by yourself
+            </NavLink>
+            <NavLink to='/teacher/management/exam/add' className='link' activeClassName='active'>
+              Add New Exam Question
+            </NavLink>
+            <NavLink to='/teacher/management/exam/import' className='link' activeClassName='active'>
+              Import Exam Question
+            </NavLink>
+            {this.props.location.pathname === '/teacher/management/exam/edit' ? 
+              <div className='link active'>
+                Update Exam Question
+              </div>
+            : null}
+            {this.props.location.pathname === '/teacher/management/exam/validate' ? 
+              <div className='link active'>
+                Validate Exam Question
+              </div>
+            : null}
+            
+          </div>
           <Routes />
         </div>
     )

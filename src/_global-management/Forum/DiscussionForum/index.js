@@ -15,6 +15,7 @@ import { connect } from 'react-redux'
 
 import config from '../../../_config'
 
+import moment from 'moment'
 
 class Layout extends Component {
   constructor(props) {
@@ -139,7 +140,7 @@ class Layout extends Component {
                                 }}>
                           <div className='forum-dashboard-container'>
                             <div className='forum-name'>{attr.title}
-                              <div className='date-created'>{new Date(attr.datePosted).toLocaleDateString()}</div>
+                              <div className='date-created'>{moment(attr.datePosted).format('MMMM DD, YYYY')}</div>
                             </div>
                             <div className='forum-user'>
                               {

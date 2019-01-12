@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import AddSubject from './AddSubject'
 import ListSubject from './ListSubject'
@@ -26,6 +26,21 @@ class Subject extends Component {
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink to='/admin/management/subject/list' className='link' activeClassName='active'>
+              List of Modules
+            </NavLink>
+            <NavLink to='/admin/management/subject/add' className='link' activeClassName='active'>
+              Add New Module
+            </NavLink>
+            {this.props.location.pathname === '/admin/management/subject/edit' ? 
+              <div className='link active'>
+                Update Module Data
+              </div>
+            : null}
+            
+          </div>
+
         	<Routes />
         </div>
     )

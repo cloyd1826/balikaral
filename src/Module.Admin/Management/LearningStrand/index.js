@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import AddLearningStrand from './AddLearningStrand'
 import ListLearningStrand from './ListLearningStrand'
@@ -26,6 +26,20 @@ class LearningStrand extends Component {
   render() { 
     return (
         <div>
+            <div className='third-top-bar'>
+              <NavLink to='/admin/management/learning-strand/list' className='link' activeClassName='active'>
+                List of Learning Strand
+              </NavLink>
+              <NavLink to='/admin/management/learning-strand/add' className='link' activeClassName='active'>
+                Add New Learning Strand
+              </NavLink>
+              {this.props.location.pathname === '/admin/management/learning-strand/edit' ? 
+                <div className='link active'>
+                  Update Learning Strand Data
+                </div>
+              : null}
+              
+            </div>
         	<Routes />
         </div>
     )

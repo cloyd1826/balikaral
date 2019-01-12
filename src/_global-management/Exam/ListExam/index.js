@@ -217,7 +217,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container'>
+        					<div className='title-text-container hide-on-large'>
         						<div className='title'>Exam Management</div>
         						<div className='title-action'>
 
@@ -240,10 +240,10 @@ class Layout extends Component {
                       <div className='button primary small' onClick={this.validateMultiple}>Validate Selected Exam</div>
                     : null}
 
-                      <Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/import'}>
+                      <Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/exam/import'}>
                         <div className='button primary small'>Import Exam</div>
                       </Link>
-        							<Link to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/add'}>
+        							<Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/exam/add'}>
         								<div className='button primary small'>Add New Exam</div>
         							</Link>
         						</div>
@@ -340,7 +340,7 @@ class Layout extends Component {
       							        		<Table.Cell>
       							        					<Link 
       							        						to={{ 
-      														    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/edit', 
+      														    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/management/exam/edit', 
       														    state: { id: attr._id } 
       															}}>
       															{attr.question.details}
@@ -366,7 +366,7 @@ class Layout extends Component {
 
                                   { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
                                     <Link to={{ 
-                                      pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
+                                      pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/validate', 
                                       state: { id: attr._id } 
                                     }}>
                                       <span>
@@ -377,7 +377,7 @@ class Layout extends Component {
 
                                   { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
                                     <Link to={{ 
-                                      pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
+                                      pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/edit', 
                                       state: { id: attr._id } 
                                     }}>
                                       <span>

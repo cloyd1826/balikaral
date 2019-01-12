@@ -7,6 +7,7 @@ import Grid from '../../../../_component/Grid'
 import Form from '../../../../_component/Form/Form'
 import FormMessage from '../../../../_component/Form/FormMessage'
 import Input from '../../../../_component/Form/Input'
+import Textarea from '../../../../_component/Form/Textarea'
 import Button from '../../../../_component/Form/Button'
 
 import apiRequest from '../../../../_axios'
@@ -69,6 +70,7 @@ class Layout extends Component {
 
   	apiRequest('post', '/level', data, this.props.token)
   		.then((res)=>{
+        console.log(res)
           this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
       })	
@@ -84,7 +86,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container'>
+        					<div className='title-text-container  hide-on-large'>
         						<div className='title'>Level Management > Add</div>
         						<div className='title-action'>
         							<Link to='/admin/management/level/list'>
@@ -110,9 +112,8 @@ class Layout extends Component {
                           value={this.state.name} 
                           onChange={this.handleChange}/>
   	        					</Grid.Cell>
-  	        					<Grid.Cell large={6} medium={12} small={12}>
-  	        						<Input 
-  	        							type='text'
+  	        					<Grid.Cell large={12} medium={12} small={12}>
+  	        						<Textarea
   	        							label='Description' 
   	        							placeholder='Description' 
   	        							name='description' 

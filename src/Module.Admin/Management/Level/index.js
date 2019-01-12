@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import AddLevel from './AddLevel'
 import ListLevel from './ListLevel'
@@ -26,6 +26,20 @@ class Level extends Component {
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink to='/admin/management/level/list' className='link' activeClassName='active'>
+              List of Levels
+            </NavLink>
+            <NavLink to='/admin/management/level/add' className='link' activeClassName='active'>
+              Add New Level
+            </NavLink>
+            {this.props.location.pathname === '/admin/management/level/edit' ? 
+              <div className='link active'>
+                Update Level Data
+              </div>
+            : null}
+            
+          </div>
         	<Routes />
         </div>
     )

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import AddReviewer from '../AddReviewer'
 import ListReviewer from '../ListReviewer'
@@ -30,6 +30,33 @@ class Reviewer extends Component {
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink to='/teacher/management/reviewer/list/teachers' className='link' activeClassName='active'>
+              Reviewers by other teachers
+            </NavLink>
+            <NavLink to='/teacher/management/reviewer/list/self' className='link' activeClassName='active'>
+              Reviewer by yourself
+            </NavLink>
+            <NavLink to='/teacher/management/reviewer/add' className='link' activeClassName='active'>
+              Add New Reviewer
+            </NavLink>
+            {this.props.location.pathname === '/teacher/management/reviewer/view' ? 
+              <div className='link active'>
+                View Reviewer
+              </div>
+            : null}
+            {this.props.location.pathname === '/teacher/management/reviewer/edit' ? 
+              <div className='link active'>
+                Update Reviewer
+              </div>
+            : null}
+            {this.props.location.pathname === '/teacher/management/reviewer/validate' ? 
+              <div className='link active'>
+                Validate Reviewer
+              </div>
+            : null}
+            
+          </div>
           <Routes />
         </div>
     )

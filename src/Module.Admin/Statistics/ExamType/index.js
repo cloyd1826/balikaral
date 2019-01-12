@@ -111,7 +111,7 @@ class Layout extends Component {
     return (
       <Grid fluid>
         <div className='element-container'>
-          <div className='title-text-container'>
+          <div className='title-text-container  hide-for-large'>
               <div className='title'>Statistics of Exam Type</div>
           </div>
 	        <Grid.X>

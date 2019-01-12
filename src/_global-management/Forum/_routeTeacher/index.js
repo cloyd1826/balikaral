@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, NavLink} from 'react-router-dom'
 
 import DashboardForum from '../DashboardForum'
 import DiscussionForum from '../DiscussionForum'
@@ -19,13 +19,60 @@ const Routes = () => {
 }
 
 class ManagementForum extends Component {
-  constructor(props) {
+  constructor(props) { 
     super(props)
     this.state = {  }
   }
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink
+                className='link' 
+                activeClassName='active'
+                to={{
+                  pathname: '/teacher/forum/dashboard',
+                  state: {id: false }
+                }}
+              >
+              Forum List
+            </NavLink>
+            {this.props.location.state.id ? 
+              <NavLink 
+                className='link' 
+                activeClassName='active'
+                to={{
+                  pathname: '/teacher/forum/discussions/list',
+                  state: {id: this.props.location.state.id}
+                }}
+                >
+                List of Discussions
+              </NavLink>
+            : null}
+            {this.props.location.pathname === '/teacher/forum/discussions/add' && this.props.location.state.id  ? 
+              <NavLink 
+                className='link' 
+                activeClassName='active'
+                to={{
+                  pathname: '/teacher/forum/discussions/add',
+                  state: {id: this.props.location.state.id}
+                }}
+              >
+                Add New Discussion
+              </NavLink>
+            : null}
+            {this.props.location.pathname === '/teacher/forum/discussions/view' && this.props.location.state.id ? 
+              <NavLink 
+                className='link' 
+                activeClassName='active'
+                to={{
+                  pathname: '/teacher/forum/discussions/view',
+                  state: {id: this.props.location.state.id}
+                }}>
+                Discussion Details
+              </NavLink>
+            : null}
+          </div>
           <Routes />
         </div>
     )

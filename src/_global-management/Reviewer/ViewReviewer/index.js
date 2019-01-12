@@ -129,12 +129,12 @@ class Layout extends Component {
             <Grid.X>
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
-                  <div className='title-text-container'>
+                  <div className='title-text-container hide-on-large'>
                     <div className='title'>Reviewer</div>
                     <div className='title-action'>
                      
                       <Link to={
-                          (this.props.role === 'Administrator' ? '/admin/management/reviewer/list/all' : '')
+                          (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/list/all' : '')
                           + (this.props.role === 'Teacher' ? '/teacher/management/reviewer/list/teachers' : '')
                           + (this.props.role === 'Learner' ? (this.props.hadPreTest ?  '/learner/reviewer/list/learner' :  '/learner-start/reviewer/list/learner' ) : '')
                            }>

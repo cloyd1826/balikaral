@@ -50,6 +50,8 @@ class Layout extends Component{
       isCreating: true,
 
       isFacebookConfirm: false,
+
+      signIn: false
     }
     this.componentClicked = this.componentClicked.bind(this)
 
@@ -57,6 +59,7 @@ class Layout extends Component{
     this.responseGoogle = this.responseGoogle.bind(this)
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleCheckbox = this.handleCheckbox.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
     this.formMessage = this.formMessage.bind(this)
@@ -77,6 +80,13 @@ class Layout extends Component{
     let value = e.target.value
     this.setState({
       [name]: value
+    })
+  }
+  handleCheckbox(e){
+    let name = e.target.name
+    let cbecked = e.target.cbecked
+    this.setState({
+      [name]: cbecked
     })
   }
 
@@ -362,12 +372,12 @@ class Layout extends Component{
 
                 <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='tos'>
-                     <div className='context-montserrat text-center'>
-                        I have had read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral
+                     <div className='context-montserrat '>
+                       <input type='checkbox' className='sign-in-checkbox' name='signIn' checked={this.state.signIn} onChange={this.handleCheckbox} /> I have had read the <strong><Link to='/terms-of-service'>Terms of Service</Link></strong> and <strong><Link to='/privacy-policy'>Privacy Policy</Link></strong> of Balikaral
                       </div>
                   </Grid.Cell>
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
-                    <button type='submit' className='button primary'>Sign up</button>
+                    <button type='submit' disabled={this.state.signIn} className='button primary'>Sign up</button>
                   </Grid.Cell>
                 </Grid.X>
                 </Form>

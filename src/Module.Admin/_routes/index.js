@@ -4,50 +4,30 @@ import { Route } from 'react-router-dom'
 
 import Dashboard from '../Dashboard'
 
-import Level from '../Management/Level'
-import LearningStrand from '../Management/LearningStrand'
-import Subject from '../Management/Subject'
-import LandingPage from '../Management/LandingPage'
 
-import Exam from '../../_global-management/Exam/_routeAdmin'
-import ExamType from '../../_global-management/ExamType/_routeAdmin'
-import Reviewer from '../../_global-management/Reviewer/_routeAdmin'
-import GeneratedExam from '../../_global-management/GeneratedExam/_routeAdmin'
-
-import ManagementForum from '../../_global-management/Forum/_routeAdminManagement'
-
-import Forum from '../../_global-management/Forum/_routeAdmin'
-
+ 
 import UserView from '../../Page.Profile/_routeAdmin'
-
 import LearnerProfile from '../../Page.LearnerProfile/_routeAdmin'
 import LearnerList from '../../Page.Profile/UserLearner'
 
-import User from '../User'
-import Statistics from '../Statistics'
+import RouteManagement from './_routeManagement'
+import RouteTeacher from './_routeTeacher'
+import RouteStatistics from './_routeStatistics'
+import RouteGeneratedExam from './_routeGeneratedExam'
+import RouteUser from './_routeUser'
+import RouteForum from './_routeForum'
 
 const Routes = () => {
   return (
         <div className='admin-content'>
             <Route path='/admin/dashboard' component={Dashboard} />
 
-            <Route path='/admin/management/level' component={Level} />
-            <Route path='/admin/management/learning-strand' component={LearningStrand} />
-            <Route path='/admin/management/subject' component={Subject} />
-            <Route path='/admin/management/forum' component={ManagementForum} />
-            <Route path='/admin/management/landing-page' component={LandingPage} />
-
-            <Route path='/admin/forum' component={Forum} />
-
-            <Route path='/admin/management/exam' component={Exam} />
-            <Route path='/admin/management/exam-type' component={ExamType} />
-            <Route path='/admin/management/reviewer' component={Reviewer} />
-            <Route path='/admin/user' component={User} />
-
-            <Route path='/admin/statistics/' component={Statistics} />
-
-
-            <Route path='/admin/generated-exam/' component={GeneratedExam} />
+            <Route path='/admin/management/' component={RouteManagement} />
+            <Route path='/admin/teachers/' component={RouteTeacher} />
+            <Route path='/admin/statistics/' component={RouteStatistics} />
+            <Route path='/admin/forum/' component={RouteForum} />
+            <Route path='/admin/user' component={RouteUser} />
+            <Route path='/admin/generated-exam/' component={RouteGeneratedExam} />
 
             <Route path='/admin/learner-profile/' component={LearnerProfile} />
             <Route path='/admin/learner-list' component={LearnerList} />

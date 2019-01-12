@@ -7,6 +7,7 @@ import Grid from '../../../../_component/Grid'
 import Form from '../../../../_component/Form/Form'
 import FormMessage from '../../../../_component/Form/FormMessage'
 import Input from '../../../../_component/Form/Input'
+import Textarea from '../../../../_component/Form/Textarea'
 import Button from '../../../../_component/Form/Button'
 
 import apiRequest from '../../../../_axios'
@@ -110,7 +111,7 @@ class Layout extends Component {
                 <Grid.X>
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
-                            <div className='title-text-container'>
+                            <div className='title-text-container hide-on-large'>
                                 <div className='title'>Learning Strand Management > Edit</div>
                                 <div className='title-action'>
                                     <Link to='/admin/management/learning-strand/list'>
@@ -144,8 +145,8 @@ class Layout extends Component {
                                     value={this.state.level} 
                                     onChange={this.handleChange}/>
                                 </Grid.Cell>
-                                <Grid.Cell large={6} medium={12} small={12}>
-                                    <Input 
+                                <Grid.Cell large={12} medium={12} small={12}>
+                                    <Textarea
                                         type='text'
                                         label='Description' 
                                         placeholder='Description' 

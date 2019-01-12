@@ -1,0 +1,54 @@
+.secondary-top-bar
+	background: #52b8d5
+	display: flex
+	align-items: center
+	padding-left: 16px
+	padding-bottom: -2px
+	border-bottom: #fff solid 2px
+	.top-bar-title
+		color: #fff
+		font-weight: 600
+		font-size: 20px
+		padding: 16px 8px 16px 0
+		margin-right: 8px
+	.link
+		font-size: 16px
+		color: rgba(255,255,255,0.6)
+		padding: 16px 8px
+		display: flex
+		align-items: center
+		margin-right: 16px
+		i
+			font-size: 22px
+			margin-right: 4px
+	.link.active
+		color: #fff
+		padding: 16px 8px
+		position: relative
+		font-family: 'Questrial', sans-serif
+		font-weight: 900
+		&:before
+			content: ''
+			position: absolute
+			top: calc(100% - 7px)
+			left: 50%
+			transform: translate(-50%, 0)
+			border-color: #fff transparent
+			border-style: solid
+			border-width: 0px 8px 8px 8px
+			height: 0px
+			width: 0px
+
+.third-top-bar
+	background: #fff
+	padding: 8px 16px 8px 64px
+	display: flex
+	.link
+		margin-right: 24px
+		padding: 8px 0 0px 0px
+		margin-bottom: 8px
+		font-size: 14px
+		font-weight: 600
+		cursor: pointer
+	.link.active
+		border-bottom: $blue-color solid 2px

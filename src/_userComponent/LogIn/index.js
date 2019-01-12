@@ -33,7 +33,9 @@ class Layout extends Component{
       message: '',
       type: '',
       active: false,
-      buttonDisabled: false
+      buttonDisabled: false,
+
+      disabled: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -76,42 +78,54 @@ class Layout extends Component{
     this.formMessage('Logging in', 'loading', true, false)
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
-          let result = res.data
-          console.log(result)
-          let userData = {
-            user: { 
-              id: result.data ? result.data._id ? result.data._id : '' : '',
-              email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
-              firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
-              middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
-              lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
-              image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : ''
-            },
-            token: result.token,
-            isLoggedIn: true,
-            role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : '',
+          console.log(res)
+          if(res.data) {
+              let result = res.data
+              let userData = {
+                user: { 
+                  id: result.data ? result.data._id ? result.data._id : '' : '',
+                  email: result.data.local ? result.data.local.email ? result.data.local.email : '' : '',
+                  firstName: result.data.personalInformation ? result.data.personalInformation.firstName ? result.data.personalInformation.firstName : '' : '' ,
+                  middleName: result.data.personalInformation ? result.data.personalInformation.middleName ? result.data.personalInformation.middleName : '' :'' ,
+                  lastName: result.data.personalInformation ? result.data.personalInformation.lastName ? result.data.personalInformation.lastName : '' :'' ,
+                  image: result.data.personalInformation ? result.data.personalInformation.image ? result.data.personalInformation.image : '' : ''
+                },
+                token: result.token,
+                isLoggedIn: true,
+                role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : '',
+              }
+              if(userData.role === 'Learner'){
+                let level = result.data.userSettings ? result.data.userSettings.level ? result.data.userSettings.level : '' : ''
+                apiRequest('get', `/generated-exam/learner-pre-test?level=${level}&examiner=${userData.user.id}`, false, userData.token)
+                  .then((res)=>{
+                    console.log(res)
+                    if(res.data){
+                      userData = {...userData, level: level, hadPreTest: res.data.pretest }
+                      console.log(userData)
+                      this.props.actions.logIn(userData)
+                      this.props.close()
+                    }
+                  })
+                  .catch((err)=>{
+                    this.formMessage('Error: ' + err.message, 'error', true, false)
+                  })
+              }else{
+                this.props.actions.logIn(userData)
+                this.props.close()
+              }
+          }else if(res.disabled){
+            this.setState({
+              disabled: true
+            })
           }
-          if(userData.role === 'Learner'){
-            let level = result.data.userSettings ? result.data.userSettings.level ? result.data.userSettings.level : '' : ''
-            apiRequest('get', `/generated-exam/learner-pre-test?level=${level}&examiner=${userData.user.id}`, false, userData.token)
-              .then((res)=>{
-                console.log(res)
-                if(res.data){
-                  userData = {...userData, level: level, hadPreTest: res.data.pretest }
-                  console.log(userData)
-                  this.props.actions.logIn(userData)
-                  this.props.close()
-                }
-              })
-              .catch((err)=>{
-                this.formMessage('Error: ' + err.message, 'error', true, false)
-              })
-          }else{
-            this.props.actions.logIn(userData)
-            this.props.close()
-          }
+         
       })
       .catch((err)=>{
+          
+            this.setState({
+              disabled: true
+            })
+          
           this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
@@ -129,8 +143,9 @@ class Layout extends Component{
 
           <div className='sign-in-form'>
               
+
+              {!this.state.disabled ? 
               <Grid>
-              
                <Form onSubmit={this.handleSubmit}>
                 <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='log-in-header'>
@@ -211,7 +226,23 @@ class Layout extends Component{
                   
                 </Grid.X>
               </Grid>
-             
+             : null}
+              {this.state.disabled ? 
+              <Grid>
+                <Grid.X className='confirm-message'>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <div className='subtitle-montserrat text-center'>Access Denied!</div>
+                    <div className='context-montserrat text-center'>
+                      Your account is still undergoing validation from our administrators before you can use our service.
+                    </div>
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
+                    <button type='submit' className='button primary' onClick={this.props.close}>Confirm</button>
+                  </Grid.Cell>
+                </Grid.X>
+              </Grid>
+              : null}
+
           </div>
         </div>
 

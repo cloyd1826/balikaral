@@ -15,6 +15,7 @@ import Pagination from '../../../_component/Pagination'
 
 import {Bar} from 'react-chartjs-2';
 
+import moment from 'moment'
 
 class Layout extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ class Layout extends Component {
     return (
     	<Grid fluid>
 	        <div className='element-container'>
-	          <div className='title-text-container'>
+	          <div className='title-text-container hide-for-large'>
 	              <div className='title'>Statistics of Generated Exam</div>
 	          </div>
 	        <Grid.X>
@@ -160,7 +161,7 @@ class Layout extends Component {
                                   + ' ' + 
                                   (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
                                   : '' : '') }</div>
-								<div className='label'>Date: {new Date(attr.dateStarted).toLocaleDateString() + ' - ' + new Date(attr.dateStarted).toLocaleDateString() }</div>
+								<div className='label'>Date: { moment(attr.dateStarted).format('MMMM DD, YYYY - LTS') + ' - ' + moment(attr.dateFinished).format('MMMM DD, YYYY - LTS') }</div>
 								<div className='label'>Result: {attr.status}</div>
 								<div className='label'>Score: {attr.score}</div>
 								

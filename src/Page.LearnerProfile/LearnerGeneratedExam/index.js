@@ -15,6 +15,7 @@ import Pagination from '../../_component/Pagination'
 
 import {Bar} from 'react-chartjs-2';
 
+import moment from 'moment'
 
 class Layout extends Component {
   constructor(props) {
@@ -154,7 +155,7 @@ class Layout extends Component {
 				    	<Grid.Cell key={index} large={12} medium={12}  small={12}>
 				    		<div className='bar-chart-label'>
 								<div className='name'>{attr.type}</div>
-								<div className='label'>Date: {new Date(attr.dateStarted).toLocaleDateString() + ' - ' + new Date(attr.dateStarted).toLocaleDateString() }</div>
+								<div className='label'>Date: { moment(attr.dateStarted).format('MMMM DD, YYYY - LT') + ' - ' + moment(attr.dateFinished).format('MMMM DD, YYYY - LT') }</div>
 								<div className='label'>Result: {attr.status}</div>
 								<div className='label'>Score: {attr.score}</div>
 							</div>

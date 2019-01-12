@@ -54,7 +54,7 @@ class Layout extends Component {
 
             <Link to={{ 
                     pathname: 
-                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                      (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/view' : '') + 
                       (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
                       (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
                     state: { id: this.props.data._id } 
@@ -70,7 +70,7 @@ class Layout extends Component {
 
                  {this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
                     <Link to={{ 
-                      pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/validate', 
+                      pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/validate', 
                       state: { id: this.props.data._id } 
                     }}>
                       <div className='action'>
@@ -82,7 +82,7 @@ class Layout extends Component {
 
                   { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
                     <Link to={{ 
-                      pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/edit', 
+                      pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/edit', 
                       state: { id: this.props.data._id } 
                     }}>
                       <div className='action'>
@@ -94,7 +94,7 @@ class Layout extends Component {
 
                  <Link to={{ 
                     pathname: 
-                      (this.props.role === 'Administrator' ? '/admin/management/reviewer/view' : '') + 
+                      (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/view' : '') + 
                       (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
                       (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
                     state: { id: this.props.data._id } 

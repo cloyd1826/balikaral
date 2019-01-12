@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route,NavLink} from 'react-router-dom'
 
 import AddForum from '../AddForum'
 import ListForum from '../ListForum'
@@ -24,6 +24,19 @@ class ManagementForum extends Component {
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink to='/admin/management/forum/list' className='link' activeClassName='active'>
+              List of Forums
+            </NavLink>
+            <NavLink to='/admin/management/forum/add' className='link' activeClassName='active'>
+              Add New Forum
+            </NavLink>
+            {this.props.location.pathname === '/admin/management/forum/edit' ? 
+              <div className='link active'>
+                Update Forum Data
+              </div>
+            : null}
+          </div>
         	<Routes />
         </div>
     )

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import { Route, NavLink} from 'react-router-dom'
 
 import AddExamType from '../AddExamType'
 import EditExamType from '../EditExamType'
@@ -24,6 +24,20 @@ class ExamType extends Component {
   render() { 
     return (
         <div>
+          <div className='third-top-bar'>
+            <NavLink to='/admin/management/exam-type/list' className='link' activeClassName='active'>
+              List of Exam Types
+            </NavLink>
+            <NavLink to='/admin/management/exam-type/add' className='link' activeClassName='active'>
+              Add New Exam Type
+            </NavLink>
+            {this.props.location.pathname === '/admin/management/exam-type/edit' ? 
+              <div className='link active'>
+                Update Exam Type Data
+              </div>
+            : null}
+            
+          </div>
         	<Routes />
         </div>
     )

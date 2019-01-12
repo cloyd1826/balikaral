@@ -40,16 +40,16 @@ class Dashboard extends Component {
                 </Grid.Cell>
                
               </Grid.X>
+              
 
               <Grid.X>
-
                 <Grid.Cell large={12} medium={12} small={12}>
                   <div className='main-link-title'>Saya ng Naglilingkod</div>
                 </Grid.Cell>
 
 
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/reviewer/list/all'>
+                  <Link to='/admin/teachers/reviewer/list/all'>
                     <div className='dashboard-link' >
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Reviewer</div>
@@ -58,7 +58,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
                
                  <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/exam/list/all'>
+                  <Link to='/admin/teachers/exam/list/all'>
                     <div className='dashboard-link' >
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>
@@ -66,15 +66,7 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
 
-                
-                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/forum/dashboard'>
-                    <div className='dashboard-link' >
-                      <span className='la  la-comments'></span>
-                      <div className='link-title'>Forum Discussions</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
+
 
               </Grid.X>
 
@@ -124,12 +116,37 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
-
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/forum/list/'>
-                    <div className='dashboard-link' >
+                 <Grid.Cell large={3} medium={6} small={12}>
+                    <Link to='/admin/management/forum/list/'>
+                      <div className='dashboard-link' >
                       <span className='la la-comment'></span>
                       <div className='link-title'>Forum</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+                 <Grid.Cell large={3} medium={6} small={12}>
+                 <Link to='/admin/management/landing-page/list'>
+                    <div className='dashboard-link' >
+                      <span className='la  la-institution'></span>
+                      <div className='link-title'>Landing Page</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+              </Grid.X>
+              <Grid.X>
+                <Grid.Cell large={12} medium={12} small={12}>
+                  <div className='main-link-title'>Damayan</div>
+                </Grid.Cell>
+                <Grid.Cell large={3} medium={6} small={12}>
+                   
+                  <Link
+                    to={{
+                      pathname: '/admin/forum/dashboard',
+                      state: {id: false}
+                    }}>
+                    <div className='dashboard-link' >
+                      <span className='la  la-comments'></span>
+                      <div className='link-title'>Forum Discussions</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -189,23 +206,7 @@ class Dashboard extends Component {
                
               </Grid.X>
 
-              <Grid.X>
-                <Grid.Cell large={12} medium={12} small={12}>
-                  <div className='main-link-title'>Landing Page</div>
-                </Grid.Cell>
-
-
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/admin/management/landing-page/list'>
-                    <div className='dashboard-link' >
-                      <span className='la  la-institution'></span>
-                      <div className='link-title'>Detalye</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
-
-               
-              </Grid.X>
+              
 
             </Grid>
 

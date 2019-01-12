@@ -107,10 +107,10 @@ class Layout extends Component {
                 <Grid.X>
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
-                            <div className='title-text-container'>
+                            <div className='title-text-container hide-on-large'>
                                 <div className='title'>Reviewer Management > Edit</div>
                                 <div className='title-action'>
-                                    <Link  to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
+                                    <Link  to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
                                         <div className='button primary small'>List of Reviewer</div>
                                     </Link>
                                 </div>
@@ -141,7 +141,7 @@ class Layout extends Component {
                                 </Grid.Cell>
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                                     <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
-                                    <Link  to={(this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
+                                    <Link  to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
                                         <Button type='button' text='Return' className='cancel small'/>
                                     </Link>
                                 </Grid.Cell>

@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
 
 import config from '../../../_config'
 
+import moment from 'moment'
 
 class Layout extends Component {
   constructor(props) {
@@ -150,7 +151,7 @@ class Layout extends Component {
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   <div className='discussion-title'>
                     {discussion.title ? discussion.title : ''}  
-                    <div className='date-created'>{new Date(discussion.datePosted).toLocaleDateString()}</div>
+                    <div className='date-created'>{moment(discussion.datePosted).format('MMMM DD, YYYY')}</div>
                   </div>
                   <div className='discussion-user'>
                     {
@@ -225,7 +226,7 @@ class Layout extends Component {
                                 (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
                                 : '' : ''
                               }
-                            <div className='date-comment'>{new Date(attr.dateComment).toLocaleDateString()}</div>
+                            <div className='date-comment'>{moment(attr.dateComment).format('MMMM DD, YYYY')}</div>
 
                         </div>
                         <div className='comment-description'>

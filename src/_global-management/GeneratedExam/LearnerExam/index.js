@@ -17,6 +17,8 @@ import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 
 import Select from '../../../_component/Form/Select'
 
+import moment from 'moment'
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -189,11 +191,11 @@ class Layout extends Component {
                                 : '' : ''
                               }</Table.Cell>
 
-                              <Table.Cell>{attr.dateStarted ? new Date(attr.dateStarted).toLocaleDateString() : ''}</Table.Cell>
+                              <Table.Cell>{attr.dateStarted ? moment(attr.dateStarted).format('MMMM DD, YYYY') : ''}</Table.Cell>
                               <Table.Cell>{attr.status ? attr.status : ''}</Table.Cell>
                               <Table.Cell>{attr.exam ? attr.exam.length : ''}</Table.Cell>
                               <Table.Cell>{attr.score ? attr.score : ''}</Table.Cell>
-                              <Table.Cell>{attr.dateFinished ? new Date(attr.dateFinished).toLocaleDateString() : '' }</Table.Cell>
+                              <Table.Cell>{attr.dateFinished ? moment(attr.dateFinished).format('MMMM DD, YYYY') : '' }</Table.Cell>
 							        				<Table.Cell isNarrowed>
 
                                 { (attr.status === 'Completed' || attr.status === 'Retake' ) && this.props.role === 'Learner' ? 

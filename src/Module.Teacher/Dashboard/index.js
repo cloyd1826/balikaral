@@ -70,7 +70,10 @@ class Dashboard extends Component {
                 </Grid.Cell>
                 
                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/forum/dashboard'>
+                  <Link to={{
+                  pathname: '/teacher/forum/dashboard',
+                  state: {id: false }
+                }}>
                     <div className='dashboard-link'>
                       <span className='la la-comment'></span>
                       <div className='link-title'>Forum</div>

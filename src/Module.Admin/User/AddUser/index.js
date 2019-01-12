@@ -99,7 +99,7 @@ class Layout extends Component {
                 <Grid.X>
                     <Grid.Cell large={12} medium={12} small={12}>
                         <div className='element-container'>
-                            <div className='title-text-container'>
+                            <div className='title-text-container hide-on-large'>
                                 <div className='title'>User > Add</div>
                                 <div className='title-action'>
                                     <Link to='/admin/user/list'>
@@ -178,51 +178,7 @@ class Layout extends Component {
                                     onChange={this.handleChange}
                                      />
                                 </Grid.Cell>
-                                 <Grid.Cell large={3} medium={6} small={12}>
-                                  <Input 
-                                    label='House No'
-                                    
-                                    name='houseNoStreet'
-                                    value={this.state.houseNoStreet}
-                                    onChange={this.handleChange}
-                                     />
-                                </Grid.Cell>
-                                 <Grid.Cell large={3} medium={6} small={12}>
-                                  <Input 
-                                    label='Baranggay'
-                                    
-                                    name='barangay'
-                                    value={this.state.barangay}
-                                    onChange={this.handleChange}
-                                     />
-                                </Grid.Cell>
-                                 <Grid.Cell large={3} medium={6} small={12}>
-                                  <Input 
-                                    label='City'
-                                    
-                                    name='city'
-                                    value={this.state.city}
-                                    onChange={this.handleChange}
-                                     />
-                                </Grid.Cell>
-                                 <Grid.Cell large={3} medium={6} small={12}>
-                                  <Input 
-                                    label='Province'
-                                    
-                                    name='province'
-                                    value={this.state.province}
-                                    onChange={this.handleChange}
-                                     />
-                                </Grid.Cell>
-                                 <Grid.Cell large={3} medium={6} small={12}>
-                                  <Input 
-                                    label='Zip Code'
-                                    
-                                    name='zipcode'
-                                    value={this.state.zipcode}
-                                    onChange={this.handleChange}
-                                     />
-                                </Grid.Cell>
+                                 
                                  
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                                     <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
