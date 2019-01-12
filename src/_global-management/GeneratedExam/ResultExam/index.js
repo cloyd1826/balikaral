@@ -159,7 +159,7 @@ class Layout extends Component {
 	                  }
 
                       {this.state.checkingExam ?
-                        <Grid.X >
+                        <Grid.X className="exams-container">
                           <Grid.Cell large={12} medium={12} small={12}>
                              <div className='grid-question-action'>
                               <div className='action'>

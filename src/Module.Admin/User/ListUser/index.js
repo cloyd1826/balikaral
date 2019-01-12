@@ -86,6 +86,7 @@ class Layout extends Component {
         						
         					</div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
+                  <div className="table-container">
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
@@ -144,6 +145,7 @@ class Layout extends Component {
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
+                </div>
                  <div className='table-pagination'>
                   <Pagination
                       changePage={this.changePage}

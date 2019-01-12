@@ -29,9 +29,15 @@ input[type='text'], input[type='password'], input[type='date'], input[type='date
     background-color: #e6e6e6
     cursor: not-allowed
 form.small
-  input,select,textarea
+  input,select
     font-size: 12px!important
     margin: 0
+    height: auto
+    line-height: 12px
+    padding: 8px
+  textarea
+    font-size: 16px!important
+    margin: 3px 0px 0px 0px
     height: auto
     line-height: 12px
     padding: 8px
@@ -245,7 +251,7 @@ select
     background-color: #fefefe
     box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1)
     font-family: inherit
-    font-size: 1rem
+    font-size: 18px!important
     font-weight: normal
     line-height: 1.5
     color: #0a0a0a
@@ -265,6 +271,7 @@ select
     margin: 4px 4px 4px 0
     transition: $transition-fast
   .button.secondary
+    border: solid 1px transparent
     &:hover
       background: #0d3a88
       color: #fff
@@ -278,7 +285,7 @@ select
 
 .form-container
   position: relative
-  padding: 16px 0
+  padding: 16px
   .loader-container, .error-container, .success-container
     position: absolute
     top: 50%

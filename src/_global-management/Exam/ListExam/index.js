@@ -290,132 +290,134 @@ class Layout extends Component {
                       </Grid.Cell>
 
                   </div>
-  	        				<Table hover nostripe>
-  				        		<Table.Header>
-  				        			<Table.Row>
-                          <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
-                          <Table.HeaderCell>Question</Table.HeaderCell>
-                          <Table.HeaderCell>Answer</Table.HeaderCell>
-                          <Table.HeaderCell>Difficulty</Table.HeaderCell>
-  				        				<Table.HeaderCell>Submitted By</Table.HeaderCell>
-                          <Table.HeaderCell>Level</Table.HeaderCell>
-                          <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                          <Table.HeaderCell>Subject</Table.HeaderCell>
-  				        				<Table.HeaderCell>Validation</Table.HeaderCell>
-  				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
-  				        			</Table.Row>
-  				        		</Table.Header>
-  				        		<Table.Body>
-  				        			{
-  					        			this.state.exam.map((attr, index) =>{
-                            let selectedData = this.state.selectedData
-                            let indexOfSelectedData = selectedData.map((sd)=>{
-                              return sd._id
-                            }).indexOf(attr._id)
-  					        				let isValidatedByUser = attr.validator.map((v)=>{
-                                return v.user._id
-                            }).indexOf(this.props.user.id)
-                             
-                          return (
-                            <Table.Row key={index}>
-                                <Table.Cell isNarrowed>
-                                  {!attr.validation && this.props.role === 'Administrator' ?   
-                                    <ToggleButton key={attr._id} setSelected={()=>{this.setSelected(attr)}} isSelected={(indexOfSelectedData > -1 ? true : false)} />
-                                  :
-                                    null 
-                                  }
-                                  {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
-                                    
+  	        			<div className="table-container">
+                    <Table hover nostripe>
+  				          		<Table.Header>
+  				          			<Table.Row>
+                            <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
+                            <Table.HeaderCell>Question</Table.HeaderCell>
+                            <Table.HeaderCell>Answer</Table.HeaderCell>
+                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+  				          				<Table.HeaderCell>Submitted By</Table.HeaderCell>
+                            <Table.HeaderCell>Level</Table.HeaderCell>
+                            <Table.HeaderCell>Learning Strand</Table.HeaderCell>
+                            <Table.HeaderCell>Subject</Table.HeaderCell>
+  				          				<Table.HeaderCell>Validation</Table.HeaderCell>
+  				          				<Table.HeaderCell isNarrowed></Table.HeaderCell>
+  				          			</Table.Row>
+  				          		</Table.Header>
+  				          		<Table.Body>
+  				          			{
+  					          			this.state.exam.map((attr, index) =>{
+                              let selectedData = this.state.selectedData
+                              let indexOfSelectedData = selectedData.map((sd)=>{
+                                return sd._id
+                              }).indexOf(attr._id)
+  					          				let isValidatedByUser = attr.validator.map((v)=>{
+                                  return v.user._id
+                              }).indexOf(this.props.user.id)
+
+                            return (
+                              <Table.Row key={index}>
+                                  <Table.Cell isNarrowed>
+                                    {!attr.validation && this.props.role === 'Administrator' ?   
+                                      <ToggleButton key={attr._id} setSelected={()=>{this.setSelected(attr)}} isSelected={(indexOfSelectedData > -1 ? true : false)} />
+                                    :
+                                      null 
+                                    }
+                                    {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
+
+                                          <span>
+                                            <i className='la la-star-half-full primary'></i>
+                                          </span>
+                                    : null}
+                                    {attr.validation && this.props.role !== 'Learner'  ?
+
+                                          <span>
+                                            <i className='la la-star primary'></i>
+                                          </span>
+                                     : null}
+                                  </Table.Cell>
+      						  	        		<Table.Cell>
+      						  	        					<Link 
+      						  	        						to={{ 
+      						  								    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/edit', 
+      						  								    state: { id: attr._id } 
+      						  									}}>
+      						  									{attr.question.details}
+      						  								</Link>
+      						  							</Table.Cell>
+                                  <Table.Cell>{ attr.question ? attr.question.answer ? attr.question.answer : '' : '' }</Table.Cell>
+                                  <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
+                                  <Table.Cell isNarrowed>{
+                                    attr.uploader ? attr.uploader.personalInformation ? 
+                                    (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
+                                    + ' ' + 
+                                    (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
+                                    + ' ' + 
+                                    (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
+                                    : '' : ''
+                                  }</Table.Cell>
+                                  <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
+                                  <Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
+  							          				<Table.Cell isNarrowed>{ attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : '' }</Table.Cell>
+                                  <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
+  							          				<Table.Cell isNarrowed>
+
+
+                                    { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
+                                      <Link to={{ 
+                                        pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
+                                        state: { id: attr._id } 
+                                      }}>
                                         <span>
-                                          <i className='la la-star-half-full primary'></i>
+                                          <i className='la la-tags primary'></i>
                                         </span>
-                                  : null}
-                                  {attr.validation && this.props.role !== 'Learner'  ?
-                                    
+                                      </Link>
+                                    : null }
+
+                                    { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
+                                      <Link to={{ 
+                                        pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
+                                        state: { id: attr._id } 
+                                      }}>
                                         <span>
-                                          <i className='la la-star primary'></i>
+                                          <i className='fa fa-edit primary'></i>
                                         </span>
-                                   : null}
-                                </Table.Cell>
-      							        		<Table.Cell>
-      							        					<Link 
-      							        						to={{ 
-      														    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/edit', 
-      														    state: { id: attr._id } 
-      															}}>
-      															{attr.question.details}
-      														</Link>
-      													</Table.Cell>
-                                <Table.Cell>{ attr.question ? attr.question.answer ? attr.question.answer : '' : '' }</Table.Cell>
-                                <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
-                                <Table.Cell isNarrowed>{
-                                  attr.uploader ? attr.uploader.personalInformation ? 
-                                  (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
-                                  + ' ' + 
-                                  (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
-                                  + ' ' + 
-                                  (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-                                  : '' : ''
-                                }</Table.Cell>
-                                <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
-                                <Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
-  							        				<Table.Cell isNarrowed>{ attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : '' }</Table.Cell>
-                                <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
-  							        				<Table.Cell isNarrowed>
+                                      </Link>
+                                    : null }
 
-
-                                  { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
-                                    <Link to={{ 
-                                      pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
-                                      state: { id: attr._id } 
-                                    }}>
-                                      <span>
-                                        <i className='la la-tags primary'></i>
+                                    { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
+                                      <span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
+                                        <i className='fa fa-trash cancel'></i>
                                       </span>
-                                    </Link>
-                                  : null }
+                                    : null }
 
-                                  { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
-                                    <Link to={{ 
-                                      pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
-                                      state: { id: attr._id } 
-                                    }}>
-                                      <span>
-                                        <i className='fa fa-edit primary'></i>
-                                      </span>
-                                    </Link>
-                                  : null }
+  							          				</Table.Cell>
+  							          			</Table.Row>
+  					          				)
+  					          			})
+                          
+  				          			}
 
-                                  { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
-                                    <span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
-                                      <i className='fa fa-trash cancel'></i>
-                                    </span>
-                                  : null }
-  							        				
-  							        				</Table.Cell>
-  							        			</Table.Row>
-  					        				)
-  					        			})
-  					        			
-  				        			}
-  				        			
-  				        			
-  				        		</Table.Body>
-  				        		<Table.Footer>
-  				        			<Table.Row> 
-                          <Table.HeaderCell isNarrowed key='action-footer'></Table.HeaderCell>
-                          <Table.HeaderCell>Question</Table.HeaderCell>
-                          <Table.HeaderCell>Answer</Table.HeaderCell>
-                          <Table.HeaderCell>Difficulty</Table.HeaderCell>
-                          <Table.HeaderCell >Submitted By</Table.HeaderCell>
-                          <Table.HeaderCell >Level</Table.HeaderCell>
-                          <Table.HeaderCell >Learning Strand</Table.HeaderCell>
-                          <Table.HeaderCell>Subject</Table.HeaderCell>
-                          <Table.HeaderCell>Validation</Table.HeaderCell>
-                          <Table.HeaderCell isNarrowed></Table.HeaderCell>
-  				        			</Table.Row>
-  				        		</Table.Footer>
-  			        	</Table>
+                        
+  				          		</Table.Body>
+  				          		<Table.Footer>
+  				          			<Table.Row> 
+                            <Table.HeaderCell isNarrowed key='action-footer'></Table.HeaderCell>
+                            <Table.HeaderCell>Question</Table.HeaderCell>
+                            <Table.HeaderCell>Answer</Table.HeaderCell>
+                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                            <Table.HeaderCell >Submitted By</Table.HeaderCell>
+                            <Table.HeaderCell >Level</Table.HeaderCell>
+                            <Table.HeaderCell >Learning Strand</Table.HeaderCell>
+                            <Table.HeaderCell>Subject</Table.HeaderCell>
+                            <Table.HeaderCell>Validation</Table.HeaderCell>
+                            <Table.HeaderCell isNarrowed></Table.HeaderCell>
+  				          			</Table.Row>
+  				          		</Table.Footer>
+  			        	  </Table>
+                  </div>
                   <div className='table-pagination'>
                       <Pagination
                           changePage={this.changePage}
