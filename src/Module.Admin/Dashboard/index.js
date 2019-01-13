@@ -50,7 +50,7 @@ class Dashboard extends Component {
 
 
                 <Grid.Cell large={2} medium={4} small={12}>
-                  <Link to='/admin/management/reviewer/list/all'>
+                  <Link to='/admin/teachers/reviewer/list/all'>
                     <div className='dashboard-link' >
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Reviewer</div>
@@ -59,7 +59,7 @@ class Dashboard extends Component {
                 </Grid.Cell>
                
                  <Grid.Cell large={2} medium={4} small={12}>
-                  <Link to='/admin/management/exam/list/all'>
+                  <Link to='/admin/teachers/exam/list/all'>
                     <div className='dashboard-link' >
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>
@@ -125,7 +125,7 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
-                 <Grid.Cell large={3} medium={6} small={12}>
+                 <Grid.Cell large={2} medium={6} small={12}>
                  <Link to='/admin/management/landing-page/list'>
                     <div className='dashboard-link' >
                       <span className='la  la-institution'></span>
@@ -138,7 +138,7 @@ class Dashboard extends Component {
                 <Grid.Cell large={12} medium={12} small={12}>
                   <div className='main-link-title'>Damayan</div>
                 </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
+                <Grid.Cell large={2} medium={6} small={12}>
                    
                   <Link
                     to={{

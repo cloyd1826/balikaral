@@ -325,68 +325,9 @@ class Layout extends Component {
                                     :
                                       null 
                                     }
-                                    {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
-
-                                          <span>
-                                            <i className='la la-star-half-full primary'></i>
-                                          </span>
-                                    : null}
-                                    {attr.validation && this.props.role !== 'Learner'  ?
-
-                                          <span>
-                                            <i className='la la-star primary'></i>
-                                          </span>
-                                     : null}
+                                    
                                   </Table.Cell>
-      						  	        		<Table.Cell>
-      						  	        					<Link 
-      						  	        						to={{ 
-      						  								    pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') + '/management/exam/edit', 
-      						  								    state: { id: attr._id } 
-      						  									}}>
-      						  									{attr.question.details}
-      						  								</Link>
-      						  							</Table.Cell>
-                                  <Table.Cell>{ attr.question ? attr.question.answer ? attr.question.answer : '' : '' }</Table.Cell>
-                                  <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
-                                  <Table.Cell isNarrowed>{
-                                    attr.uploader ? attr.uploader.personalInformation ? 
-                                    (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
-                                    + ' ' + 
-                                    (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
-                                    + ' ' + 
-                                    (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-                                    : '' : ''
-                                  }</Table.Cell>
-                                  <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
-                                  <Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
-  							          				<Table.Cell isNarrowed>{ attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : '' }</Table.Cell>
-                                  <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
-  							          				<Table.Cell isNarrowed>
-
-
-                                    { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
-                                      <Link to={{ 
-                                        pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/validate', 
-                                        state: { id: attr._id } 
-                                      }}>
-                                        <span>
-                                          <i className='la la-tags primary'></i>
-                                        </span>
-                                      </Link>
-                                    : null }
-
-                                    { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
-                                      <Link to={{ 
-                                        pathname: (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '') +  '/management/exam/edit', 
-                                        state: { id: attr._id } 
-                                      }}>
-                                        <span>
-                                          <i className='fa fa-edit primary'></i>
-                                        </span>
-                                      </Link>
-                                   : null}
-                                </Table.Cell>
+      						  	        		
       							        		<Table.Cell>
       							        					<Link 
       							        						to={{ 
@@ -500,3 +441,19 @@ const mapStateToProps = (state) => {
 }
 const ListLevel = connect(mapStateToProps)(Layout)
 export default ListLevel
+
+/*
+{isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
+
+<span>
+<i className='la la-star-half-full primary'></i>
+</span>
+: null}
+{attr.validation && this.props.role !== 'Learner'  ?
+
+<span>
+<i className='la la-star primary'></i>
+</span>
+: null}
+
+*/

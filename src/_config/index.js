@@ -6,7 +6,7 @@ let config = ''
 // }
 
 if(process.env.NODE_ENV === 'development'){
-	config = 'http://40.80.146.226:5000'
+	config = 'http://localhost:5000'
 }
 
 if(process.env.NODE_ENV === 'production'){

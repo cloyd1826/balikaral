@@ -37,6 +37,7 @@ class Layout extends Component{
     this.props.actions.logOut()
   }
   render() {
+    console.log(this.props.hadPreTest)
     return (
       <div className='user-top-bar'>
         <div className='user-name' onClick={this.toggleUserLink}>
@@ -79,7 +80,8 @@ class Layout extends Component{
                 pathname: (
                   (this.props.role === 'Administrator' ? '/admin/user-view' : '') + 
                   (this.props.role === 'Teacher' ? '/teacher/profile' : '') + 
-                  (this.props.role === 'Learner' ? '/learner/profile' : '') + 
+                  (this.props.role === 'Learner' && this.props.hadPreTest ? '/learner/profile' : '') + 
+                  (this.props.role === 'Learner' && !this.props.hadPreTest ? '/learner-start/profile' : '') + 
                   '/update-information'), 
                 state: { id: this.props.user.id } 
               }}>

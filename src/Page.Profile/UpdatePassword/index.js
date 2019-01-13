@@ -107,6 +107,7 @@ class Layout extends Component {
         .then((res)=>{
           
           this.formMessage('Data has been updated', 'success', true, false)
+          console.log(res)
       })    
         .catch((err)=>{
         
@@ -133,16 +134,18 @@ class Layout extends Component {
                     onChange={this.handleChange}
                     />
                 </Grid.Cell>
+              {this.props.user.id === this.props.location.state.id ?
                 <Grid.Cell large={6} medium={12} small={12}>
                   <Input 
                     label='Password' 
                     type='password' 
-                    required
+                    
                     name='password'
                     value={this.state.password}
                     onChange={this.handleChange}
                     />
                 </Grid.Cell>
+               : null}
               </Grid.X>
               {this.props.role === 'Administrator' ? 
                 <Grid.X>
@@ -191,7 +194,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const EditUser = connect(mapStateToProps)(Layout)

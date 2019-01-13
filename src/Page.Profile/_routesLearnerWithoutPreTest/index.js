@@ -5,7 +5,7 @@ import Grid from '../../_component/Grid'
 import { Route } from 'react-router-dom'
 
 import Profile from '../Profile'
-import NavBar from '../_navLearner'
+import NavBar from '../_navLearnerWithoutPreTest'
 
 import UpdateInformation from '../UpdateInformation'
 import UpdatePassword from '../UpdatePassword'
