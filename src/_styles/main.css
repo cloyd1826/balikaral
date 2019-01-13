@@ -706,8 +706,18 @@ label {
       text-align: left;
       text-transform: uppercase;
       font-size: 14px; }
+  .table-container tfoot tr {
+    background: #dcdcdc; }
+  .table-container tfoot th, .table-container tfoot td {
+    padding: 0.5rem 0.625rem 0.625rem !important;
+    color: #383838; }
+  .table-container thead tr {
+    background: #4257b2; }
+    .table-container thead tr th, .table-container thead tr td {
+      padding: 0.8rem 0.625rem 0.8rem 0.625rem !important; }
   .table-container tbody th, .table-container tbody td {
-    padding: 0.5rem 0.625rem 0.625rem; }
+    text-align: center;
+    padding: 0.5rem 0.625rem 0.625rem !important; }
   .table-container tbody tr:nth-child(even) {
     border-bottom: 0;
     background-color: #f1f1f1; }
@@ -1718,7 +1728,7 @@ tr.green {
               color: #fff; }
 
 .secondary-top-bar {
-  background: #52b8d5;
+  background: #273261;
   display: flex;
   align-items: center;
   padding-left: 16px;
@@ -1729,10 +1739,10 @@ tr.green {
     font-weight: 600;
     font-size: 20px;
     padding: 16px 8px 16px 0;
-    margin-right: 8px; }
+    margin-right: 35px; }
   .secondary-top-bar .link {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.6);
+    color: #bebebe;
     padding: 16px 8px;
     display: flex;
     align-items: center;
@@ -1760,12 +1770,11 @@ tr.green {
 
 .third-top-bar {
   background: #fff;
-  padding: 8px 16px 8px 64px;
+  padding: 0px 16px 0px 55px;
   display: flex; }
   .third-top-bar .link {
     margin-right: 24px;
-    padding: 8px 0 0px 0px;
-    margin-bottom: 8px;
+    padding: 17px 8px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer; }
@@ -3083,7 +3092,6 @@ p, span, a {
 
 .element-container, .discussion-container, .comment-container, .comment-list {
   background: #fff;
-  padding: 8px;
   margin-bottom: 16px;
   margin-top: 16px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; }
