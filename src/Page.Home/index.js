@@ -108,7 +108,7 @@ class Home extends Component {
                 <p className='home-description'>
                   {this.state.pageDescription}
                 </p>
-                <button type='button' className='button primary'>Magsimula</button>
+                <button type='button' className='button primary home-button'>Magsimula</button>
               </div>
             </Grid.Cell>
             <Grid.Cell large={6} medium={12} small={12} className='home-image-container'>
