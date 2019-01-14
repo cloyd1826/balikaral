@@ -1468,9 +1468,10 @@ tr.green {
   .volunteer-card .card-image {
     border-top-left-radius: 5px !important;
       border-top-left-radius-border-top-right-radius: 5px !important;
-    height: 40vh;
+    height: 222px;
     width: 100%;
-    max-height: 40vh;
+    max-height: 222px;
+    cursor: pointer;
     overflow: hidden;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1492,8 +1493,7 @@ tr.green {
       transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
 
 .volunteer-card:hover .card-image {
-  transform: scale(1.1);
-  height: 40vh; }
+  transform: scale(1.1); }
 
 .volunteer-card:hover .card-text {
   transform: scale(1.1);
