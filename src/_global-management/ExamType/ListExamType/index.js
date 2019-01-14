@@ -115,9 +115,7 @@ class Layout extends Component {
 				        			<Table.Row>
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
-                        <Table.HeaderCell>Easy</Table.HeaderCell>
-                        <Table.HeaderCell>Average</Table.HeaderCell>
-                        <Table.HeaderCell>Difficult</Table.HeaderCell>
+                       <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell>Exam Total</Table.HeaderCell>
                         <Table.HeaderCell>Exam Time</Table.HeaderCell>
@@ -131,9 +129,9 @@ class Layout extends Component {
 					        					<Table.Row key={index}>
                               <Table.Cell>{attr.examType}</Table.Cell>
                               <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
-                              <Table.Cell>{attr.easy}</Table.Cell>
-                              <Table.Cell>{attr.average}</Table.Cell>
-                              <Table.Cell>{attr.difficult}</Table.Cell>
+                              <Table.Cell>{attr.learningStrandQuestions.map((attr)=>{
+                                return attr.learningStrand.name + ', '
+                              })}</Table.Cell>
                               <Table.Cell>{attr.examDescription}</Table.Cell>
                              
                               <Table.Cell>{attr.examTotal}</Table.Cell>
@@ -167,9 +165,7 @@ class Layout extends Component {
 				        			<Table.Row>
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
-                         <Table.HeaderCell>Easy</Table.HeaderCell>
-                        <Table.HeaderCell>Average</Table.HeaderCell>
-                        <Table.HeaderCell>Difficult</Table.HeaderCell>
+                        <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Description</Table.HeaderCell>
                         <Table.HeaderCell>Exam Total</Table.HeaderCell>
                         <Table.HeaderCell>Exam Time</Table.HeaderCell>
