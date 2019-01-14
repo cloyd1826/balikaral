@@ -197,7 +197,7 @@ class Layout extends Component{
                     <span className='facebook-button-container'>
                       <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
                       <FacebookLogin
-                        appId="344679316117018"
+                        appId="521442691675915"
                         autoLoad={false}                    
                         fields="name,email,picture"
                         onClick={this.componentClicked}
