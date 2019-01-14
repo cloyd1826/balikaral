@@ -15,6 +15,9 @@ class Layout extends Component {
     super(props)
     this.state = {  
       examType: [],
+      easy: [],
+      average: [],
+      difficult: [],
 
       message: '',
       type: '',
@@ -27,6 +30,8 @@ class Layout extends Component {
       isAvailable: false,
       hasPassed: false,
       notEnoughQuestion: false,
+
+      exam: {}
     }
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -40,6 +45,9 @@ class Layout extends Component {
     this.toggleTakeAdaptiveTest = this.toggleTakeAdaptiveTest.bind(this)
     this.toggleNotEnoughQuestion = this.toggleNotEnoughQuestion.bind(this)
 
+    this.addToExam = this.addToExam.bind(this)
+
+    this.checkIfPassed = this.checkIfPassed.bind(this)
   }
   toggleHasPassed(){
     this.setState({
@@ -66,7 +74,6 @@ class Layout extends Component {
   }
   fetchExamType(){
     let hasPassedAdaptiveTest = false
-    console.log(this.props.level)
     apiRequest('get', `/generated-exam/learner-adaptive-test?level=${this.props.level}&examiner=${this.props.user.id}`, false, this.props.token)
       .then((res)=>{
         if(res.data){
@@ -97,102 +104,109 @@ class Layout extends Component {
       
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
-
-
-    
   }
-
-  generateExam(id, level, type, time){
-    this.setState({
-      generating: true
-    })
-    
-    apiRequest('get', `/exam-management/random?examId=${id}&type=${type}&examinerId=${this.props.user.id}&level=${level}`, false, this.props.token)
+  checkIfPassed(data){
+    apiRequest('get', `/exam-management/exam-status?examinerId=${this.props.user.id}&type=${data.examType}`, false, this.props.token)
       .then((res)=>{
+        console.log(res)
+        if(res.data.status === 'Exam Available'){
+          this.generateExam(data.learningStrandQuestions)
+        }else if(res.data.failedLearningStrand){
+          let ls = []
+          let fls = res.data.failedLearningStrand
+          data.learningStrandQuestions.filter((attr)=>{
+            if(fls.indexOf(attr.learningStrand._id) > -1){
+              ls = [...ls, attr]
+            }
+          })
+          this.generateExam(ls)
+        }else if(res.data.status==='Passed'){
+          this.setState({
+            generating: false,
+            hasPassed: true
+          })
+        }
+        this.setState({
+          exam: data
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }
+  generateExam(learningStrandQuestion){
+    this.setState({
+      generating: true,
+    })
+    let count = 0
+    learningStrandQuestion.map((attr)=>{
+      console.log(attr)
+      count = count + parseInt(attr.easy) + parseInt(attr.average) + parseInt(attr.difficult) 
+    })
+    learningStrandQuestion.map((attr, index)=>{
+
+      if(index === learningStrandQuestion.length - 1){
+        this.addToExam(attr.learningStrand._id, attr.easy, attr.average, attr.difficult, true, count)
+      }else{
+        this.addToExam(attr.learningStrand._id, attr.easy, attr.average, attr.difficult, false, count)
+      }
+    })
+  }
+  addToExam(learningStrand, easyCount, averageCount, difficultCount, post, count){
+    apiRequest('get', `/exam-management/generate-random?level=${this.props.level}&learningStrand=${learningStrand}&easy=${easyCount}&average=${averageCount}&difficult=${difficultCount}`, false, this.props.token)
+      .then((res)=>{
+        let easy = this.state.easy
+        let average = this.state.average
+        let difficult = this.state.difficult
+        res.data.easy.map((attr)=>{
+          easy = [...easy, { question: attr._id, answer: ''}]
+        })
+        res.data.average.map((attr)=>{
+          average = [...average, { question: attr._id, answer: ''}]
+        })
+        res.data.difficult.map((attr)=>{
+          difficult = [...difficult, { question: attr._id, answer: ''}]
+        })
+        let exam = [...easy, ...average, ...difficult]
         
-        if(res.data){
-          let result = res.data
-
-          if(result.status === 'Passed'){
-            this.setState({
-              generating: false,
-              hasPassed: true,
-              notEnoughQuestion: false,
-            })
-          }else if(result.status === 'Take Adaptive Test'){
-            this.setState({
-              generating: false,
-              takeAdaptiveTest: true,
-              notEnoughQuestion: false,
-            })
-          }else if(result.status === 'Not Enough Number of Question'){
-            this.setState({
-              generating: false,
-              takeAdaptiveTest: false,
-              notEnoughQuestion: true,
-            })
-          }else if(result.status === 'Taking'){
-
-            let examList = []
-            let easyExam = []
-            let averageExam = []
-            let difficultExam = []
-
-            result.easy.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              easyExam = [...easyExam, data]
-            })
-            result.average.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              averageExam = [...averageExam, data]
-            })
-            result.difficult.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              difficultExam = [...difficultExam, data]
-
-            })
-
-            examList = [...examList, ...easyExam, ...averageExam, ...difficultExam ]
-              
-            this.postExam(examList, id, type, time)
-          }
+        this.setState({
+          easy: easy,
+          average: average,
+          difficult: difficult,
+        })
+        if(post && parseInt(exam.length) === parseInt(count)){
+          this.postExam(exam, this.state.exam)
+        }
+        if(post && parseInt(exam.length) !== parseInt(count)){
+          this.generateExam(this.state.exam)
+          this.setState({
+            easy: [],
+            average: [],
+            difficult: [],
+            isAvailable: true,
+            generating: false,
+            preTest: {}
+          })
         }
       })
       .catch((err)=>{
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-        this.setState({
-          generateExam: false,
-        })
+
       })
   }
-
-  postExam(exam, id, type, timeRemaining){
-
+  postExam(exam, type){
     let data = {
-      examType: id,
+      examType: type._id,
       exam: exam,
       examiner: this.props.user.id,
-      type: type,
-      timeRemaining: timeRemaining,
+      type: type.examType,
       status: 'Pending',
+      timeRemaining: type.totalHours,
       dateStarted: Date.now(),
       level: this.props.level
     }
-
     apiRequest('post', `/generated-exam`, data, this.props.token)
       .then((res)=>{
+        
           this.props.history.push({
             pathname: '/learner/exam/take',
             state: { id: res.data.data._id }
@@ -312,9 +326,7 @@ class Layout extends Component {
                               <div className='subtitle-montserrat'>{(attr.level ? attr.level.name ? attr.level.name : '' : '') + ' - ' + attr.examType}</div>
                               <div className='context-montserrat'>{attr.examDescription}</div>
                               <div className='line-border'></div>
-                              <div className='exam-details'><span>Easy: </span> {attr.easy ? attr.easy : '' } </div>
-                              <div className='exam-details'><span>Average: </span> {attr.average ? attr.average : '' } </div>
-                              <div className='exam-details'><span>Difficult: </span> { attr.difficult ? attr.difficult : '' } </div>
+                              
                               <div className='exam-details'><span>Total No of Questions: </span> {attr.examTotal ? attr.examTotal : '' } </div>
                               <div className='exam-details'><span>Exam Time: </span> {attr.totalHours ? attr.totalHours : '' } </div>
                               <div className='exam-button'>
@@ -322,7 +334,7 @@ class Layout extends Component {
                                   <button 
                                     type='button' 
                                     className='button secondary small' 
-                                    onClick={(e)=> {this.generateExam(attr._id, attr.level._id, attr.examType, attr.totalHours)}}
+                                    onClick={(e)=> {this.checkIfPassed(attr)}}
                                     >TAKE EXAM
                                   </button>
    

@@ -15,6 +15,9 @@ class Layout extends Component {
     super(props)
     this.state = {  
       examType: [],
+      easy: [],
+      average: [],
+      difficult: [],
 
       message: '',
       type: '',
@@ -29,6 +32,8 @@ class Layout extends Component {
       idOfPendingExam: '',
       notEnoughQuestion: false,
       noPreTestAvailable: false,
+
+      preTest: {},
     }
     this.formMessage = this.formMessage.bind(this)
 
@@ -38,6 +43,10 @@ class Layout extends Component {
     this.checkStatus = this.checkStatus.bind(this)
 
     this.toggleModal = this.toggleModal.bind(this)
+
+    this.fetchRandomPreTest = this.fetchRandomPreTest.bind(this)
+
+    this.addToExam = this.addToExam.bind(this)
   }
   toggleModal(){
     this.setState({
@@ -51,76 +60,92 @@ class Layout extends Component {
       active: active
     })
   }
-  generateExam(){
+  fetchRandomPreTest(){
     this.setState({
-      generating: true
+      generating: true,
+      isAvailable: false
     })
-    
-    apiRequest('get', `/exam-management/pre-test?level=${this.props.level}`, false, this.props.token)
+    apiRequest('get', `/exam-management/fetch-random-pre-test?level=${this.props.level}`, false, this.props.token)
       .then((res)=>{
-     
-        if(res.data){
-          let result = res.data
-          console.log(result)
-          if(result.status === 'Not Enough Number of Question'){
-            this.setState({
-              generating: false,
-              notEnoughQuestion: true,
-              noPreTestAvailable: false,
-            })
+        if(res.status === 'No pre test available for your level'){
+          this.setState({
+            generating: false,
+            notEnoughQuestion: false,
+            noPreTestAvailable: true,
+          })
+        }else{
+          this.setState({
+            examType: res.data.preTest
+          })
 
-          }else if(result.status === 'No pre test available for your level'){
-            this.setState({
-              generating: false,
-              notEnoughQuestion: false,
-              noPreTestAvailable: true,
-            })
-          }else{
-            let examList = []
-            let easyExam = []
-            let averageExam = []
-            let difficultExam = []
-
-            result.easy.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              easyExam = [...easyExam, data]
-            })
-            result.average.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              averageExam = [...averageExam, data]
-            })
-            result.difficult.map((attr)=>{
-              let data = {
-                answer: '',
-                question: ''
-              }
-              data = {...data, question: attr._id}
-              difficultExam = [...difficultExam, data]
-
-            })
-
-            examList = [...examList, ...easyExam, ...averageExam, ...difficultExam ]
-          
-            this.postExam(examList, result.examType)
-          }
-          
-          
+          this.generateExam(res.data.preTest)
         }
       })
       .catch((err)=>{
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-        this.setState({
-          generateExam: false,
-        })
+
       })
+  }
+  addToExam(learningStrand, easyCount, averageCount, difficultCount, post, count){
+    
+    apiRequest('get', `/exam-management/generate-random?level=${this.props.level}&learningStrand=${learningStrand}&easy=${easyCount}&average=${averageCount}&difficult=${difficultCount}`, false, this.props.token)
+      .then((res)=>{
+        let easy = this.state.easy
+        let average = this.state.average
+        let difficult = this.state.difficult
+        res.data.easy.map((attr)=>{
+          easy = [...easy, { question: attr._id, answer: ''}]
+        })
+        res.data.average.map((attr)=>{
+          average = [...average, { question: attr._id, answer: ''}]
+        })
+        res.data.difficult.map((attr)=>{
+          difficult = [...difficult, { question: attr._id, answer: ''}]
+        })
+        let exam = [...easy, ...average, ...difficult]
+        
+        this.setState({
+          easy: easy,
+          average: average,
+          difficult: difficult,
+        })
+        if(post && parseInt(exam.length) === parseInt(count)){
+          this.postExam(exam, this.state.examType)
+        }
+        if(post && parseInt(exam.length) !== parseInt(count)){
+          this.generateExam(this.state.preTest)
+          this.setState({
+            easy: [],
+            average: [],
+            difficult: [],
+            isAvailable: true,
+            generating: false,
+            preTest: {}
+          })
+        }
+
+        
+        
+      })
+      .catch((err)=>{
+
+      })
+  }
+  generateExam(data){
+    let learningStrandQuestion = data.learningStrandQuestions
+    let count = 0
+    learningStrandQuestion.map((attr)=>{
+      console.log(attr)
+      count = count + parseInt(attr.easy) + parseInt(attr.average) + parseInt(attr.difficult) 
+    })
+    console.log(count)
+
+    learningStrandQuestion.map((attr, index)=>{
+      if(index === learningStrandQuestion.length - 1){
+        this.addToExam(attr.learningStrand, attr.easy, attr.average, attr.difficult, true, count)
+      }else{
+        this.addToExam(attr.learningStrand, attr.easy, attr.average, attr.difficult, false, count)
+      }
+    })
   }
 
   postExam(exam, type){
@@ -134,6 +159,7 @@ class Layout extends Component {
       dateStarted: Date.now(),
       level: this.props.level
     }
+    console.log(exam)
     apiRequest('post', `/generated-exam`, data, this.props.token)
       .then((res)=>{
         
@@ -172,7 +198,7 @@ class Layout extends Component {
   }
   componentDidMount(){
     this.checkStatus()
-    console.log(this.props.level)
+    
   }
   render() { 
     return (
@@ -284,7 +310,7 @@ class Layout extends Component {
                           Kaya i-click mo na ang button sa baba. GO!
                         </div>
                        
-                          <div className='button primary' onClick={this.generateExam}>Simulan ang Pre-Test</div>
+                          <div className='button primary' onClick={this.fetchRandomPreTest}>Simulan ang Pre-Test</div>
                        
                       </div>
                     </div>

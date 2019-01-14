@@ -236,6 +236,7 @@ class Layout extends Component {
 
     apiRequest('put', `/generated-exam/update/${this.props.location.state.id}`, data, this.props.token)
       .then((res)=>{ 
+        console.log(res)
        if(finished){
           this.setState({
             exam: checkedExam,
@@ -295,7 +296,7 @@ class Layout extends Component {
       .then((res)=>{ 
         if(res.data){
           let result = res.data.data
-            
+          console.log(result)
           let exam = [] 
           result.exam.map((attr)=>{
             exam = [...exam, {answer: attr.answer, question: attr.question}]
@@ -349,7 +350,7 @@ class Layout extends Component {
     }
   }
   render() {
-   
+    console.log(this.state.examType)
     return (
         <div>
           <Grid fluid>
