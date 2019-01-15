@@ -1921,8 +1921,7 @@ tr.green {
   .admin-dashboard .dashboard-link-container {
     padding: 16px 0; }
     .admin-dashboard .dashboard-link-container .grid-container {
-      padding: 0;
-      margin: 0; }
+      max-width: 85.5rem; }
       .admin-dashboard .dashboard-link-container .grid-container .grid-x {
         margin-bottom: 30px; }
         .admin-dashboard .dashboard-link-container .grid-container .grid-x .main-link-title {
@@ -1963,6 +1962,81 @@ tr.green {
             font-size: 17px;
             font-weight: 600;
             transition: .3s; }
+  .admin-dashboard .learner-dashboard .grid-container .grid-x .learning-module-title {
+    border-bottom: solid 2px #e9e9e9;
+    margin-bottom: 16px; }
+    .admin-dashboard .learner-dashboard .grid-container .grid-x .learning-module-title h1 {
+      color: #fe0000;
+      margin-bottom: 14px; }
+      .admin-dashboard .learner-dashboard .grid-container .grid-x .learning-module-title h1 span {
+        color: #4257b2; }
+  .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link {
+    position: relative;
+    overflow: hidden;
+    border: dashed 1px #4257b2;
+    cursor: auto;
+    padding: 48px 16px;
+    border-left: solid 5px #4257b2; }
+    .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link .link-title {
+      color: #444444;
+      font-size: 18px;
+      margin-top: -7px;
+      font-weight: 400; }
+    .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link span {
+      color: #4257b2;
+      font-size: 65px; }
+    .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link .dashboard-link-button {
+      position: absolute;
+      transition: .3s;
+      bottom: 0px;
+      right: 16px;
+      padding: 12px 30px;
+      border: none;
+      background: #4257b2;
+      border-radius: 4px;
+      color: #ffffff; }
+      .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link .dashboard-link-button:hover {
+        background: #489db5; }
+    .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link:hover {
+      background: #fff;
+      box-shadow: 0px 0px 10px #a5a5a5; }
+      .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link:hover .link-title {
+        color: #444; }
+  .admin-dashboard .learner-side-container {
+    background: #ffffff;
+    box-shadow: 0px -2px 21px #a5a5a5;
+    margin: -15px 16px 0px 16px;
+    padding: 105px 16px 20px 16px; }
+    .admin-dashboard .learner-side-container .welcome {
+      color: #444444;
+      font-size: 17px; }
+    .admin-dashboard .learner-side-container .learner-name {
+      color: #4257b2;
+      font-size: 31px;
+      font-weight: 600;
+      margin-top: 6px;
+      margin-bottom: 14px; }
+    .admin-dashboard .learner-side-container .sidebar-content {
+      padding: 19px 0;
+      border-top: solid 1px #eaeaea; }
+      .admin-dashboard .learner-side-container .sidebar-content .sidebar-title {
+        font-size: 12px;
+        color: #2e2e2e;
+        margin-bottom: 10px;
+        font-weight: 600; }
+      .admin-dashboard .learner-side-container .sidebar-content .sidebar-link {
+        padding: 10px;
+        display: block;
+        width: 100%; }
+        .admin-dashboard .learner-side-container .sidebar-content .sidebar-link .la {
+          margin-right: 10px;
+          color: #4257b2;
+          font-weight: 600; }
+      .admin-dashboard .learner-side-container .sidebar-content .sidebar-link.active {
+        background: #4257b2;
+        color: #fff;
+        width: 101%;
+        box-shadow: 0px 0px 1px #787878; }
 
 .admin-container {
   max-height: 100vh;

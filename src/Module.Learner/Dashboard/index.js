@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {Link} from 'react-router-dom'
+import {NavLink, Link} from 'react-router-dom'
 
 import Grid from '../../_component/Grid'
 
@@ -10,48 +10,117 @@ import { connect } from 'react-redux'
 class Layout extends Component {
   constructor(props) {
     super(props)
-    this.state = {  }
+    this.state = {
+      user : {}
+    }
   }
+
+  componentDidMount(){
+    this.setState({
+      user: this.props.user
+    })
+}
+
+componentWillReceiveProps(nextProps){
+    
+    this.setState({
+      user: nextProps.user
+    })
+}
   render() { 
     return (
         <div className='admin-dashboard'>
           
-          <div className='dashboard-link-container'>
-            <Grid fluid>
+          <div className='learner-dashboard dashboard-link-container'>
+            <Grid>
               <Grid.X>
-               
-                 <Grid.Cell large={4} medium={6} small={12}>
-                    <Link to='/learner/exam/available'>
-                    <div className='dashboard-link' >
-                      <span className='la la-list-ol'></span>
-                      <div className='link-title'>Tapang</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
-                <Grid.Cell large={4} medium={6} small={12}>
-                  <Link to='/learner/reviewer/list/learner'>
-                    <div className='dashboard-link' >
-                      <span className='la la-file-pdf-o'></span>
-                      <div className='link-title'>Talino</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
-                <Grid.Cell large={4} medium={6} small={12}>
-                  <Link to='/learner/exam/learning-strand'>
-                    <div className='dashboard-link' >
-                      <span className='la la-copy'></span>
-                      <div className='link-title'>Tiyaga</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
-                <Grid.Cell large={4} medium={6} small={12}>
-                  <Link to='/learner/forum/dashboard'>
-                    <div className='dashboard-link' >
-                      <span className='la la-comment'></span>
-                      <div className='link-title'>Forum</div>
-                    </div>
-                  </Link>
-                </Grid.Cell>
+                  <Grid.Cell large={3} medium={5} small={12}>
+                    <Grid full className="show-for-medium">
+                      <Grid.X>
+                          <Grid.Cell large={12} medium={12} small={12}>
+                              <div className='learner-side-container'>
+                                <p className="welcome">Welcome,</p>
+                                <p className="learner-name">{this.state.user.firstName}!</p>
+                                <div className='sidebar-content'>
+                                  <div className='sidebar-title'>
+                                    DASHBOARD
+                                  </div>
+                                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/dashboard'>
+                                    <i className='la la-home'></i>
+                                    <span>Home</span>
+                                  </NavLink>
+                                </div>
+                                <div className='sidebar-content'>
+                                  <div className='sidebar-title'>
+                                    Learner
+                                  </div>
+                                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/exam/available'>
+                                    <i className='la la-list-ol'></i>
+                                    <span>Tapang</span>
+                                  </NavLink>
+                                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/reviewer/list/learner'>
+                                    <i className='la la-file-pdf-o'></i>
+                                    <span>Talino</span>
+                                  </NavLink>
+                                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/exam/learning-strand'>
+                                    <i className='la la-copy'></i>
+                                    <span>Tiyaga</span>
+                                  </NavLink>
+                                </div>
+                              </div>
+                          </Grid.Cell>
+                      </Grid.X>
+                    </Grid>
+                  </Grid.Cell>
+                  <Grid.Cell large={9} medium={7} small={12}>
+                      <Grid full>
+                        <Grid.X>
+                          <Grid.Cell large={12} medium={12} small={12}>
+                            <div className="learning-module-title">
+                              <h1><span>Learner</span> Module</h1>
+                            </div>
+                          </Grid.Cell>
+                          <Grid.Cell large={6} medium={12} small={12}>
+                              
+                              <div className='dashboard-link' >
+                                <span className='la la-list-ol'></span>
+                                <div className='link-title'>Tapang</div>
+                                  <Link to='/learner/exam/available'>
+                                    <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
+                                  </Link>
+                              </div>
+                          </Grid.Cell>
+                          <Grid.Cell large={6} medium={12} small={12}>
+                            
+                              <div className='dashboard-link' >
+                                <span className='la la-file-pdf-o'></span>
+                                <div className='link-title'>Talino</div>
+                                <Link to='/learner/reviewer/list/learner'>
+                                    <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
+                                  </Link>
+                              </div>
+                          </Grid.Cell>
+                          <Grid.Cell large={6} medium={12} small={12}>
+                              <div className='dashboard-link' >
+                                <span className='la la-copy'></span>
+                                <div className='link-title'>Tiyaga</div>
+                                  <Link to='/learner/exam/learning-strand'>
+                                      <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
+                                  </Link>
+                              </div>
+                          </Grid.Cell>
+                          <Grid.Cell large={6} medium={12} small={12}>
+                              <div className='dashboard-link' >
+                                <span className='la la-comment'></span>
+                                <div className='link-title'>Forum</div>
+                                  <Link to='/learner/forum/dashboard'>
+                                      <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
+                                  </Link>
+                              </div>
+                          </Grid.Cell>
+                        </Grid.X>
+                      </Grid>
+                  </Grid.Cell>
               </Grid.X>
             </Grid>
           </div>
