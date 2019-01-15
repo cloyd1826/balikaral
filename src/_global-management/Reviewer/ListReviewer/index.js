@@ -50,6 +50,8 @@ class Layout extends Component {
       view: false,
       selectedData: [],
 
+      role: ''
+
     }
     this.fetchLevel = this.fetchLevel.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -214,7 +216,18 @@ class Layout extends Component {
   }
   componentDidMount(){
     this.fetchLevel('','',1)
+
+    this.setState({
+      role: this.props.role
+    })
   }
+
+  componentWillReceiveProps(nextProps){
+    
+    this.setState({
+      role: nextProps.role
+    })
+}
   render() { 
     return (
         <div>
@@ -302,7 +315,7 @@ class Layout extends Component {
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
                        
-                        <Table.HeaderCell>Status</Table.HeaderCell>
+                        {this.state.role === 'Learner' ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
 
                       </Table.Row>
@@ -366,7 +379,7 @@ class Layout extends Component {
                               }</Table.Cell>
                               
                               
-                              <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
+                              {this.state.role === 'Learner' ? '' : <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>  }
                               <Table.Cell isNarrowed>
                                 {attr.pdf ?
                                   <span>
@@ -444,7 +457,7 @@ class Layout extends Component {
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
                         <Table.HeaderCell>Teacher</Table.HeaderCell>
                        
-                        <Table.HeaderCell>Status</Table.HeaderCell>
+                        {this.state.role === "Learner" ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
                       </Table.Row>
                     </Table.Footer>

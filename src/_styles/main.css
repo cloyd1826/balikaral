@@ -3114,11 +3114,12 @@ span.no-validator {
   padding: 16px;
   background: #d7ecfb;
   border: dashed 1px #45a9ec; }
-  .bar-chart-label canvas {
-    margin-bottom: 60px; }
   .bar-chart-label .name {
     font-size: 16px;
     font-weight: 600; }
+
+canvas {
+  margin-bottom: 60px; }
 
 @media (max-width: 40em) {
   .home-title {
