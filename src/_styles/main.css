@@ -2037,6 +2037,9 @@ tr.green {
         color: #fff;
         width: 101%;
         box-shadow: 0px 0px 1px #787878; }
+        .admin-dashboard .learner-side-container .sidebar-content .sidebar-link.active .la {
+          color: #fff;
+          font-weight: 400; }
 
 .admin-container {
   max-height: 100vh;
