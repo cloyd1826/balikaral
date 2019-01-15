@@ -13,7 +13,7 @@ class TermsOfServices extends Component {
             <p>Last updated: January 13, 2019</p>
             <p>Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the www.balikaral.com website (the "Service")
             operated by Balikaral ("us", "we", or "our").</p>
-            <p>Your access to and useof the Service isconditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
+            <p>Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
             <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.</p>
             <h2>Accounts</h2>
             <p>When you create an account with us, you must provide us information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Service.</p>

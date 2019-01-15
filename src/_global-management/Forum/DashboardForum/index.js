@@ -10,7 +10,7 @@ import apiRequest from '../../../_axios'
 import { connect } from 'react-redux'
 
 import Pagination from '../../../_component/Pagination'
-
+import Table from '../../../_component/Table'
 
 class Layout extends Component {
   constructor(props) {
@@ -108,26 +108,46 @@ class Layout extends Component {
 
                     </div>
                   </div>
-                  {this.state.forum.map((attr, index)=>{
-                    return (
-                      <div key={index}>
-                        <Link to={{ 
-                              pathname: (
-                                (this.props.role === 'Administrator' ? '/admin' : '') + 
-                                (this.props.role === 'Teacher' ? '/teacher' : '') +
-                                (this.props.role === 'Learner' ? '/learner' : '') +
-                                 '/forum/discussions/list'), 
-                              state: { id: attr._id } 
-                                }}>
-                          <div className='forum-dashboard-container'>
-                            <div className='forum-name'>{attr.name}</div>
-                            <div className='forum-strand'>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</div>
-                            <div className='forum-description'>{attr.description}</div>
-                          </div>
-                        </Link>
-                      </div>
-                      )
-                  })}
+                  <div className="forum-list-container">
+                    {this.state.forum.map((attr, index)=>{
+                      return (
+                        <div key={index}>
+                          <Link to={{ 
+                                pathname: (
+                                  (this.props.role === 'Administrator' ? '/admin' : '') + 
+                                  (this.props.role === 'Teacher' ? '/teacher' : '') +
+                                  (this.props.role === 'Learner' ? '/learner' : '') +
+                                  '/forum/discussions/list'), 
+                                state: { id: attr._id } 
+                                  }}>
+                            <div className='forum-dashboard-container'>
+                              <div className="table-container">
+                              <Table hover nostripe>
+                                <Table.Header>
+                                  <Table.Row>
+                                    <Table.HeaderCell>{attr.name}</Table.HeaderCell>
+                                    <Table.HeaderCell>Posted by:</Table.HeaderCell>
+                                    <Table.HeaderCell>Date Posted:</Table.HeaderCell>
+                                  </Table.Row>
+                                </Table.Header>
+                                <Table.Body>
+                                  <Table.Row>
+                                    <Table.Cell>
+                                      <span className="forum-desc">Test Description</span><br/>
+                                      <span className="forum-desc-strand">{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</span>
+                                    </Table.Cell>
+                                    <Table.Cell>Alcantara Cloyd</Table.Cell>
+                                    <Table.Cell>01-13-2019</Table.Cell>
+                                  </Table.Row>
+                                </Table.Body>
+                              </Table>
+                              </div>
+                            </div>
+                          </Link>
+                        </div>
+                        )
+                    })}
+                  </div>
                    <div className='forum-pagination'>
                       <Pagination
                           changePage={this.changePage}
