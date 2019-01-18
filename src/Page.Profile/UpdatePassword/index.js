@@ -100,7 +100,7 @@ class Layout extends Component {
      let data = {
         email: this.state.email,
         userType: this.state.userType,
-        disabled: this.statedisabled,
+        disabled: this.state.disabled,
         password: this.state.password
     }
     apiRequest('put', `/user/update-account-info/${this.props.location.state.id}`, data, this.props.token)
