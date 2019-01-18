@@ -1016,6 +1016,9 @@ tr.green {
       margin: 0 0 0 8px;
       padding: 8px 8px; }
 
+.grid-x.exam-type-container {
+  padding: 16px; }
+
 .grid-x.exams-container {
   padding: 16px; }
 
@@ -1978,10 +1981,11 @@ tr.green {
     padding: 48px 16px;
     border-left: solid 5px #4257b2; }
     .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link .link-title {
-      color: #444444;
-      font-size: 18px;
+      color: #4257b2;
+      font-size: 14px;
       margin-top: -7px;
-      font-weight: 400; }
+      text-transform: uppercase;
+      font-weight: 600; }
     .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link span {
       color: #4257b2;
       font-size: 65px; }
@@ -2059,6 +2063,12 @@ tr.green {
     background: #fff; }
   .admin-table-container table {
     border: none; }
+
+.learner-icon-set {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  max-width: 63px; }
 
 .reviewer-view .context-montserrat, .reviewer-view .form-subtitle, .reviewer-view .footer-contact span p, .footer-contact span .reviewer-view p {
   color: rgba(0, 0, 0, 0.6);
@@ -2144,9 +2154,8 @@ span.no-validator {
     transform: rotate(360deg); } }
 
 .exam-type-container .exam-type .container {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  border: dashed 2px #4257b2;
   margin-right: 8px;
-  border-radius: 5px;
   text-align: center;
   padding: 32px 8px; }
   .exam-type-container .exam-type .container .context-montserrat, .exam-type-container .exam-type .container .form-subtitle, .exam-type-container .exam-type .container .footer-contact span p, .footer-contact span .exam-type-container .exam-type .container p {
@@ -2485,12 +2494,14 @@ span.no-validator {
   .grid-question-action .action {
     flex: 1;
     padding: 16px;
-    box-shadow: 0px 0px 3px #a9a9a9;
-    border-radius: 5px;
+    border: solid 1px #4257b2;
     margin: 0px 5px;
     text-align: center;
     cursor: pointer;
-    position: relative; }
+    position: relative;
+    color: #444;
+    font-size: 13px;
+    font-weight: 600; }
     .grid-question-action .action i.la {
       font-weight: 500;
       font-size: 32px;
@@ -2542,10 +2553,9 @@ span.no-validator {
 
 .percentage-per-ls-container {
   width: calc(100% - 32px);
-  border-radius: 5px;
+  border: solid 1px #a1a1a1;
   position: relative;
   padding: 16px;
-  box-shadow: 0px 0px 3px #a9a9a9;
   margin-bottom: 8px; }
   .percentage-per-ls-container .percentage-per-ls {
     margin-bottom: 8px; }
@@ -2575,13 +2585,13 @@ span.no-validator {
 
 .summary-learning-strand {
   padding: 16px;
-  box-shadow: 0px 0px 3px #a9a9a9;
-  margin-bottom: 8px;
-  border-radius: 5px; }
+  border: solid 1px #a1a1a1;
+  margin-bottom: 8px; }
   .summary-learning-strand .summary-title {
     font-size: 22px;
     font-weight: 600;
-    margin-bottom: 8px; }
+    margin-bottom: 8px;
+    color: #3a3a3a; }
   .summary-learning-strand .summary-text {
     font-size: 20px;
     margin-left: 16px; }
@@ -2604,21 +2614,17 @@ span.no-validator {
       box-shadow: 0px 0px 3px #a9a9a9;
       padding: 16px; }
     .question-answered-container .question-answered .number {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
       width: 3%;
       text-align: center;
       font-weight: 600;
       background: #4257b2;
       color: #fff; }
     .question-answered-container .question-answered .question {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
       width: calc(100% - 3%); }
     .question-answered-container .question-answered .question.correct {
       background: #d1f4da; }
     .question-answered-container .question-answered .question.wrong {
-      background: #f2dede; }
+      opacity: .4; }
     .question-answered-container .question-answered:last-child {
       margin-bottom: 0; }
   .question-answered-container .question-answered.answered {
@@ -2631,7 +2637,6 @@ span.no-validator {
       margin-right: 4px; }
       .question-answered-container .answer-box .answered-list .letter, .question-answered-container .answer-box .answered-list .answer {
         padding: 8px 16px;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
         background: #fff; }
       .question-answered-container .answer-box .answered-list .letter {
         font-weight: 600;

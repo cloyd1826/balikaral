@@ -290,12 +290,14 @@
 	.action
 		flex: 1
 		padding: 16px
-		box-shadow: $boxShadow
-		border-radius: 5px
+		border: solid 1px $blue-color
 		margin: 0px 5px
 		text-align: center
 		cursor: pointer
 		position: relative
+		color: #444
+		font-size: 13px
+		font-weight: 600
 		i.la
 			font-weight: 500
 			font-size: 32px
@@ -352,10 +354,9 @@
 
 .percentage-per-ls-container
 	width: calc(100% - 32px)
-	border-radius: 5px
+	border: solid 1px #a1a1a1
 	position: relative
 	padding: 16px
-	box-shadow: $boxShadow
 	margin-bottom: 8px
 	.percentage-per-ls
 		margin-bottom: 8px
@@ -385,13 +386,13 @@
 				border-bottom-right-radius: 5px
 .summary-learning-strand
 	padding: 16px
-	box-shadow: $boxShadow
+	border: solid 1px #a1a1a1
 	margin-bottom: 8px
-	border-radius: 5px
 	.summary-title
 		font-size: 22px
 		font-weight: 600
 		margin-bottom: 8px
+		color: #3a3a3a
 	.summary-text
 		font-size: 20px
 		margin-left: 16px
@@ -410,25 +411,20 @@
 		margin-bottom: 8px
 		cursor: pointer
 		.number,.question
-			
 			box-shadow: $boxShadow
 			padding: 16px
 		.number
-			border-top-left-radius: 5px
-			border-bottom-left-radius: 5px
 			width: 3%
 			text-align: center
 			font-weight: 600
 			background: $blue-color
 			color: #fff
 		.question
-			border-top-right-radius: 5px
-			border-bottom-right-radius: 5px
 			width: calc(100% - 3%)
 		.question.correct
 			background: $lightGreen
 		.question.wrong
-			background: $lightRed
+			opacity: .4
 		&:last-child
 			margin-bottom: 0
 	.question-answered.answered
@@ -441,7 +437,6 @@
 			margin-right: 4px
 			.letter,.answer
 				padding: 8px 16px
-				box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
 				
 				background: #fff
 			.letter

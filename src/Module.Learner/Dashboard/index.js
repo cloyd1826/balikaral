@@ -6,6 +6,11 @@ import Grid from '../../_component/Grid'
 
 import { connect } from 'react-redux'
 
+import tapang from '../../IconImages/tapang.png'
+import talino from '../../IconImages/talino.png'
+import tiyaga from '../../IconImages/tiyaga.png'
+import forum from '../../IconImages/forum.png'
+
 
 class Layout extends Component {
   constructor(props) {
@@ -83,7 +88,7 @@ componentWillReceiveProps(nextProps){
                           <Grid.Cell large={6} medium={12} small={12}>
                               
                               <div className='dashboard-link' >
-                                <span className='la la-list-ol'></span>
+                                <img src={tapang} className="learner-icon-set"/>
                                 <div className='link-title'>Tapang</div>
                                   <Link to='/learner/exam/available'>
                                     <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
@@ -93,7 +98,7 @@ componentWillReceiveProps(nextProps){
                           <Grid.Cell large={6} medium={12} small={12}>
                             
                               <div className='dashboard-link' >
-                                <span className='la la-file-pdf-o'></span>
+                              <img src={talino} className="learner-icon-set"/>
                                 <div className='link-title'>Talino</div>
                                 <Link to='/learner/reviewer/list/learner'>
                                     <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
@@ -102,7 +107,7 @@ componentWillReceiveProps(nextProps){
                           </Grid.Cell>
                           <Grid.Cell large={6} medium={12} small={12}>
                               <div className='dashboard-link' >
-                                <span className='la la-copy'></span>
+                              <img src={tiyaga} className="learner-icon-set"/>
                                 <div className='link-title'>Tiyaga</div>
                                   <Link to='/learner/exam/learning-strand'>
                                       <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
@@ -111,7 +116,7 @@ componentWillReceiveProps(nextProps){
                           </Grid.Cell>
                           <Grid.Cell large={6} medium={12} small={12}>
                               <div className='dashboard-link' >
-                                <span className='la la-comment'></span>
+                              <img src={forum} className="learner-icon-set"/>
                                 <div className='link-title'>Forum</div>
                                   <Link to='/learner/forum/dashboard'>
                                       <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
