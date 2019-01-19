@@ -12,6 +12,8 @@ import { connect } from 'react-redux'
 import Pagination from '../../../_component/Pagination'
 import Table from '../../../_component/Table'
 
+import forum from '../../../IconImages/forum-blur.png'
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -125,13 +127,14 @@ class Layout extends Component {
                               <Table hover nostripe>
                                 <Table.Header>
                                   <Table.Row>
-                                    <Table.HeaderCell>{attr.name}</Table.HeaderCell>
+                                    <Table.HeaderCell colSpan={2}>{attr.name}</Table.HeaderCell>
                                     <Table.HeaderCell>Posted by:</Table.HeaderCell>
                                     <Table.HeaderCell>Date Posted:</Table.HeaderCell>
                                   </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
                                   <Table.Row>
+                                    <Table.Cell isNarrowed><img src={forum} className="forum-icon" /></Table.Cell>
                                     <Table.Cell>
                                       <span className="forum-desc">Test Description</span><br/>
                                       <span className="forum-desc-strand">{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</span>
