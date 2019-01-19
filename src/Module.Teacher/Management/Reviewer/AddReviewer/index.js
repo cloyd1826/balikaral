@@ -97,7 +97,7 @@ class Layout extends Component {
   		})
   }
   postFile(){
-    const url = `http://localhost:5000/balikaral/reviewer-management/`
+    const url = `https://balikaralapi.eastus.cloudapp.azure.com:5000/balikaral/reviewer-management/`
     const formData = new FormData()
     formData.append('pdf', this.state.pdf)
     formData.append('learningStrand', this.state.learningStrand)
