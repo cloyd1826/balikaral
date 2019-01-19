@@ -9,6 +9,8 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
+import talino from '../../../IconImages/tapang-blur.png'
+
 
 class Layout extends Component {
   constructor(props) {
@@ -321,8 +323,9 @@ class Layout extends Component {
                     <Grid.X className='exam-type-container'>
                       {this.state.examType.map((attr, index)=> {
                         return (
-                          <Grid.Cell key={index} className='exam-type' large={4} medium={6} small={12}>
+                          <Grid.Cell key={index} className='exam-type' large={3} medium={6} small={12}>
                             <div className='container'>
+                              <img src={talino} className="exam-img-bg" />
                               <div className='subtitle-montserrat'>{(attr.level ? attr.level.name ? attr.level.name : '' : '') + ' - ' + attr.examType}</div>
                               <div className='context-montserrat'>{attr.examDescription}</div>
                               <div className='line-border'></div>

@@ -88,8 +88,8 @@ class TableHeaderCell extends Component {
     }
     render() {
         let { children } = this.props
-        let colSpan = this.props.colSpan ? '' : this.props.colSpan
-        let rowSpan = this.props.rowSpan ? '' : this.props.rowSpan
+        let colSpan = this.props.colSpan ? this.props.colSpan : ''
+        let rowSpan = this.props.rowSpan ? this.props.rowSpan : ''
         return (
             <th className={this.props.className ? this.props.className : '' } rowSpan={rowSpan} colSpan={colSpan}>
                 {children}

@@ -8,6 +8,8 @@ $paddingExamContainer: 8px 16px
 			margin-right: 8px
 			text-align: center
 			padding: 32px 8px
+			position: relative
+			overflow: hidden
 			.context-montserrat
 				font-size:  14px
 				padding: 4px 0
@@ -25,14 +27,25 @@ $paddingExamContainer: 8px 16px
 				font-size:  16px
 				padding: 4px 0
 				color: #888
-
+				z-index: 3
+			
 			.exam-button	
 				padding: $paddingExamContainer
 				padding-bottom: 0px
 				margin-top: 16px
+				z-index: 3
+				position: relative
 				.button
 					margin: 0 auto
 					width: 50%
+					z-index: 3
+			.exam-img-bg
+				position: absolute
+				z-index: 1
+				width: 30%
+				top: 91%
+				transform: translateY(-50%)
+				right: 30px
 
 .exam-type-loader
 	min-height: 70vh
@@ -46,8 +59,11 @@ $paddingExamContainer: 8px 16px
 		margin: 0 auto
 		.la
 			font-size: 100px
-			color: #888
+			color: $blue-color
 		.la-spinner
 			animation: spin 1s linear infinite
 	.context-montserrat
 		font-size: 16px
+		margin-top: 13px
+	.subtitle-montserrat
+		margin-top: 8px

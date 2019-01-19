@@ -2157,7 +2157,9 @@ span.no-validator {
   border: dashed 2px #4257b2;
   margin-right: 8px;
   text-align: center;
-  padding: 32px 8px; }
+  padding: 32px 8px;
+  position: relative;
+  overflow: hidden; }
   .exam-type-container .exam-type .container .context-montserrat, .exam-type-container .exam-type .container .form-subtitle, .exam-type-container .exam-type .container .footer-contact span p, .footer-contact span .exam-type-container .exam-type .container p {
     font-size: 14px;
     padding: 4px 0;
@@ -2172,14 +2174,25 @@ span.no-validator {
   .exam-type-container .exam-type .container .exam-details {
     font-size: 16px;
     padding: 4px 0;
-    color: #888; }
+    color: #888;
+    z-index: 3; }
   .exam-type-container .exam-type .container .exam-button {
     padding: 8px 16px;
     padding-bottom: 0px;
-    margin-top: 16px; }
+    margin-top: 16px;
+    z-index: 3;
+    position: relative; }
     .exam-type-container .exam-type .container .exam-button .button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .exam-type-container .exam-type .container .exam-button .sign-in-button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .exam-type-container .exam-type .container .exam-button .facebook-button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .exam-type-container .exam-type .container .exam-button .google-button {
       margin: 0 auto;
-      width: 50%; }
+      width: 50%;
+      z-index: 3; }
+  .exam-type-container .exam-type .container .exam-img-bg {
+    position: absolute;
+    z-index: 1;
+    width: 30%;
+    top: 91%;
+    transform: translateY(-50%);
+    right: 30px; }
 
 .exam-type-loader {
   min-height: 70vh;
@@ -2193,11 +2206,14 @@ span.no-validator {
     margin: 0 auto; }
     .exam-type-loader span .la {
       font-size: 100px;
-      color: #888; }
+      color: #4257b2; }
     .exam-type-loader span .la-spinner {
       animation: spin 1s linear infinite; }
   .exam-type-loader .context-montserrat, .exam-type-loader .form-subtitle, .exam-type-loader .footer-contact span p, .footer-contact span .exam-type-loader p {
-    font-size: 16px; }
+    font-size: 16px;
+    margin-top: 13px; }
+  .exam-type-loader .subtitle-montserrat, .exam-type-loader .form-title, .exam-type-loader .home-banner .home-banner-text .home-subtitle, .home-banner .home-banner-text .exam-type-loader .home-subtitle, .exam-type-loader .home-banner .home-image-container .home-subtitle, .home-banner .home-image-container .exam-type-loader .home-subtitle {
+    margin-top: 8px; }
 
 .question-card {
   border: #e0e0e0 solid 1px;
@@ -2236,7 +2252,7 @@ span.no-validator {
         display: flex;
         cursor: pointer;
         width: 100%;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+        box-shadow: 0px 0px 1px #4d4d4d;
         border-radius: 5px; }
         .question-card .answer-container .answer-box .answer-text .letter {
           background: #4257b2;
@@ -2462,7 +2478,7 @@ span.no-validator {
           color: #fff;
           font-weight: 600;
           border: #4257b2 solid 1px;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+          box-shadow: 0px 0px 1px #4d4d4d;
           border-top-left-radius: 5px;
           border-bottom-left-radius: 5px; }
         .grid-exam-container .grid-exam .grid-answer .answer-text .letter.active {
@@ -2470,7 +2486,7 @@ span.no-validator {
           color: #fff; }
         .grid-exam-container .grid-exam .grid-answer .answer-text .answer {
           background: #fff;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+          box-shadow: 0px 0px 1px #4d4d4d;
           padding: 16px;
           color: rgba(0, 0, 0, 0.8);
           width: 100%;
@@ -2556,7 +2572,7 @@ span.no-validator {
   border: solid 1px #a1a1a1;
   position: relative;
   padding: 16px;
-  margin-bottom: 8px; }
+  margin-bottom: 32px; }
   .percentage-per-ls-container .percentage-per-ls {
     margin-bottom: 8px; }
     .percentage-per-ls-container .percentage-per-ls .learning-strand, .percentage-per-ls-container .percentage-per-ls .score {
@@ -2658,10 +2674,8 @@ span.no-validator {
 .grid-correct-answer, .grid-wrong-answer {
   margin: 8px auto;
   padding: 16px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
   text-align: center;
-  font-weight: 600;
-  border-radius: 5px; }
+  font-weight: 600; }
   .grid-correct-answer .button, .grid-correct-answer .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .grid-correct-answer .sign-in-button, .grid-correct-answer .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .grid-correct-answer .facebook-button, .grid-correct-answer .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .grid-correct-answer .google-button, .grid-wrong-answer .button, .grid-wrong-answer .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .grid-wrong-answer .sign-in-button, .grid-wrong-answer .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .grid-wrong-answer .facebook-button, .grid-wrong-answer .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .grid-wrong-answer .google-button {
     padding: 8px;
     margin: 0;
@@ -2670,10 +2684,12 @@ span.no-validator {
     font-weight: 500; }
 
 .grid-correct-answer {
-  background: #d1f4da; }
+  background: #d1f4da;
+  color: #0e5320; }
 
 .grid-wrong-answer {
-  background: #f2dede; }
+  background: #f2dede;
+  color: #900303; }
 
 .learning-strand-container .learning-strand {
   padding: 16px;
@@ -3048,6 +3064,8 @@ span.no-validator {
           color: #4257b2; }
         .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td:first-child, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th:first-child {
           padding: 0.5rem 0.625rem 0.5rem 2rem !important; }
+        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-icon {
+          max-width: 30px; }
 
 .discussion-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
