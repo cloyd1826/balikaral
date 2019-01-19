@@ -57,6 +57,15 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
+
+                <Grid.Cell large={2} medium={4} small={12}>
+                  <Link to='/admin/teachers/session-guide/list/all'>
+                    <div className='dashboard-link' >
+                      <span className='la  la-file-archive-o'></span>
+                      <div className='link-title'>Session Guide</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
                
                  <Grid.Cell large={2} medium={4} small={12}>
                   <Link to='/admin/teachers/exam/list/all'>
@@ -160,7 +169,7 @@ class Dashboard extends Component {
 
 
                 <Grid.Cell large={2} medium={4} small={12}>
-                  <Link to='/admin/statistics/exam-type'>
+                  <Link to='/admin/system/exam-type'>
                     <div className='dashboard-link' >
                       <span className='la la-circle-o-notch'></span>
                       <div className='link-title'>Statistics ng Exam Type</div>
@@ -169,10 +178,19 @@ class Dashboard extends Component {
                 </Grid.Cell>
 
                 <Grid.Cell large={2} medium={4} small={12}>
-                  <Link to='/admin/statistics/generated-exam'>
+                  <Link to='/admin/system/generated-exam'>
                     <div className='dashboard-link' >
                       <span className='la la-tasks'></span>
                       <div className='link-title'>Statistics ng mga Exam</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+                <Grid.Cell large={2} medium={4} small={12}>
+                  <Link to='/admin/system/audit-trail'>
+                    <div className='dashboard-link' >
+                      <span className='la la-hourglass'></span>
+                      <div className='link-title'>History</div>
                     </div>
                   </Link>
                 </Grid.Cell>

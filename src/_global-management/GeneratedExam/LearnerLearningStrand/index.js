@@ -31,7 +31,6 @@ class Layout extends Component {
       totalCount: 1,
     }
     this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
-    this.fetchLevel = this.fetchLevel.bind(this)
     this.formMessage = this.formMessage.bind(this)
     this.changePage = this.changePage.bind(this)
 
@@ -51,46 +50,22 @@ class Layout extends Component {
     })
   }
 
-  fetchLearningStrand(page){
-    apiRequest('get', `/learning-strand/fetchAllQuestion?page=${page}`, false, this.props.token)
+  fetchLearningStrand(){
+    apiRequest('get', `/learning-strand/fetchAllWithoutPagination?level=${this.props.level}`, false, this.props.token)
       .then((res)=>{
       
         if(res.data){
           this.setState({
-            learningStrand: res.data.data,
-            currentPage: res.data.currentPage,
-            nextPage: res.data.nextPage,
-            pageCount: res.data.pageCount,
-            perPage: res.data.perPage,
-            previousPage: res.data.previousPage,
-            totalCount: res.data.totalCount,
+            learningStrand: res.data.data
           })  
         }
-      })
-      .catch((err)=>{
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-      })
-  }
-  fetchLevel(){
-    apiRequest('get', `/level/fetchAllWithoutPagination`, false, this.props.token)
-      .then((res)=>{
-      
-        if(res.data){
-          this.setState({
-            level: res.data.data
-          })  
-        }
-          
       })
       .catch((err)=>{
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
   componentDidMount(){
-    this.fetchLevel()
-    this.fetchLearningStrand(1)
-    
-
+    this.fetchLearningStrand()
   }
   render() { 
     const renderLevelName = (levelId) => {
@@ -110,26 +85,27 @@ class Layout extends Component {
                     <div className='title'>Exercise Exam</div>
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
-                  <Grid.X className='learning-strand-container'>
+                  <Grid.X>
                     {this.state.learningStrand.map((attr, index)=>{
                       return(
                         <Grid.Cell key={index} large={3} medium={6} small={12}>
-                         <Link to={{ 
-                            pathname: '/learner/exam/exercise', 
-                            state: { id: attr._id, learningStrand: attr.name } 
-                          }}>
-                            <div className='learning-strand'>
-                              <i className='la la-file-text' />
-                              {attr.name}
-                              <div className='level'>{attr.level ? renderLevelName(attr.level) : ''}</div>
-                              <div className='question-length'>{attr.questions ? attr.questions.length : 0 }</div>
-                            </div>
-                          </Link>
+                          <div className='learning-strand-container'>
+                           <Link to={{ 
+                              pathname: '/learner/exam/exercise', 
+                              state: { id: attr._id, learningStrand: attr.name } 
+                            }}>
+                              <div className='learning-strand'>
+                                <i className='la la-file-text' />
+                                {attr.name}
+                                <div className='level'>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</div>
+                              </div>
+                            </Link>
+                          </div>
                         </Grid.Cell>
                       )
                     })}    
                   </Grid.X>
-                  <div className='table-pagination'>
+              {/*    <div className='table-pagination'>
                       <Pagination
                           changePage={this.changePage}
                           currentPage={this.state.currentPage}
@@ -140,7 +116,7 @@ class Layout extends Component {
                           totalCount={this.state.totalCount}
 
                       />
-                  </div>
+                  </div>*/}
 
                 </div>
               </Grid.Cell>
@@ -153,7 +129,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    level: state.level
   }
 }
 const LearnerLearningStrand = connect(mapStateToProps)(Layout)

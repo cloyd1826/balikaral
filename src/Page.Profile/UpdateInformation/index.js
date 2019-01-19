@@ -29,6 +29,8 @@ class Layout extends Component {
         barangay: '',
         city: '',
         province: '',
+        civilStatus: '',
+        birthday: '',
 
         learningCenter: '',
         gradeLevel: '',
@@ -88,7 +90,8 @@ class Layout extends Component {
                     city: result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '',
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
 
-                    province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
+                    civilStatus: result.personalInformation ?  result.personalInformation.civilStatus ?  result.personalInformation.civilStatus : '' : '', 
+                    birthday: result.personalInformation ?  result.personalInformation.birthday ?  result.personalInformation.birthday : '' : '', 
 
                     learningCenter: result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '',
                     gradeLevel: result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '',
@@ -133,6 +136,9 @@ class Layout extends Component {
         city: this.state.city,
         province: this.state.province,
 
+        civilStatus: this.state.civilStatus,
+        birthday: this.state.birthday,
+
         learningCenter: this.state.learningCenter,
         gradeLevel: this.state.gradeLevel,
         reasongForStopping: this.state.reasongForStopping, 
@@ -145,7 +151,7 @@ class Layout extends Component {
         image: this.state.image, 
 
     }
-    apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           this.fetchSingle()
           this.formMessage('Personal Information has been updated', 'success', true, false)
@@ -218,6 +224,15 @@ class Layout extends Component {
                 </Grid.X>
                 <Grid.X>
                   <Grid.Cell large={4} medium={6} small={12}>
+                    <Input 
+                      label='Birthday'
+                      type='date'
+                      name='birthday'
+                      value={this.state.birthday}
+                      onChange={this.handleChange}
+                       />
+                  </Grid.Cell>
+                  <Grid.Cell large={4} medium={6} small={12}>
                     <Select 
                       label='Gender'
                       name='gender'
@@ -227,6 +242,20 @@ class Layout extends Component {
                       <option value=''></option>
                       <option value='Male'>Male</option>
                       <option value='Female'>Female</option>
+                    </Select>
+                  </Grid.Cell>
+                  <Grid.Cell large={4} medium={6} small={12}>
+                    <Select 
+                      label='Civil Status'
+                      name='civilStatus'
+                      value={this.state.civilStatus}
+                      onChange={this.handleChange}
+                    >
+                      <option value=''></option>
+                      <option value='Single'>Single</option>
+                      <option value='Married'>Married</option>
+                      <option value='Divorced'>Divorced</option>
+                      <option value='Widowed'>Widowed</option>
                     </Select>
                   </Grid.Cell>
                 </Grid.X>

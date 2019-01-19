@@ -163,7 +163,7 @@ class Layout extends Component {
   		})
   }
   postFile(){
-    const url = `${config}/balikaral/exam-management/`
+    const url = `${config}/balikaral/exam-management?userId=${this.props.user.id}`
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
@@ -217,7 +217,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container hide-on-large'>
+        					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Exam Management > Add</div>
         						<div className='title-action'>
         							<Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>

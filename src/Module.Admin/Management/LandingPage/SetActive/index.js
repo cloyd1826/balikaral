@@ -27,7 +27,7 @@ class Layout extends Component {
   deleteRecord(){
     let data = this.props.data
     data = { ...data, active: true }
-    apiRequest('put', `/landing-page/set-active/${data._id}`, data, this.props.token)
+    apiRequest('put', `/landing-page/set-active/${data._id}?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         this.props.fetch(this.props.currentPage)
         this.props.close()

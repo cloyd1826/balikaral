@@ -1,117 +1,4 @@
 
-.sign-in-container
-	padding: 16px
-	min-width: 30vw
-	background: #fff
-	border-radius: 5px
-	position: relative
-	animation: LogIn $transition-fast
-	.close-button
-		position: absolute
-		top: 5px
-		right: 10px
-		cursor: pointer
-		color: $red-color
-	.log-in-text
-		padding-top: 16px
-		.subtitle-montserrat
-			text-align: center
-			font-size: 20px
-		.context-montserrat
-			text-align: center
-	.form-message
-		font-size: 22px
-	.log-in-form
-		.sign-in-button-form
-			display: flex
-			width: 100%
-			justify-content: center
-			align-items: center
-			span
-				width: 70%
-				.sign-in-button
-					@extend .button
-					font-weight: 500
-					box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-					border: solid 1px transparent
-					border-radius: 5px
-					background-color: rgb(255, 255, 255)
-					font-family: 'Montserrat', sans-serif!important
-					padding: 8px
-					font-size: 10px
-					font-weight: 600
-					width: 100%
-					margin: 8px 0
-	.sign-in-message
-		.confirmation
-			font-size: 14px
-			border-bottom: rgba(0, 0, 0, 0.24) solid 1px
-			text-align: center
-			margin-top: 16px
-			padding: 8px
-		.credentials
-			font-size: 14px
-			text-align: center
-			padding: 32px 0
-			p
-				font-weight: 900
-				padding: 4px 0
-				span
-					text-decoration: underline
-					font-weight: 500
-		.create-new-text
-			color: #000
-			font-size: 14px
-			text-align: center
-			text-decoration: underline
-			padding: 8px
-			line-height: 1
-	.log-in-button
-		display: flex
-		justify-content: center
-		align-items: center
-		flex-wrap:
-		span
-			width: 50%
-			padding: 0 8px
-			.facebook-button
-				background: #4867aa
-				color: #fff
-			.google-button
-				background: #db4545
-				color: #fff
-			.facebook-button,.google-button
-				@extend .button
-				font-weight: 500
-				box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
-				border: solid 1px transparent
-				border-radius: 5px
-				font-family: 'Montserrat', sans-serif!important
-				padding: 8px
-				font-size: 10px
-				font-weight: 600
-				width: 100%
-				margin: 8px 0
-	.log-in-border
-		width: 100%
-		height: 1px
-		border-bottom: rgba(0, 0, 0, 0.24) solid 1px
-		position: relative
-		z-index: 1
-		margin: 8px 0
-		.context-montserrat
-			position: absolute
-			top: 0
-			left: 50%
-			transform: translate(-50%, -50%)
-			background: #fff
-			color: #000
-			font-size: 14px
-			font-weight: 900
-			padding: 8px
-			line-height: 1
-			z-index: 2
-			border-radius: 50%
 
 
 .sign-in-container
@@ -120,6 +7,7 @@
 	width: 40vw
 	max-width: 750px
 	min-width: 314px
+	animation: LogIn $transition-fast
 .sign-in-form
 	background: #fff
 	padding: 16px
@@ -244,13 +132,13 @@
 		.fb-logo,.google-logo
 			position: absolute
 			top: 50%
-			left: 2em
+			left: 16px
 			transform: translate(0, -50%)
 			background-size: cover
 			background-repeat: no-repeat
 			background-position: center
-			height: 2em
-			width: 2em
+			height: 1.5em
+			width: 1.5em
 		.facebook-button,.google-button
 			width: calc(100% - 16px)
 			border: #e0e0e0 solid 3px!important
@@ -259,6 +147,7 @@
 			font-weight: 600!important
 			color: rgba(0,0,0,0.6)!important
 			font-size: 16px!important
+			text-align: right!important
 	
 @keyframes LogIn
 	from

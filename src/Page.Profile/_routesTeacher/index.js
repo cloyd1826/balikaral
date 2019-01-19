@@ -9,12 +9,14 @@ import NavBar from '../_navTeacher'
 
 import UpdateInformation from '../UpdateInformation'
 import UpdatePassword from '../UpdatePassword'
+import AuditTrail from '../AuditTrail'
 
 const Routes = () => {
   return (
     <div className='user-route-container element-container'>
       <Route path='/teacher/profile/update-information' component={UpdateInformation} />
       <Route path='/teacher/profile/update-account-info' component={UpdatePassword} />
+      <Route path='/teacher/profile/audit-trail' component={AuditTrail} />
     </div>
   )
 }

@@ -10,6 +10,8 @@ import Slider from "react-slick"
 import ImageLoader from '../_component/ImageLoader'
 import Grid from '../_component/Grid'
 
+import SignUp from '../_userComponent/SignUp'
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -33,6 +35,18 @@ class Home extends Component {
         teacher: [],
 
         userLength: 0,
+    }
+    this.toggleSignUp = this.toggleSignUp.bind(this)
+  }
+  toggleSignUp(){
+    if(this.state.signUp){
+      this.setState({
+        signUp: false
+      })
+    }else{
+      this.setState({
+        signUp: true
+      })
     }
   }
   componentDidMount(){
@@ -93,6 +107,9 @@ class Home extends Component {
       <div className='home-container'>
         <NavBar logo={this.state.logo} />
 
+        { this.state.signUp ? <SignUp close={this.toggleSignUp}/> : null }
+
+
         <Grid full>
           <Grid.X className='home-banner'>
             <Grid.Cell large={6} medium={12} small={12} className='home-banner-text'>
@@ -108,7 +125,7 @@ class Home extends Component {
                 <p className='home-description'>
                   {this.state.pageDescription}
                 </p>
-                <button type='button' className='button primary home-button'>Magsimula</button>
+                <button type='button' className='button primary home-button' onClick={this.toggleSignUp}>Magsimula</button>
               </div>
             </Grid.Cell>
             <Grid.Cell large={6} medium={12} small={12} className='home-image-container'>
@@ -183,7 +200,7 @@ class Home extends Component {
                 <p className='context-montserrat'>
                     {this.state.tungkolSaProgramaDescription}
                 </p>
-                <button className='button primary'>Magsimula</button>
+                <button className='button primary' onClick={this.toggleSignUp}>Magsimula</button>
               </span>
             </Grid.Cell>
 

@@ -90,7 +90,7 @@ class Layout extends Component {
       validator: [{ user: this.props.user.id}]
     }
     this.formMessage('Validating Selected Data', 'loading', true, false)
-    apiRequest('put', `/exam-management/validate-multiple`, data, this.props.token)
+    apiRequest('put', `/exam-management/validate-multiple?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         let learningStrand = this.state.learningStrand
         let validation = this.state.validation
@@ -217,7 +217,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container hide-on-large'>
+        					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Exam Management</div>
         						<div className='title-action'>
 

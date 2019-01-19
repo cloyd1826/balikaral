@@ -68,7 +68,7 @@ class Layout extends Component {
   		description: this.state.description
   	}
 
-  	apiRequest('post', '/level', data, this.props.token)
+  	apiRequest('post', `/level?userId=${this.props.user.id}`, data, this.props.token)
   		.then((res)=>{
         console.log(res)
           this.clearData()
@@ -86,7 +86,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container  hide-on-large'>
+        					<div className='title-text-container  hide-on-large-x'>
         						<div className='title'>Level Management > Add</div>
         						<div className='title-action'>
         							<Link to='/admin/management/level/list'>

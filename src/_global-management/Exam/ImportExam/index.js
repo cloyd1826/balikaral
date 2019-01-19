@@ -86,7 +86,7 @@ class Layout extends Component {
     this.formMessage('Saving Data', 'loading', true, true)
     this.postFile()
       .then((res)=>{
-          this.clearData()
+          // this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
         
       })  
@@ -97,7 +97,7 @@ class Layout extends Component {
       })
   }
   postFile(){
-    const url = `${config}/balikaral/exam-management/csv/`
+    const url = `${config}/balikaral/exam-management/csv?userId=${this.props.user.id}`
     const formData = new FormData()
     formData.append('csv', this.state.csv)
     formData.append('level', this.state.level)
@@ -126,7 +126,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container hide-on-large'>
+        					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Exam Management > Import</div>
         						<div className='title-action'>
         							<Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>

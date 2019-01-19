@@ -126,7 +126,7 @@ class Layout extends Component {
         zipcode: this.state.zipcode ,
       },
     }
-    apiRequest('put', `/user/update/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/user/update/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
         
           this.formMessage('Data has been updated', 'success', true, false)

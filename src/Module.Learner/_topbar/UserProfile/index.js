@@ -56,18 +56,24 @@ class Layout extends Component{
       <div className='user-top-bar'>
         <div className='user-name'>
           <div className='name'>
-          <Link to={{ 
-                pathname: '/learner/profile/update-information', 
-                state: { id: this.state.user.id } 
-              }}>
-            {
-                (this.state.user.firstName ? this.state.user.firstName : '') 
-                + ' ' + 
-                (this.state.user.middleName ? this.state.user.middleName.substring(0,1) : '')
-                + ' ' + 
-                (this.state.user.lastName ? this.state.user.lastName : '')
-            }
-          </Link>
+          {this.props.type === 'local' ?
+            <Link to={{ 
+                  pathname: '/learner/profile/update-information', 
+                  state: { id: this.state.user.id } 
+                }}>
+              {
+                  (this.state.user.firstName ? this.state.user.firstName : '') 
+                  + ' ' + 
+                  (this.state.user.middleName ? this.state.user.middleName.substring(0,1) : '')
+                  + ' ' + 
+                  (this.state.user.lastName ? this.state.user.lastName : '')
+              }
+            </Link>
+           : null}
+
+          {this.props.type !== 'local' ? 
+              (this.props.user.firstName ? this.props.user.firstName : '' )
+            : null}
 
           </div>
           <div className='role'>{
@@ -84,14 +90,16 @@ class Layout extends Component{
                   <span><i className='la la-home' />Home</span>
                 </div>
               </Link>
-              <Link to={{ 
-                  pathname: '/learner/profile/update-information', 
-                  state: { id: this.state.user.id } 
-                }}>
-                <div className='user-bar'>
-                  <span><i className='fa fa-user' />Profile</span>
-                </div>
-              </Link>
+              {this.props.type === 'local' ?
+                <Link to={{ 
+                    pathname: '/learner/profile/update-information', 
+                    state: { id: this.state.user.id } 
+                  }}>
+                  <div className='user-bar'>
+                    <span><i className='fa fa-user' />Profile</span>
+                  </div>
+                </Link>
+               : null}
               
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>
@@ -107,7 +115,8 @@ class Layout extends Component{
 const mapStateToProps = state => { 
   return {
     user: state.user,
-    role: state.role
+    role: state.role,
+    type: state.type
   }
 }
 const mapDispatchToProps = dispatch => {

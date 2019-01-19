@@ -143,7 +143,7 @@ class Layout extends Component {
       validator: validator,
       validation: (validator.length >= 3 || this.props.role === 'Administrator' ? true : false)
     }
-    apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         
          this.formMessage('Data has been updated...', 'success', true, false)
@@ -166,7 +166,7 @@ class Layout extends Component {
             <Grid.X>
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
-                  <div className='title-text-container hide-on-large'>
+                  <div className='title-text-container hide-on-large-x'>
                     <div className='title'>Reviewer</div>
                     <div className='title-action'>
                       <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate Reviewer</button>

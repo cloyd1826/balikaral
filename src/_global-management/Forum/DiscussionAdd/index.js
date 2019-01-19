@@ -99,7 +99,7 @@ class Layout extends Component {
       })
   }
   postFile(){
-    const url = `${config}/balikaral/forum/`
+    const url = `${config}/balikaral/forum?userId=${this.props.user.id}`
     const formData = new FormData()
    
     formData.append('title', this.state.title)

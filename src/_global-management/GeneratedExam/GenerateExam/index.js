@@ -135,7 +135,7 @@ class Layout extends Component {
     }
    
 
-    apiRequest('put', `/generated-exam/update/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/generated-exam/update/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{ 
           if(finished === 'Completed'){
             this.setState({

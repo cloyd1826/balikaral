@@ -205,7 +205,7 @@ class Layout extends Component {
         })
   }
   putFile(){
-    const url = `${config}/balikaral/exam-management/update/${this.props.location.state.id}`
+    const url = `${config}/balikaral/exam-management/update/${this.props.location.state.id}?userId=${this.props.user.id}`
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
@@ -269,7 +269,7 @@ class Layout extends Component {
                 <Grid.X>
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
-                            <div className='title-text-container hide-on-large'>
+                            <div className='title-text-container hide-on-large-x'>
                                 <div className='title'>Exam Management > Edit</div>
                                 <div className='title-action'>
                                     <div onClick={this.previewExam} className='button primary small'>{this.state.preview ? 'Edit' : 'Preview'} Exam</div>
