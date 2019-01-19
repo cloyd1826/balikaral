@@ -150,7 +150,7 @@ class Layout extends Component {
                                     }}>
                                   {attr.local ? attr.local.email ? attr.local.email : '' : ''}
                                   {attr.facebook ? attr.facebook.email ? attr.facebook.email : '' : ''}
-                                  {attr.google ? attr.google.id ? attr.google.id : '' : ''}
+                                  {attr.google ? attr.google.email ? attr.google.email : '' : ''}
                                 </Link>
                               </Table.Cell>
                               <Table.Cell>
