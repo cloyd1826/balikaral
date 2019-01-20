@@ -20,15 +20,15 @@ class ImageLoader extends Component {
   }
   render() {
     let { children } = this.props
-      return (
+    return (
 
         <div 
           className={this.props.className} 
           onClick={this.props.onClick}
           style={{backgroundImage: 'url(' + 
-            (this.props.image !== '' || this.props.image ? (this.props.image.match('http') ? this.props.image :`${config}/${this.props.image}`) :  
+            (this.props.image !== '' || this.props.image ? `${config}/${this.props.image}` : 
                
-                (( this.props.type==='user' ? DefaultUser : Logo ) || this.props.image)
+                ( this.props.type==='user' ? DefaultUser : Logo )
               
             )
           + ')'}}>
