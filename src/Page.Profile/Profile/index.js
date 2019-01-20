@@ -120,7 +120,8 @@ class Layout extends Component {
             token: this.props.token,
             isLoggedIn: true,
             role: this.props.role,
-            hadPreTest: this.props.hadPreTest
+            hadPreTest: this.props.hadPreTest,
+            type: 'local'
           }
           this.props.actions.logIn(userData)
 

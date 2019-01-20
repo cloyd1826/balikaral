@@ -201,7 +201,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const AddLevel = connect(mapStateToProps)(Layout)

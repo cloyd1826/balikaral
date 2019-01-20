@@ -134,6 +134,15 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
+                 <Grid.Cell large={2} medium={4} small={12}>
+                  <Link to='/admin/management/survey-management/List'>
+                    <div className='dashboard-link' >
+                      <span className='la la-users'></span>
+                      <div className='link-title'>Survey Management</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
                  <Grid.Cell large={2} medium={6} small={12}>
                  <Link to='/admin/management/landing-page/list'>
                     <div className='dashboard-link' >
@@ -195,6 +204,17 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
 
+                <Grid.Cell large={2} medium={4} small={12}>
+                  <Link to='/admin/system/survey/list'>
+                    <div className='dashboard-link' >
+                      <span className='la la-folder-open-o'></span>
+                      <div className='link-title'>User Survey</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+
+                
                
               </Grid.X>
 

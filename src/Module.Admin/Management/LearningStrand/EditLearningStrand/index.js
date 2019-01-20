@@ -174,7 +174,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    user: state.user
   }
 }
 const AddLearningStrand = connect(mapStateToProps)(Layout)

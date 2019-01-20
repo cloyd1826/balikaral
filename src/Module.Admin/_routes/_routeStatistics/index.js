@@ -6,12 +6,15 @@ import GeneratedExam from '../../Statistics/GeneratedExam'
 import ExamType from '../../Statistics/ExamType'
 import AuditTrail from '../../AuditTrail'
 
+import Survey from '../../../_global-management/Survey/_routeAdmin'
+
 const Routes = () => {
 	return (
 		<div>
       <Route path='/admin/system/exam-type' component={ExamType} />
       <Route path='/admin/system/generated-exam' component={GeneratedExam} />
-			<Route path='/admin/system/audit-trail' component={AuditTrail} />
+      <Route path='/admin/system/audit-trail' component={AuditTrail} />
+			<Route path='/admin/system/survey' component={Survey} />
       
 		</div>
 	)
@@ -51,8 +54,15 @@ class RouteManagement extends Component {
             </Link>
              <Link to='/admin/system/audit-trail'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/system/audit-trail') ? 'active' : '')}>
-                <i className='la la-tasks' />
-                Audit Trail
+                <i className='la la-hourglass' />
+                History
+              </div>
+              
+            </Link>
+            <Link to='/admin/system/survey/list'>
+              <div className={'link ' + (this.props.location.pathname.match('/admin/system/survey') ? 'active' : '')}>
+                <i className='la la-folder-open-o' />
+                Survey
               </div>
               
             </Link>

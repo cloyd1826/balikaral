@@ -1,0 +1,67 @@
+.take-survey-container
+	padding: 8px
+	.survey-title
+		font-size: 16px
+		padding: 8px
+		margin-bottom: 14px
+		border-bottom: #e0e0e0 solid 1px
+		color: #ffffff
+		font-weight: 600
+		background: #4257b2
+		border-radius: 4px
+		text-transform: uppercase
+	.survey-description
+		text-align: center
+		font-size: 22px
+		padding: 8px
+	.survey-button-container
+		display: flex
+		align-items: center
+		justify-content: center
+		padding: 16px
+		.survey-button
+			height: 4em
+			width: 4em
+			border-radius: 50%
+			background: $lightBlue
+			display: flex
+			align-items: center
+			justify-content: center
+			margin: 0 8px
+			cursor: pointer
+			transition: $transition-fast
+			&:hover
+				background: $blue-color
+				color: #fff
+		.survey-button.active
+			background: $blue-color
+			color: #fff
+
+.survey-user
+	font-size: 22px
+	text-align: center
+	background: #d7ecfb
+	margin-top: 30px
+	margin-left: 16px
+	margin-right: 16px
+	padding: 13px 13px 7px 13px
+	border: dashed 1px #3ba4eb
+	.user
+		font-weight: 600
+	.date
+		font-size: 16px	
+
+.survey-instruction
+	font-size: 20px
+	text-align: justify
+	padding: 8px 16px
+	.instruction-button-container
+		display: flex
+		align-items: center
+		justify-content: center
+		padding: 16px
+		.instruction-button
+			padding: 8px 16px
+			margin: 0 8px
+			background: $lightBlue
+			border-radius: 50px
