@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @font-face {
   font-family: 'Montserrat';
   src: url("./fonts/Roboto/Roboto-Bold.ttf");
@@ -563,12 +562,12 @@ select {
 .form-button {
   display: flex;
   align-items: center; }
-  .form-button button, .form-button .button, .form-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .form-button .sign-in-button, .form-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .form-button .facebook-button, .form-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .form-button .google-button {
+  .form-button button, .form-button .button {
     margin: 4px 4px 4px 0;
     transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-  .form-button .button.secondary, .form-button .sign-in-container .log-in-form .sign-in-button-form span .secondary.sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .form-button .secondary.sign-in-button, .form-button .sign-in-container .log-in-button span .secondary.facebook-button, .sign-in-container .log-in-button span .form-button .secondary.facebook-button, .form-button .sign-in-container .log-in-button span .secondary.google-button, .sign-in-container .log-in-button span .form-button .secondary.google-button {
+  .form-button .button.secondary {
     border: solid 1px transparent; }
-    .form-button .button.secondary:hover, .form-button .sign-in-container .log-in-form .sign-in-button-form span .secondary.sign-in-button:hover, .sign-in-container .log-in-form .sign-in-button-form span .form-button .secondary.sign-in-button:hover, .form-button .sign-in-container .log-in-button span .secondary.facebook-button:hover, .sign-in-container .log-in-button span .form-button .secondary.facebook-button:hover, .form-button .sign-in-container .log-in-button span .secondary.google-button:hover, .sign-in-container .log-in-button span .form-button .secondary.google-button:hover {
+    .form-button .button.secondary:hover {
       background: #0d3a88;
       color: #fff; }
 
@@ -1013,7 +1012,7 @@ tr.green {
     top: 50%;
     transform: translateY(-50%);
     right: 16px; }
-    .title-text-container .title-action .button, .title-text-container .title-action .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .title-text-container .title-action .sign-in-button, .title-text-container .title-action .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .title-text-container .title-action .facebook-button, .title-text-container .title-action .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .title-text-container .title-action .google-button {
+    .title-text-container .title-action .button {
       margin: 0 0 0 8px;
       padding: 8px 8px; }
 
@@ -1023,7 +1022,7 @@ tr.green {
 .grid-x.exams-container {
   padding: 16px; }
 
-.button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .google-button, .user-image .button, button {
+.button, .user-image .button, button {
   display: inline-block;
   vertical-align: middle;
   margin: 1rem 0 1rem 0;
@@ -1036,55 +1035,55 @@ tr.green {
   text-align: center;
   cursor: pointer;
   font-weight: 600; }
-  .button:disabled, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button:disabled, .sign-in-container .log-in-button span .facebook-button:disabled, .sign-in-container .log-in-button span .google-button:disabled, button:disabled {
+  .button:disabled, button:disabled {
     cursor: not-allowed; }
 
-.button.primary, .sign-in-container .log-in-form .sign-in-button-form span .primary.sign-in-button, .sign-in-container .log-in-button span .primary.facebook-button, .sign-in-container .log-in-button span .primary.google-button {
+.button.primary {
   background-color: #52b8d5;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
   color: #fff;
   border: solid 1px transparent; }
-  .button.primary:hover, .sign-in-container .log-in-form .sign-in-button-form span .primary.sign-in-button:hover, .sign-in-container .log-in-button span .primary.facebook-button:hover, .sign-in-container .log-in-button span .primary.google-button:hover {
+  .button.primary:hover {
     background-color: #39c2c2;
     color: #fff; }
 
-.button.secondary, .sign-in-container .log-in-form .sign-in-button-form span .secondary.sign-in-button, .sign-in-container .log-in-button span .secondary.facebook-button, .sign-in-container .log-in-button span .secondary.google-button {
+.button.secondary {
   background-color: #4257b2;
   color: #fff;
   border: solid 1px transparent; }
 
-.button.cancel, .sign-in-container .log-in-form .sign-in-button-form span .cancel.sign-in-button, .sign-in-container .log-in-button span .cancel.facebook-button, .sign-in-container .log-in-button span .cancel.google-button {
+.button.cancel {
   background-color: #fe0000;
   border: solid 1px transparent; }
 
-.button.tiny, .sign-in-container .log-in-form .sign-in-button-form span .tiny.sign-in-button, .sign-in-container .log-in-button span .tiny.facebook-button, .sign-in-container .log-in-button span .tiny.google-button {
+.button.tiny {
   font-size: 0.6rem; }
 
-.button.small, .sign-in-container .log-in-form .sign-in-button-form span .small.sign-in-button, .sign-in-container .log-in-button span .small.facebook-button, .sign-in-container .log-in-button span .small.google-button {
+.button.small {
   font-size: 0.75rem; }
 
-.button.large, .sign-in-container .log-in-form .sign-in-button-form span .large.sign-in-button, .sign-in-container .log-in-button span .large.facebook-button, .sign-in-container .log-in-button span .large.google-button {
+.button.large {
   font-size: 1.25rem; }
 
-.button.expanded, .sign-in-container .log-in-form .sign-in-button-form span .expanded.sign-in-button, .sign-in-container .log-in-button span .expanded.facebook-button, .sign-in-container .log-in-button span .expanded.google-button {
+.button.expanded {
   display: block;
   width: 100%;
   margin-right: 0;
   margin-left: 0; }
 
-.button.primary, .sign-in-container .log-in-form .sign-in-button-form span .primary.sign-in-button, .sign-in-container .log-in-button span .primary.facebook-button, .sign-in-container .log-in-button span .primary.google-button {
+.button.primary {
   color: #fff; }
 
-.button.secondary, .sign-in-container .log-in-form .sign-in-button-form span .secondary.sign-in-button, .sign-in-container .log-in-button span .secondary.facebook-button, .sign-in-container .log-in-button span .secondary.google-button {
+.button.secondary {
   color: #fff; }
-  .button.secondary:hover, .sign-in-container .log-in-form .sign-in-button-form span .secondary.sign-in-button:hover, .sign-in-container .log-in-button span .secondary.facebook-button:hover, .sign-in-container .log-in-button span .secondary.google-button:hover {
+  .button.secondary:hover {
     background-color: #52b8d5;
     color: #fff; }
 
-.button.cancel, .sign-in-container .log-in-form .sign-in-button-form span .cancel.sign-in-button, .sign-in-container .log-in-button span .cancel.facebook-button, .sign-in-container .log-in-button span .cancel.google-button {
+.button.cancel {
   color: #fff; }
 
-.button.bordered, .sign-in-container .log-in-form .sign-in-button-form span .bordered.sign-in-button, .sign-in-container .log-in-button span .bordered.facebook-button, .sign-in-container .log-in-button span .bordered.google-button {
+.button.bordered {
   border-radius: 5px; }
 
 .modal {
@@ -1126,7 +1125,7 @@ tr.green {
     font-size: 16px; }
   .delete-modal .delete-button-group, .confirm-modal .delete-button-group {
     padding-top: 32px; }
-    .delete-modal .delete-button-group .button, .delete-modal .delete-button-group .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .delete-modal .delete-button-group .sign-in-button, .delete-modal .delete-button-group .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .delete-modal .delete-button-group .facebook-button, .delete-modal .delete-button-group .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .delete-modal .delete-button-group .google-button, .delete-modal .delete-button-group button, .confirm-modal .delete-button-group .button, .confirm-modal .delete-button-group .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .confirm-modal .delete-button-group .sign-in-button, .confirm-modal .delete-button-group .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .confirm-modal .delete-button-group .facebook-button, .confirm-modal .delete-button-group .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .confirm-modal .delete-button-group .google-button, .confirm-modal .delete-button-group button {
+    .delete-modal .delete-button-group .button, .delete-modal .delete-button-group button, .confirm-modal .delete-button-group .button, .confirm-modal .delete-button-group button {
       width: 100%;
       margin: 4px;
       text-transform: uppercase; }
@@ -1138,120 +1137,12 @@ tr.green {
       color: #fafafa; }
 
 .sign-in-container {
-  padding: 16px;
-  min-width: 30vw;
-  background: #fff;
-  border-radius: 5px;
-  position: relative;
-  animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-  .sign-in-container .close-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    color: #fe0000; }
-  .sign-in-container .log-in-text {
-    padding-top: 16px; }
-    .sign-in-container .log-in-text .subtitle-montserrat, .sign-in-container .log-in-text .form-title, .sign-in-container .log-in-text .home-banner .home-banner-text .home-subtitle, .home-banner .home-banner-text .sign-in-container .log-in-text .home-subtitle, .sign-in-container .log-in-text .home-banner .home-image-container .home-subtitle, .home-banner .home-image-container .sign-in-container .log-in-text .home-subtitle {
-      text-align: center;
-      font-size: 20px; }
-    .sign-in-container .log-in-text .context-montserrat, .sign-in-container .log-in-text .form-subtitle, .sign-in-container .log-in-text .footer-contact span p, .footer-contact span .sign-in-container .log-in-text p {
-      text-align: center; }
-  .sign-in-container .form-message {
-    font-size: 22px; }
-  .sign-in-container .log-in-form .sign-in-button-form {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center; }
-    .sign-in-container .log-in-form .sign-in-button-form span {
-      width: 70%; }
-      .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button {
-        font-weight: 500;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-        border: solid 1px transparent;
-        border-radius: 5px;
-        background-color: white;
-        font-family: "Montserrat", sans-serif !important;
-        padding: 8px;
-        font-size: 10px;
-        font-weight: 600;
-        width: 100%;
-        margin: 8px 0; }
-  .sign-in-container .sign-in-message .confirmation {
-    font-size: 14px;
-    border-bottom: rgba(0, 0, 0, 0.24) solid 1px;
-    text-align: center;
-    margin-top: 16px;
-    padding: 8px; }
-  .sign-in-container .sign-in-message .credentials {
-    font-size: 14px;
-    text-align: center;
-    padding: 32px 0; }
-    .sign-in-container .sign-in-message .credentials p {
-      font-weight: 900;
-      padding: 4px 0; }
-      .sign-in-container .sign-in-message .credentials p span {
-        text-decoration: underline;
-        font-weight: 500; }
-  .sign-in-container .sign-in-message .create-new-text {
-    color: #000;
-    font-size: 14px;
-    text-align: center;
-    text-decoration: underline;
-    padding: 8px;
-    line-height: 1; }
-  .sign-in-container .log-in-button {
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-    .sign-in-container .log-in-button span {
-      width: 50%;
-      padding: 0 8px; }
-      .sign-in-container .log-in-button span .facebook-button {
-        background: #4867aa;
-        color: #fff; }
-      .sign-in-container .log-in-button span .google-button {
-        background: #db4545;
-        color: #fff; }
-      .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .google-button {
-        font-weight: 500;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-        border: solid 1px transparent;
-        border-radius: 5px;
-        font-family: "Montserrat", sans-serif !important;
-        padding: 8px;
-        font-size: 10px;
-        font-weight: 600;
-        width: 100%;
-        margin: 8px 0; }
-  .sign-in-container .log-in-border {
-    width: 100%;
-    height: 1px;
-    border-bottom: rgba(0, 0, 0, 0.24) solid 1px;
-    position: relative;
-    z-index: 1;
-    margin: 8px 0; }
-    .sign-in-container .log-in-border .context-montserrat, .sign-in-container .log-in-border .form-subtitle, .sign-in-container .log-in-border .footer-contact span p, .footer-contact span .sign-in-container .log-in-border p {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      color: #000;
-      font-size: 14px;
-      font-weight: 900;
-      padding: 8px;
-      line-height: 1;
-      z-index: 2;
-      border-radius: 50%; }
-
-.sign-in-container {
   max-height: 70vh;
   overflow-y: auto;
   width: 40vw;
   max-width: 750px;
-  min-width: 314px; }
+  min-width: 314px;
+  animation: LogIn cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
 
 .sign-in-form {
   background: #fff;
@@ -1267,7 +1158,7 @@ tr.green {
       box-shadow: none;
       font-weight: 600 !important;
       color: rgba(0, 0, 0, 0.6) !important; }
-  .sign-in-form form .sign-up-button .button, .sign-in-form form .sign-up-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-form form .sign-up-button .sign-in-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .facebook-button, .sign-in-form form .sign-up-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .sign-in-form form .sign-up-button .google-button {
+  .sign-in-form form .sign-up-button .button {
     width: 100%; }
   .sign-in-form form .tos .terms-container {
     margin-top: 10px;
@@ -1343,7 +1234,7 @@ tr.green {
       font-weight: 600 !important;
       color: rgba(0, 0, 0, 0.6) !important;
       text-align: center; }
-    .sign-in-form .confirm-message .button, .sign-in-form .confirm-message .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .sign-in-form .confirm-message .sign-in-button, .sign-in-form .confirm-message .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .sign-in-form .confirm-message .facebook-button, .sign-in-form .confirm-message .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .sign-in-form .confirm-message .google-button {
+    .sign-in-form .confirm-message .button {
       width: 100%; }
   .sign-in-form .log-in-border {
     width: 100%;
@@ -1372,13 +1263,13 @@ tr.green {
     .sign-in-form .facebook-button-container .fb-logo, .sign-in-form .facebook-button-container .google-logo, .sign-in-form .google-button-container .fb-logo, .sign-in-form .google-button-container .google-logo {
       position: absolute;
       top: 50%;
-      left: 2em;
+      left: 16px;
       transform: translate(0, -50%);
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      height: 2em;
-      width: 2em; }
+      height: 1.5em;
+      width: 1.5em; }
     .sign-in-form .facebook-button-container .facebook-button, .sign-in-form .facebook-button-container .google-button, .sign-in-form .google-button-container .facebook-button, .sign-in-form .google-button-container .google-button {
       width: calc(100% - 16px);
       border: #e0e0e0 solid 3px !important;
@@ -1386,7 +1277,8 @@ tr.green {
       background: #fff;
       font-weight: 600 !important;
       color: rgba(0, 0, 0, 0.6) !important;
-      font-size: 16px !important; }
+      font-size: 16px !important;
+      text-align: right !important; }
 
 @keyframes LogIn {
   from {
@@ -1982,7 +1874,7 @@ tr.green {
     padding: 48px 16px;
     border-left: solid 5px #4257b2; }
     .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link .link-title {
-      color: #4257b2;
+      color: #444;
       font-size: 14px;
       margin-top: -7px;
       text-transform: uppercase;
@@ -2006,7 +1898,7 @@ tr.green {
       background: #fff;
       box-shadow: 0px 0px 10px #a5a5a5; }
       .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link:hover .link-title {
-        color: #444; }
+        color: #4257b2; }
   .admin-dashboard .learner-side-container {
     background: #ffffff;
     box-shadow: 0px -2px 21px #a5a5a5;
@@ -2183,7 +2075,7 @@ span.no-validator {
     margin-top: 16px;
     z-index: 3;
     position: relative; }
-    .exam-type-container .exam-type .container .exam-button .button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .exam-type-container .exam-type .container .exam-button .sign-in-button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .exam-type-container .exam-type .container .exam-button .facebook-button, .exam-type-container .exam-type .container .exam-button .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .exam-type-container .exam-type .container .exam-button .google-button {
+    .exam-type-container .exam-type .container .exam-button .button {
       margin: 0 auto;
       width: 50%;
       z-index: 3; }
@@ -2677,7 +2569,7 @@ span.no-validator {
   padding: 16px;
   text-align: center;
   font-weight: 600; }
-  .grid-correct-answer .button, .grid-correct-answer .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .grid-correct-answer .sign-in-button, .grid-correct-answer .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .grid-correct-answer .facebook-button, .grid-correct-answer .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .grid-correct-answer .google-button, .grid-wrong-answer .button, .grid-wrong-answer .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .grid-wrong-answer .sign-in-button, .grid-wrong-answer .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .grid-wrong-answer .facebook-button, .grid-wrong-answer .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .grid-wrong-answer .google-button {
+  .grid-correct-answer .button, .grid-wrong-answer .button {
     padding: 8px;
     margin: 0;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
@@ -2693,10 +2585,10 @@ span.no-validator {
   color: #900303; }
 
 .learning-strand-container {
-  padding: 16px; }
+  padding: 4px; }
   .learning-strand-container .learning-strand {
     padding: 16px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+    border: dashed 2px #94e4ff;
     margin-right: 4px;
     margin-bottom: 4px;
     text-align: center;
@@ -2722,7 +2614,7 @@ span.no-validator {
     .learning-strand-container .learning-strand .level {
       font-size: 16px; }
     .learning-strand-container .learning-strand:hover {
-      background: #d9edf7; }
+      border-color: #4257b2; }
 
 .answer-text, .answer-box {
   width: 100%; }
@@ -2951,7 +2843,7 @@ span.no-validator {
   .hero-image:hover .user-image-input {
     opacity: 1; }
 
-.user-image .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .user-image .sign-in-button, .user-image .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .user-image .facebook-button, .user-image .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .user-image .google-button, .user-image .button {
+.user-image .button {
   font-weight: 500;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
   border-radius: 5px;
@@ -3009,7 +2901,8 @@ span.no-validator {
       box-shadow: 0px 0px 3px #a9a9a9; }
 
 .forum-dashboard .forum-list-container {
-  padding: 16px; }
+  margin-top: -9px;
+  border: solid 1px #ebebeb; }
   .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name {
     font-weight: 600;
     font-size: 22px;
@@ -3069,6 +2962,17 @@ span.no-validator {
           padding: 0.5rem 0.625rem 0.5rem 2rem !important; }
         .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-icon {
           max-width: 30px; }
+
+.forum-dashboard .forum-dashboard-container-discussion {
+  padding: 16px;
+  margin-top: -9px;
+  border: solid 1px #ebebeb; }
+  .forum-dashboard .forum-dashboard-container-discussion .forum-name {
+    font-size: 22px; }
+    .forum-dashboard .forum-dashboard-container-discussion .forum-name .date-created {
+      font-size: 13px;
+      color: #4257b2;
+      margin-top: 5px; }
 
 .discussion-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
@@ -3168,6 +3072,82 @@ span.no-validator {
 canvas {
   margin-bottom: 60px; }
 
+.take-survey-container {
+  padding: 8px; }
+  .take-survey-container .survey-title {
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 14px;
+    border-bottom: #e0e0e0 solid 1px;
+    color: #ffffff;
+    font-weight: 600;
+    background: #4257b2;
+    border-radius: 4px;
+    text-transform: uppercase; }
+  .take-survey-container .survey-description {
+    text-align: center;
+    font-size: 22px;
+    padding: 8px; }
+  .take-survey-container .survey-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px; }
+    .take-survey-container .survey-button-container .survey-button {
+      height: 4em;
+      width: 4em;
+      border-radius: 50%;
+      background: #d9edf7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      cursor: pointer;
+      transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+      .take-survey-container .survey-button-container .survey-button:hover {
+        background: #4257b2;
+        color: #fff; }
+    .take-survey-container .survey-button-container .survey-button.active {
+      background: #4257b2;
+      color: #fff; }
+
+.survey-user {
+  font-size: 22px;
+  text-align: center;
+  background: #d7ecfb;
+  margin-top: 30px;
+  margin-left: 16px;
+  margin-right: 16px;
+  padding: 13px 13px 7px 13px;
+  border: dashed 1px #3ba4eb; }
+  .survey-user .user {
+    font-weight: 600; }
+  .survey-user .date {
+    font-size: 16px; }
+
+.survey-instruction {
+  font-size: 20px;
+  text-align: justify;
+  padding: 16px;
+  border: solid 1px #ebebeb;
+  margin-top: -9px; }
+  .survey-instruction .instruction-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    cursor: pointer;
+    margin-top: 14px; }
+    .survey-instruction .instruction-button-container .instruction-button {
+      padding: 10px 20px;
+      margin: 0 8px;
+      background: #d9edf7;
+      border-radius: 50px;
+      font-size: 16px; }
+      .survey-instruction .instruction-button-container .instruction-button:hover {
+        background: #4257b2;
+        color: #fff; }
+
 @media (max-width: 40em) {
   .home-title {
     font-size: 32px !important; }
@@ -3191,7 +3171,7 @@ canvas {
     .grid-x.exams-container .title-action {
       position: initial !important;
       width: 100% !important; }
-      .grid-x.exams-container .title-action .button, .grid-x.exams-container .title-action .sign-in-container .log-in-form .sign-in-button-form span .sign-in-button, .sign-in-container .log-in-form .sign-in-button-form span .grid-x.exams-container .title-action .sign-in-button, .grid-x.exams-container .title-action .sign-in-container .log-in-button span .facebook-button, .sign-in-container .log-in-button span .grid-x.exams-container .title-action .facebook-button, .grid-x.exams-container .title-action .sign-in-container .log-in-button span .google-button, .sign-in-container .log-in-button span .grid-x.exams-container .title-action .google-button {
+      .grid-x.exams-container .title-action .button {
         margin-left: 0 !important;
         margin-right: 4px !important; }
   .table-filter {
@@ -3226,10 +3206,9 @@ p, span, a {
   background: #fff;
   margin-bottom: 16px;
   margin-top: 16px;
+  border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; }
   .element-container .chart-data-container, .discussion-container .chart-data-container, .comment-container .chart-data-container, .comment-list .chart-data-container {
     padding: 16px; }
     .element-container .chart-data-container canvas, .discussion-container .chart-data-container canvas, .comment-container .chart-data-container canvas, .comment-list .chart-data-container canvas {
       margin-bottom: 80px; }
-=======
->>>>>>> 4c3295da86df402effe526aacf393ca507fff3c4
