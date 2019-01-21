@@ -618,14 +618,14 @@ label {
   background: #d1f4da;
   border-radius: 5px;
   color: #76a472;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
 
 .form-message.loading {
   background: #d9edf7;
   border-radius: 5px;
   color: #3b708f;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
   .form-message.loading i {
     animation: messageLoader 1s linear infinite; }
@@ -634,14 +634,14 @@ label {
   background: #f8e8c0;
   border-radius: 5px;
   color: #937d45;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
 
 .form-message.error {
   background: #f2dede;
   border-radius: 5px;
   color: #a94547;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
 
 .file-input .file-input-container {
@@ -2071,7 +2071,7 @@ tr.green {
   max-width: 63px; }
 
 .reviewer-view .context-montserrat, .reviewer-view .form-subtitle, .reviewer-view .footer-contact span p, .footer-contact span .reviewer-view p {
-  color: rgba(0, 0, 0, 0.6);
+  color: #4257b2;
   font-size: 16px;
   margin-top: 16px;
   font-weight: 600; }
@@ -2691,35 +2691,37 @@ span.no-validator {
   background: #f2dede;
   color: #900303; }
 
-.learning-strand-container .learning-strand {
-  padding: 16px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  text-align: center;
-  position: relative;
-  font-size: 24px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
-  .learning-strand-container .learning-strand .question-length {
-    font-weight: 500;
-    font-size: 16px;
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    transform: translate(0, -50%); }
-  .learning-strand-container .learning-strand i.la {
-    font-weight: 500;
-    font-size: 32px;
-    position: absolute;
-    top: 50%;
-    left: 16px;
-    transform: translate(0, -50%); }
-  .learning-strand-container .learning-strand .level {
-    font-size: 16px; }
-  .learning-strand-container .learning-strand:hover {
-    background: #d9edf7; }
+.learning-strand-container {
+  padding: 16px; }
+  .learning-strand-container .learning-strand {
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    position: relative;
+    font-size: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+    .learning-strand-container .learning-strand .question-length {
+      font-weight: 500;
+      font-size: 16px;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translate(0, -50%); }
+    .learning-strand-container .learning-strand i.la {
+      font-weight: 500;
+      font-size: 32px;
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      transform: translate(0, -50%); }
+    .learning-strand-container .learning-strand .level {
+      font-size: 16px; }
+    .learning-strand-container .learning-strand:hover {
+      background: #d9edf7; }
 
 .answer-text, .answer-box {
   width: 100%; }
@@ -3219,6 +3221,7 @@ p, span, a {
   padding: 16px; }
 
 .element-container, .discussion-container, .comment-container, .comment-list {
+  padding: 16px;
   background: #fff;
   margin-bottom: 16px;
   margin-top: 16px;
