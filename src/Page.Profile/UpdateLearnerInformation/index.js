@@ -146,7 +146,7 @@ class Layout extends Component {
         image: this.state.image, 
 
     }
-    apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           this.fetchSingle()
           this.formMessage('Learner Information has been updated', 'success', true, false)
@@ -242,7 +242,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const UpdateInformation = connect(mapStateToProps)(Layout)

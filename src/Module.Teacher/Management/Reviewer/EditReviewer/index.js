@@ -90,7 +90,7 @@ class Layout extends Component {
         description: this.state.description,
     }
     
-    apiRequest('put', `/reviewer-management/update/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/reviewer-management/update/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           
           this.formMessage('Data has been updated', 'success', true, false)
@@ -168,7 +168,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    user: state.user
   }
 }
 const AddLevel = connect(mapStateToProps)(Layout)

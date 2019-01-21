@@ -32,7 +32,7 @@ class Layout extends Component {
             className='link' 
             activeClassName='active' 
             to={ { pathname:'/teacher/profile/audit-trail', state: { id: this.props.location.state.id } } }
-            >Audit Trail</NavLink>
+            >History</NavLink>
         </div>
     )
   }

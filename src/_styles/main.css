@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @font-face {
   font-family: 'Montserrat';
   src: url("./fonts/Roboto/Roboto-Bold.ttf");
@@ -3230,3 +3231,5 @@ p, span, a {
     padding: 16px; }
     .element-container .chart-data-container canvas, .discussion-container .chart-data-container canvas, .comment-container .chart-data-container canvas, .comment-list .chart-data-container canvas {
       margin-bottom: 80px; }
+=======
+>>>>>>> 4c3295da86df402effe526aacf393ca507fff3c4

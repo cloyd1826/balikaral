@@ -128,7 +128,7 @@ class Layout extends Component {
     dateComment: new Date().toISOString(),
     comment: this.state.comment
   }
-  apiRequest('post', '/comment', data, this.props.token)
+  apiRequest('post', `/comment?userId=${this.props.user.id}`, data, this.props.token)
     .then((res)=>{
         let page = this.state.currentPage
         this.fetchComment(page)

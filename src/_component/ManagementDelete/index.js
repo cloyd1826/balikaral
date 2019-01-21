@@ -26,7 +26,7 @@ class Layout extends Component {
   }
   deleteRecord(){
    
-    apiRequest('delete', this.props.link, false, this.props.token)
+    apiRequest('delete', this.props.link + `?userId=${this.props.user.id}`, false, this.props.token)
       .then((res)=>{
         this.props.close()
       })
@@ -61,7 +61,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    user: state.user
   }
 }
 const DeleteLevel = connect(mapStateToProps)(Layout)

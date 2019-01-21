@@ -53,6 +53,14 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
                 <Grid.Cell large={3} medium={6} small={12}>
+                  <Link to='/teacher/management/session-guide/list/teachers'>
+                    <div className='dashboard-link'>
+                      <span className='la la-file-archive-o'></span>
+                      <div className='link-title'>Session Guide</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+                <Grid.Cell large={3} medium={6} small={12}>
                   <Link to='/teacher/management/exam/list/teachers'>
                     <div className='dashboard-link'>
                       <span className='la la-list-ul'></span>

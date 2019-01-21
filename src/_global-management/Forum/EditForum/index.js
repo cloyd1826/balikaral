@@ -97,7 +97,7 @@ class Layout extends Component {
       learningStrand: this.state.learningStrand,
     }
     
-    apiRequest('put', `/management-forum/update/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/management-forum/update/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           this.formMessage('Data has been updated', 'success', true, false)
       })    
@@ -112,7 +112,7 @@ class Layout extends Component {
                 <Grid.X>
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
-                            <div className='title-text-container hide-on-large'>
+                            <div className='title-text-container hide-on-large-x'>
                                 <div className='title'>Forum Management > Edit</div>
                                 <div className='title-action'>
                                     <Link to='/admin/management/forum/list/'>
@@ -175,7 +175,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    role: state.role
+    role: state.role,
+    user: state.user
   }
 }
 const EditExamType = connect(mapStateToProps)(Layout)

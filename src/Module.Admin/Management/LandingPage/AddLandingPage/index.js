@@ -125,7 +125,7 @@ class Layout extends Component {
   		})
   }
   postData(){
-    const url = `${config}/balikaral/landing-page/`
+    const url = `${config}/balikaral/landing-page?userId=${this.props.user.id}`
     const formData = new FormData()
 
     formData.append('pageDescription', this.state.pageDescription)
@@ -165,7 +165,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container hide-on-large'>
+        					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Landing Page</div>
         						<div className='title-action'>
         							<Link to='/admin/management/landing-page/list'>
@@ -341,7 +341,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    user: state.user
   }
 }
 const AddLevel = connect(mapStateToProps)(Layout)

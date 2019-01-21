@@ -181,7 +181,7 @@ class Layout extends Component {
                         
 					        				return (
 					        					<Table.Row key={index}>
-                              <Table.Cell>{attr.examType ? attr.examType.examType ? attr.examType.examType : '' : ''}</Table.Cell>
+                              <Table.Cell>{attr.type}</Table.Cell>
                                <Table.Cell isNarrowed>{
                                 attr.examiner ? attr.examiner.personalInformation ? 
                                 (attr.examiner.personalInformation.firstName ? attr.examiner.personalInformation.firstName : '') 
@@ -193,7 +193,7 @@ class Layout extends Component {
                               }</Table.Cell>
 
                               <Table.Cell>{attr.dateStarted ? moment(attr.dateStarted).format('MMMM DD, YYYY') : ''}</Table.Cell>
-                              <Table.Cell>{attr.status ? attr.status : ''}</Table.Cell>
+                              <Table.Cell>{attr.status && attr.type !== 'Pre Test' ? attr.status : ''}</Table.Cell>
                               <Table.Cell>{attr.exam ? attr.exam.length : ''}</Table.Cell>
                               <Table.Cell>{attr.score ? attr.score : ''}</Table.Cell>
                               <Table.Cell>{attr.dateFinished ? moment(attr.dateFinished).format('MMMM DD, YYYY') : '' }</Table.Cell>

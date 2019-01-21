@@ -32,6 +32,9 @@ class Layout extends Component {
         firstName: '',
         middleName: '',
 
+        civilStatus: '',
+        birthday: '',
+
         houseNoStreet: '',
         barangay: '',
         city: '',
@@ -117,7 +120,8 @@ class Layout extends Component {
             token: this.props.token,
             isLoggedIn: true,
             role: this.props.role,
-            hadPreTest: this.props.hadPreTest
+            hadPreTest: this.props.hadPreTest,
+            type: 'local'
           }
           this.props.actions.logIn(userData)
 
@@ -128,7 +132,7 @@ class Layout extends Component {
       })
   }
   putFile(){
-    const url = `${config}/balikaral/user/update-profile-picture/${this.props.location.state.id}`
+    const url = `${config}/balikaral/user/update-profile-picture/${this.props.location.state.id}?userId=${this.props.user.id}`
     const formData = new FormData()
    
     formData.append('image', this.state.image)
@@ -139,6 +143,8 @@ class Layout extends Component {
     formData.append('barangay', this.state.barangay)
     formData.append('city', this.state.city)
     formData.append('province', this.state.province)
+    formData.append('civilStatus', this.state.civilStatus)
+    formData.append('birthday', this.state.birthday)
 
     formData.append('learningCenter', this.state.learningCenter)
     formData.append('gradeLevel', this.state.gradeLevel)
@@ -161,7 +167,12 @@ class Layout extends Component {
             
             if(res.data){
                 let result = res.data.data
-                this.setState({
+                let local = result.local
+                let google = result.google
+                let facebook = result.facebook
+                
+                if(local){
+                  this.setState({
                     email: result.local ? result.local.email ? result.local.email : '' : '' ,
                     disabled: result.local ? result.local.disabled ? result.local.disabled : '' : '',
 
@@ -173,8 +184,9 @@ class Layout extends Component {
                     barangay: result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '',
                     city: result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '',
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
+                    birthday: result.personalInformation ?  result.personalInformation.birthday ?  result.personalInformation.birthday : '' : '', 
 
-                    province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
+                    civilStatus: result.personalInformation ?  result.personalInformation.civilStatus ?  result.personalInformation.civilStatus : '' : '', 
 
                     learningCenter: result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '',
                     gradeLevel: result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '',
@@ -188,7 +200,9 @@ class Layout extends Component {
 
                     userType:  result.local ? result.local.userType ? result.local.userType : '' : '',
                     imagePreview: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
-                })
+                  })
+                }
+                
             }
         })    
         .catch((err)=>{

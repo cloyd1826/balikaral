@@ -200,7 +200,7 @@ class Layout extends Component {
       examTotal: total,
       totalHours: this.state.totalHours,
   	}
-  	apiRequest('post', '/exam-type-management', data, this.props.token)
+  	apiRequest('post', `/exam-type-management?userId=${this.props.user.id}`, data, this.props.token)
   		.then((res)=>{
           this.clearData()
           this.formMessage('Data has been saved', 'success', true, false)
@@ -252,7 +252,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container hide-on-large'>
+        					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Exam Type Management > Add</div>
         						<div className='title-action'>
         							<Link to='/admin/management/exam-type/list'>

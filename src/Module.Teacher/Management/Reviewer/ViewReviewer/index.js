@@ -137,7 +137,7 @@ class Layout extends Component {
       validator: validator,
       validation: (validator.length >= 3 ? true : false)
     }
-    apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         
          this.formMessage('Data has been updated...', 'success', true, false)

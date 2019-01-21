@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 import apiRequest from '../../_axios'
+import { appId, clientId } from '../../_config'
 
 
 import FacebookLogo from '../../_images/facebook-logo.png'
@@ -42,19 +43,101 @@ class Layout extends Component{
     this.formMessage = this.formMessage.bind(this)
 
     this.responseFacebook = this.responseFacebook.bind(this)
+    this.responseGoogle = this.responseGoogle.bind(this)
     this.componentClicked = this.componentClicked.bind(this)
   }
   componentClicked(){
 
   }
   responseFacebook(fbRes){
-    console.log(fbRes)
     apiRequest('post', '/oauth/facebook', { access_token: fbRes.accessToken }, false)
       .then((res)=>{
-        console.log(res)
+        let result = res.data
+        if(result){
+          
+          let userData = {
+          user: { 
+            id: result.data ? result.data._id ? result.data._id : '' : '',
+            email: result.data.facebook ? result.data.facebook.email ? result.data.facebook.email : '' : '',
+            firstName: fbRes.name,
+            image: fbRes.picture.data.url
+          },
+          token: result.token,
+          isLoggedIn: true,
+          role: result.data.facebook ? result.data.facebook.userType ? result.data.facebook.userType : '' : '',
+          type: 'facebook'
+          }
+          if(userData.role === 'Learner'){
+            let level = result.data.userSettings ? result.data.userSettings.level ? result.data.userSettings.level : '' : ''
+            apiRequest('get', `/generated-exam/learner-pre-test?level=${level}&examiner=${userData.user.id}`, false, userData.token)
+              .then((res)=>{
+                
+                if(res.data){
+                  userData = {...userData, level: level, hadPreTest: res.data.pretest }
+                  
+                  this.props.actions.logIn(userData)
+                  this.props.close()
+                }
+              })
+              .catch((err)=>{
+                this.formMessage('Error: ' + err.message, 'error', true, false)
+              })
+          }else{
+            this.props.actions.logIn(userData)
+            this.props.close()
+          }
+        }
+        
       })
       .catch((err)=>{
-        console.log(err)
+        
+      })
+  }
+  responseGoogle(googleRes){
+    console.log(googleRes)
+    apiRequest('post', '/oauth/google', { access_token: googleRes.accessToken }, false)
+      .then((res)=>{
+        console.log(res)
+        let result = res.data
+        if(result){
+          console.log(result)
+          let userData = {
+            user: { 
+              id: result.data ? result.data._id ? result.data._id : '' : '',
+              email: result.data.google ? result.data.google.email ? result.data.google.email : '' : '',
+              firstName: googleRes.profileObj.name,
+              image: googleRes.profileObj.imageUrl,
+            },
+            token: result.token,
+            isLoggedIn: true,
+            role: result.data.google ? result.data.google.userType ? result.data.google.userType : '' : '',
+            type: 'google'
+          }
+          if(userData.role === 'Learner'){
+            let level = result.data.userSettings ? result.data.userSettings.level ? result.data.userSettings.level : '' : ''
+            apiRequest('get', `/generated-exam/learner-pre-test?level=${level}&examiner=${userData.user.id}`, false, userData.token)
+              .then((res)=>{
+                console.log(res)
+                if(res.data){
+                  userData = {...userData, level: level, hadPreTest: res.data.pretest }
+                  
+                  this.props.actions.logIn(userData)
+                  this.props.close()
+                }
+              })
+              .catch((err)=>{
+                this.formMessage('Error: ' + err.message, 'error', true, false)
+              })
+          }else{
+            this.props.actions.logIn(userData)
+            this.props.close()
+          }
+        }
+        
+      })
+      .catch((err)=>{
+          console.log(err)
+          this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
   formMessage(message, type, active, button){
@@ -78,7 +161,7 @@ class Layout extends Component{
     this.formMessage('Logging in', 'loading', true, false)
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
-          console.log(res)
+          
           if(res.data) {
               let result = res.data
               let userData = {
@@ -93,15 +176,15 @@ class Layout extends Component{
                 token: result.token,
                 isLoggedIn: true,
                 role: result.data.local ? result.data.local.userType ? result.data.local.userType : '' : '',
+                type: 'local'
               }
               if(userData.role === 'Learner'){
                 let level = result.data.userSettings ? result.data.userSettings.level ? result.data.userSettings.level : '' : ''
                 apiRequest('get', `/generated-exam/learner-pre-test?level=${level}&examiner=${userData.user.id}`, false, userData.token)
                   .then((res)=>{
-                    console.log(res)
                     if(res.data){
                       userData = {...userData, level: level, hadPreTest: res.data.pretest }
-                      console.log(userData)
+                      
                       this.props.actions.logIn(userData)
                       this.props.close()
                     }
@@ -197,7 +280,7 @@ class Layout extends Component{
                     <span className='facebook-button-container'>
                       <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
                       <FacebookLogin
-                        appId="521442691675915"
+                        appId={appId}
                         autoLoad={false}                    
                         fields="name,email,picture"
                         onClick={this.componentClicked}
@@ -214,7 +297,7 @@ class Layout extends Component{
                      <span className='google-button-container'>
                         <div className='google-logo' style={{backgroundImage: 'url(' + GoogleLogo + ')'}} />
                         <GoogleLogin
-                          clientId="293000110428-lm6klam4patr7ojnk0e9md79gkip32jd.apps.googleusercontent.com"
+                          clientId={clientId}
                           render={renderProps => (
                             <button className='google-button' onClick={renderProps.onClick}>Log in with Google</button>
                           )}

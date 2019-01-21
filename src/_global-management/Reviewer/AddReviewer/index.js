@@ -7,6 +7,7 @@ import Grid from '../../../_component/Grid'
 import Form from '../../../_component/Form/Form'
 import FormMessage from '../../../_component/Form/FormMessage'
 import Input from '../../../_component/Form/Input'
+import Textarea from '../../../_component/Form/Textarea'
 import Select from '../../../_component/Form/Select'
 import FileInput from '../../../_component/Form/FileInput'
 import Button from '../../../_component/Form/Button'
@@ -18,6 +19,8 @@ import config from '../../../_config'
 import { connect } from 'react-redux'
 
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectLevel from '../../../_special-form/SelectLevel'
+import SelectSubject from '../../../_special-form/SelectSubject'
 
 import axios, { post } from 'axios'
 
@@ -25,7 +28,9 @@ class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-    	learningStrand: '',
+      learningStrand: '',
+      level: '',
+    	learningStrandSub: '',
       pdf: '',
       description: '',
       pdfName: '',
@@ -49,7 +54,29 @@ class Layout extends Component {
 
     this.postFile = this.postFile.bind(this)
     this.changeTypeReviewer = this.changeTypeReviewer.bind(this)
+
+    this.handleLevelChange = this.handleLevelChange.bind(this)
+    this.handleLearningStrandChange = this.handleLearningStrandChange.bind(this)
   }
+
+  handleLevelChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrand: '',
+      learningStrandSub: '',
+    })
+  }
+  handleLearningStrandChange(e){
+    let name = e.target.name
+    let value = e.target.value
+    this.setState({
+      [name]: value,
+      learningStrandSub: '',
+    })
+  }
+
   changeTypeReviewer(e){
     let name = e.target.name
     let value = e.target.value
@@ -71,6 +98,8 @@ class Layout extends Component {
   clearData(){
     this.setState({
       learningStrand: '',
+      level: '',
+      learningStrandSub: '',
       pdf: '',
       description: '',
       pdfName: '',
@@ -115,14 +144,18 @@ class Layout extends Component {
   		})
   }
   postFile(){
-    const url = `${config}/balikaral/reviewer-management/`
+    const url = `${config}/balikaral/reviewer-management?userId=${this.props.user.id}`
     const formData = new FormData()
     
     formData.append('learningStrand', this.state.learningStrand)
+    formData.append('level', this.state.level)
     formData.append('description', this.state.description)
     formData.append('uploader', this.props.user.id )
     formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
 
+    if(this.state.learningStrandSub !== ''){
+      formData.append('learningStrandSub', this.state.learningStrandSub)
+    }
     if(this.state.pdfName !== ''){
       formData.append('pdf', this.state.pdf)
     }
@@ -148,7 +181,7 @@ class Layout extends Component {
         		<Grid.X>
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
-        					<div className='title-text-container hide-on-large'>
+        					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Reviewer Management > Add</div>
         						<div className='title-action'>
         							<Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
@@ -163,17 +196,38 @@ class Layout extends Component {
                       <Grid.Cell large={12} medium={12} small={12}>
                         <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                       </Grid.Cell>
-  	        					<Grid.Cell large={6} medium={12} small={12}>
+  	        					<Grid.Cell large={4} medium={12} small={12}>
+                        <SelectLevel 
+                          required 
+                          type='text' 
+                          label='Level' 
+                          name='level' 
+                          value={this.state.level} 
+                          onChange={this.handleLevelChange}/>
+                      </Grid.Cell>
+
+
+                      <Grid.Cell large={4} medium={12} small={12}>
                         <SelectLearningStrand 
-                          label='Learning Strand'  
+                          required 
+                          type='text' 
+                          label='Learning Strand' 
                           name='learningStrand' 
-                          required
+                          level={this.state.level}
                           value={this.state.learningStrand} 
+                          onChange={this.handleLearningStrandChange}/>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={4} medium={12} small={12}>
+                        <SelectSubject 
+                          label='Modyul'
+                          name='learningStrandSub' 
+                          learningStrand={this.state.learningStrand}
+                          value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
-                       <Grid.Cell large={6} medium={12} small={12}>
-                        <Input 
-                          type='text'
+                       <Grid.Cell large={12} medium={12} small={12}>
+                        <Textarea
                           label='Description' 
                           placeholder='Description' 
                           name='description' 

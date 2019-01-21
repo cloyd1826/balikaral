@@ -96,7 +96,7 @@ class Layout extends Component {
     }
    
     this.formMessage('Validating Selected Data', 'loading', true, false)
-    apiRequest('put', `/reviewer-management/validate-multiple`, data, this.props.token)
+    apiRequest('put', `/reviewer-management/validate-multiple?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         let learningStrand = this.state.learningStrand
         let validation = this.state.validation
@@ -191,7 +191,7 @@ class Layout extends Component {
     }
 
     if(this.props.match.params.type === 'learner'){
-      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}&page=${page}`
+      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}&level=${this.props.level}&page=${page}`
     }
 
     apiRequest('get', routeToUse, false, this.props.token)
@@ -235,7 +235,7 @@ class Layout extends Component {
             <Grid.X>
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
-                  <div className='title-text-container hide-on-large'>
+                  <div className='title-text-container'>
                     <div className='title'>Reviewer List</div>
                     <div className='title-action'>
 
@@ -312,8 +312,10 @@ class Layout extends Component {
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Type</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell>Teacher</Table.HeaderCell>
+                        <Table.HeaderCell>Modyul</Table.HeaderCell>
+                        <Table.HeaderCell>Submitted By</Table.HeaderCell>
                        
                         {this.state.role === 'Learner' ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
@@ -367,7 +369,10 @@ class Layout extends Component {
                               </Table.Cell>
                               <Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{(attr.pdf ? 'PDF Reviewer' : '') + (attr.youtubeVideo ? 'Youtube Video' : '')}</Table.Cell>
+                              <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
+                              
+                              <Table.Cell>{attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : ''}</Table.Cell>
                               <Table.Cell>{
                                 attr.uploader ? attr.uploader.personalInformation ? 
                                 (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
@@ -454,8 +459,10 @@ class Layout extends Component {
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Type</Table.HeaderCell>
+                        <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell>Teacher</Table.HeaderCell>
+                        <Table.HeaderCell>Modyul</Table.HeaderCell>
+                        <Table.HeaderCell>Submitted By</Table.HeaderCell>
                        
                         {this.state.role === "Learner" ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
@@ -492,7 +499,8 @@ const mapStateToProps = (state) => {
     token: state.token,
     user: state.user,
     role: state.role,
-    hadPreTest: state.hadPreTest
+    hadPreTest: state.hadPreTest,
+    level: state.level
   }
 }
 const ListReviewer = connect(mapStateToProps)(Layout)

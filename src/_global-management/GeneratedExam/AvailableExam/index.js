@@ -206,7 +206,7 @@ class Layout extends Component {
       dateStarted: Date.now(),
       level: this.props.level
     }
-    apiRequest('post', `/generated-exam`, data, this.props.token)
+    apiRequest('post', `/generated-exam?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         
           this.props.history.push({

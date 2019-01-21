@@ -11,6 +11,7 @@ import FileInput from '../../../../_component/Form/FileInput'
 import Button from '../../../../_component/Form/Button'
 
 import apiRequest from '../../../../_axios'
+import config from '../../../../_config'
 
 import { connect } from 'react-redux'
 
@@ -97,7 +98,7 @@ class Layout extends Component {
   		})
   }
   postFile(){
-    const url = `http://localhost:5000/balikaral/reviewer-management/`
+    const url = `${config}/balikaral/reviewer-management?userId=${this.props.user.id}`
     const formData = new FormData()
     formData.append('pdf', this.state.pdf)
     formData.append('learningStrand', this.state.learningStrand)

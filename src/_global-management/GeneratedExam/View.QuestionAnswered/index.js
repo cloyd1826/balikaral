@@ -41,7 +41,7 @@ class Layout extends Component {
 
           {this.props.checking ? 
           <div className='summary-learning-strand'>
-            <div className='summary-title'>Ito ang resulta ng iyong exam: </div>
+            <div className='summary-title'>Ito ang resulta ng exam: </div>
            
             {passedLearningStrand.length > 0 ?
                <div className='summary-text'>

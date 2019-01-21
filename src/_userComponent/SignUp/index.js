@@ -20,6 +20,8 @@ import { logInUser } from '../../_redux/actions/user'
 import axios from 'axios'
 import apiRequest from '../../_axios'
 
+import { appId, clientId } from '../../_config'
+
 import FacebookLogo from '../../_images/facebook-logo.png'
 import GoogleLogo from '../../_images/google-logo.png'
 
@@ -51,8 +53,11 @@ class Layout extends Component{
       isCreating: true,
 
       isFacebookConfirm: false,
+      isGoogleConfirm: false,
 
-      signIn: false
+      isSocialConfirm: false,
+
+      signIn: false,
     }
     this.componentClicked = this.componentClicked.bind(this)
 
@@ -124,6 +129,10 @@ class Layout extends Component{
         email: this.state.email,
         id: this.state.id,
         userType: this.state.userType,
+        name: this.state.name
+      }
+      if(this.state.userType === 'Learner'){
+        data = {...data, level: this.state.level}
       }
       apiRequest('post', '/signup-facebook', data, false)
         .then((res)=>{
@@ -136,7 +145,28 @@ class Layout extends Component{
         .catch((err)=>{
            this.formMessage('Error: ' + err.message, 'error', true, false)
         })
-    }else{
+    }else if(this.state.isGoogleConfirm){
+      let data = {
+        email: this.state.email,
+        id: this.state.id,
+        userType: this.state.userType,
+        name: this.state.name
+      }
+      if(this.state.userType === 'Learner'){
+        data = {...data, level: this.state.level}
+      }
+      apiRequest('post', '/signup-google', data, false)
+        .then((res)=>{
+            this.setState({
+              isCreating: false,
+              active: false,
+              buttonDisabled: false
+            })
+        })
+        .catch((err)=>{
+           this.formMessage('Error: ' + err.message, 'error', true, false)
+        })
+    } else{
       let data = {
         email: this.state.email,
         password: this.state.password,
@@ -145,7 +175,8 @@ class Layout extends Component{
         middleName: this.state.middleName,
         userType: this.state.userType,
         gender: this.state.gender,
-        birthday: this.state.birthday
+        birthday: this.state.birthday,
+        civilStatus: this.state.civilStatus,
       }
       if(this.state.userType === 'Learner'){
         data = {...data, level: this.state.level}
@@ -169,18 +200,10 @@ class Layout extends Component{
 
   }
   responseFacebook(res){
-    // console.log(fbRes) 
-    // apiRequest('post', `/oauth/facebook`, {access_token: fbRes.accessToken}, false)
-    //   .then((res)=>{
-    //     console.log(res)
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err)
-    //   })
-    console.log(res)
-
     this.setState({
       isFacebookConfirm: true,
+      isGoogleConfirm: false,
+      isSocialConfirm: true,
       email: res.email,
       name: res.name,
       image: res.picture.data.url,
@@ -188,6 +211,16 @@ class Layout extends Component{
     })
   }
   responseGoogle(res){
+    console.log(res)
+    this.setState({
+      isGoogleConfirm: true,
+      isFacebookConfirm: false,
+      isSocialConfirm: true,
+      email: res.profileObj.email,
+      name: res.profileObj.name,
+      image: res.profileObj.imageUrl,
+      id: res.googleId
+    })
     console.log(res)
   }
   render() {
@@ -215,7 +248,7 @@ class Layout extends Component{
                     <span className='facebook-button-container'>
                       <div className='fb-logo' style={{backgroundImage: 'url(' + FacebookLogo + ')'}} />
                       <FacebookLogin
-                        appId="344679316117018"
+                        appId={appId}
                         autoLoad={false}                    
                         fields="name,email,picture"
                         onClick={this.componentClicked}
@@ -233,7 +266,7 @@ class Layout extends Component{
                      <span className='google-button-container'>
                         <div className='google-logo' style={{backgroundImage: 'url(' + GoogleLogo + ')'}} />
                         <GoogleLogin
-                          clientId="293000110428-lm6klam4patr7ojnk0e9md79gkip32jd.apps.googleusercontent.com"
+                          clientId={clientId}
                           render={renderProps => (
                             <button className='google-button' onClick={renderProps.onClick}>Sign up with Google</button>
                           )}
@@ -250,7 +283,7 @@ class Layout extends Component{
                 </Grid.X>
                <Form onSubmit={this.handleSubmit}>
 
-               {!this.state.isFacebookConfirm ? 
+               {!this.state.isSocialConfirm ? 
                   <Grid.X>
                     <Grid.Cell large={12} medium={12} small={12}>
                       <Input 
@@ -278,7 +311,7 @@ class Layout extends Component{
                 : null}
 
 
-                {this.state.isFacebookConfirm ? 
+                {this.state.isSocialConfirm ? 
                   <Grid.X>
                     <Grid.Cell  large={12} medium={12} small={12}>
                       <div className='facebook-account'>
@@ -294,7 +327,7 @@ class Layout extends Component{
                 : null}
 
                 <Grid.X>
-                  <Grid.Cell large={(this.state.userType === 'Learner' ? 6 : 12)} medium={12} small={12}>
+                  <Grid.Cell large={12} medium={12} small={12}>
                     <Select
                       label='User Type'
                       required
@@ -308,7 +341,7 @@ class Layout extends Component{
                     </Select>
                   </Grid.Cell>
                   {this.state.userType === 'Learner' ? 
-                    <Grid.Cell large={6} medium={12} small={12}>
+                    <Grid.Cell large={12} medium={12} small={12}>
                       <SelectLevel
                         label='Level'
                         required
@@ -323,9 +356,9 @@ class Layout extends Component{
 
                 </Grid.X>
 
-               {!this.state.isFacebookConfirm ?
+               {!this.state.isSocialConfirm ?
                   <Grid.X>
-                    <Grid.Cell large={4} medium={12}  small={12}>
+                    <Grid.Cell large={12} medium={12}  small={12}>
                       <Input 
                         label='First Name'
                         required
@@ -335,7 +368,7 @@ class Layout extends Component{
                         onChange={this.handleChange}
                         />
                     </Grid.Cell>
-                    <Grid.Cell large={4} medium={12} small={12}>
+                    <Grid.Cell large={12} medium={12} small={12}>
                       <Input 
                         label='Middle Name' 
                         placeholder='Dela'
@@ -344,7 +377,7 @@ class Layout extends Component{
                         onChange={this.handleChange}
                         />
                     </Grid.Cell>
-                     <Grid.Cell large={4} medium={12} small={12}>
+                     <Grid.Cell large={12} medium={12} small={12}>
                       <Input 
                         label='Last Name'
                         placeholder='Cruz'
@@ -354,7 +387,7 @@ class Layout extends Component{
                         onChange={this.handleChange}
                          />
                     </Grid.Cell>
-                     <Grid.Cell large={4} medium={12} small={12}>
+                     <Grid.Cell large={12} medium={12} small={12}>
                       <Select
                         label='Gender'
                         required
@@ -367,7 +400,21 @@ class Layout extends Component{
                         <option value='Female'>Female</option>
                       </Select>
                     </Grid.Cell>
-                     <Grid.Cell large={4} medium={12} small={12}>
+                    <Grid.Cell large={12} medium={12} small={12}>
+                      <Select
+                        label='Civil Status'
+                        name='civilStatus'
+                        value={this.state.civilStatus}
+                        onChange={this.handleChange}
+                        >
+                        <option value=''></option>
+                        <option value='Single'>Single</option>
+                        <option value='Married'>Married</option>
+                        <option value='Divorced'>Divorced</option>
+                        <option value='Widowed'>Widowed</option>
+                      </Select>
+                    </Grid.Cell>
+                     <Grid.Cell large={12} medium={12} small={12}>
                       <Input 
                         type='date'
                         label='Birthday'
@@ -384,7 +431,7 @@ class Layout extends Component{
                 <Grid.X>
                   <Grid.Cell large={12} medium={12} small={12} className='tos'>
                      <div className='context-montserrat text-center terms-container'>
-                        <span className={this.state.checked ? 'signup-checkmark checked' : 'signup-checkmark'} onClick={this.handleCheck}><i className="la la-check"></i></span>I have had read the <strong><Link to='/terms-of-service' target="_blank">Terms of Service</Link></strong> and <strong><Link to='/privacy-policy' target="_blank">Privacy Policy</Link></strong> of Balikaral
+                        <span className={this.state.checked ? 'signup-checkmark checked' : 'signup-checkmark'} onClick={this.handleCheck}><i className="la la-check"></i></span>I accept the <strong><Link to='/terms-of-service' target="_blank">Terms of Service</Link></strong> and <strong><Link to='/privacy-policy' target="_blank">Privacy Policy</Link></strong> of Balikaral
                       </div>
                   </Grid.Cell>
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>

@@ -76,21 +76,22 @@ class Layout extends Component{
                   </div>
                 </Link>
               : null}
-              <Link to={{ 
-                pathname: (
-                  (this.props.role === 'Administrator' ? '/admin/user-view' : '') + 
-                  (this.props.role === 'Teacher' ? '/teacher/profile' : '') + 
-                  (this.props.role === 'Learner' && this.props.hadPreTest ? '/learner/profile' : '') + 
-                  (this.props.role === 'Learner' && !this.props.hadPreTest ? '/learner-start/profile' : '') + 
-                  '/update-information'), 
-                state: { id: this.props.user.id } 
-              }}>
-               
-              <div className='user-bar'>
-                <span><i className='fa fa-user' />Profile</span>
-              </div>
-
-              </Link>
+              {this.props.type === 'local' ? 
+                <Link to={{ 
+                  pathname: (
+                    (this.props.role === 'Administrator' ? '/admin/user-view' : '') + 
+                    (this.props.role === 'Teacher' ? '/teacher/profile' : '') + 
+                    (this.props.role === 'Learner' && this.props.hadPreTest ? '/learner/profile' : '') + 
+                    (this.props.role === 'Learner' && !this.props.hadPreTest ? '/learner-start/profile' : '') + 
+                    '/update-information'), 
+                  state: { id: this.props.user.id } 
+                }}>
+                 
+                <div className='user-bar'>
+                  <span><i className='fa fa-user' />Profile</span>
+                </div>
+                </Link>
+              : null}
              
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>
@@ -108,6 +109,7 @@ const mapStateToProps = state => {
     user: state.user,
     role: state.role,
     hadPreTest: state.hadPreTest,
+    type: state.type
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -5,7 +5,7 @@ import Grid from '../../_component/Grid'
 import { Route } from 'react-router-dom'
 
 import Profile from '../Profile'
-import NavBar from '../_navAdmin'
+import NavBar from '../_navTeacher'
 
 
 import ExamTotal from '../ExamTotal'

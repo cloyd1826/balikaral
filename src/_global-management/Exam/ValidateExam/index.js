@@ -167,7 +167,7 @@ class Layout extends Component {
       validation: (validator.length >= 3 || this.props.role === 'Administrator' ? true : false)
     }
     
-    apiRequest('put', `/exam-management/validate/${this.props.location.state.id}`, data, this.props.token)
+    apiRequest('put', `/exam-management/validate/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           this.formMessage('Data has been updated', 'success', true, false)
           this.fetchSingle()
@@ -186,7 +186,7 @@ class Layout extends Component {
                 <Grid.X>
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
-                            <div className='title-text-container hide-on-large'>
+                            <div className='title-text-container hide-on-large-x'>
                                 <div className='title'>Exam Management > Validate</div>
                                 <div className='title-action'>
                                     <Link to={ (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>

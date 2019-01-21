@@ -160,7 +160,7 @@ class Layout extends Component {
       level: this.props.level
     }
     console.log(exam)
-    apiRequest('post', `/generated-exam`, data, this.props.token)
+    apiRequest('post', `/generated-exam?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         
           this.props.history.push({
