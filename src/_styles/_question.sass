@@ -481,16 +481,18 @@
 .learning-strand-container
 	padding: 4px
 	.learning-strand
-		padding: 16px
-		border: dashed 2px #94e4ff
+		padding: 64px 16px
+		border: dashed 2px #a3a3a3
 		margin-right: 4px
 		margin-bottom: 4px
 		text-align: center
 		position: relative
-		font-size: 24px
-		border-radius: 5px
+		font-size: 18px
+		color: #404040
+		font-weight: 600
 		cursor: pointer
 		transition: $transition-fast
+		overflow: hidden
 		.question-length
 			font-weight: 500
 			font-size: 16px
@@ -505,10 +507,29 @@
 			top: 50%
 			left: 16px
 			transform: translate(0,-50%)
+			display: none
+		.title
+			position: relative
+			z-index: 2
 		.level
 			font-size: 16px
+			font-weight: 400
+			position: relative
+			z-index: 2
+		.learning-strand-bg-icon
+			position: absolute
+			transform: translateY(-50%)
+			right: 36px
+			max-width: 20%
+			top: 77%
+			z-index: 1
+			display: block
 		&:hover
 			border-color: $blue-color
+			color: $blue-color
+			background: #f5f7ff
+			.level
+				color: #404040
 
 
 

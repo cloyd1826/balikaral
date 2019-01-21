@@ -4,7 +4,7 @@
 	padding: 37px 13px
 	position: relative
 	transition: $transition-fast
-	border: dashed 2px #94e4ff
+	border: dashed 2px #52b8d5
 	.reviewer-info
 		padding: 4px 16px
 		display: flex
@@ -32,22 +32,22 @@
 			.name
 				font-size: 16px
 				color: $yellow-color
-				margin-right: 16px
+				margin-right: 8px
 			.role
-				font-size: 14px
+				font-size: 11px
 				font-weight: 600
 				color: rgba(0,0,0,0.4)
 
 	.reviewer-title
 		color: #404040
-    	padding: 4px 16px
-    	font-size: 20px
-    	overflow: hidden
-    	text-overflow: ellipsis
-    	white-space: nowrap
-    	max-width: 20rem
-    	margin-top: 10px
-    	font-weight: 600
+		padding: 20px 16px 4px 16px
+		font-size: 22px
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+		max-width: 20rem
+		margin-top: -7px
+		font-weight: 600
 	.reviewer-action
 		position: absolute
 		top: 16px
@@ -109,3 +109,6 @@
 
 .grid-reviewer-container:hover
 	border-color: $blue-color
+	background-color: #f0f2ff
+	.reviewer-title
+		color: $blue-color

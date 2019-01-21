@@ -2587,16 +2587,18 @@ span.no-validator {
 .learning-strand-container {
   padding: 4px; }
   .learning-strand-container .learning-strand {
-    padding: 16px;
-    border: dashed 2px #94e4ff;
+    padding: 64px 16px;
+    border: dashed 2px #a3a3a3;
     margin-right: 4px;
     margin-bottom: 4px;
     text-align: center;
     position: relative;
-    font-size: 24px;
-    border-radius: 5px;
+    font-size: 18px;
+    color: #404040;
+    font-weight: 600;
     cursor: pointer;
-    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
+    overflow: hidden; }
     .learning-strand-container .learning-strand .question-length {
       font-weight: 500;
       font-size: 16px;
@@ -2610,11 +2612,30 @@ span.no-validator {
       position: absolute;
       top: 50%;
       left: 16px;
-      transform: translate(0, -50%); }
+      transform: translate(0, -50%);
+      display: none; }
+    .learning-strand-container .learning-strand .title {
+      position: relative;
+      z-index: 2; }
     .learning-strand-container .learning-strand .level {
-      font-size: 16px; }
+      font-size: 16px;
+      font-weight: 400;
+      position: relative;
+      z-index: 2; }
+    .learning-strand-container .learning-strand .learning-strand-bg-icon {
+      position: absolute;
+      transform: translateY(-50%);
+      right: 36px;
+      max-width: 20%;
+      top: 77%;
+      z-index: 1;
+      display: block; }
     .learning-strand-container .learning-strand:hover {
-      border-color: #4257b2; }
+      border-color: #4257b2;
+      color: #4257b2;
+      background: #f5f7ff; }
+      .learning-strand-container .learning-strand:hover .level {
+        color: #404040; }
 
 .answer-text, .answer-box {
   width: 100%; }
@@ -2633,7 +2654,7 @@ span.no-validator {
   padding: 37px 13px;
   position: relative;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
-  border: dashed 2px #94e4ff; }
+  border: dashed 2px #52b8d5; }
   .grid-reviewer-container .reviewer-info {
     padding: 4px 16px;
     display: flex;
@@ -2661,21 +2682,21 @@ span.no-validator {
       .grid-reviewer-container .reviewer-info .user .name {
         font-size: 16px;
         color: #52b8d5;
-        margin-right: 16px; }
+        margin-right: 8px; }
       .grid-reviewer-container .reviewer-info .user .role {
-        font-size: 14px;
+        font-size: 11px;
         font-weight: 600;
         color: rgba(0, 0, 0, 0.4); }
   .grid-reviewer-container .reviewer-title {
     color: #404040;
-      color-padding: 4px 16px;
-      color-font-size: 20px;
-      color-overflow: hidden;
-      color-text-overflow: ellipsis;
-      color-white-space: nowrap;
-      color-max-width: 20rem;
-      color-margin-top: 10px;
-      color-font-weight: 600; }
+    padding: 20px 16px 4px 16px;
+    font-size: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20rem;
+    margin-top: -7px;
+    font-weight: 600; }
   .grid-reviewer-container .reviewer-action {
     position: absolute;
     top: 16px;
@@ -2735,7 +2756,10 @@ span.no-validator {
           background: #f5f5f5; }
 
 .grid-reviewer-container:hover {
-  border-color: #4257b2; }
+  border-color: #4257b2;
+  background-color: #f0f2ff; }
+  .grid-reviewer-container:hover .reviewer-title {
+    color: #4257b2; }
 
 .youtube-player-container {
   display: flex;
