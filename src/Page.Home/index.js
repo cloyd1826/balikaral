@@ -12,6 +12,9 @@ import Grid from '../_component/Grid'
 
 import SignUp from '../_userComponent/SignUp'
 
+import student from '../_images/student.png'
+import teacher from '../_images/teacher.png'
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -157,7 +160,7 @@ class Home extends Component {
 
 
         {/*mga boluntaryo*/}
-        <div className='volunteer-container container'>
+        {/* <div className='volunteer-container container'>
           <div className='subtitle-montserrat bold home-title-text'>Mga Boluntaryo</div>
           <Slider {...settings}>
             {this.state.teacher.map((attr, index)=>{
@@ -184,8 +187,49 @@ class Home extends Component {
             })}
           </Slider>
 
-        </div>
-
+        </div> */}
+      {/* //STUDENT AND TEACHER */}
+      <Grid full className="home-student-teacher-main-container">
+        <Grid.X>
+          <Grid.Cell large={12} medium={12} small={12}>
+          <Grid className='home-student-teacher-container'>
+        <Grid.X>
+            <Grid.Cell large={5} medium={6} small={12}>
+              <div className="cell-container text-right">
+                <h2 className="st-title text-right">Maging <span className="st-title-student">LEARNER</span></h2>
+                <p className="st-description text-right">
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                </p>
+                <button className='st-button'>Magsimula</button>
+              </div>
+            </Grid.Cell>
+            <Grid.Cell large={7} medium={6} small={12}>
+              <div className="cell-container">
+                <img src={student} className="st-image" />
+              </div>
+            </Grid.Cell>
+        </Grid.X>
+        <Grid.X>
+            <Grid.Cell large={7} medium={6} small={12}>
+              <div className="cell-container">
+                <img src={teacher} className="st-image" />                
+              </div>
+            </Grid.Cell>
+            <Grid.Cell large={5} medium={6} small={12}>
+              <div className="cell-container">
+                <h2 className="st-title">Maging <span  className="st-title-teacher">CONTRIBUTOR</span></h2>
+                <p className="st-description">
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                </p>
+                <button className='st-button st-btn-teacher'>Magsimula</button>
+              </div>  
+            </Grid.Cell>
+        </Grid.X>
+      </Grid>
+          </Grid.Cell>
+        </Grid.X>
+      </Grid>
+      {/* //STUDENT AND TEACHER */}
 
       {/*about*/}
 
@@ -205,6 +249,7 @@ class Home extends Component {
             </Grid.Cell>
 
           </Grid.X>
+          
 
 
 
