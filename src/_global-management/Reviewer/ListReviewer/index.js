@@ -50,7 +50,10 @@ class Layout extends Component {
       view: false,
       selectedData: [],
 
-      role: ''
+      role: '',
+
+      urlLinkToUse: '',
+      header: '',
 
     }
     this.fetchLevel = this.fetchLevel.bind(this)
@@ -105,7 +108,7 @@ class Layout extends Component {
         let page = this.state.currentPage
         
         this.fetchLevel(validation, learningStrand, level, subject, page)
-        this.formMessage('Reviewer has been validated', 'success', true, false)
+        this.formMessage(this.state.header + ' has been validated', 'success', true, false)
         this.setState({
           selectedData: []
         })
@@ -148,11 +151,12 @@ class Layout extends Component {
     }
     this.fetchLevel(validation, learningStrand, page)
   }
-  toggleDelete(link){
+  toggleDelete(link, item){
     if(this.state.deleteActive){
       this.setState({
         deleteActive: false,
-        link: ''
+        link: '',
+        item: ''
       })
       let learningStrand = this.state.learningStrand
       let validation = this.state.validation
@@ -162,7 +166,8 @@ class Layout extends Component {
     }else{
       this.setState({
         deleteActive: true,
-        link: link
+        link: link,
+        item: item
       })
     }
   }
@@ -178,21 +183,88 @@ class Layout extends Component {
   
     let routeToUse = ''
 
-    if(this.props.match.params.type === 'self'){
-      routeToUse = `/reviewer-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&page=${page}`
+
+    //admin routes
+    if(this.props.location.pathname.match('/admin/teachers/reviewer')){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      this.setState({
+        urlLinkToUse: '/admin/teachers/reviewer',
+        header: 'Reviewer'
+      })
+    }
+    if(this.props.location.pathname.match('/admin/teachers/learning-resources')){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+       this.setState({
+        urlLinkToUse: '/admin/teachers/learning-resources',
+        header: 'Learning Resources'
+      })
+    }
+    if(this.props.location.pathname.match('/admin/teachers/session-guide')){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Session Guide`
+       this.setState({
+        urlLinkToUse: '/admin/teachers/session-guide',
+        header: 'Session Guide'
+      })
     }
 
-    if(this.props.match.params.type === 'all'){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}`
+
+
+    //teacher routes
+    if(this.props.location.pathname.match('/teacher/management/reviewer')){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      this.setState({
+        urlLinkToUse: '/teacher/management/reviewer',
+        header: 'Reviewer'
+      })
+    }
+    if(this.props.location.pathname.match('/teacher/management/learning-resources')){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+       this.setState({
+        urlLinkToUse: '/teacher/management/learning-resources',
+        header: 'Learning Resources'
+      })
+    }
+    if(this.props.location.pathname.match('/teacher/management/session-guide')){
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Session Guide`
+       this.setState({
+        urlLinkToUse: '/teacher/management/session-guide',
+        header: 'Session Guide'
+      })
     }
 
-    if(this.props.match.params.type === 'teachers'){
-      routeToUse = `/reviewer-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&page=${page}`
+    //learner
+    if(this.props.location.pathname.match('/learner/resources/reviewer') && this.props.hadPreTest){
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      this.setState({
+        urlLinkToUse: '/learner/resources/reviewer',
+        header: 'Reviewer'
+      })
+    }
+    if(this.props.location.pathname.match('/learner/resources/learning-resources') && this.props.hadPreTest){
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+       this.setState({
+        urlLinkToUse: '/learner/resources/learning-resources',
+        header: 'Learning Resources'
+      })
     }
 
-    if(this.props.match.params.type === 'learner'){
-      routeToUse = `/reviewer-management/all?validation=true&learningStrand=${learningStrand}&level=${this.props.level}&page=${page}`
+    // learner without pre-test
+    if(this.props.location.pathname.match('/learner-start/resources/reviewer') && !this.props.hadPreTest){
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      this.setState({
+        urlLinkToUse: '/learner-start/resources/reviewer',
+        header: 'Reviewer'
+      })
     }
+    if(this.props.location.pathname.match('/learner-start/resources/learning-resources') && !this.props.hadPreTest){
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+       this.setState({
+        urlLinkToUse: '/learner-start/resources/learning-resources',
+        header: 'Learning Resources'
+      })
+    }
+
+    
 
     apiRequest('get', routeToUse, false, this.props.token)
       .then((res)=>{
@@ -236,33 +308,20 @@ class Layout extends Component {
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
                   <div className='title-text-container'>
-                    <div className='title'>Reviewer List</div>
+                    <div className='title'>{this.state.header} List</div>
                     <div className='title-action'>
 
-                    {this.props.role === 'Teacher' ? 
-                      <Link 
-                        to={'/teacher/management/reviewer/list' 
-                          + (this.props.match.params.type === 'teachers' ? '/self' : '')
-                          + (this.props.match.params.type === 'self' ? '/teachers' : '')
-                          }>
-                        <div className='button primary small'>
-                        { (this.props.match.params.type === 'teachers' ? 'Your Reviewer List' : '')
-                          + (this.props.match.params.type === 'self' ? 'Other Teacher`s List' : '') }
-
-                        </div>
-                      </Link>
-
-                    : null}
+                   
 
                     {this.state.selectedData.length > 0 ? 
-                      <div className='button primary small' onClick={this.validateMultiple}>Validate Selected Reviewer</div>
+                      <div className='button primary small' onClick={this.validateMultiple}>Validate Selected {this.state.header}</div>
                     : null}
 
                     <div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>
-
-                    {this.props.role === 'Learner' ? null : 
-                      <Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/add'}>
-                        <div className='button primary small'>Add New Reviewer</div>
+ 
+                    {(this.props.role === 'Learner' || this.props.location.pathname.match('/teacher/management/session-guide')) ? null : 
+                      <Link to={this.state.urlLinkToUse + '/add'}>
+                        <div className='button primary small'>Add New {this.state.header}</div>
                       </Link>
                     }
 
@@ -341,34 +400,10 @@ class Layout extends Component {
                                   :
                                     null 
                                   }
-                                  {isValidatedByUser > -1 && !attr.validation && this.props.role === 'Teacher' ? 
-                                     <Link to={{ 
-                                        pathname: 
-                                          (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/view' : '') + 
-                                          (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : ''),
-                                        state: { id: attr._id } 
-                                      }}>
-                                        <span>
-                                          <i className='la la-star-half-full primary'></i>
-                                        </span>
-                                      </Link>
-                                  : null}
-                                  {attr.validation && this.props.role !== 'Learner'  ?
-                                    <Link to={{ 
-                                        pathname: 
-                                          (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/view' : '') + 
-                                          (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : ''),  
-  
-                                        state: { id: attr._id } 
-                                      }}>
-                                        <span>
-                                          <i className='la la-star primary'></i>
-                                        </span>
-                                      </Link>
-                                   : null}
+                                 
                               </Table.Cell>
                               <Table.Cell>{attr.description}</Table.Cell>
-                              <Table.Cell>{(attr.pdf ? 'PDF Reviewer' : '') + (attr.youtubeVideo ? 'Youtube Video' : '')}</Table.Cell>
+                              <Table.Cell>{attr.fileType}</Table.Cell>
                               <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                               
@@ -384,61 +419,83 @@ class Layout extends Component {
                               }</Table.Cell>
                               
                               
-                              {this.state.role === 'Learner' ? '' : <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>  }
+                              {this.state.role === 'Learner' ? '' : 
+                              <Table.Cell>
+                              {attr.validation ? 
+                                  <div className='blue-bordered-radius'>Validated</div>
+                                   : 
+                                  <div className='red-bordered-radius'>For Validation</div> }
+                              </Table.Cell>  
+                              }
                               <Table.Cell isNarrowed>
-                                {attr.pdf ?
+                                {attr.fileType === 'PDF' ?
                                   <span>
-                                    <a href={`${config}/${attr.pdf}`} download='reviewer.pdf' target='_blank'><i className='la la-download primary'/></a>
+                                    <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-pdf-o primary'/></a>
                                   </span>
                                  : null}
 
-                                 {attr.youtubeVideo ?
+                                {attr.fileType === 'Powerpoint Presentation' ?
+                                  <span>
+                                    <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-powerpoint-o primary'/></a>
+                                  </span>
+                                 : null}
+
+                                {attr.fileType === 'Microsoft Word Document' ?
+                                  <span>
+                                    <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-word-o primary'/></a>
+                                  </span>
+                                 : null}
+                                {attr.fileType === 'Youtube Video' ?
                                   <span>
                                     <a href={`https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'><i className='la la-youtube-play primary'/></a>
                                   </span>
                                  : null}
 
 
-                                 
-
-                                 <Link to={{ 
-                                    pathname: 
-                                      (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/view' : '') + 
-                                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
-                                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
-                                    state: { id: attr._id } 
-                                  }}>
+                                 {(this.props.role === 'Administrator' || attr.uploader._id !== this.props.user.id) && this.props.role !== 'Learner' && !attr.validation ?
+                                   <Link to={{
+                                      pathname: this.state.urlLinkToUse + '/validate',
+                                      state: { id: attr._id }
+                                   }}>
                                     <span>
+                                        <i className='la la-tags primary'></i>
+                                      </span>
+                                   </Link>
+                                  : null }
+
+
+                                 <Link to={{
+                                    pathname: this.state.urlLinkToUse + '/view',
+                                    state: { id: attr._id }
+                                 }}>
+                                  <span>
                                       <i className='la la-folder-open-o primary'></i>
                                     </span>
-                                  </Link>
+                                 </Link>
 
-                                { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
-                                  <Link to={{ 
-                                    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/validate', 
-                                    state: { id: attr._id } 
-                                  }}>
+                                 {(this.props.role === 'Administrator' || attr.uploader._id === this.props.user.id) && this.props.role !== 'Learner' ? 
+                                   <Link to={{
+                                      pathname: this.state.urlLinkToUse + '/edit',
+                                      state: { id: attr._id }
+                                   }}>
                                     <span>
-                                      <i className='la la-tags primary'></i>
-                                    </span>
-                                  </Link>
-                                : null }
+                                        <i className='la la-edit primary'></i>
+                                      </span>
+                                   </Link>
+                                 : null}
 
-                                { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
-                                  <Link to={{ 
-                                    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/edit', 
-                                    state: { id: attr._id } 
-                                  }}>
-                                    <span>
-                                      <i className='fa fa-edit primary'></i>
-                                    </span>
-                                  </Link>
-                                : null }
+
+                                 
+
+                                 
+
+
+                               
 
                                 
 
-                                { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
-                                  <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id)}}>
+                                { this.props.role === 'Administrator' ?
+                                  <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id, attr.fileUsage)}}>
                                     <i className='fa fa-trash cancel'></i>
                                   </span>
                                 : null }
@@ -488,7 +545,7 @@ class Layout extends Component {
             </Grid.X>
           </Grid>
 
-          <ManagementDelete item='Reviewer' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+          <ManagementDelete item={this.state.item} close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
         </div>
     )
   }

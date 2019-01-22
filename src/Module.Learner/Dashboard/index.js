@@ -63,7 +63,7 @@ componentWillReceiveProps(nextProps){
                                     <i className='la la-list-ol'></i>
                                     <span>Tapang</span>
                                   </NavLink>
-                                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/reviewer/list/learner'>
+                                  <NavLink className='sidebar-link' activeClassName='active' to='/learner/resources/reviewer/list'>
                                     <i className='la la-file-pdf-o'></i>
                                     <span>Talino</span>
                                   </NavLink>
@@ -100,9 +100,9 @@ componentWillReceiveProps(nextProps){
                               <div className='dashboard-link' >
                               <img src={talino} className="learner-icon-set"/>
                                 <div className='link-title'>Talino</div>
-                                <Link to='/learner/reviewer/list/learner'>
-                                    <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
-                                  </Link>
+                                <Link to='/learner/resources/reviewer/list/'>
+                                  <button class="dashboard-link-button">Go <i class="la la-arrow-right"></i></button>
+                                </Link>
                               </div>
                           </Grid.Cell>
                           <Grid.Cell large={6} medium={12} small={12}>

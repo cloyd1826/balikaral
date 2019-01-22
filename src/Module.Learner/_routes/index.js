@@ -17,7 +17,7 @@ const Routes = () => {
   return (
         <div className='admin-content'>
             <Route path='/learner/dashboard' component={Dashboard} />
-            <Route path='/learner/reviewer/' component={Reviewer} />
+            <Route path='/learner/resources/' component={Reviewer} />
             <Route path='/learner/exam/' component={GeneratedExam} /> 
 
             <Route path='/learner/survey/' component={Survey} /> 

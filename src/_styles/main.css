@@ -618,14 +618,14 @@ label {
   background: #d1f4da;
   border-radius: 5px;
   color: #76a472;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
 
 .form-message.loading {
   background: #d9edf7;
   border-radius: 5px;
   color: #3b708f;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
   .form-message.loading i {
     animation: messageLoader 1s linear infinite; }
@@ -634,14 +634,14 @@ label {
   background: #f8e8c0;
   border-radius: 5px;
   color: #937d45;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
 
 .form-message.error {
   background: #f2dede;
   border-radius: 5px;
   color: #a94547;
-  padding: 8px 16px 8px 48px;
+  padding: 12px 16px 12px 48px;
   position: relative; }
 
 .file-input .file-input-container {
@@ -1874,7 +1874,7 @@ tr.green {
     padding: 48px 16px;
     border-left: solid 5px #4257b2; }
     .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link .link-title {
-      color: #4257b2;
+      color: #444;
       font-size: 14px;
       margin-top: -7px;
       text-transform: uppercase;
@@ -1898,7 +1898,7 @@ tr.green {
       background: #fff;
       box-shadow: 0px 0px 10px #a5a5a5; }
       .admin-dashboard .learner-dashboard .grid-container .grid-x .dashboard-link:hover .link-title {
-        color: #444; }
+        color: #4257b2; }
   .admin-dashboard .learner-side-container {
     background: #ffffff;
     box-shadow: 0px -2px 21px #a5a5a5;
@@ -1964,7 +1964,7 @@ tr.green {
   max-width: 63px; }
 
 .reviewer-view .context-montserrat, .reviewer-view .form-subtitle, .reviewer-view .footer-contact span p, .footer-contact span .reviewer-view p {
-  color: rgba(0, 0, 0, 0.6);
+  color: #4257b2;
   font-size: 16px;
   margin-top: 16px;
   font-weight: 600; }
@@ -2587,16 +2587,18 @@ span.no-validator {
 .learning-strand-container {
   padding: 4px; }
   .learning-strand-container .learning-strand {
-    padding: 16px;
-    border: dashed 2px #94e4ff;
+    padding: 64px 16px;
+    border: dashed 2px #a3a3a3;
     margin-right: 4px;
     margin-bottom: 4px;
     text-align: center;
     position: relative;
-    font-size: 24px;
-    border-radius: 5px;
+    font-size: 18px;
+    color: #404040;
+    font-weight: 600;
     cursor: pointer;
-    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
+    overflow: hidden; }
     .learning-strand-container .learning-strand .question-length {
       font-weight: 500;
       font-size: 16px;
@@ -2610,11 +2612,30 @@ span.no-validator {
       position: absolute;
       top: 50%;
       left: 16px;
-      transform: translate(0, -50%); }
+      transform: translate(0, -50%);
+      display: none; }
+    .learning-strand-container .learning-strand .title {
+      position: relative;
+      z-index: 2; }
     .learning-strand-container .learning-strand .level {
-      font-size: 16px; }
+      font-size: 16px;
+      font-weight: 400;
+      position: relative;
+      z-index: 2; }
+    .learning-strand-container .learning-strand .learning-strand-bg-icon {
+      position: absolute;
+      transform: translateY(-50%);
+      right: 36px;
+      max-width: 20%;
+      top: 77%;
+      z-index: 1;
+      display: block; }
     .learning-strand-container .learning-strand:hover {
-      border-color: #4257b2; }
+      border-color: #4257b2;
+      color: #4257b2;
+      background: #f5f7ff; }
+      .learning-strand-container .learning-strand:hover .level {
+        color: #404040; }
 
 .answer-text, .answer-box {
   width: 100%; }
@@ -2633,7 +2654,7 @@ span.no-validator {
   padding: 37px 13px;
   position: relative;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
-  border: dashed 2px #94e4ff; }
+  border: dashed 2px #52b8d5; }
   .grid-reviewer-container .reviewer-info {
     padding: 4px 16px;
     display: flex;
@@ -2661,21 +2682,21 @@ span.no-validator {
       .grid-reviewer-container .reviewer-info .user .name {
         font-size: 16px;
         color: #52b8d5;
-        margin-right: 16px; }
+        margin-right: 8px; }
       .grid-reviewer-container .reviewer-info .user .role {
-        font-size: 14px;
+        font-size: 11px;
         font-weight: 600;
         color: rgba(0, 0, 0, 0.4); }
   .grid-reviewer-container .reviewer-title {
     color: #404040;
-      color-padding: 4px 16px;
-      color-font-size: 20px;
-      color-overflow: hidden;
-      color-text-overflow: ellipsis;
-      color-white-space: nowrap;
-      color-max-width: 20rem;
-      color-margin-top: 10px;
-      color-font-weight: 600; }
+    padding: 20px 16px 4px 16px;
+    font-size: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20rem;
+    margin-top: -7px;
+    font-weight: 600; }
   .grid-reviewer-container .reviewer-action {
     position: absolute;
     top: 16px;
@@ -2735,7 +2756,47 @@ span.no-validator {
           background: #f5f5f5; }
 
 .grid-reviewer-container:hover {
-  border-color: #4257b2; }
+  border-color: #4257b2;
+  background-color: #f0f2ff; }
+  .grid-reviewer-container:hover .reviewer-title {
+    color: #4257b2; }
+
+.reviewer-file-container {
+  min-height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
+  .reviewer-file-container span {
+    text-align: center;
+    margin: 0 auto;
+    display: block; }
+    .reviewer-file-container span .la {
+      font-size: 100px;
+      color: #4257b2; }
+    .reviewer-file-container span .la-spinner {
+      animation: spin 1s linear infinite; }
+  .reviewer-file-container .context-montserrat, .reviewer-file-container .form-subtitle, .reviewer-file-container .footer-contact span p, .footer-contact span .reviewer-file-container p {
+    font-size: 16px;
+    margin-top: 13px; }
+  .reviewer-file-container .subtitle-montserrat, .reviewer-file-container .form-title, .reviewer-file-container .home-banner .home-banner-text .home-subtitle, .home-banner .home-banner-text .reviewer-file-container .home-subtitle, .reviewer-file-container .home-banner .home-image-container .home-subtitle, .home-banner .home-image-container .reviewer-file-container .home-subtitle {
+    margin-top: 8px; }
+  .reviewer-file-container .button {
+    margin: 8px auto; }
+
+.red-bordered-radius, .blue-bordered-radius {
+  padding: 8px 16px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px; }
+
+.red-bordered-radius {
+  background: #fe0000; }
+
+.blue-bordered-radius {
+  background: #4257b2; }
 
 .youtube-player-container {
   display: flex;
@@ -2901,7 +2962,8 @@ span.no-validator {
       box-shadow: 0px 0px 3px #a9a9a9; }
 
 .forum-dashboard .forum-list-container {
-  padding: 16px; }
+  margin-top: -9px;
+  border: solid 1px #ebebeb; }
   .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name {
     font-weight: 600;
     font-size: 22px;
@@ -2961,6 +3023,17 @@ span.no-validator {
           padding: 0.5rem 0.625rem 0.5rem 2rem !important; }
         .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-icon {
           max-width: 30px; }
+
+.forum-dashboard .forum-dashboard-container-discussion {
+  padding: 16px;
+  margin-top: -9px;
+  border: solid 1px #ebebeb; }
+  .forum-dashboard .forum-dashboard-container-discussion .forum-name {
+    font-size: 22px; }
+    .forum-dashboard .forum-dashboard-container-discussion .forum-name .date-created {
+      font-size: 13px;
+      color: #4257b2;
+      margin-top: 5px; }
 
 .discussion-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
@@ -3116,17 +3189,25 @@ canvas {
 .survey-instruction {
   font-size: 20px;
   text-align: justify;
-  padding: 8px 16px; }
+  padding: 16px;
+  border: solid 1px #ebebeb;
+  margin-top: -9px; }
   .survey-instruction .instruction-button-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px; }
+    padding: 16px;
+    cursor: pointer;
+    margin-top: 14px; }
     .survey-instruction .instruction-button-container .instruction-button {
-      padding: 8px 16px;
+      padding: 10px 20px;
       margin: 0 8px;
       background: #d9edf7;
-      border-radius: 50px; }
+      border-radius: 50px;
+      font-size: 16px; }
+      .survey-instruction .instruction-button-container .instruction-button:hover {
+        background: #4257b2;
+        color: #fff; }
 
 @media (max-width: 40em) {
   .home-title {
@@ -3182,6 +3263,7 @@ p, span, a {
   padding: 16px; }
 
 .element-container, .discussion-container, .comment-container, .comment-list {
+  padding: 16px;
   background: #fff;
   margin-bottom: 16px;
   margin-top: 16px;

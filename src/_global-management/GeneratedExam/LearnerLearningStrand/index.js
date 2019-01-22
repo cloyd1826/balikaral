@@ -12,6 +12,8 @@ import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
 
+import tiyaga from '../../../IconImages/tiyaga-blur.png'
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -95,8 +97,8 @@ class Layout extends Component {
                               state: { id: attr._id, learningStrand: attr.name } 
                             }}>
                               <div className='learning-strand'>
-                                <i className='la la-file-text' />
-                                {attr.name}
+                                <img src={tiyaga} className="learning-strand-bg-icon" />
+                                <div className="title">{attr.name}</div>
                                 <div className='level'>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</div>
                               </div>
                             </Link>

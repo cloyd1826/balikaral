@@ -12,7 +12,7 @@ const Routes = () => {
   return (
     <div>
       <Route path='/admin/teachers/reviewer/add' component={AddReviewer} />
-      <Route path='/admin/teachers/reviewer/list/:type' component={ListReviewer} />
+      <Route path='/admin/teachers/reviewer/list' component={ListReviewer} />
       <Route path='/admin/teachers/reviewer/edit' component={EditReviewer} />
       <Route path='/admin/teachers/reviewer/validate' component={ValidateReviewer} />
       <Route path='/admin/teachers/reviewer/view' component={ViewReviewer} />
@@ -31,7 +31,7 @@ class Reviewer extends Component {
     return (
         <div>
           <div className='third-top-bar'>
-            <NavLink to='/admin/teachers/reviewer/list/all' className='link' activeClassName='active'>
+            <NavLink to='/admin/teachers/reviewer/list' className='link' activeClassName='active'>
               List of Reviewer
             </NavLink>
             <NavLink to='/admin/teachers/reviewer/add' className='link' activeClassName='active'>

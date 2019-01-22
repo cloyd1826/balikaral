@@ -13,7 +13,7 @@ const Routes = () => {
         <div className='admin-content'>
             <Route path='/learner-start/dashboard' component={Dashboard} />
             <Route path='/learner-start/pre-test' component={GeneratedExam} /> 
-            <Route path='/learner-start/reviewer/' component={Reviewer} />
+            <Route path='/learner-start/resources/' component={Reviewer} />
             <Route path='/learner-start/profile' component={UserProfile} />
 
 

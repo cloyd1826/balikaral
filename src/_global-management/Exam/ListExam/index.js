@@ -351,7 +351,13 @@ class Layout extends Component {
                                 <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
                                 <Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
   							        				<Table.Cell isNarrowed>{ attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : '' }</Table.Cell>
-                                <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>
+                                <Table.Cell>
+                                  {attr.validation ? 
+                                  <div className='blue-bordered-radius'>Validated</div>
+                                   : 
+                                  <div className='red-bordered-radius'>For Validation</div> }
+
+                                </Table.Cell>
   							        				<Table.Cell isNarrowed>
 
 

@@ -189,6 +189,15 @@ class Layout extends Component {
                             </div>
                           
                           </Grid.Cell>
+                          {this.state.examType ? this.state.examType.examType ? this.state.examType.examType === 'Post Test' && this.props.user === 'Learner' && this.props.hadPreTest ? 
+                            <Link to='/learner/survey/take'>
+                              <div className='action'>
+                                <i className='la la-home' />
+                                Take Survey
+                              </div>
+                            </Link>
+
+                          : null : null : null }
                           <Grid.Cell large={12} medium={12} small={12}>
                             <QuestionAnswered 
                               exam={this.state.exam}
@@ -217,7 +226,8 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     role: state.role,
-    user: state.user
+    user: state.user,
+    hadPreTest: state.hadPreTest
   }
 }
 const ListLevel = connect(mapStateToProps)(Layout)

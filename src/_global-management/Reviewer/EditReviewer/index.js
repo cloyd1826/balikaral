@@ -34,7 +34,10 @@ class Layout extends Component {
         message: '',
         type: '',
         active: false,
-        buttonDisabled: false
+        buttonDisabled: false,
+
+        header: '',
+        urlToUse: ''
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -78,10 +81,29 @@ class Layout extends Component {
     
     if(this.props.location.state){
       this.fetchSingle()
+      if(this.props.location.pathname.match('/reviewer')){
+        this.setState({
+          header: 'Reviewer',
+          urlToUse: '/reviewer'
+        })
+      }
+      if(this.props.location.pathname.match('/session-guide')){
+        this.setState({
+          header: 'Session Guide',
+          urlToUse: '/session-guide'
+        })
+      }
+      if(this.props.location.pathname.match('/learning-resources')){
+        this.setState({
+          header: 'Learning Resources',
+          urlToUse: '/learning-resources'
+        })
+      }
     }else{
       this.props.history.push('/')
     }
   }
+   
   fetchSingle(){
     apiRequest('get', `/reviewer-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
@@ -138,10 +160,14 @@ class Layout extends Component {
                     <Grid.Cell large={12}  medium={12} small={12}>
                         <div className='element-container'>
                             <div className='title-text-container hide-on-large-x'>
-                                <div className='title'>Reviewer Management > Edit</div>
+                                <div className='title'>{this.state.header} Management > Edit</div>
                                 <div className='title-action'>
-                                    <Link  to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
-                                        <div className='button primary small'>List of Reviewer</div>
+                                    <Link 
+                                      to={
+                                        (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 
+                                        (this.props.role === 'Teacher' ? '/teacher/management' + this.state.urlToUse + '/list' : '')
+                                      }>
+                                        <div className='button primary small'>List of {this.state.header}</div>
                                     </Link>
                                 </div>
                             </div>
@@ -193,7 +219,10 @@ class Layout extends Component {
                               </Grid.Cell>
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                                     <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
-                                    <Link  to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
+                                    <Link  to={
+                                      (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 
+                                      (this.props.role === 'Teacher' ? '/teacher/management' + this.state.urlToUse + '/list' : '')
+                                    }>
                                         <Button type='button' text='Return' className='cancel small'/>
                                     </Link>
                                 </Grid.Cell>

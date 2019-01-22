@@ -21,7 +21,7 @@ class Dashboard extends Component {
                 <Grid.Cell large={12} medium={12} small={12}>
                   <div className='main-link-title'>Kilalanin</div>
                 </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
+                <Grid.Cell large={2} medium={6} small={12}>
                   <Link to='/teacher/learner-list'>
                     <div className='dashboard-link'>
                       <span className='la la-user'></span>
@@ -29,7 +29,7 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
+                <Grid.Cell large={2} medium={6} small={12}>
                   <Link to='/teacher/generated-exam/learner'>
                     <div className='dashboard-link'>
                       <span className='la la-list-ol'></span>
@@ -44,23 +44,32 @@ class Dashboard extends Component {
                 <Grid.Cell large={12} medium={12} small={12}>
                   <div className='main-link-title'>Turuan</div>
                 </Grid.Cell>
-                 <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/reviewer/list/teachers'>
+                 <Grid.Cell large={2} medium={6} small={12}>
+                  <Link to='/teacher/management/reviewer/list'>
                     <div className='dashboard-link'>
                       <span className='la la-file-pdf-o'></span>
                       <div className='link-title'>Reviewer</div>
                     </div>
                   </Link>
                 </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
-                  <Link to='/teacher/management/session-guide/list/teachers'>
+                <Grid.Cell large={2} medium={4} small={12}>
+                  <Link to='/teacher/management/learning-resources/list/'>
+                    <div className='dashboard-link' >
+                      <span className='la la-file-movie-o'></span>
+                      <div className='link-title'>Learning Resources</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
+
+                <Grid.Cell large={2} medium={6} small={12}>
+                  <Link to='/teacher/management/session-guide/list'>
                     <div className='dashboard-link'>
                       <span className='la la-file-archive-o'></span>
                       <div className='link-title'>Session Guide</div>
                     </div>
                   </Link>
                 </Grid.Cell>
-                <Grid.Cell large={3} medium={6} small={12}>
+                <Grid.Cell large={2} medium={6} small={12}>
                   <Link to='/teacher/management/exam/list/teachers'>
                     <div className='dashboard-link'>
                       <span className='la la-list-ul'></span>
@@ -77,7 +86,7 @@ class Dashboard extends Component {
                   <div className='main-link-title'>Damayan</div>
                 </Grid.Cell>
                 
-                <Grid.Cell large={3} medium={6} small={12}>
+                <Grid.Cell large={2} medium={6} small={12}>
                   <Link to={{
                   pathname: '/teacher/forum/dashboard',
                   state: {id: false }

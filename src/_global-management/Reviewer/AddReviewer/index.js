@@ -34,6 +34,9 @@ class Layout extends Component {
       pdf: '',
       description: '',
       pdfName: '',
+
+      header: '',
+      urlToUse: '',
      
       youtubeVideo: '',
       typeReviewer: '',
@@ -151,7 +154,10 @@ class Layout extends Component {
     formData.append('level', this.state.level)
     formData.append('description', this.state.description)
     formData.append('uploader', this.props.user.id )
+    formData.append('fileType', this.state.typeReviewer )
+    formData.append('fileUsage', this.state.header )
     formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
+
 
     if(this.state.learningStrandSub !== ''){
       formData.append('learningStrandSub', this.state.learningStrandSub)
@@ -174,6 +180,29 @@ class Layout extends Component {
     }
     return post(url, formData, configPost)
   }
+
+  componentDidMount(){
+
+    if(this.props.location.pathname.match('/reviewer')){
+      this.setState({
+        header: 'Reviewer',
+        urlToUse: '/reviewer'
+      })
+    }
+    if(this.props.location.pathname.match('/session-guide')){
+      this.setState({
+        header: 'Session Guide',
+        urlToUse: '/session-guide'
+      })
+    }
+    if(this.props.location.pathname.match('/learning-resources')){
+      this.setState({
+        header: 'Learning Resources',
+        urlToUse: '/learning-resources'
+      })
+    }
+  }
+
   render() { 
     return (
         <div>
@@ -182,10 +211,13 @@ class Layout extends Component {
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
         					<div className='title-text-container hide-on-large-x'>
-        						<div className='title'>Reviewer Management > Add</div>
+        						<div className='title'>{this.state.header} Management > Add</div>
         						<div className='title-action'>
-        							<Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
-        								<div className='button primary small'>List of Reviewer</div>
+        							<Link to={
+                        (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 
+                        (this.props.role === 'Teacher' ? '/teacher/management' + this.state.urlToUse + '/list' : '')
+                      }>
+                        <div className='button primary small'>List of {this.state.header}</div>
         							</Link>
         						</div>
         					</div>
@@ -196,7 +228,7 @@ class Layout extends Component {
                       <Grid.Cell large={12} medium={12} small={12}>
                         <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                       </Grid.Cell>
-  	        					<Grid.Cell large={4} medium={12} small={12}>
+  	        					<Grid.Cell large={3} medium={12} small={12}>
                         <SelectLevel 
                           required 
                           type='text' 
@@ -207,7 +239,7 @@ class Layout extends Component {
                       </Grid.Cell>
 
 
-                      <Grid.Cell large={4} medium={12} small={12}>
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectLearningStrand 
                           required 
                           type='text' 
@@ -218,7 +250,7 @@ class Layout extends Component {
                           onChange={this.handleLearningStrandChange}/>
                       </Grid.Cell>
 
-                      <Grid.Cell large={4} medium={12} small={12}>
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectSubject 
                           label='Modyul'
                           name='learningStrandSub' 
@@ -226,6 +258,7 @@ class Layout extends Component {
                           value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+                      
                        <Grid.Cell large={12} medium={12} small={12}>
                         <Textarea
                           label='Description' 
@@ -237,31 +270,37 @@ class Layout extends Component {
 
                       <Grid.Cell large={6} medium={12} small={12}>
                         <Select
-                          label='Type of Reviewer' 
-                          placeholder='Type of Reviewer' 
+                          label='File Type' 
+                          placeholder='File Type' 
                           name='typeReviewer' 
                           value={this.state.typeReviewer} 
                           onChange={this.changeTypeReviewer}>
                           <option value=''></option>                          
-                          <option value='pdf'>PDF</option>                          
-                          <option value='yt-video'>Youtube Video</option>                          
+                          <option value='PDF'>PDF</option>                          
+                          <option value='Powerpoint Presentation'>Powerpoint Presentation</option>                          
+                          <option value='Microsoft Word Document'>Microsoft Word Document</option>                        
+                          <option value='Youtube Video'>Youtube Video</option>
                         </Select>
                       </Grid.Cell>    
 
-                      {this.state.typeReviewer === 'pdf' ? 
+                      {this.state.typeReviewer === 'PDF' || this.state.typeReviewer === 'Powerpoint Presentation' || this.state.typeReviewer === 'Microsoft Word Document' ? 
     	        					<Grid.Cell large={6} medium={12} small={12}>
     	        						<FileInput 
     	        							type='file'
-    	        							label='PDF' 
+    	        							label={this.state.typeReviewer} 
                             required
     	        							name='pdf'
                             fileName={this.state.pdfName}
-                            accept="application/pdf"
+                            accept={
+                              (this.state.typeReviewer === 'PDF' ? 'application/pdf' : '') + 
+                              (this.state.typeReviewer === 'Powerpoint Presentation' ? 'application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.presentationml.slide,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.template' : '') + 
+                              (this.state.typeReviewer === 'Microsoft Word Document' ? 'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.wordprocessingml.template' : '')
+                              }
                             ref={ref => this.fileInput = ref}
     	        							onChange={this.handleFileChange}/>
     	        					</Grid.Cell>
                       : null}
-                      {this.state.typeReviewer === 'yt-video' ?
+                      {this.state.typeReviewer === 'Youtube Video' ?
                         <Grid.Cell large={6} medium={12} small={12}>
                           <Input 
                             type='text'
@@ -275,7 +314,7 @@ class Layout extends Component {
                             
                         </Grid.Cell>
                       : null}
-                      {this.state.typeReviewer === 'yt-video' ?
+                      {this.state.typeReviewer === 'Youtube Video' ?
                         <Grid.Cell large={12} medium={12} small={12}>
                          <div className='form-message success'>
                             <i className='la la-info-circle' />
@@ -295,7 +334,10 @@ class Layout extends Component {
                      
   	        					<Grid.Cell className='form-button right' large={12} medium={12} small={12}>
   	        						<Button type='submit' text='Save' className='secondary small' />
-                        <Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
+                        <Link to={
+                            (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 
+                            (this.props.role === 'Teacher' ? '/teacher/management' + this.state.urlToUse + '/list' : '')
+                          }>
   	        						 <Button disabled={this.state.buttonDisabled} type='button' text='Return' className='cancel small'/>
                         </Link>
   	        					</Grid.Cell>

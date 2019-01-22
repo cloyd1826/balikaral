@@ -138,7 +138,7 @@ class Layout extends Component {
                                 '/forum/discussions/view'), 
                               state: { id: this.props.location.state.id, discussionId: attr._id } 
                                 }}>
-                          <div className='forum-dashboard-container'>
+                          <div className='forum-dashboard-container-discussion'>
                             <div className='forum-name'>{attr.title}
                               <div className='date-created'>{moment(attr.datePosted).format('MMMM DD, YYYY')}</div>
                             </div>

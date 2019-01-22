@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import apiRequest from '../../../_axios'
+import config from '../../../_config'
 
 import Grid from '../../../_component/Grid'
 import PdfViewer from '../../../_component/PdfViewer'
@@ -18,6 +19,7 @@ class Layout extends Component {
     this.state = { 
         learningStrand: '',
         pdf: null,
+        fileUsage: null,
         description: '',
         uploader: '',
         validation: '',
@@ -31,7 +33,10 @@ class Layout extends Component {
 
         disableReview: false,
 
-        modalActive: false
+        modalActive: false,
+
+        header: '',
+        urlToUse: '',
 
 
       
@@ -67,10 +72,29 @@ class Layout extends Component {
     
     if(this.props.location.state){
       this.fetchSingle()
+      if(this.props.location.pathname.match('/reviewer')){
+        this.setState({
+          header: 'Reviewer',
+          urlToUse: '/reviewer'
+        })
+      }
+      if(this.props.location.pathname.match('/session-guide')){
+        this.setState({
+          header: 'Session Guide',
+          urlToUse: '/session-guide'
+        })
+      }
+      if(this.props.location.pathname.match('/learning-resources')){
+        this.setState({
+          header: 'Learning Resources',
+          urlToUse: '/learning-resources'
+        })
+      }
     }else{
       this.props.history.push('/')
     }
   }
+
   fetchSingle(){
     this.formMessage('Loading Content', 'loading', true, false)
     apiRequest('get', `/reviewer-management/${this.props.location.state.id}`, false, this.props.token)
@@ -89,6 +113,7 @@ class Layout extends Component {
                 this.setState({
                     learningStrand: (result.learningStrand ? result.learningStrand.name ? result.learningStrand.name : '' : '') ,
                     pdf: result.pdf ? result.pdf : null,
+                    fileType: result.fileType ? result.fileType : null,
                     youtubeVideo: result.youtubeVideo ? result.youtubeVideo : null,
                     description: result.description,
                     uploader: (result.uploader ? result.uploader.personalInformation ? 
@@ -159,7 +184,7 @@ class Layout extends Component {
   }
 
   render() { 
-    console.log(this.state.youtubeVideo)
+    console.log(this.state.pdf)
     return (
         <div>
         	<Grid fluid>
@@ -167,12 +192,15 @@ class Layout extends Component {
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
                   <div className='title-text-container hide-on-large-x'>
-                    <div className='title'>Reviewer</div>
+                    <div className='title'>{this.state.header}</div>
                     <div className='title-action'>
-                      <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate Reviewer</button>
+                      <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate {this.state.header}</button>
 
-                      <Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
-                        <div className='button primary small'>List of Reviewer</div>
+                      <Link to={
+                          (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 
+                          (this.props.role === 'Teacher' ? '/teacher/management' + this.state.urlToUse + '/list' : '')
+                        }>
+                        <div className='button primary small'>List of {this.state.header}</div>
                       </Link>
                     </div>
                   </div>
@@ -215,12 +243,51 @@ class Layout extends Component {
                           
                         </div>
                       </Grid.Cell>
-                      {this.state.pdf ? 
-                         <Grid.Cell large={12} medium={12} small={12}>
-                            <PdfViewer pdf={this.state.pdf}/>
-                          </Grid.Cell>
+                     
+
+                      {this.state.fileType === 'PDF' ? 
+                        <Grid.Cell large={12} medium={12} small={12}>
+                          <PdfViewer pdf={this.state.pdf}/>
+                        </Grid.Cell>
                       : null}
-                      {this.state.youtubeVideo ? 
+
+                      {this.state.fileType === 'Powerpoint Presentation' ? 
+                        <Grid.Cell large={12} medium={12} small={12}>
+                          <div className='reviewer-file-container'>
+                            <div>
+                              <span>
+                                <i className='la la-file-powerpoint-o'></i>
+                              </span>
+                              <div className='subtitle-montserrat'>Download this file to view the content</div>
+                              <a href={`${config}/${this.state.pdf}`} download target='_blank'>
+                                <div className='button primary'>Download</div>
+                              </a>
+                            </div>
+                          </div>
+                        </Grid.Cell>
+                      : null}
+
+                      {this.state.fileType === 'Microsoft Word Document' ? 
+                        <Grid.Cell large={12} medium={12} small={12}>
+                          <div className='reviewer-file-container'>
+                            <div>
+                              <span>
+                                <i className='la la-file-word-o'></i>
+                              </span>
+                               <div className='subtitle-montserrat'>Download this file to view the content</div>
+                              <a href={`${config}/${this.state.pdf}`} download target='_blank'>
+                                <div className='button primary'>Download</div>
+                              </a>
+                            </div>
+                          </div>
+                        </Grid.Cell>
+                      : null}
+                       
+                      
+
+
+
+                      {this.state.fileType === 'Youtube Video' ? 
                         <Grid.Cell large={12} medium={12} small={12}>
                              <YouTube
                                 videoId={this.state.youtubeVideo.trim()}

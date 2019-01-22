@@ -53,7 +53,11 @@ class PdfViewer extends Component {
   	
   }
   componentDidMount(){
-
+    let pdf = this.props.pdf
+    this.setState({
+      pdf: pdf,
+      hasPdf: true
+    })
   }
   componentWillReceiveProps(nextProps){
    	let pdf = nextProps.pdf
@@ -63,6 +67,7 @@ class PdfViewer extends Component {
   	})
   }
   render() { 
+    console.log(this.state.pdf)
   	const RenderPagination = () => {
 		const pageNumbers = [];
 	    for (let i = 1; i <= this.state.totalPage; i++) {
@@ -164,8 +169,9 @@ class PdfViewer extends Component {
 					{this.state.hasPdf ?
 						<div>
 							<div className='pdf-action'>
-								<i className='la la-eye' />
-								<i className='la la-download' />
+                <a href={`${config}/${this.state.pdf}`} download target='_blank'>
+								  <i className='la la-download' />
+                </a>
 							</div>
 							<PDF
 								file={`${config}/${this.state.pdf}`}
