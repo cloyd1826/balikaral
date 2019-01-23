@@ -117,21 +117,25 @@ class Layout extends Component {
         .then((res)=>{
             if(res.data){
                 let result = res.data.data
-               
+                console.log(result)
                 this.setState({
+                    activeLandingPage: result.active,
                     siteLogoName: result.logo,
                     pageLogoName: result.pageLogo,
                     tungkolSaProgramaLogoName: result.tungkolSaProgramaLogo,
                     pageDescription: result.pageDescription,
                     tungkolSaProgramaDescription: result.tungkolSaProgramaDescription,
+                    learnerDescription: result.learnerDescription,
+                    contributorDescription: result.contributorDescription,
+                    learnerDescriptionImageName: result.learnerDescriptionImage,
+                    contributorDescriptionImageName: result.contributorDescriptionImage,
                     email: result.email,
                     contactNumber: result.contact,
                     facebook: result.facebook,
                     twitter: result.twitter,
                     instagram: result.instagram,
                     medium: result.medium,
-                    google: result.google,
-                    active: result.active
+                    google: result.google
                 })
             }
             
@@ -187,15 +191,36 @@ class Layout extends Component {
     formData.append('google', this.state.google)
     formData.append('active', this.state.activeLandingPage)
 
+    formData.append('learnerDescription', this.state.learnerDescription)
+    formData.append('contributorDescription', this.state.contributorDescription)
+
 
     if(this.state.siteLogo !== ''){
       formData.append('logo', this.state.siteLogo )
+    }else{
+      formData.append('logoText', this.state.siteLogoName )
     }
     if(this.state.pageLogo !== ''){
       formData.append('pageLogo', this.state.pageLogo )
+    }else{
+      formData.append('pageLogoText', this.state.pageLogoName )
     }
     if(this.state.tungkolSaProgramaLogo !== ''){
       formData.append('tungkolSaProgramaLogo', this.state.tungkolSaProgramaLogo )
+    }else{
+      formData.append('tungkolSaProgramaLogoText', this.state.tungkolSaProgramaLogoName )
+    }
+    
+    if(this.state.learnerDescriptionImage !== ''){
+      formData.append('learnerDescriptionImage', this.state.learnerDescriptionImage )
+    }else{
+      formData.append('learnerDescriptionImageText', this.state.learnerDescriptionImageName )
+    }
+
+    if(this.state.contributorDescriptionImage !== ''){
+      formData.append('contributorDescriptionImage', this.state.contributorDescriptionImage )
+    }else{
+      formData.append('contributorDescriptionImageText', this.state.contributorDescriptionImageName )
     }
 
     const configPut = {
@@ -253,7 +278,7 @@ class Layout extends Component {
                                       name='siteLogo'
                                       fileName={this.state.siteLogoName}
                                       accept="image/*"
-                                      refProps={ref => this.fileInput = ref}
+                                      
                                       onChange={(e)=> this.handleFileChange(e, 'siteLogoName' )}/>
                                 </Grid.Cell>
                                 <Grid.Cell large={4} medium={12} small={12}>
@@ -263,7 +288,7 @@ class Layout extends Component {
                                       name='pageLogo'
                                       fileName={this.state.pageLogoName}
                                       accept="image/*"
-                                      refProps={ref => this.fileInput = ref}
+                                      
                                       onChange={(e)=> this.handleFileChange(e, 'pageLogoName' )}/>
                                 </Grid.Cell>
                                 <Grid.Cell large={4} medium={12} small={12}>
@@ -273,7 +298,7 @@ class Layout extends Component {
                                       name='tungkolSaProgramaLogo'
                                       fileName={this.state.tungkolSaProgramaLogoName}
                                       accept="image/*"
-                                      refProps={ref => this.fileInput = ref}
+                                      
                                       onChange={(e)=> this.handleFileChange(e, 'tungkolSaProgramaLogoName' )}/>
                                 </Grid.Cell>
 
@@ -298,6 +323,50 @@ class Layout extends Component {
                                     value={this.state.tungkolSaProgramaDescription} 
                                     onChange={this.handleChange}/>
                                 </Grid.Cell>
+
+                                <Grid.Cell large={4} medium={12} small={12}>
+                                  <FileInput 
+                                      type='file'
+                                      label='Maging Learner Image'
+                                      name='learnerDescriptionImage'
+                                      fileName={this.state.learnerDescriptionImageName}
+                                      accept="image/*"
+                                      
+                                      onChange={(e)=> this.handleFileChange(e, 'learnerDescriptionImageName' )}/>
+                                </Grid.Cell>
+                                <Grid.Cell large={12} medium={12} small={12}>
+                                  <Textarea 
+                                    required 
+                                    type='text' 
+                                    label='Maging Learner Description' 
+                                    placeholder='Maging Learner Description' 
+                                    name='learnerDescription' 
+                                    value={this.state.learnerDescription} 
+                                    onChange={this.handleChange}/>
+                                </Grid.Cell>
+
+
+                                <Grid.Cell large={4} medium={12} small={12}>
+                                  <FileInput 
+                                      type='file'
+                                      label='Maging Contributor Image'
+                                      name='contributorDescriptionImage'
+                                      fileName={this.state.contributorDescriptionImageName}
+                                      accept="image/*"
+                                      
+                                      onChange={(e)=> this.handleFileChange(e, 'contributorDescriptionImageName' )}/>
+                                </Grid.Cell>
+                                <Grid.Cell large={12} medium={12} small={12}>
+                                  <Textarea 
+                                    required 
+                                    type='text' 
+                                    label='Maging Contributor Description' 
+                                    placeholder='Maging Contributor Description' 
+                                    name='contributorDescription' 
+                                    value={this.state.contributorDescription} 
+                                    onChange={this.handleChange}/>
+                                </Grid.Cell>
+
 
                                 <Grid.Cell large={4} medium={12} small={12}>
                                   <Input

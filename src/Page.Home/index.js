@@ -56,14 +56,20 @@ class Home extends Component {
     apiRequest('get', `/landing-page/fetch-active`, false, false)
       .then((res)=>{
           if(res.data){
-      
+            console.log(res.data.landingPage)
             let landingPage = res.data.landingPage
             this.setState({
-              logo: landingPage.logo,
-              pageDescription: landingPage.pageDescription,
-              pageLogo: landingPage.pageLogo,
-              tungkolSaProgramaDescription: landingPage.tungkolSaProgramaDescription,
-              tungkolSaProgramaLogo: landingPage.tungkolSaProgramaLogo,
+              logo: landingPage.logo ? landingPage.logo : '',
+              pageDescription: landingPage.pageDescription ? landingPage.pageDescription : '',
+              pageLogo: landingPage.pageLogo ? landingPage.pageLogo : '',
+              tungkolSaProgramaDescription: landingPage.tungkolSaProgramaDescription ? landingPage.tungkolSaProgramaDescription : '',
+              tungkolSaProgramaLogo: landingPage.tungkolSaProgramaLogo ? landingPage.tungkolSaProgramaLogo : '',
+
+              learnerDescriptionImage: landingPage.learnerDescriptionImage ? landingPage.learnerDescriptionImage : '',
+              contributorDescriptionImage: landingPage.contributorDescriptionImage ? landingPage.contributorDescriptionImage : '',
+
+              learnerDescription: landingPage.learnerDescription ? landingPage.learnerDescription : '',
+              contributorDescription: landingPage.contributorDescription ? landingPage.contributorDescription : '',
              
               email: landingPage.email,
               contact: landingPage.contact,
@@ -99,13 +105,7 @@ class Home extends Component {
     
   }
   render() {
-    let settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 4
-    };
+   
     return (
       <div className='home-container'>
         <NavBar logo={this.state.logo} />
@@ -198,30 +198,34 @@ class Home extends Component {
               <div className="cell-container text-right">
                 <h2 className="st-title text-right">Maging <span className="st-title-student">LEARNER</span></h2>
                 <p className="st-description text-right">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                  {this.state.learnerDescription} 
                 </p>
-                <button className='st-button'>Magsimula</button>
+                <button className='st-button' onClick={this.toggleSignUp}>Magsimula</button>
               </div>
             </Grid.Cell>
             <Grid.Cell large={7} medium={6} small={12}>
               <div className="cell-container">
-                <img src={student} className="st-image" />
+
+                <ImageLoader className="st-image" image={this.state.learnerDescriptionImage} />
+
+               
               </div>
             </Grid.Cell>
         </Grid.X>
         <Grid.X>
             <Grid.Cell large={7} medium={6} small={12}>
               <div className="cell-container">
-                <img src={teacher} className="st-image" />                
+              
+                 <ImageLoader className="st-image" image={this.state.contributorDescriptionImage} />               
               </div>
             </Grid.Cell>
             <Grid.Cell large={5} medium={6} small={12}>
               <div className="cell-container">
                 <h2 className="st-title">Maging <span  className="st-title-teacher">CONTRIBUTOR</span></h2>
                 <p className="st-description">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                  {this.state.contributorDescription} 
                 </p>
-                <button className='st-button st-btn-teacher'>Magsimula</button>
+                <button className='st-button st-btn-teacher' onClick={this.toggleSignUp}>Magsimula</button>
               </div>  
             </Grid.Cell>
         </Grid.X>

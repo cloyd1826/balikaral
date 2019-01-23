@@ -70,7 +70,7 @@ class Dashboard extends Component {
                   </Link>
                 </Grid.Cell>
                 <Grid.Cell large={2} medium={6} small={12}>
-                  <Link to='/teacher/management/exam/list/teachers'>
+                  <Link to='/teacher/management/exam/list'>
                     <div className='dashboard-link'>
                       <span className='la la-list-ul'></span>
                       <div className='link-title'>Exam</div>

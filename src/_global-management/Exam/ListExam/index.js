@@ -172,25 +172,9 @@ class Layout extends Component {
   }
 
   fetchLevel(validation, learningStrand, level,subject,page){
-
-    let routeToUse = ''
-
-    if(this.props.match.params.type === 'self'){
-      routeToUse = `/exam-management/all?uploader=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}&page=${page}`
-    }
-
-    if(this.props.match.params.type === 'all'){
-      routeToUse = `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}&page=${page}`
-    }
-
-    if(this.props.match.params.type === 'teachers'){
-      routeToUse = `/exam-management/all?disclude=${this.props.user.id}&validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}&page=${page}`
-    }
-
-  	apiRequest('get', routeToUse, false, this.props.token)
+  	apiRequest('get', `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}&page=${page}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
-         
   				this.setState({
 	  				exam: res.data.data,
             currentPage: res.data.currentPage,
@@ -221,20 +205,7 @@ class Layout extends Component {
         						<div className='title'>Exam Management</div>
         						<div className='title-action'>
 
-                    {this.props.role === 'Teacher' ? 
-                      <Link 
-                        to={'/teacher/management/exam/list' 
-                          + (this.props.match.params.type === 'teachers' ? '/self' : '')
-                          + (this.props.match.params.type === 'self' ? '/teachers' : '')
-                          }>
-                        <div className='button primary small'>
-                        { (this.props.match.params.type === 'teachers' ? 'Your Exam List' : '')
-                          + (this.props.match.params.type === 'self' ? 'Other Teacher`s List' : '') }
-
-                        </div>
-                      </Link>
-
-                    : null}
+                   
 
                     {this.state.selectedData.length > 0 ? 
                       <div className='button primary small' onClick={this.validateMultiple}>Validate Selected Exam</div>
@@ -296,13 +267,13 @@ class Layout extends Component {
   				          			<Table.Row>
                             <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                             <Table.HeaderCell>Question</Table.HeaderCell>
-                            <Table.HeaderCell>Answer</Table.HeaderCell>
+                            <Table.HeaderCell>Validation</Table.HeaderCell>
                             <Table.HeaderCell>Difficulty</Table.HeaderCell>
-  				          				<Table.HeaderCell>Submitted By</Table.HeaderCell>
+  				          				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell>Level</Table.HeaderCell>
-                            <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                            <Table.HeaderCell>Subject</Table.HeaderCell>
-  				          				<Table.HeaderCell>Validation</Table.HeaderCell>
+                            <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
+                            
+  				          				
   				          				<Table.HeaderCell isNarrowed></Table.HeaderCell>
   				          			</Table.Row>
   				          		</Table.Header>
@@ -337,7 +308,13 @@ class Layout extends Component {
       															{attr.question.details}
       														</Link>
       													</Table.Cell>
-                                <Table.Cell>{ attr.question ? attr.question.answer ? attr.question.answer : '' : '' }</Table.Cell>
+                                <Table.Cell>
+                                  {attr.validation ? 
+                                  <div className='blue-bordered-radius'>Validated</div>
+                                   : 
+                                  <div className='red-bordered-radius'>For Validation</div> }
+
+                                </Table.Cell>
                                 <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
                                 <Table.Cell isNarrowed>{
                                   attr.uploader ? attr.uploader.personalInformation ? 
@@ -350,18 +327,11 @@ class Layout extends Component {
                                 }</Table.Cell>
                                 <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
                                 <Table.Cell isNarrowed>{ attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : '' }</Table.Cell>
-  							        				<Table.Cell isNarrowed>{ attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : '' }</Table.Cell>
-                                <Table.Cell>
-                                  {attr.validation ? 
-                                  <div className='blue-bordered-radius'>Validated</div>
-                                   : 
-                                  <div className='red-bordered-radius'>For Validation</div> }
-
-                                </Table.Cell>
+  							        				
   							        				<Table.Cell isNarrowed>
 
 
-                                  { this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
+                                  { (this.props.role === 'Administrator' || this.props.user.id !== attr.uploader._id) && !attr.validation ?
                                     <Link to={{ 
                                       pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/validate', 
                                       state: { id: attr._id } 
@@ -372,7 +342,7 @@ class Layout extends Component {
                                     </Link>
                                   : null }
 
-                                  { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
+                                  { this.props.role === 'Administrator' || this.props.user.id === attr.uploader._id ? 
                                     <Link to={{ 
                                       pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/edit', 
                                       state: { id: attr._id } 
@@ -383,7 +353,7 @@ class Layout extends Component {
                                       </Link>
                                     : null }
 
-                                    { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
+                                    { this.props.role === 'Administrator' || this.props.user.id === attr.uploader._id ?
                                       <span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
                                         <i className='fa fa-trash cancel'></i>
                                       </span>
@@ -402,13 +372,13 @@ class Layout extends Component {
   				          			<Table.Row> 
                             <Table.HeaderCell isNarrowed key='action-footer'></Table.HeaderCell>
                             <Table.HeaderCell>Question</Table.HeaderCell>
-                            <Table.HeaderCell>Answer</Table.HeaderCell>
-                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
-                            <Table.HeaderCell >Submitted By</Table.HeaderCell>
-                            <Table.HeaderCell >Level</Table.HeaderCell>
-                            <Table.HeaderCell >Learning Strand</Table.HeaderCell>
-                            <Table.HeaderCell>Subject</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
+                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                            <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
+                            <Table.HeaderCell >Level</Table.HeaderCell>
+                            <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
+                            
+                            
                             <Table.HeaderCell isNarrowed></Table.HeaderCell>
   				          			</Table.Row>
   				          		</Table.Footer>

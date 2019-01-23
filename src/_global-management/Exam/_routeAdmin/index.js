@@ -12,7 +12,7 @@ const Routes = () => {
 	return (
 		<div>
 			<Route path='/admin/teachers/exam/add' component={AddExam} />
-			<Route path='/admin/teachers/exam/list/:type' component={ListExam} />
+			<Route path='/admin/teachers/exam/list' component={ListExam} />
       <Route path='/admin/teachers/exam/edit' component={EditExam} />
       <Route path='/admin/teachers/exam/import' component={ImportExam} />
       <Route path='/admin/teachers/exam/validate' component={ValidateExam} />
@@ -31,7 +31,7 @@ class Exam extends Component {
     return (
         <div>
           <div className='third-top-bar'>
-            <NavLink to='/admin/teachers/exam/list/all' className='link' activeClassName='active'>
+            <NavLink to='/admin/teachers/exam/list' className='link' activeClassName='active'>
               List of Exam Questions
             </NavLink>
             <NavLink to='/admin/teachers/exam/add' className='link' activeClassName='active'>

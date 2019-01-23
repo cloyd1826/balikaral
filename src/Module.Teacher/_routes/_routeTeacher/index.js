@@ -56,7 +56,7 @@ class RouteManagement extends Component {
                 Session Guide
               </div>
             </Link>
-            <Link to='/teacher/management/exam/list/teachers'>
+            <Link to='/teacher/management/exam/list'>
               <div className={'link ' + (this.props.location.pathname.match('/teacher/management/exam') ? 'active' : '')}>
                 <i className='la la-align-left' />
                 Exam

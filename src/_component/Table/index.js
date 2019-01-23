@@ -90,8 +90,9 @@ class TableHeaderCell extends Component {
         let { children } = this.props
         let colSpan = this.props.colSpan ? this.props.colSpan : ''
         let rowSpan = this.props.rowSpan ? this.props.rowSpan : ''
+        let narrowed = this.props.isNarrowed ? ' is-narrowed' : ''
         return (
-            <th className={this.props.className ? this.props.className : '' } rowSpan={rowSpan} colSpan={colSpan}>
+            <th className={(this.props.className ? this.props.className : '') + narrowed  } rowSpan={rowSpan} colSpan={colSpan}>
                 {children}
             </th>
         )

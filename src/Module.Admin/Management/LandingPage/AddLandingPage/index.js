@@ -130,6 +130,8 @@ class Layout extends Component {
 
     formData.append('pageDescription', this.state.pageDescription)
     formData.append('tungkolSaProgramaDescription', this.state.tungkolSaProgramaDescription)
+    formData.append('learnerDescription', this.state.learnerDescription)
+    formData.append('contributorDescription', this.state.contributorDescription)
     formData.append('email', this.state.email)
     formData.append('contact', this.state.contactNumber)
     formData.append('facebook', this.state.facebook)
@@ -149,6 +151,14 @@ class Layout extends Component {
     if(this.state.tungkolSaProgramaLogoName != ''){
       formData.append('tungkolSaProgramaLogo', this.state.tungkolSaProgramaLogo )
     }
+    if(this.state.learnerDescriptionImageName != ''){
+      formData.append('learnerDescriptionImage', this.state.learnerDescriptionImage )
+    }
+    if(this.state.contributorDescriptionImageName != ''){
+      formData.append('contributorDescriptionImage', this.state.contributorDescriptionImage )
+    }
+
+
 
     const configPost = {
         headers: {
@@ -249,6 +259,51 @@ class Layout extends Component {
                           value={this.state.tungkolSaProgramaDescription} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+
+
+                      <Grid.Cell large={4} medium={12} small={12}>
+                        <FileInput 
+                            type='file'
+                            label='Maging Learner Image'
+                            name='learnerDescriptionImage'
+                            fileName={this.state.learnerDescriptionImageName}
+                            accept="image/*"
+                            refProps={ref => this.fileInput = ref}
+                            onChange={(e)=> this.handleFileChange(e, 'learnerDescriptionImageName' )}/>
+                      </Grid.Cell>
+                      <Grid.Cell large={12} medium={12} small={12}>
+                        <Textarea 
+                          required 
+                          type='text' 
+                          label='Maging Learner Description' 
+                          placeholder='Maging Learner Description' 
+                          name='learnerDescription' 
+                          value={this.state.learnerDescription} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
+
+                      <Grid.Cell large={4} medium={12} small={12}>
+                        <FileInput 
+                            type='file'
+                            label='Maging Contributor Image'
+                            name='contributorDescriptionImage'
+                            fileName={this.state.contributorDescriptionImageName}
+                            accept="image/*"
+                            refProps={ref => this.fileInput = ref}
+                            onChange={(e)=> this.handleFileChange(e, 'contributorDescriptionImageName' )}/>
+                      </Grid.Cell>
+                      <Grid.Cell large={12} medium={12} small={12}>
+                        <Textarea 
+                          required 
+                          type='text' 
+                          label='Maging Contributor Description' 
+                          placeholder='Maging Contributor Description' 
+                          name='contributorDescription' 
+                          value={this.state.contributorDescription} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
 
                       <Grid.Cell large={4} medium={12} small={12}>
                         <Input

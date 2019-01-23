@@ -319,7 +319,7 @@ class Layout extends Component {
 
                     <div className='button primary small' onClick={this.toggleView}>{this.state.view ? 'List' : 'Grid' } View</div>
  
-                    {(this.props.role === 'Learner' || this.props.location.pathname.match('/teacher/management/session-guide')) ? null : 
+                    {(this.props.role === 'Learner' || this.props.location.pathname.match('/teacher/management/session-guide') || this.props.location.pathname.match('/teacher/management/reviewer')) ? null : 
                       <Link to={this.state.urlLinkToUse + '/add'}>
                         <div className='button primary small'>Add New {this.state.header}</div>
                       </Link>
@@ -494,7 +494,7 @@ class Layout extends Component {
 
                                 
 
-                                { this.props.role === 'Administrator' ?
+                                { this.props.role === 'Administrator' || attr.uploader._id === this.props.user.id ?
                                   <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id, attr.fileUsage)}}>
                                     <i className='fa fa-trash cancel'></i>
                                   </span>

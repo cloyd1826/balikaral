@@ -152,7 +152,13 @@ class Layout extends Component {
                                 </Link>
                               </Table.Cell>
                               <Table.Cell>{attr.tungkolSaProgramaDescription}</Table.Cell>
-							        				<Table.Cell>{(attr.active ? 'Active' : 'Inactive')}</Table.Cell>
+							        				<Table.Cell>
+                               {attr.active ? 
+                                  <div className='blue-bordered-radius'>Active</div>
+                                   : 
+                                  <div className='red-bordered-radius'>Inactive</div> }
+
+                              </Table.Cell>
                               <Table.Cell>{attr.email}</Table.Cell>
                               <Table.Cell>{attr.contact}</Table.Cell>
                               <Table.Cell>{attr.facebook}</Table.Cell>
@@ -169,10 +175,11 @@ class Layout extends Component {
 								        						<i className='fa fa-edit primary'></i>
 								        					</span>
 							        					</Link>
-							        				
+							        				 {!attr.active ? 
                                 <span onClick={()=>{this.toggleSetActive(attr)}}>
                                     <i className='la la-tags primary'></i>
                                 </span>
+                                : null }
                                 {!attr.active ? 
                                   <span onClick={()=>{this.toggleDelete('/landing-page/delete/' + attr._id)}}>
                                   <i className='fa fa-trash cancel'></i>
