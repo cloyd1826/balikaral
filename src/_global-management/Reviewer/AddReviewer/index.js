@@ -250,14 +250,14 @@ class Layout extends Component {
                           onChange={this.handleLearningStrandChange}/>
                       </Grid.Cell>
 
-                      <Grid.Cell large={3} medium={12} small={12}>
+                      {/* <Grid.Cell large={3} medium={12} small={12}>
                         <SelectSubject 
                           label='Modyul'
                           name='learningStrandSub' 
                           learningStrand={this.state.learningStrand}
                           value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
-                      </Grid.Cell>
+                      </Grid.Cell> */}
                       
                        <Grid.Cell large={12} medium={12} small={12}>
                         <Textarea

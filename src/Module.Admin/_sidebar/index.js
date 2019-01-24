@@ -63,7 +63,7 @@ class Sidebar extends Component {
                   </div>
                   <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/reviewer/list/all'>
                     <i className='la la-file-pdf-o'></i>
-                    <span>Reviewer</span>
+                    <span>Modyul ( Module )</span>
                   </NavLink>
                   <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam/list/all'>
                     <i className='la la-list-ul'></i>
@@ -90,7 +90,7 @@ class Sidebar extends Component {
                   </NavLink>
                    <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/subject/list'>
                     <i className='la la-align-center'></i>
-                    <span>Modyul</span>
+                    <span>Lesson (Leksiyon)</span>
                   </NavLink>
                    <NavLink className='sidebar-link' activeClassName='active' to='/admin/management/exam-type/list'>
                     <i className='la  la-th-list'></i>

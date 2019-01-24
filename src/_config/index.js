@@ -2,7 +2,7 @@
 let config = ''
 
 if(process.env.NODE_ENV === 'development'){
-	config = 'http://localhost:5000'
+	config = '40.80.146.226:6000'
 }
 if(process.env.NODE_ENV === 'production'){
 	config = 'https://balikaralapi.eastus.cloudapp.azure.com:5000'

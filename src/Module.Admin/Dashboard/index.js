@@ -53,7 +53,7 @@ class Dashboard extends Component {
                   <Link to='/admin/teachers/reviewer/list/'>
                     <div className='dashboard-link' >
                       <span className='la la-file-pdf-o'></span>
-                      <div className='link-title'>Reviewer</div>
+                      <div className='link-title'>Modyul (Module)</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -121,7 +121,7 @@ class Dashboard extends Component {
                   <Link to='/admin/management/subject/list'>
                     <div className='dashboard-link' >
                       <span className='la la-align-center'></span>
-                      <div className='link-title'>Modyul</div>
+                      <div className='link-title'>Leksiyon (Lesson)</div>
                     </div>
                   </Link>
                 </Grid.Cell>
