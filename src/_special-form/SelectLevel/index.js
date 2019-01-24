@@ -15,7 +15,7 @@ class Layout extends Component {
     this.fetchAll = this.fetchAll.bind(this)
   }
   fetchAll(){	
-  	apiRequest('get', '/level/all', false, this.props.token)
+  	apiRequest('get', '/level/fetchAllWithoutPagination', false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({

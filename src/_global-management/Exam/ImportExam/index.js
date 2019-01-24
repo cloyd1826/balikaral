@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 import SelectSubject from '../../../_special-form/SelectSubject'
+import SelectReviewer from '../../../_special-form/SelectReviewer'
 
 class Layout extends Component {
   constructor(props) {
@@ -141,7 +142,7 @@ class Layout extends Component {
                       <Grid.Cell large={12} medium={12} small={12}>
                         <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                       </Grid.Cell>
-                       <Grid.Cell large={4} medium={12} small={12}>
+                       <Grid.Cell large={3} medium={12} small={12}>
                         <SelectLevel 
                           required 
                           type='text' 
@@ -152,7 +153,7 @@ class Layout extends Component {
                       </Grid.Cell>
 
 
-                      <Grid.Cell large={4} medium={12} small={12}>
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectLearningStrand 
                           required 
                           type='text' 
@@ -162,7 +163,15 @@ class Layout extends Component {
                           value={this.state.learningStrand} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
-                      <Grid.Cell large={4} medium={12} small={12}>
+                       <Grid.Cell large={3} medium={12} small={12}>
+                        <SelectReviewer
+                          learningStrand={this.state.learningStrand}
+                          label='Reviewer' 
+                          name='reviewer' 
+                          value={this.state.reviewer} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectSubject
 
                           type='text' 

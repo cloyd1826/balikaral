@@ -268,6 +268,7 @@ class Layout extends Component {
                             <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
+                            <Table.HeaderCell>Reviewer</Table.HeaderCell>
                             <Table.HeaderCell>Difficulty</Table.HeaderCell>
   				          				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell>Level</Table.HeaderCell>
@@ -315,6 +316,7 @@ class Layout extends Component {
                                   <div className='red-bordered-radius'>For Validation</div> }
 
                                 </Table.Cell>
+                                <Table.Cell>{ attr.reviewer ? attr.reviewer.description ? attr.reviewer.description : '' : '' }</Table.Cell>
                                 <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
                                 <Table.Cell isNarrowed>{
                                   attr.uploader ? attr.uploader.personalInformation ? 
@@ -373,6 +375,7 @@ class Layout extends Component {
                             <Table.HeaderCell isNarrowed key='action-footer'></Table.HeaderCell>
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
+                            <Table.HeaderCell>Reviewer</Table.HeaderCell>
                             <Table.HeaderCell>Difficulty</Table.HeaderCell>
                             <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell >Level</Table.HeaderCell>

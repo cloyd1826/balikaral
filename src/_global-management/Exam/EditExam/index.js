@@ -24,6 +24,7 @@ import axios, { put } from 'axios'
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 import SelectSubject from '../../../_special-form/SelectSubject'
+import SelectReviewer from '../../../_special-form/SelectReviewer'
 
 
 class Layout extends Component {
@@ -68,7 +69,9 @@ class Layout extends Component {
         active: false,
         buttonDisabled: false,
 
-        preview: false
+        preview: false,
+
+        reviewer: '',
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -102,6 +105,7 @@ class Layout extends Component {
     this.setState({
       [name]: value,
       learningStrandSub: '',
+      reviewer: '',
     })
   }
   previewExam(){
@@ -142,6 +146,7 @@ class Layout extends Component {
                     answer: (result.question ? result.question.answer ? result.question.answer : '' : ''),
                     difficulty: (result.question ? result.question.difficulty ? result.question.difficulty : '' : ''),
                     level: (result.level ? result.level._id ? result.level._id : '' : ''),
+                    reviewer: (result.reviewer ? result.reviewer._id ? result.reviewer._id : '' : ''),
                     learningStrand: (result.learningStrand ? result.learningStrand._id ? result.learningStrand._id : '' : ''),
                     learningStrandSub: (result.learningStrandSub ? result.learningStrandSub._id ? result.learningStrandSub._id : '' : ''),
 
@@ -209,6 +214,7 @@ class Layout extends Component {
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
+    formData.append('reviewer', this.state.reviewer)
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
     formData.append('validation', this.state.validation )
@@ -330,6 +336,15 @@ class Layout extends Component {
                                     name='learningStrand' 
                                     value={this.state.learningStrand} 
                                     onChange={this.handleLearningStrandChange}/>
+                                </Grid.Cell>
+                                <Grid.Cell large={3} medium={12} small={12}>
+                                  <SelectReviewer 
+                                    required
+                                    label='Reviewer'
+                                    name='reviewer' 
+                                    learningStrand={this.state.learningStrand}
+                                    value={this.state.reviewer} 
+                                    onChange={this.handleChange}/>
                                 </Grid.Cell>
                                 <Grid.Cell large={3} medium={12} small={12}>
                                   <SelectSubject 

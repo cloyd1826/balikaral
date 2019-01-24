@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 import SelectSubject from '../../../_special-form/SelectSubject'
+import SelectReviewer from '../../../_special-form/SelectReviewer'
 
 import apiRequest from '../../../_axios'
 
@@ -60,7 +61,9 @@ class Layout extends Component {
       message: '',
       type: '',
       active: false,
-      buttonDisabled: false
+      buttonDisabled: false,
+
+      reviewer: '',
       
     }
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -74,6 +77,8 @@ class Layout extends Component {
 
     this.handleLevelChange = this.handleLevelChange.bind(this)
     this.handleLearningStrandChange = this.handleLearningStrandChange.bind(this)
+
+    this.fetchReviewer = this.fetchReviewer.bind(this)
   }
   handleLevelChange(e){
     let name = e.target.name
@@ -90,6 +95,7 @@ class Layout extends Component {
     this.setState({
       [name]: value,
       learningStrandSub: '',
+      reviewer: '',
     })
   }
   formMessage(message, type, active, button){
@@ -129,7 +135,18 @@ class Layout extends Component {
       validated: false
     })
   }
+  fetchReviewer(level,learningStrand){
+    apiRequest('get',`/reviewer-management/fetchAllWithoutPagination?level=${level}&learningStrand=${learningStrand}`,false,this.props.token)
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
 
+      })
+  }
+  componentDidMount(){
+    this.fetchReviewer()
+  }
   handleFileChange(e, imageName){
     let name = e.target.name
     let value = e.target.value
@@ -167,6 +184,7 @@ class Layout extends Component {
     const formData = new FormData()
    
     formData.append('learningStrand', this.state.learningStrand)
+    formData.append('reviewer', this.state.reviewer)
    
     formData.append('level', this.state.level)
     formData.append('uploader', this.props.user.id)
@@ -281,6 +299,16 @@ class Layout extends Component {
                       </Grid.Cell>
 
                       <Grid.Cell large={3} medium={12} small={12}>
+                        <SelectReviewer 
+                          required
+                          label='Reviewer'
+                          name='reviewer' 
+                          learningStrand={this.state.learningStrand}
+                          value={this.state.reviewer} 
+                          onChange={this.handleChange}/>
+                      </Grid.Cell>
+
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectSubject 
                           label='Modyul'
                           name='learningStrandSub' 
@@ -288,6 +316,8 @@ class Layout extends Component {
                           value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
+
+
 
                       <Grid.Cell large={6} medium={12} small={12}>
                         <Input  
