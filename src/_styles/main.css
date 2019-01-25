@@ -599,20 +599,21 @@ label {
   font-weight: 600;
   color: rgba(0, 0, 0, 0.8); }
 
-.form-message i {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translate(0, -50%); }
-
-.form-message span.close {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  right: 8px !important;
-  cursor: pointer;
-  transform: translate(0, -50%); }
+.form-message {
+  margin: 0 8px 8px 8px; }
+  .form-message i {
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translate(0, -50%); }
+  .form-message span.close {
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    right: 8px !important;
+    cursor: pointer;
+    transform: translate(0, -50%); }
 
 .form-message.success {
   background: #d1f4da;
@@ -2853,6 +2854,9 @@ span.no-validator {
 .blue-bordered-radius {
   background: #4257b2; }
 
+.reviewer-view {
+  padding: 0 16px 16px 16px; }
+
 .youtube-player-container {
   display: flex;
   align-items: center;
@@ -3318,7 +3322,7 @@ p, span, a {
   padding: 16px; }
 
 .element-container, .discussion-container, .comment-container, .comment-list {
-  padding: 16px;
+  padding: 0;
   background: #fff;
   margin-bottom: 16px;
   margin-top: 16px;

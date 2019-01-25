@@ -62,60 +62,7 @@ class Layout extends Component {
               <div className='reviewer-title'>{this.props.data.description}</div>
             </Link>
 
-            <div className='reviewer-action'>
-              <i className='la la-ellipsis-v' onClick={this.toggleAction} />
-
-              {this.state.isActive ? 
-                <div className='action-container'>
-
-                 {this.props.match.params.type === 'all' || this.props.match.params.type === 'teachers'  ? 
-                    <Link to={{ 
-                      pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/validate', 
-                      state: { id: this.props.data._id } 
-                    }}>
-                      <div className='action'>
-                        <span><i className='la la-tags primary'></i></span>
-                        Validate
-                      </div>
-                    </Link>
-                  : null }
-
-                  { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ? 
-                    <Link to={{ 
-                      pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/reviewer/edit', 
-                      state: { id: this.props.data._id } 
-                    }}>
-                      <div className='action'>
-                        <span><i className='fa fa-edit primary'></i></span>
-                        Edit
-                      </div>
-                    </Link>
-                 : null }
-
-                 <Link to={{ 
-                    pathname: 
-                      (this.props.role === 'Administrator' ? '/admin/teachers/reviewer/view' : '') + 
-                      (this.props.role === 'Teacher' ? '/teacher/management/reviewer/view' : '') + 
-                      (this.props.role === 'Learner' ?  (this.props.hadPreTest ? '/learner/reviewer/view' : '/learner-start/reviewer/view' )     : ''), 
-                    state: { id: this.props.data._id } 
-                  }}>
-
-                    <div className='action'>
-                      <span><i className='la la-folder-open-o primary'></i></span>
-                      View
-                    </div>
-                  </Link>
-
-                   { this.props.match.params.type === 'self' || (this.props.match.params.type === 'all' && this.props.role === 'Administrator') ?
-                    <div className='action' onClick={()=>{this.props.toggleDelete('/reviewer-management/delete/' + this.props.data._id)}}>
-                      <span><i className='la la-trash cancel'></i></span>
-                      Delete
-                    </div>
-                   : null }
-
-                </div>
-              : null}
-            </div>
+           
           </div>
           
         </Grid.Cell>

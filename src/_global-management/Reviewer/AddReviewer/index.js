@@ -154,8 +154,8 @@ class Layout extends Component {
     formData.append('level', this.state.level)
     formData.append('description', this.state.description)
     formData.append('uploader', this.props.user.id )
-    formData.append('fileType', this.state.typeReviewer )
-    formData.append('fileUsage', this.state.header )
+    formData.append('fileType', (this.state.header === 'Reviewer' ? 'PDF' :this.state.typeReviewer) )
+    formData.append('fileUsage', this.state.header)
     formData.append('validation', (this.props.role === 'Administrator' ? true : false ) )
 
 
@@ -268,22 +268,25 @@ class Layout extends Component {
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
-                      <Grid.Cell large={6} medium={12} small={12}>
-                        <Select
-                          label='File Type' 
-                          placeholder='File Type' 
-                          name='typeReviewer' 
-                          value={this.state.typeReviewer} 
-                          onChange={this.changeTypeReviewer}>
-                          <option value=''></option>                          
-                          <option value='PDF'>PDF</option>                          
-                          <option value='Powerpoint Presentation'>Powerpoint Presentation</option>                          
-                          <option value='Microsoft Word Document'>Microsoft Word Document</option>                        
-                          <option value='Youtube Video'>Youtube Video</option>
-                        </Select>
-                      </Grid.Cell>    
+                        
+                      {this.state.header !== 'Reviewer' ? 
+                        <Grid.Cell large={6} medium={12} small={12}>
+                          <Select
+                            label='File Type' 
+                            placeholder='File Type' 
+                            name='typeReviewer' 
+                            value={this.state.typeReviewer} 
+                            onChange={this.changeTypeReviewer}>
+                            <option value=''></option>                          
+                            <option value='PDF'>PDF</option>                          
+                            <option value='Powerpoint Presentation'>Powerpoint Presentation</option>                          
+                            <option value='Microsoft Word Document'>Microsoft Word Document</option>                        
+                            <option value='Youtube Video'>Youtube Video</option>
+                          </Select>
+                        </Grid.Cell>
+                      : null}
 
-                      {this.state.typeReviewer === 'PDF' || this.state.typeReviewer === 'Powerpoint Presentation' || this.state.typeReviewer === 'Microsoft Word Document' ? 
+                      {(this.state.typeReviewer === 'PDF' || this.state.typeReviewer === 'Powerpoint Presentation' || this.state.typeReviewer === 'Microsoft Word Document') && this.state.header !== 'Reviewer' ? 
     	        					<Grid.Cell large={6} medium={12} small={12}>
     	        						<FileInput 
     	        							type='file'
@@ -300,6 +303,22 @@ class Layout extends Component {
     	        							onChange={this.handleFileChange}/>
     	        					</Grid.Cell>
                       : null}
+
+                      {this.state.header === 'Reviewer' ? 
+                        <Grid.Cell large={6} medium={12} small={12}>
+                          <FileInput 
+                            type='file'
+                            label='Reviewer'
+                            required
+                            name='pdf'
+                            fileName={this.state.pdfName}
+                            accept='application/pdf'
+                            ref={ref => this.fileInput = ref}
+                            onChange={this.handleFileChange}/>
+                        </Grid.Cell>
+                      : null}
+
+
                       {this.state.typeReviewer === 'Youtube Video' ?
                         <Grid.Cell large={6} medium={12} small={12}>
                           <Input 
@@ -309,11 +328,9 @@ class Layout extends Component {
                             name='youtubeVideo' 
                             value={this.state.youtubeVideo} 
                             onChange={this.handleChange}/>
-                           
-                              
-                            
                         </Grid.Cell>
                       : null}
+
                       {this.state.typeReviewer === 'Youtube Video' ?
                         <Grid.Cell large={12} medium={12} small={12}>
                          <div className='form-message success'>
