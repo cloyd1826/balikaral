@@ -74,13 +74,13 @@ class RouteManagement extends Component {
                 Forum
               </div>
             </Link>
-            <Link to='/admin/management/survey-management/list'>
+           {/* <Link to='/admin/management/survey-management/list'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/management/survey-management') ? 'active' : '')}>
                 <i className='la la-users' />
                 Survey Management
               </div>
               
-            </Link>
+            </Link>*/}
             <Link to='/admin/management/landing-page/list'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/management/landing-page') ? 'active' : '')}>
                 <i className='la la-institution' />

@@ -11,6 +11,7 @@ import talino from '../../IconImages/talino.png'
 import tiyaga from '../../IconImages/tiyaga.png'
 import forum from '../../IconImages/forum.png'
 
+import apiRequest from '../../_axios'
 
 class Layout extends Component {
   constructor(props) {
@@ -18,20 +19,43 @@ class Layout extends Component {
     this.state = {
       user : {}
     }
+    this.checkIfProfileEdit = this.checkIfProfileEdit.bind(this)
+    this.toggleProfileUpdate = this.toggleProfileUpdate.bind(this)
   }
+  toggleProfileUpdate(){
+    this.setState({
+      modalProfile: (this.state.modalProfile ? false : true),
+    })
+  }
+  checkIfProfileEdit(){
+    apiRequest('get', `/user/check-profile/${this.props.user.id}` , false, this.props.token)
+      .then((res)=>{
+        console.log(res)
+        if(res.data.learnerStatus === 'Edit Profile'){
+          this.setState({
+            isProfileEdit: true,
+            modalProfile: true
+          })
+        }
+      })
+      .catch((err)=>{
 
+      })
+  }
   componentDidMount(){
+    this.checkIfProfileEdit()
     this.setState({
       user: this.props.user
     })
-}
 
-componentWillReceiveProps(nextProps){
-    
-    this.setState({
-      user: nextProps.user
-    })
-}
+  }
+
+  componentWillReceiveProps(nextProps){
+      
+      this.setState({
+        user: nextProps.user
+      })
+  }
   render() { 
     return (
         <div className='admin-dashboard'>
@@ -67,6 +91,15 @@ componentWillReceiveProps(nextProps){
                                     <i className='la la-file-pdf-o'></i>
                                     <span>Talino</span>
                                   </NavLink>
+                                   {this.state.isProfileEdit ? 
+                                    <NavLink className='sidebar-link' activeClassName='active' to={{ 
+                                        pathname: '/learner-start/profile/update-learner-info', 
+                                        state: { id: this.state.user.id } 
+                                      }}>
+                                      <i className='la la-user'></i>
+                                      <span>Update Profile</span>
+                                    </NavLink>
+                                  : null}
                                 </div>
                               </div>
                           </Grid.Cell>
@@ -108,6 +141,24 @@ componentWillReceiveProps(nextProps){
               </Grid.X>
             </Grid>
           </div>
+          {this.state.modalProfile ? 
+            <div className='modal'>
+              <div className='delete-modal'>
+                <span className='close-button la la-times-circle' onClick={this.toggleProfileUpdate}></span>
+                <div className='delete-title text-center'>You need to update your User and Learner Information</div>
+                <div className='context-montserrat text-center'>We would like to know more about you.</div>
+                <div className='delete-button-group'>
+                  <Link  to={{ 
+                      pathname: '/learner-start/profile/update-learner-info', 
+                      state: { id: this.state.user.id } 
+                    }}>
+                    <button type='button' className='button yes small'>Update Profile</button>
+                  </Link>
+                  <button type='button' className='button yes small' onClick={this.toggleProfileUpdate}>Later</button>
+                </div>
+              </div> 
+            </div>
+          : null}
         </div>
     )
   }
@@ -117,7 +168,9 @@ componentWillReceiveProps(nextProps){
 const mapStateToProps = state => {
   return {
     user: state.user,
-    role: state.role
+    role: state.role,
+    token: state.token,
+    level: state.level
   }
 }
 

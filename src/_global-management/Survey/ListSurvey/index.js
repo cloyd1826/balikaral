@@ -13,6 +13,9 @@ import { connect } from 'react-redux'
 
 import moment from 'moment'
 
+import ManagementDelete from '../../../_component/ManagementDelete'
+
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -142,6 +145,10 @@ class Layout extends Component {
                                     <i className='la la-folder-open-o primary'></i>
                                   </span>
                                 </Link>
+
+                                <span onClick={()=>{this.toggleDelete('/survey-user/delete/' + attr._id)}}>
+                                  <i className='fa fa-trash cancel'></i>
+                                </span>
                               
                               </Table.Cell>
                             </Table.Row>
@@ -177,6 +184,7 @@ class Layout extends Component {
               </Grid.Cell>
             </Grid.X>
           </Grid>
+          <ManagementDelete item='User Survey' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
         </div>
     )
   }

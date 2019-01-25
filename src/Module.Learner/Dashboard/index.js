@@ -11,19 +11,80 @@ import talino from '../../IconImages/talino.png'
 import tiyaga from '../../IconImages/tiyaga.png'
 import forum from '../../IconImages/forum.png'
 
+import apiRequest from '../../_axios'
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user : {}
+      user : {},
+      isAvailableForSurvey: false,
+      isProfileEdit: false,
+      modalSurvey: false,
+      modalProfile: false,
     }
+
+    this.checkIfAvailableForSurvey = this.checkIfAvailableForSurvey.bind(this)
+    this.checkIfProfileEdit = this.checkIfProfileEdit.bind(this)
+    this.toggleProfileUpdate = this.toggleProfileUpdate.bind(this)
+    this.toggleSurvey = this.toggleSurvey.bind(this)
+  }
+  toggleSurvey(){
+    this.setState({
+      modalSurvey: (this.state.modalSurvey ? false : true),
+    })
+  }
+  toggleProfileUpdate(){
+    this.setState({
+      modalProfile: (this.state.modalProfile ? false : true),
+    })
+  }
+  checkIfProfileEdit(){
+    apiRequest('get', `/user/check-profile/${this.props.user.id}` , false, this.props.token)
+      .then((res)=>{
+        console.log(res)
+        if(res.data.learnerStatus === 'Edit Profile'){
+          this.setState({
+            isProfileEdit: true,
+            modalProfile: true
+          })
+        }
+      })
+      .catch((err)=>{
+
+      })
+  }
+  checkIfAvailableForSurvey(){
+    
+    apiRequest('get',`/generated-exam/learner-post-test-and-survey?examiner=${this.props.user.id}&level=${this.props.level}`,false,this.props.token)
+      .then((res)=>{
+        let result = res.data
+        if(result.surveyStatus === 'Has Survey'){
+
+        }else if(result.surveyStatus === 'Take Survey'){
+          this.setState({
+            isAvailableForSurvey: true,
+            modalSurvey: true
+          })
+        }else if(result.surveyStatus === 'Not Yet Available'){
+
+        }
+      })
+      .catch((err)=>{
+
+      })
+
+     
   }
 
   componentDidMount(){
+    this.checkIfAvailableForSurvey()
+    this.checkIfProfileEdit()
     this.setState({
       user: this.props.user
     })
+    
+
 }
 
 componentWillReceiveProps(nextProps){
@@ -71,6 +132,21 @@ componentWillReceiveProps(nextProps){
                                     <i className='la la-copy'></i>
                                     <span>Tiyaga</span>
                                   </NavLink>
+                                  {this.state.isAvailableForSurvey ? 
+                                    <NavLink className='sidebar-link' activeClassName='active' to='/learner/survey/take'>
+                                      <i className='la la-users'></i>
+                                      <span>Take Survey</span>
+                                    </NavLink>
+                                  : null}
+                                  {this.state.isProfileEdit ? 
+                                    <NavLink className='sidebar-link' activeClassName='active' to={{ 
+                                        pathname: '/learner/profile/update-learner-info', 
+                                        state: { id: this.state.user.id } 
+                                      }}>
+                                      <i className='la la-user'></i>
+                                      <span>Update Profile</span>
+                                    </NavLink>
+                                  : null}
                                 </div>
                               </div>
                           </Grid.Cell>
@@ -129,6 +205,39 @@ componentWillReceiveProps(nextProps){
               </Grid.X>
             </Grid>
           </div>
+          {this.state.modalSurvey ? 
+            <div className='modal'>
+              <div className='delete-modal'>
+                <span className='close-button la la-times-circle' onClick={this.toggleSurvey}></span>
+                <div className='delete-title text-center'>You need to take the SOFTWARE EVALUATION RATING SHEET Survey</div>
+                <div className='context-montserrat text-center'>We would like to hear your feedback</div>
+                <div className='delete-button-group'>
+                  <Link to='/learner/survey/take'>
+                    <button type='button' className='button yes small'>Take Survey</button>
+                  </Link>
+                  <button type='button' className='button yes small' onClick={this.toggleSurvey}>Later</button>
+                </div>
+              </div> 
+            </div>
+          : null}
+          {this.state.modalProfile ? 
+            <div className='modal'>
+              <div className='delete-modal'>
+                <span className='close-button la la-times-circle' onClick={this.toggleProfileUpdate}></span>
+                <div className='delete-title text-center'>You need to update your User and Learner Information</div>
+                <div className='context-montserrat text-center'>We would like to know more about you.</div>
+                <div className='delete-button-group'>
+                  <Link  to={{ 
+                      pathname: '/learner/profile/update-learner-info', 
+                      state: { id: this.state.user.id } 
+                    }}>
+                    <button type='button' className='button yes small'>Update Profile</button>
+                  </Link>
+                  <button type='button' className='button yes small' onClick={this.toggleProfileUpdate}>Later</button>
+                </div>
+              </div> 
+            </div>
+          : null}
         </div>
     )
   }
@@ -138,7 +247,9 @@ componentWillReceiveProps(nextProps){
 const mapStateToProps = state => {
   return {
     user: state.user,
-    role: state.role
+    role: state.role,
+    level: state.level,
+    token: state.token
   }
 }
 
