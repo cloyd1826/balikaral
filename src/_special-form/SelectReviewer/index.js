@@ -44,7 +44,7 @@ class Layout extends Component {
       onChange={this.props.onChange ? this.props.onChange : '' }
       value={this.props.value}
       name={this.props.name}
-      label='Reviewer/Learning Resources'
+      label='Modyul'
       required={this.props.required}
        
     >

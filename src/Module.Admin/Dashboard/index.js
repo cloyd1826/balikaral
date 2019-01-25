@@ -121,7 +121,7 @@ class Dashboard extends Component {
                   <Link to='/admin/management/subject/list'>
                     <div className='dashboard-link' >
                       <span className='la la-align-center'></span>
-                      <div className='link-title'>Modyul</div>
+                      <div className='link-title'>Subject</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -145,14 +145,14 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
-                 <Grid.Cell large={2} medium={4} small={12}>
+                {/* <Grid.Cell large={2} medium={4} small={12}>
                   <Link to='/admin/management/survey-management/List'>
                     <div className='dashboard-link' >
                       <span className='la la-users'></span>
                       <div className='link-title'>Survey Management</div>
                     </div>
                   </Link>
-                </Grid.Cell>
+                </Grid.Cell>*/}
 
                  <Grid.Cell large={2} medium={6} small={12}>
                  <Link to='/admin/management/landing-page/list'>
