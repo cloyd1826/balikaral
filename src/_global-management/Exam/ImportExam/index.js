@@ -20,6 +20,8 @@ import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 import SelectSubject from '../../../_special-form/SelectSubject'
 import SelectReviewer from '../../../_special-form/SelectReviewer'
 
+import CSVSample from './csvsample.csv'
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -130,6 +132,7 @@ class Layout extends Component {
         					<div className='title-text-container hide-on-large-x'>
         						<div className='title'>Exam Management > Import</div>
         						<div className='title-action'>
+                      <a href={CSVSample} download><div className='button primary small'>Download CSV Format</div></a>
         							<Link to={(this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/list/' + ( this.props.role === 'Administrator' ? 'all' : '') + (this.props.role === 'Teacher' ? 'teachers' : '')}>
         								<div className='button primary small'>List of Exams</div>
         							</Link>
