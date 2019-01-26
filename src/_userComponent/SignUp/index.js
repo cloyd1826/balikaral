@@ -179,7 +179,7 @@ class Layout extends Component{
         civilStatus: this.state.civilStatus,
       }
       if(this.state.userType === 'Learner'){
-        data = {...data, level: this.state.level}
+        data = {...data, level: this.state.level, learningCenter: this.state.learningCenter}
       }
 
 
@@ -340,7 +340,15 @@ class Layout extends Component{
                       <option value='Teacher'>Teacher</option>
                     </Select>
                   </Grid.Cell>
-                  {this.state.userType === 'Learner' ? 
+                  
+                    
+                 
+
+                  
+
+                </Grid.X>
+                {this.state.userType === 'Learner' ? 
+                  <Grid.X>
                     <Grid.Cell large={12} medium={12} small={12}>
                       <SelectLevel
                         label='Level'
@@ -350,11 +358,18 @@ class Layout extends Component{
                         onChange={this.handleChange}
                         />
                     </Grid.Cell>
-                  : null}
+                    <Grid.Cell large={12} medium={12} small={12}>
+                      <Input
+                        label='Learning Center'
+                        required
+                        name='learningCenter'
+                        value={this.state.learningCenter}
+                        onChange={this.handleChange}
+                        />
+                    </Grid.Cell>
 
-                  
-
-                </Grid.X>
+                  </Grid.X>
+                 : null}
 
                {!this.state.isSocialConfirm ?
                   <Grid.X>

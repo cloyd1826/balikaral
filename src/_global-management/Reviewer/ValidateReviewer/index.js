@@ -122,7 +122,9 @@ class Layout extends Component {
                               (result.uploader.personalInformation.middleName ? result.uploader.personalInformation.middleName.substring(0,1) : '')
                               + ' ' + 
                               (result.uploader.personalInformation.lastName ? result.uploader.personalInformation.lastName : '')
-                              : '' : ''),
+                              : '' : '') + 
+                              (result.uploader.google ? result.uploader.google.name ? result.uploader.google.name : '' : '' ) +
+                              (result.uploader.facebook ? result.uploader.facebook.name ? result.uploader.facebook.name : '' : '' ),
                     validation: result.validation,
                     validator: result.validator,
 
@@ -192,7 +194,7 @@ class Layout extends Component {
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
                   <div className='title-text-container hide-on-large-x'>
-                    <div className='title'>{this.state.header}</div>
+                    <div className='title'>{this.state.header === 'Reviewer' ? 'Modyul (Module)' : this.state.header }</div>
                     <div className='title-action'>
                       <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate {this.state.header}</button>
 
@@ -233,6 +235,9 @@ class Layout extends Component {
                                          + ' ' + 
                                          (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
                                      : '' : ''}
+                                    {attr.user.google ? attr.user.google.name ? attr.user.google.name : '' : '' }
+                                    {attr.user.facebook ? attr.user.facebook.name ? attr.user.facebook.name : '' : '' }
+
                                     </span>
                                   )
                                 })

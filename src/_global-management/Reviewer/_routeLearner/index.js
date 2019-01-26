@@ -28,14 +28,14 @@ class Reviewer extends Component {
         <div>
           <div className='third-top-bar'>
             <NavLink to='/learner/resources/reviewer/list' className='link' activeClassName='active'>
-              Reviewers
+              Modyul (Module)
             </NavLink>
             <NavLink to='/learner/resources/learning-resources/list' className='link' activeClassName='active'>
               Learning Resources
             </NavLink>
             {this.props.location.pathname === '/learner/resources/reviewer/view' ? 
               <div className='link active'>
-                View Reviewer
+                View Modyul (Module)
               </div>
             : null}
             {this.props.location.pathname === '/learner/resources/learning-resources/view' ? 

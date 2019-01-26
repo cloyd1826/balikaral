@@ -370,15 +370,17 @@ class Layout extends Component {
                               
                               <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
-                              <Table.Cell>{
-                                attr.uploader ? attr.uploader.personalInformation ? 
+                              <Table.Cell>
+                                { attr.uploader ? attr.uploader.personalInformation ? 
                                 (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
                                 + ' ' + 
                                 (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
                                 + ' ' + 
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-                                : '' : ''
-                              }</Table.Cell>
+                                : '' : ''}
+                                {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
+                                {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
+                              </Table.Cell>
                               
                               
                               {this.state.role === 'Learner' ? '' : <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>  }

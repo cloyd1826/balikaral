@@ -132,6 +132,8 @@ class Layout extends Component {
                                   (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
                                   : '' : ''
                                 }
+                                {attr.user.google ? attr.user.google.name ? attr.user.google.name : '' : '' }
+                                {attr.user.facebook ? attr.user.facebook.name ? attr.user.facebook.name : '' : '' }
 
                               </Table.Cell>
                             </Table.Row>

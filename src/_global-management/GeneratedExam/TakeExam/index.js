@@ -258,7 +258,8 @@ class Layout extends Component {
                 isLoggedIn: true,
                 role: this.props.role,
                 hadPreTest: true,
-                level: this.props.level
+                level: this.props.level,
+                type: this.props.type
               }
               this.props.actions.logIn(userData)
               this.props.history.push({
@@ -508,7 +509,8 @@ const mapStateToProps = (state) => {
     role: state.role,
     user: state.user,
     hadPreTest: state.hadPreTest,
-    level: state.level
+    level: state.level,
+    type: state.type
   }
 }
 const mapDispatchToProps = dispatch => {

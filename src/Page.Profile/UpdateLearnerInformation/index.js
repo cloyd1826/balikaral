@@ -78,28 +78,27 @@ class Layout extends Component {
         .then((res)=>{
             if(res.data){
                 let result = res.data.data
-                this.setState({
-                    
+                if(result.method === 'local'){
+                  this.setState({
                     lastName: (result.personalInformation.lastName ? result.personalInformation.lastName : ''),
                     firstName: (result.personalInformation.firstName ? result.personalInformation.firstName : ''),
                     middleName: (result.personalInformation.middleName ? result.personalInformation.middleName : ''),
-
                     houseNoStreet: result.personalInformation ? result.personalInformation.houseNoStreet ? result.personalInformation.houseNoStreet : '' : '' ,
                     barangay: result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '',
                     city: result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '',
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
-
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
-
+                    gender: result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '',
+                    image: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
+                  })
+                }
+                this.setState({
                     learningCenter: result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '',
                     gradeLevel: result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '',
                     reasongForStopping: result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '',
                     lifeStatus: result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '',
-                    
-                    gender: result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '',
-
                     about: result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '',
-                    image: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
+                    method: result.method
                 })
             }
         })    
@@ -126,6 +125,14 @@ class Layout extends Component {
     e.preventDefault()
     this.formMessage('Updating Data...', 'loading', true, true)
      let data = {
+        learningCenter: this.state.learningCenter,
+        gradeLevel: this.state.gradeLevel,
+        reasongForStopping: this.state.reasongForStopping, 
+        lifeStatus: this.state.lifeStatus, 
+        about: this.state.about,
+    }
+    if(this.state.method === 'local'){
+      data = { ...data, 
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         middleName: this.state.middleName,
@@ -133,18 +140,9 @@ class Layout extends Component {
         barangay: this.state.barangay,
         city: this.state.city,
         province: this.state.province,
-
-        learningCenter: this.state.learningCenter,
-        gradeLevel: this.state.gradeLevel,
-        reasongForStopping: this.state.reasongForStopping, 
-        lifeStatus: this.state.lifeStatus, 
-        
         gender: this.state.gender, 
-
-        about: this.state.about, 
-
         image: this.state.image, 
-
+      }
     }
     apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{

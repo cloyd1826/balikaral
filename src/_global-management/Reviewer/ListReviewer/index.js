@@ -308,7 +308,7 @@ class Layout extends Component {
               <Grid.Cell large={12}  medium={12} small={12}>
                 <div className='element-container'>
                   <div className='title-text-container'>
-                    <div className='title'>{this.state.header} List</div>
+                    <div className='title'>{this.state.header === 'Reviewer' ? 'Modyul (Module)' : this.state.header } List</div>
                     <div className='title-action'>
 
                    
@@ -373,7 +373,7 @@ class Layout extends Component {
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell>Modyul</Table.HeaderCell>
+                        
                         <Table.HeaderCell>Submitted By</Table.HeaderCell>
                        
                         {this.state.role === 'Learner' ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
@@ -407,16 +407,18 @@ class Layout extends Component {
                               <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
                               
-                              <Table.Cell>{attr.learningStrandSub ? attr.learningStrandSub.lessonName ? attr.learningStrandSub.lessonName : '' : ''}</Table.Cell>
-                              <Table.Cell>{
-                                attr.uploader ? attr.uploader.personalInformation ? 
+                             
+                              <Table.Cell>
+                                {attr.uploader ? attr.uploader.personalInformation ? 
                                 (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
                                 + ' ' + 
                                 (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
                                 + ' ' + 
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-                                : '' : ''
-                              }</Table.Cell>
+                                : '' : ''}
+                                {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
+                                {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
+                              </Table.Cell>
                               
                               
                               {this.state.role === 'Learner' ? '' : 
@@ -518,7 +520,7 @@ class Layout extends Component {
                         <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        <Table.HeaderCell>Modyul</Table.HeaderCell>
+                        
                         <Table.HeaderCell>Submitted By</Table.HeaderCell>
                        
                         {this.state.role === "Learner" ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}

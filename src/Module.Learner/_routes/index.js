@@ -9,6 +9,7 @@ import GeneratedExam from '../../_global-management/GeneratedExam/_routeLearner'
 import Survey from '../../_global-management/Survey/_routeLearner'
 
 import UserProfile from '../../Page.Profile/_routesLearner'
+import UserProfileSocial from '../../Page.Profile/_routeLearnerSocial'
 
 import Forum from '../../_global-management/Forum/_routeLearner'
 
@@ -25,6 +26,7 @@ const Routes = () => {
             <Route path='/learner/forum' component={Forum} />
 
             <Route path='/learner/profile' component={UserProfile} />
+            <Route path='/learner/profile-social' component={UserProfileSocial} />
 
         </div>
 

@@ -37,6 +37,8 @@ class Layout extends Component{
       buttonDisabled: false,
 
       disabled: false,
+      unauthorized: false,
+      isLogIn: true,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -53,7 +55,17 @@ class Layout extends Component{
     apiRequest('post', '/oauth/facebook', { access_token: fbRes.accessToken }, false)
       .then((res)=>{
         let result = res.data
-        if(result){
+       if(result.disabled){
+          this.setState({
+            disabled: true,
+            isLogIn: false,
+          })
+        }else if(result.account === 'No Account Match'){
+          this.setState({
+            unauthorized: true,
+            isLogIn: false
+          })
+        }else if(result.data){ 
           
           let userData = {
           user: { 
@@ -99,8 +111,17 @@ class Layout extends Component{
       .then((res)=>{
         console.log(res)
         let result = res.data
-        if(result){
-          console.log(result)
+        if(result.disabled){
+          this.setState({
+            disabled: true,
+            isLogIn: false,
+          })
+        }else if(result.account === 'No Account Match'){
+          this.setState({
+            unauthorized: true,
+            isLogIn: false
+          })
+        }else if(result.data){
           let userData = {
             user: { 
               id: result.data ? result.data._id ? result.data._id : '' : '',
@@ -161,7 +182,7 @@ class Layout extends Component{
     this.formMessage('Logging in', 'loading', true, false)
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
-          
+          console.log(res)
           if(res.data) {
               let result = res.data
               let userData = {
@@ -198,17 +219,20 @@ class Layout extends Component{
               }
           }else if(res.disabled){
             this.setState({
-              disabled: true
+              disabled: true,
+              isLogIn: false,
             })
           }
          
       })
       .catch((err)=>{
-          
+       
+          if(err.response.status){
             this.setState({
-              disabled: true
+              unauthorized: true,
+              isLogIn: false,
             })
-          
+          }
           this.formMessage('Error: ' + err.message, 'error', true, false)
       })
   }
@@ -217,6 +241,7 @@ class Layout extends Component{
     
   }
   render() {
+    console.log()
     return (
       <div className='modal'>
         <div className='modal-container'>
@@ -227,7 +252,7 @@ class Layout extends Component{
           <div className='sign-in-form'>
               
 
-              {!this.state.disabled ? 
+              {this.state.isLogIn ? 
               <Grid>
                <Form onSubmit={this.handleSubmit}>
                 <Grid.X>
@@ -317,6 +342,21 @@ class Layout extends Component{
                     <div className='subtitle-montserrat text-center'>Access Denied!</div>
                     <div className='context-montserrat text-center'>
                       Your account is still undergoing validation from our administrators before you can use our service.
+                    </div>
+                  </Grid.Cell>
+                  <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
+                    <button type='submit' className='button primary' onClick={this.props.close}>Confirm</button>
+                  </Grid.Cell>
+                </Grid.X>
+              </Grid>
+              : null}
+              {this.state.unauthorized ? 
+              <Grid>
+                <Grid.X className='confirm-message'>
+                  <Grid.Cell large={12} medium={12} small={12}>
+                    <div className='subtitle-montserrat text-center'>Access Denied!</div>
+                    <div className='context-montserrat text-center'>
+                     Please check if the provided credentials is correct.
                     </div>
                   </Grid.Cell>
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>

@@ -17,24 +17,40 @@ class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user : {}
+      user : {},
+      modalSurvey: false,
+      modalProfile: false,
+      infoProfile: false,
+      method: ''
     }
     this.checkIfProfileEdit = this.checkIfProfileEdit.bind(this)
     this.toggleProfileUpdate = this.toggleProfileUpdate.bind(this)
+    this.toggleInfoProfile = this.toggleInfoProfile.bind(this)
   }
   toggleProfileUpdate(){
     this.setState({
       modalProfile: (this.state.modalProfile ? false : true),
     })
   }
+  toggleInfoProfile(){
+    this.setState({
+      infoProfile: (this.state.infoProfile ? false : true),
+    })
+  }
   checkIfProfileEdit(){
     apiRequest('get', `/user/check-profile/${this.props.user.id}` , false, this.props.token)
       .then((res)=>{
-        console.log(res)
         if(res.data.learnerStatus === 'Edit Profile'){
           this.setState({
             isProfileEdit: true,
-            modalProfile: true
+            modalProfile: true,
+            method: res.data.method ? res.data.method : ''
+          })
+        }else if(res.data.learnerStatus === 'Need Update'){
+          this.setState({
+            isProfileEdit: true,
+            infoProfile: true,
+            method: res.data.method ? res.data.method : ''
           })
         }
       })
@@ -93,7 +109,7 @@ class Layout extends Component {
                                   </NavLink>
                                    {this.state.isProfileEdit ? 
                                     <NavLink className='sidebar-link' activeClassName='active' to={{ 
-                                        pathname: '/learner-start/profile/update-learner-info', 
+                                        pathname: '/learner-start/profile'+ (this.state.method !== 'local' ? '-social' : '') +'/update-learner-info', 
                                         state: { id: this.state.user.id } 
                                       }}>
                                       <i className='la la-user'></i>
@@ -149,7 +165,7 @@ class Layout extends Component {
                 <div className='context-montserrat text-center'>We would like to know more about you.</div>
                 <div className='delete-button-group'>
                   <Link  to={{ 
-                      pathname: '/learner-start/profile/update-learner-info', 
+                      pathname: '/learner-start/profile'+ (this.state.method !== 'local' ? '-social' : '') +'/update-learner-info', 
                       state: { id: this.state.user.id } 
                     }}>
                     <button type='button' className='button yes small'>Update Profile</button>

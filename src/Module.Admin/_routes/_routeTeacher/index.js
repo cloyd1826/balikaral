@@ -42,7 +42,7 @@ class RouteManagement extends Component {
             <Link to='/admin/teachers/reviewer/list'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/teachers/reviewer') ? 'active' : '')}>
                 <i className='la  la-file-pdf-o' />
-                Reviewer
+                Modyul (Module)
               </div>
             </Link>
             <Link to='/admin/teachers/learning-resources/list'>

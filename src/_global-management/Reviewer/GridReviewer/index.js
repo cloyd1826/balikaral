@@ -232,15 +232,17 @@ class Layout extends Component {
 					        				return (
 					        					<Table.Row key={index}>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
-                              <Table.Cell>{
-                                attr.uploader ? attr.uploader.personalInformation ? 
+                              <Table.Cell>
+                                {attr.uploader ? attr.uploader.personalInformation ? 
                                 (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
                                 + ' ' + 
                                 (attr.uploader.personalInformation.middleName ? attr.uploader.personalInformation.middleName.substring(0,1) : '')
                                 + ' ' + 
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-                                : '' : ''
-                              }</Table.Cell>
+                                : '' : ''}
+                                {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
+                                {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
+                              </Table.Cell>
                               <Table.Cell>{attr.pdf}</Table.Cell>
                               <Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{attr.validation ? 'Validated' : 'For Validation' }</Table.Cell>

@@ -211,7 +211,7 @@ class Layout extends Component {
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
         					<div className='title-text-container hide-on-large-x'>
-        						<div className='title'>{this.state.header} Management > Add</div>
+        						<div className='title'>{this.state.header === 'Reviewer' ? 'Modyul (Module)' : this.state.header } Management > Add</div>
         						<div className='title-action'>
         							<Link to={
                         (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 

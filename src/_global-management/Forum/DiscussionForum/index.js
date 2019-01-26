@@ -143,15 +143,16 @@ class Layout extends Component {
                               <div className='date-created'>{moment(attr.datePosted).format('MMMM DD, YYYY')}</div>
                             </div>
                             <div className='forum-user'>
-                              {
-                                attr.createdBy ? attr.createdBy.personalInformation ? 
+                              {attr.createdBy ? attr.createdBy.personalInformation ? 
                                 (attr.createdBy.personalInformation.firstName ? attr.createdBy.personalInformation.firstName : '') 
                                 + ' ' + 
                                 (attr.createdBy.personalInformation.middleName ? attr.createdBy.personalInformation.middleName.substring(0,1) : '')
                                 + ' ' + 
                                 (attr.createdBy.personalInformation.lastName ? attr.createdBy.personalInformation.lastName : '')
-                                : '' : ''
-                              }
+                                : '' : ''}
+                                {attr.createdBy.google ? attr.createdBy.google.name ? attr.createdBy.google.name : '' : '' }
+                                {attr.createdBy.facebook ? attr.createdBy.facebook.name ? attr.createdBy.facebook.name : '' : '' }
+
                             </div>
                             <div className='forum-content'>
                                {

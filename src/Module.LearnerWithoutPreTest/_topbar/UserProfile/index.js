@@ -73,8 +73,14 @@ class Layout extends Component{
           : null }
 
           {this.props.type !== 'local' ? 
-              (this.props.user.firstName ? this.props.user.firstName : '' )
-            : null}
+             <Link to={{ 
+                  pathname: '/learner-start/profile-social/update-learner-info', 
+                  state: { id: this.state.user.id } 
+                }}>
+              { this.props.user.firstName ? this.props.user.firstName : '' }
+              </Link>
+          : null}
+
           </div>
           <div className='role'>{
             this.state.role ? this.state.role : ''

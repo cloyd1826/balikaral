@@ -132,7 +132,9 @@ class Layout extends Component {
                               (result.uploader.personalInformation.middleName ? result.uploader.personalInformation.middleName.substring(0,1) : '')
                               + ' ' + 
                               (result.uploader.personalInformation.lastName ? result.uploader.personalInformation.lastName : '')
-                              : '' : ''),
+                              : '' : '') +
+                              (result.uploader.google ? result.uploader.google.name ? result.uploader.google.name : '' : '' ) +
+                              (result.uploader.facebook ? result.uploader.facebook.name ? result.uploader.facebook.name : '' : '' ),
                     validation: result.validation,
                     validator: (result.validator ? result.validator : [] ),
 
@@ -223,6 +225,8 @@ class Layout extends Component {
                                                  + ' ' + 
                                                  (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
                                              : '' : ''}
+                                            {attr.user.google ? attr.user.google.name ? attr.user.google.name : '' : '' }
+                                            {attr.user.facebook ? attr.user.facebook.name ? attr.user.facebook.name : '' : '' }
                                             </span>
                                           )
                                         })

@@ -2075,7 +2075,7 @@ tr.green {
       animation: pdfLoader 1s linear infinite; }
 
 .exam-view .context-montserrat, .exam-view .form-subtitle, .exam-view .footer-contact span p, .footer-contact span .exam-view p {
-  color: rgba(0, 0, 0, 0.6);
+  color: #4257b2;
   font-size: 16px;
   margin-top: 16px;
   font-weight: 600; }
@@ -2083,6 +2083,9 @@ tr.green {
     text-decoration: underline;
     font-weight: 500;
     color: #000; }
+
+.exam-view {
+  padding: 0 16px 16px 16px; }
 
 span.validator-name, span.no-validator {
   padding: 4px 8px;
@@ -2159,10 +2162,13 @@ span.no-validator {
     .exam-type-loader span .la-spinner {
       animation: spin 1s linear infinite; }
   .exam-type-loader .context-montserrat, .exam-type-loader .form-subtitle, .exam-type-loader .footer-contact span p, .footer-contact span .exam-type-loader p {
+    color: #4257b2;
     font-size: 16px;
-    margin-top: 13px; }
+    margin-top: 16px;
+    font-weight: 600; }
   .exam-type-loader .subtitle-montserrat, .exam-type-loader .form-title, .exam-type-loader .home-banner .home-banner-text .home-subtitle, .home-banner .home-banner-text .exam-type-loader .home-subtitle, .exam-type-loader .home-banner .home-image-container .home-subtitle, .home-banner .home-image-container .exam-type-loader .home-subtitle {
-    margin-top: 8px; }
+    margin-top: 8px;
+    margin-bottom: 8px; }
 
 .question-card {
   border: #e0e0e0 solid 1px;

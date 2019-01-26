@@ -182,15 +182,17 @@ class Layout extends Component {
 					        				return (
 					        					<Table.Row key={index}>
                               <Table.Cell>{attr.type}</Table.Cell>
-                               <Table.Cell isNarrowed>{
-                                attr.examiner ? attr.examiner.personalInformation ? 
+                               <Table.Cell isNarrowed>
+                               {attr.examiner ? attr.examiner.personalInformation ? 
                                 (attr.examiner.personalInformation.firstName ? attr.examiner.personalInformation.firstName : '') 
                                 + ' ' + 
                                 (attr.examiner.personalInformation.middleName ? attr.examiner.personalInformation.middleName.substring(0,1) : '')
                                 + ' ' + 
                                 (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
-                                : '' : ''
-                              }</Table.Cell>
+                                : '' : ''}
+                                {attr.examiner.google ? attr.examiner.google.name ? attr.examiner.google.name : '' : '' }
+                                {attr.examiner.facebook ? attr.examiner.facebook.name ? attr.examiner.facebook.name : '' : '' }
+                              </Table.Cell>
 
                               <Table.Cell>{attr.dateStarted ? moment(attr.dateStarted).format('MMMM DD, YYYY') : ''}</Table.Cell>
                               <Table.Cell>{attr.status && attr.type !== 'Pre Test' ? attr.status : ''}</Table.Cell>

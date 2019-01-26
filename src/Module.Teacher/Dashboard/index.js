@@ -48,7 +48,7 @@ class Dashboard extends Component {
                   <Link to='/teacher/management/reviewer/list'>
                     <div className='dashboard-link'>
                       <span className='la la-file-pdf-o'></span>
-                      <div className='link-title'>Reviewer</div>
+                      <div className='link-title'>Modyul (Module)</div>
                     </div>
                   </Link>
                 </Grid.Cell>

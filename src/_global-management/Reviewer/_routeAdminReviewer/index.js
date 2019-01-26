@@ -32,24 +32,24 @@ class Reviewer extends Component {
         <div>
           <div className='third-top-bar'>
             <NavLink to='/admin/teachers/reviewer/list' className='link' activeClassName='active'>
-              List of Reviewer
+              List of Modyul (Module)
             </NavLink>
             <NavLink to='/admin/teachers/reviewer/add' className='link' activeClassName='active'>
-              Add New Reviewer
+              Add New Modyul (Module)
             </NavLink>
             {this.props.location.pathname === '/admin/teachers/reviewer/view' ? 
               <div className='link active'>
-                View Reviewer
+                View Modyul (Module)
               </div>
             : null}
             {this.props.location.pathname === '/admin/teachers/reviewer/edit' ? 
               <div className='link active'>
-                Update Reviewer
+                Update Modyul (Module)
               </div>
             : null}
             {this.props.location.pathname === '/admin/teachers/reviewer/validate' ? 
               <div className='link active'>
-                Validate Reviewer
+                Validate Modyul (Module)
               </div>
             : null}
             
