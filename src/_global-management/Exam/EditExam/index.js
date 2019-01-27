@@ -488,7 +488,7 @@ class Layout extends Component {
                             <Grid.X>
                                 <Grid.Cell large={12} medium={12} small={12}>
                                   <div className='question-card'>
-                                    <div className='question'>{this.state.question}</div>
+                                    
                                     {
                                       this.state.questionImage != '' ?
                                       
@@ -497,7 +497,8 @@ class Layout extends Component {
                                         image={this.state.questionImage}
                                         />
 
-                                      : null }                                  
+                                      : null }  
+                                      <div className='question'>{this.state.question}</div>                                
                                     <div className='answer-container'>
 
                                         <div className='answer-box'>

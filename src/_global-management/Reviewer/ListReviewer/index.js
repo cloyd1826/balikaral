@@ -19,6 +19,7 @@ import { connect } from 'react-redux'
 import ManagementDelete from '../../../_component/ManagementDelete'
 
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
+import SelectLevel from '../../../_special-form/SelectLevel'
 
 import Select from '../../../_component/Form/Select'
 
@@ -29,6 +30,9 @@ class Layout extends Component {
     super(props)
     this.state = {  
       reviewer: [],
+
+      level: '',
+      fileType: '',
 
       validation: '',
       learningStrand: '',
@@ -131,8 +135,10 @@ class Layout extends Component {
       currentPage: page
     })
     let learningStrand = this.state.learningStrand
+    let level = this.state.level
+    let fileType = this.state.fileType
     let validation = this.state.validation
-    this.fetchLevel(validation, learningStrand, page)
+    this.fetchLevel(validation, level, learningStrand, fileType, page)
   }
   handleChange(e){
     let name = e.target.name
@@ -141,15 +147,23 @@ class Layout extends Component {
       [name]: value
     })
     let learningStrand = this.state.learningStrand
+    let level = this.state.level
+    let fileType = this.state.fileType
     let validation = this.state.validation
     let page = this.state.currentPage
     if(name==='learningStrand'){
       learningStrand = value
     }
+    if(name==='level'){
+      level = value
+    }
+    if(name==='fileType'){
+      fileType = value
+    }
     if(name ==='validation'){
       validation = value
     }
-    this.fetchLevel(validation, learningStrand, page)
+    this.fetchLevel(validation, level, learningStrand, fileType, page)
   }
   toggleDelete(link, item){
     if(this.state.deleteActive){
@@ -159,9 +173,11 @@ class Layout extends Component {
         item: ''
       })
       let learningStrand = this.state.learningStrand
+      let level = this.state.level
+      let fileType = this.state.fileType
       let validation = this.state.validation
       let page = this.state.currentPage
-      this.fetchLevel(validation, learningStrand, page)
+      this.fetchLevel(validation, level, learningStrand, fileType, page)
       
     }else{
       this.setState({
@@ -179,31 +195,31 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(validation, learningStrand, page){
+  fetchLevel(validation, level ,learningStrand, fileType, page){
   
     let routeToUse = ''
 
 
     //admin routes
     if(this.props.location.pathname.match('/admin/teachers/reviewer')){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
       this.setState({
         urlLinkToUse: '/admin/teachers/reviewer',
         header: 'Reviewer'
       })
     }
     if(this.props.location.pathname.match('/admin/teachers/learning-resources')){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
        this.setState({
         urlLinkToUse: '/admin/teachers/learning-resources',
         header: 'Learning Resources'
       })
     }
     if(this.props.location.pathname.match('/admin/teachers/session-guide')){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Session Guide`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Session Guide`
        this.setState({
         urlLinkToUse: '/admin/teachers/session-guide',
-        header: 'Session Guide'
+        header: 'Teaching Resources'
       })
     }
 
@@ -211,37 +227,37 @@ class Layout extends Component {
 
     //teacher routes
     if(this.props.location.pathname.match('/teacher/management/reviewer')){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
       this.setState({
         urlLinkToUse: '/teacher/management/reviewer',
         header: 'Reviewer'
       })
     }
     if(this.props.location.pathname.match('/teacher/management/learning-resources')){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
        this.setState({
         urlLinkToUse: '/teacher/management/learning-resources',
         header: 'Learning Resources'
       })
     }
     if(this.props.location.pathname.match('/teacher/management/session-guide')){
-      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&page=${page}&fileUsage=Session Guide`
+      routeToUse = `/reviewer-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Session Guide`
        this.setState({
         urlLinkToUse: '/teacher/management/session-guide',
-        header: 'Session Guide'
+        header: 'Teaching Resources'
       })
     }
 
     //learner
     if(this.props.location.pathname.match('/learner/resources/reviewer') && this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
       this.setState({
         urlLinkToUse: '/learner/resources/reviewer',
         header: 'Reviewer'
       })
     }
     if(this.props.location.pathname.match('/learner/resources/learning-resources') && this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
        this.setState({
         urlLinkToUse: '/learner/resources/learning-resources',
         header: 'Learning Resources'
@@ -250,14 +266,14 @@ class Layout extends Component {
 
     // learner without pre-test
     if(this.props.location.pathname.match('/learner-start/resources/reviewer') && !this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Reviewer`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
       this.setState({
         urlLinkToUse: '/learner-start/resources/reviewer',
         header: 'Reviewer'
       })
     }
     if(this.props.location.pathname.match('/learner-start/resources/learning-resources') && !this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&page=${page}&fileUsage=Learning Resources`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
        this.setState({
         urlLinkToUse: '/learner-start/resources/learning-resources',
         header: 'Learning Resources'
@@ -269,7 +285,6 @@ class Layout extends Component {
     apiRequest('get', routeToUse, false, this.props.token)
       .then((res)=>{
         if(res.data){
-       
           this.setState({
             reviewer: res.data.data,
             currentPage: res.data.currentPage,
@@ -287,7 +302,7 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    this.fetchLevel('','',1)
+    this.fetchLevel('','','','',1)
 
     this.setState({
       role: this.props.role
@@ -343,6 +358,30 @@ class Layout extends Component {
                         </Select>
                       </Grid.Cell>
                     : null}
+                    {this.state.header !== 'Reviewer' ? 
+                      <Grid.Cell large={2} medium={12} small={12}>
+                        <Select 
+                          label='Type'
+                          name='fileType' 
+                          value={this.state.fileType} 
+                          onChange={this.handleChange}
+                          >
+                          <option value=''></option>
+                          
+                          <option value='PDF'>PDF</option>
+                          <option value='Powerpoint Presentation'>Powerpoint Presentation</option>
+                          <option value='Microsoft Word Document'>Microsoft Word Document</option>
+                          <option value='Youtube Video'>Youtube Video</option>
+                        </Select>
+                      </Grid.Cell>
+                    : null}
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <SelectLevel
+                        label='Level' 
+                        name='level' 
+                        value={this.state.level} 
+                        onChange={this.handleChange}/>
+                    </Grid.Cell>
                     <Grid.Cell large={2} medium={12} small={12}>
                       <SelectLearningStrand
                         label='Learning Strand' 
@@ -350,6 +389,7 @@ class Layout extends Component {
                         value={this.state.learningStrand} 
                         onChange={this.handleChange}/>
                     </Grid.Cell>
+                    
 
                   </div>
 
@@ -370,12 +410,10 @@ class Layout extends Component {
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                         <Table.HeaderCell>Title</Table.HeaderCell>
-                        <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        
+                       { this.state.header === 'Learning Resources' ? <Table.HeaderCell>Modyul</Table.HeaderCell> : null }
                         <Table.HeaderCell>Submitted By</Table.HeaderCell>
-                       
                         {this.state.role === 'Learner' ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
 
@@ -403,9 +441,10 @@ class Layout extends Component {
                                  
                               </Table.Cell>
                               <Table.Cell>{attr.description}</Table.Cell>
-                              <Table.Cell>{attr.fileType}</Table.Cell>
                               <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
+
+                              {this.state.header === 'Learning Resources' ? <Table.Cell>{attr.reviewer ? attr.reviewer.description ? attr.reviewer.description : '' : ''}</Table.Cell> : null } 
                               
                              
                               <Table.Cell>
@@ -517,12 +556,10 @@ class Layout extends Component {
                       <Table.Row>
                         <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                         <Table.HeaderCell>Title</Table.HeaderCell>
-                        <Table.HeaderCell>Type</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        
+                        { this.state.header === 'Learning Resources' ? <Table.HeaderCell>Modyul</Table.HeaderCell> : null }
                         <Table.HeaderCell>Submitted By</Table.HeaderCell>
-                       
                         {this.state.role === "Learner" ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
                       </Table.Row>

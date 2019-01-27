@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectSubject from '../../../_special-form/SelectSubject'
+import SelectReviewer from '../../../_special-form/SelectReviewer'
 
 import axios, { post } from 'axios'
 
@@ -162,6 +163,9 @@ class Layout extends Component {
     if(this.state.learningStrandSub !== ''){
       formData.append('learningStrandSub', this.state.learningStrandSub)
     }
+    if(this.state.reviewer !== ''){
+      formData.append('reviewer', this.state.reviewer)
+    }
     if(this.state.pdfName !== ''){
       formData.append('pdf', this.state.pdf)
     }
@@ -250,15 +254,30 @@ class Layout extends Component {
                           onChange={this.handleLearningStrandChange}/>
                       </Grid.Cell>
 
-                      {/* <Grid.Cell large={3} medium={12} small={12}>
+                     
+                      {this.state.header === 'Learning Resources' ? 
+                        <Grid.Cell large={3} medium={12} small={12}>
+                         <SelectReviewer 
+                            label='Modyul'
+                            name='reviewer' 
+                            required
+                            learningStrand={this.state.learningStrand}
+                            fileUsage='Reviewer'
+                            value={this.state.reviewer} 
+                            onChange={this.handleChange}/>
+                          </Grid.Cell>
+
+                      : null}
+
+                      <Grid.Cell large={3} medium={12} small={12}>
                         <SelectSubject 
-                          label='Modyul'
+                          label='Lesson'
                           name='learningStrandSub' 
                           learningStrand={this.state.learningStrand}
                           value={this.state.learningStrandSub} 
                           onChange={this.handleChange}/>
-                      </Grid.Cell> */}
-                      
+                      </Grid.Cell>
+
                        <Grid.Cell large={12} medium={12} small={12}>
                         <Textarea
                           label='Description' 

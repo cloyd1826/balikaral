@@ -43,7 +43,7 @@ class Layout extends Component {
 			value={this.props.value}
 			name={this.props.name}
       required={this.props.required}
-			label={'Subject'}
+			label={'Lesson'}
 		>
 			<option value=''></option>
         {this.state.subject.map((attr,index)=> {

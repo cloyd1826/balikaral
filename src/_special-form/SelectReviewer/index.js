@@ -14,8 +14,8 @@ class Layout extends Component {
     }
     this.fetchAll = this.fetchAll.bind(this)
   }
-  fetchAll(learningStrand){ 
-    apiRequest('get', `/reviewer-management/fetchAllWithoutPagination?learningStrand=${learningStrand}`, false, this.props.token)
+  fetchAll(learningStrand, fileUsage){ 
+    apiRequest('get', `/reviewer-management/fetchAllWithoutPagination?learningStrand=${learningStrand}&fileUsage=${fileUsage}`, false, this.props.token)
       .then((res)=>{
         if(res.data){
           this.setState({
@@ -28,14 +28,16 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    this.fetchAll('')
+    this.fetchAll('', '')
   }
   componentWillReceiveProps(nextProps){
  
-    if(nextProps.learningStrand){
-      this.fetchAll(nextProps.learningStrand)
+    if(nextProps){
+      let learningStrand = nextProps.learningStrand ? nextProps.learningStrand : ''
+      let fileUsage = nextProps.fileUsage ? nextProps.fileUsage : ''
+      this.fetchAll(learningStrand, fileUsage)
     }else{
-      this.fetchAll('')
+      this.fetchAll('', '')
     }
   }
   render() { 
@@ -51,7 +53,7 @@ class Layout extends Component {
       <option value=''></option>
         {this.state.reviewer.map((attr,index)=> {
           return (
-              <option key={index} value={attr._id}>{attr.fileUsage + ' - ' + attr.description}</option>
+              <option key={index} value={attr._id}>{(this.props.fileUsage ? '' : attr.fileUsage + ' - ' ) + attr.description}</option>
             )
         })}
           

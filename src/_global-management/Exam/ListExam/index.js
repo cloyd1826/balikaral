@@ -17,6 +17,7 @@ import ManagementDelete from '../../../_component/ManagementDelete'
 import SelectLevel from '../../../_special-form/SelectLevel'
 import SelectLearningStrand from '../../../_special-form/SelectLearningStrand'
 import SelectSubject from '../../../_special-form/SelectSubject'
+import SelectReviewer from '../../../_special-form/SelectReviewer'
 
 import Select from '../../../_component/Form/Select'
 
@@ -48,6 +49,8 @@ class Layout extends Component {
 
       selectedData: [],
 
+      submittedBy: '',
+      reviewer: '',
 
     }
     this.fetchLevel = this.fetchLevel.bind(this)
@@ -96,9 +99,11 @@ class Layout extends Component {
         let validation = this.state.validation
         let level = this.state.level
         let subject = this.state.subject
+        let reviewer = this.state.reviewer
+        let submittedBy = this.state.submittedBy
         let page = this.state.currentPage
 
-        this.fetchLevel(validation, learningStrand, level, subject, page)
+        this.fetchLevel(validation, learningStrand, level, subject,reviewer, submittedBy, page)
         this.formMessage('Exam has been validated', 'success', true, false)
         this.setState({
           selectedData: []
@@ -114,10 +119,12 @@ class Layout extends Component {
     let validation = this.state.validation
     let level = this.state.level
     let subject = this.state.subject
+    let reviewer = this.state.reviewer
+    let submittedBy = this.state.submittedBy
     this.setState({
       currentPage: page
     })
-    this.fetchLevel(validation, learningStrand, level, subject, page)
+    this.fetchLevel(validation, learningStrand, level, subject, reviewer, submittedBy, page)
   }
   handleChange(e){
     let name = e.target.name
@@ -126,9 +133,11 @@ class Layout extends Component {
       [name]: value
     })
     let learningStrand = this.state.learningStrand
+    let reviewer = this.state.reviewer
     let validation = this.state.validation
     let level = this.state.level
     let subject = this.state.subject
+    let submittedBy = this.state.submittedBy
     let page = this.state.page
     if(name==='learningStrand'){
       learningStrand = value
@@ -142,7 +151,13 @@ class Layout extends Component {
     if(name ==='subject'){
       subject = value
     }
-    this.fetchLevel(validation, learningStrand, level, subject, page)
+    if(name ==='reviewer'){
+      reviewer = value
+    }
+    if(name ==='submittedBy'){
+      submittedBy = value
+    }
+    this.fetchLevel(validation, learningStrand, level, subject, reviewer, submittedBy, page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -150,12 +165,14 @@ class Layout extends Component {
   			deleteActive: false,
   			link: ''
   		})
-  		let learningStrand = this.state.learningStrand
+      let learningStrand = this.state.learningStrand
+  		let reviewer = this.state.reviewer
       let validation = this.state.validation
       let level = this.state.level
       let subject = this.state.subject
+      let submittedBy = this.state.submittedBy
       let page = this.state.currentPage
-      this.fetchLevel(validation, learningStrand, level, subject, page)
+      this.fetchLevel(validation, learningStrand, level, subject, reviewer, submittedBy, page)
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -171,8 +188,16 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(validation, learningStrand, level,subject,page){
-  	apiRequest('get', `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}&page=${page}`, false, this.props.token)
+  fetchLevel(validation, learningStrand, level, subject, reviewer, submittedBy, page){
+    let uploaderDisclude = ''
+    if(submittedBy === 'Submitted By You'){
+      uploaderDisclude = `&uploader=${this.props.user.id}`
+    }
+    if(submittedBy === 'Submitted By Other Teachers'){
+      uploaderDisclude = `&disclude=${this.props.user.id}`
+    }
+
+  	apiRequest('get', `/exam-management/all?validation=${validation}&learningStrand=${learningStrand}&level=${level}&learningStrandSub=${subject}&reviewer=${reviewer}&page=${page}${uploaderDisclude}`, false, this.props.token)
   		.then((res)=>{
   			if(res.data){
   				this.setState({
@@ -192,7 +217,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-    this.fetchLevel('','','','',1)
+    this.fetchLevel('','','','','', '', 1)
   }
   render() { 
     return (
@@ -221,6 +246,19 @@ class Layout extends Component {
         					</div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   <div className='table-filter'>
+                    
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <Select 
+                        label='Submitted By'
+                        name='submittedBy' 
+                        value={this.state.submittedBy} 
+                        onChange={this.handleChange}
+                        >
+                        <option value=''></option>
+                        <option value='Submitted By You'>Submitted By You</option>
+                        <option value='Submitted By Other Teachers'>Submitted By Other Teachers</option>
+                      </Select>
+                    </Grid.Cell>
                     <Grid.Cell large={2} medium={12} small={12}>
                       <Select 
                         label='Validation'
@@ -252,11 +290,11 @@ class Layout extends Component {
                       </Grid.Cell>
 
                       <Grid.Cell large={2} medium={12} small={12}>
-                        <SelectSubject
-                          label='Subject' 
-                          name='subject' 
+                        <SelectReviewer
+                          label='Modyul' 
+                          name='reviewer' 
                           learningStrand={this.state.learningStrand}
-                          value={this.state.subject} 
+                          value={this.state.reviewer} 
                           onChange={this.handleChange}/>
                       </Grid.Cell>
 
@@ -268,7 +306,7 @@ class Layout extends Component {
                             <Table.HeaderCell isNarrowed key='action'></Table.HeaderCell>
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
-                            <Table.HeaderCell>Reviewer</Table.HeaderCell>
+                            <Table.HeaderCell>Modyul</Table.HeaderCell>
                             <Table.HeaderCell>Difficulty</Table.HeaderCell>
   				          				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell>Level</Table.HeaderCell>
@@ -378,7 +416,7 @@ class Layout extends Component {
                             <Table.HeaderCell isNarrowed key='action-footer'></Table.HeaderCell>
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
-                            <Table.HeaderCell>Reviewer</Table.HeaderCell>
+                            <Table.HeaderCell>Modyul</Table.HeaderCell>
                             <Table.HeaderCell>Difficulty</Table.HeaderCell>
                             <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell >Level</Table.HeaderCell>

@@ -150,8 +150,8 @@ class Layout extends Component {
                                 + ' ' + 
                                 (attr.createdBy.personalInformation.lastName ? attr.createdBy.personalInformation.lastName : '')
                                 : '' : ''}
-                                {attr.createdBy.google ? attr.createdBy.google.name ? attr.createdBy.google.name : '' : '' }
-                                {attr.createdBy.facebook ? attr.createdBy.facebook.name ? attr.createdBy.facebook.name : '' : '' }
+                                {attr.createdBy ? attr.createdBy.google ? attr.createdBy.google.name ? attr.createdBy.google.name : '' : '' : '' }
+                                {attr.createdBy ? attr.createdBy.facebook ? attr.createdBy.facebook.name ? attr.createdBy.facebook.name : '' : '' : '' }
 
                             </div>
                             <div className='forum-content'>

@@ -243,12 +243,13 @@ class Layout extends Component {
                                   <div className='question-action'>
                                     <button disabled={this.state.disableReview} className='button primary' onClick={this.toggleModal}>Validate Exam</button>
                                   </div>
-                                  <div className='question'>{this.state.question}</div>
+                                  
 
                                   {
                                     this.state.questionImage != '' ?
                                     <ImageLoader className='question-image' image={this.state.questionImage} />
-                                    : null }                                  
+                                    : null } 
+                                  <div className='question'>{this.state.question}</div>                                 
                                   <div className='answer-container'>
 
                                       <div className='answer-box'>

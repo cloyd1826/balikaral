@@ -26,12 +26,12 @@ class Reviewer extends Component {
         <div>
           <div className='third-top-bar'>
             <NavLink to='/teacher/management/session-guide/list' className='link' activeClassName='active'>
-              List of Session Guides
+              List of Teaching Resources
             </NavLink>
            
             {this.props.location.pathname === '/teacher/management/session-guide/view' ? 
               <div className='link active'>
-                View Session Guides
+                View Teaching Resources
               </div>
             : null}
           

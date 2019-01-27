@@ -52,10 +52,11 @@ class Layout extends Component {
   }
   changePage(page){
     let status = this.state.status
+    let type = this.state.examType
     this.setState({
       currentPage: page
     })
-    this.fetchLevel(status, page)
+    this.fetchLevel(status, type, page)
   }
   handleChange(e){
     let name = e.target.name
@@ -65,13 +66,17 @@ class Layout extends Component {
     })
     let learningStrand = this.state.learningStrand
     let status = this.state.status
+    
     let examType = this.state.examType
     let page = this.state.page
    
     if(name ==='status'){
       status = value
     }
-    this.fetchLevel(status, page)
+    if(name ==='examType'){
+      examType = value
+    }
+    this.fetchLevel(status, examType, page)
   }
   toggleDelete(link){
   	if(this.state.deleteActive){
@@ -81,7 +86,8 @@ class Layout extends Component {
   		})
       let page = this.state.page
       let status= this.state.status
-  		this.fetchLevel(status, page)
+      let type= this.state.examType
+  		this.fetchLevel(status, type, page)
   	}else{
   		this.setState({
   			deleteActive: true,
@@ -97,14 +103,14 @@ class Layout extends Component {
     })
   }
 
-  fetchLevel(status, page){
+  fetchLevel(status, type, page){
 
     let routeToUse = ''
 
     if(this.props.role === 'Learner'){
-      routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}&page=${page}`
+      routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}&type=${type}&page=${page}`
     }else{
-      routeToUse = `/generated-exam/all?status=${status}&page=${page}`
+      routeToUse = `/generated-exam/all?status=${status}&type=${type}&page=${page}`
     }
 
   	apiRequest('get', routeToUse, false, this.props.token)
@@ -128,7 +134,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchLevel('',1)
+  	this.fetchLevel('','', 1)
   }
   render() { 
     return (
@@ -147,6 +153,20 @@ class Layout extends Component {
                   <div className='table-filter'>
                     <Grid.Cell large={2} medium={12} small={12}>
                       <Select 
+                        label='Exam Type'
+                        name='examType' 
+                        value={this.state.examType} 
+                        onChange={this.handleChange}
+                        >
+                        <option value=''></option>
+                        <option value='Pre Test'>Pre Test</option>
+                        <option value='Adaptive Test'>Adaptive Test</option>
+                        <option value='Post Test'>Post Test</option>
+                       
+                      </Select>
+                    </Grid.Cell>
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <Select 
                         label='Status'
                         name='status' 
                         value={this.state.status} 
@@ -158,6 +178,7 @@ class Layout extends Component {
                         <option value='Completed'>Completed</option>
                       </Select>
                     </Grid.Cell>
+                    
                    
 
                   </div>
@@ -166,7 +187,7 @@ class Layout extends Component {
 				        		<Table.Header>
 				        			<Table.Row>
                         <Table.HeaderCell>Exam Type</Table.HeaderCell>
-                        <Table.HeaderCell>Examiner</Table.HeaderCell>
+                        <Table.HeaderCell>Learner</Table.HeaderCell>
                         <Table.HeaderCell>Date Started</Table.HeaderCell>
 				        				<Table.HeaderCell>Status</Table.HeaderCell>
                         <Table.HeaderCell>No of Questions</Table.HeaderCell>
@@ -255,7 +276,7 @@ class Layout extends Component {
 				        		<Table.Footer>
 				        			<Table.Row>
                         <Table.HeaderCell>Exam Type</Table.HeaderCell>
-                        <Table.HeaderCell>Examiner</Table.HeaderCell>
+                        <Table.HeaderCell>Learner</Table.HeaderCell>
                         <Table.HeaderCell>Date Started</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
                         <Table.HeaderCell>No of Questions</Table.HeaderCell>

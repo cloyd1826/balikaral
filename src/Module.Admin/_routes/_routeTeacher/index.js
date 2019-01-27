@@ -55,7 +55,7 @@ class RouteManagement extends Component {
             <Link to='/admin/teachers/session-guide/list'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/teachers/session-guide') ? 'active' : '')}>
                 <i className='la  la-file-archive-o' />
-                Session Guide
+                Teaching Resources
               </div>
             </Link>
 

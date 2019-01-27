@@ -163,8 +163,8 @@ class Layout extends Component {
                       (discussion.createdBy.personalInformation.lastName ? discussion.createdBy.personalInformation.lastName : '')
                       : '' : ''
                     }
-                    {discussion.createdBy.google ? discussion.createdBy.google.name ? discussion.createdBy.google.name : '' : '' }
-                    {discussion.createdBy.facebook ? discussion.createdBy.facebook.name ? discussion.createdBy.facebook.name : '' : '' }
+                    { discussion.createdBy ? discussion.createdBy.google ? discussion.createdBy.google.name ? discussion.createdBy.google.name : '' : '' : '' }
+                    { discussion.createdBy ? discussion.createdBy.facebook ? discussion.createdBy.facebook.name ? discussion.createdBy.facebook.name : '' : '' : '' }
                   </div>
                   <div className='discussion-content'>
                      {
