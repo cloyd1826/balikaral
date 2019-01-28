@@ -31,13 +31,14 @@ class Layout extends Component {
       examDescription: '',
       level: '',
 
+
+      total: '',
       learningStrandQuestion: [],
       learningStrandName: '',
 
       learningStrandList: [],
 
-      difficultyEasy: '',
-      difficultyAverage: '',
+     
       difficultyDifficult: '',
 
       passingRate: '',
@@ -47,11 +48,7 @@ class Layout extends Component {
       type: '',
       active: false,
       buttonDisabled: false,
-
-      easyCount: '',
-      averageCount: '',
-      difficultCount: '',
-      
+      difficultyCount: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -104,10 +101,7 @@ class Layout extends Component {
     let data = {
       learningStrand: this.state.learningStrand,
       learningStrandName: this.state.learningStrandName,
-      easy: this.state.difficultyEasy,
-      average: this.state.difficultyAverage,
-      difficult: this.state.difficultyDifficult,
-      total: parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyAverage) + parseInt(this.state.difficultyDifficult)
+      total: this.state.total
     }
     let checkIfExist = learningStrandQuestion.map((attr)=>{
       return attr.learningStrand
@@ -120,10 +114,8 @@ class Layout extends Component {
     this.setState({
       learningStrandQuestion: learningStrandQuestion,
       learningStrand: '',
-      learningStrandName: '',
-      difficultyEasy: '',
-      difficultyAverage: '',
-      difficultyDifficult: ''
+      total: '',
+      learningStrandName: ''
     })
    
   }
@@ -137,12 +129,8 @@ class Layout extends Component {
     let learningStrandName = learningStrandList[index].name
     this.setState({
       [name]: value,
-      learningStrandName: learningStrandName,
-      difficultyEasy: 0,
-      difficultyAverage: 0,
-      difficultyDifficult: 0,
+      learningStrandName: learningStrandName
     })
-
     this.fetchDifficultyCount(this.state.level, value)
   }
   removeLearningStrand(index){
@@ -164,10 +152,9 @@ class Layout extends Component {
     this.setState({
         examType: '',
         examDescription: '',
+        total: '',
         level: '',
-        difficultyEasy: '',
-        difficultyAverage: '',
-        difficultyDifficult: '',
+        learningStrand: '',
         passingRate: '',
         totalHours: ''
     })
@@ -194,9 +181,6 @@ class Layout extends Component {
       examDescription: this.state.examDescription,
       level: this.state.level,
       learningStrandQuestions: this.state.learningStrandQuestion,
-      easy: this.state.difficultyEasy,
-      average: this.state.difficultyAverage,
-      difficult: this.state.difficultyDifficult,
       examTotal: total,
       totalHours: this.state.totalHours,
   	}
@@ -212,7 +196,6 @@ class Layout extends Component {
   }
 
   componentDidMount(){
-      this.fetchDifficultyCount('',[])
       this.fetchLearningStrand()
   }
   fetchLearningStrand(){
@@ -230,19 +213,16 @@ class Layout extends Component {
     
   }
   fetchDifficultyCount(level, learningStrand){
-   
-    apiRequest('get', `/exam-management/difficulty-count?level=${level}&learningStrand=${learningStrand}`, false, this.props.token)
+    apiRequest('get', `/exam-management/difficulty-count?learningStrand=${learningStrand}&level=${level}`, false, this.props.token)
       .then((res)=>{
         if(res.data){
           this.setState({
-            easyCount: res.data.easy,
-            averageCount: res.data.average,
-            difficultCount: res.data.difficult,
+            difficultyCount: res.data.difficultyCount
           })  
         }
       })
       .catch((err)=>{
-        
+
       })
   }
   render() { 
@@ -317,37 +297,14 @@ class Layout extends Component {
                         <Input
                           type='number'
                           min={0}
-                          max={this.state.easyCount}
-                          label={'Easy - (' + this.state.easyCount + ')'}
-                          name='difficultyEasy'
-                          value={this.state.difficultyEasy}
-                          onChange={(e)=>{this.changeQuestion(e,this.state.easyCount)}}
+                          max={this.state.difficultyCount}
+                          label={'Number of Questions - ' + this.state.difficultyCount}
+                          name='total'
+                          value={this.state.total}
+                          onChange={(e) => this.changeQuestion(e, this.state.difficultyCount)}
                         />
                       </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          
-                          type='number'
-                          min={0}
-                          max={this.state.averageCount}
-                          label={'Average - (' + this.state.averageCount + ')'}
-                          name='difficultyAverage'
-                          value={this.state.difficultyAverage}
-                          onChange={(e)=>{this.changeQuestion(e,this.state.averageCount)}}
-                        />
-                      </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          
-                          type='number'
-                          min={0}
-                           max={this.state.difficultCount}
-                          label={'difficult - (' + this.state.difficultCount + ')'}
-                          name='difficultyDifficult'
-                          value={this.state.difficultyDifficult}
-                          onChange={(e)=>{this.changeQuestion(e,this.state.difficultCount)}}
-                        />
-                      </Grid.Cell>
+                      
                       <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                         <Button type='button' text='Add Learning Strand' className='secondary small' onClick={this.addLearningStrand} />
                       </Grid.Cell>
@@ -361,10 +318,7 @@ class Layout extends Component {
                           <Table.Header>
                             <Table.Row>
                               <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                              <Table.HeaderCell>Easy</Table.HeaderCell>
-                              <Table.HeaderCell>Average</Table.HeaderCell>
-                              <Table.HeaderCell>Difficult</Table.HeaderCell>
-                              <Table.HeaderCell>Total</Table.HeaderCell>
+                              <Table.HeaderCell>Number of Questions</Table.HeaderCell>
                               <Table.HeaderCell isNarrowed></Table.HeaderCell>
                             </Table.Row>
                           </Table.Header>
@@ -374,9 +328,7 @@ class Layout extends Component {
                                 return (
                                   <Table.Row key={index}>
                                     <Table.Cell>{attr.learningStrandName}</Table.Cell>
-                                    <Table.Cell>{attr.easy}</Table.Cell>
-                                    <Table.Cell>{attr.average}</Table.Cell>
-                                    <Table.Cell>{attr.difficult}</Table.Cell>
+                                    
                                     <Table.Cell>{attr.total}</Table.Cell>
                                     <Table.Cell isNarrowed>
                                         <span onClick={()=>{this.removeLearningStrand(index)}}>
@@ -391,10 +343,8 @@ class Layout extends Component {
                           <Table.Footer>
                             <Table.Row>
                               <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                              <Table.HeaderCell>Easy</Table.HeaderCell>
-                              <Table.HeaderCell>Average</Table.HeaderCell>
-                              <Table.HeaderCell>Difficult</Table.HeaderCell>
-                              <Table.HeaderCell>Total</Table.HeaderCell>
+                              
+                              <Table.HeaderCell>Number of Questions</Table.HeaderCell>
                               <Table.HeaderCell isNarrowed></Table.HeaderCell>
                             </Table.Row>
                           </Table.Footer>

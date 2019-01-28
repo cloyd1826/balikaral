@@ -307,7 +307,7 @@ class Layout extends Component {
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
                             <Table.HeaderCell>Modyul</Table.HeaderCell>
-                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                           
   				          				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell>Level</Table.HeaderCell>
                             <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
@@ -355,7 +355,6 @@ class Layout extends Component {
 
                                 </Table.Cell>
                                 <Table.Cell>{ attr.reviewer ? attr.reviewer.description ? attr.reviewer.description : '' : '' }</Table.Cell>
-                                <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
                                 <Table.Cell isNarrowed>
                                 {attr.uploader ? attr.uploader.personalInformation ? 
                                   (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
@@ -417,7 +416,7 @@ class Layout extends Component {
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
                             <Table.HeaderCell>Modyul</Table.HeaderCell>
-                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                           
                             <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell >Level</Table.HeaderCell>
                             <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>

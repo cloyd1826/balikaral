@@ -31,7 +31,7 @@ class Layout extends Component {
 
       status: '',
       learningStrand: '',
-      
+      examType: '',
 
       currentPage: 1,
       nextPage: null,

@@ -109,9 +109,10 @@ class Layout extends Component {
         let validation = this.state.validation
         let level = this.state.level
         let subject = this.state.subject
+        let fileType = this.state.fileType
         let page = this.state.currentPage
         
-        this.fetchLevel(validation, learningStrand, level, subject, page)
+        this.fetchLevel(validation, learningStrand, level, subject, fileType, page)
         this.formMessage(this.state.header + ' has been validated', 'success', true, false)
         this.setState({
           selectedData: []
