@@ -314,7 +314,7 @@ class Home extends Component {
 
             <div className='large-6 medium-12'>
                 <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>
-                <p className='context-montserrat'>
+                <p className='context-montserrat description'> 
                    {this.state.tungkolSaProgramaDescription}
                 </p>
                 <p className='context-montserrat bold'>©2018 Balik Aral</p>

@@ -1335,7 +1335,7 @@ tr.green {
       padding: 8px; }
     .home-banner .home-banner-text .home-description, .home-banner .home-image-container .home-description {
       color: #383838;
-      font-size: 20px;
+      font-size: 16px;
       padding: 8px;
       text-align: justify; }
     .home-banner .home-banner-text .home-button, .home-banner .home-image-container .home-button {
@@ -1363,7 +1363,7 @@ tr.green {
       text-align: center; }
     .home-counter .counter .counter-text {
       color: #fff;
-      font-size: 20px;
+      font-size: 16px;
       padding-top: 16px;
       text-align: center; }
 
@@ -1465,7 +1465,7 @@ tr.green {
   .about-container p {
     padding: 16px 0; }
   .about-container p.context-montserrat, .about-container p.form-subtitle, .about-container .footer-contact span p, .footer-contact span .about-container p {
-    font-size: 14px;
+    font-size: 16px;
     text-align: justify; }
   .about-container .about-banner-text, .about-container .about-image-container {
     align-items: center;
@@ -1508,6 +1508,8 @@ tr.green {
   background: #f5f5f5; }
   .footer-container p {
     padding: 16px 0; }
+  .footer-container .context-montserrat.description, .footer-container .description.form-subtitle, .footer-container .footer-contact span p.description, .footer-contact span .footer-container p.description {
+    font-size: 16px; }
 
 .footer-contact {
   display: flex; }
@@ -3029,64 +3031,62 @@ span.no-validator {
 .forum-dashboard .forum-list-container {
   margin-top: -9px;
   border: solid 1px #ebebeb; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name {
+  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-name {
     font-weight: 600;
     font-size: 22px;
     border-bottom: #e0e0e0 solid 1px;
     padding: 8px;
-    position: relative; }
-    .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name .date-created {
+    position: relative;
+    display: flex;
+    align-items: center; }
+    .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name .date-created, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-name .date-created {
       position: absolute;
       top: 50%;
       right: 16px;
       transform: translate(0, -50%);
       color: rgba(0, 0, 0, 0.6);
       font-size: 12px; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-strand {
+  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-strand, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-strand {
     padding-top: 8px; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-user {
-    padding-top: 8px;
-    color: rgba(0, 0, 0, 0.6);
-    font-weight: 600; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name, .forum-dashboard .forum-list-container .forum-dashboard-container .forum-description, .forum-dashboard .forum-list-container .forum-dashboard-container .forum-strand, .forum-dashboard .forum-list-container .forum-dashboard-container .forum-user {
+  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-name, .forum-dashboard .forum-list-container .forum-dashboard-container .forum-description, .forum-dashboard .forum-list-container .forum-dashboard-container .forum-strand, .forum-dashboard .forum-list-container .forum-dashboard-container .forum-user, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-name, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-description, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-strand, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-user {
     padding-left: 16px;
     padding-right: 16px; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-image {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 200px;
-    width: 200px; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-description {
+  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-description, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-description {
     padding-bottom: 16px; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-content {
+  .forum-dashboard .forum-list-container .forum-dashboard-container .forum-content, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-content {
     display: flex;
     padding: 8px; }
-  .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table {
+    .forum-dashboard .forum-list-container .forum-dashboard-container .forum-content .forum-image, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .forum-content .forum-image {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 200px;
+      width: 200px; }
+  .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table {
     border: none; }
-    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr td, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th {
+    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr td, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table thead tr td, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table thead tr th {
       text-align: left;
       color: #fff; }
-    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th:first-child {
+    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th:first-child, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table thead tr th:first-child {
       font-size: 20px;
       text-transform: uppercase; }
-    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th:nth-child(2) {
+    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th:nth-child(2), .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table thead tr th:nth-child(2) {
       font-size: 13px; }
-    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th:last-child {
+    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table thead tr th:last-child, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table thead tr th:last-child {
       font-size: 13px; }
-    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr {
+    .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr {
       background: #f5f5f5; }
-      .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th {
+      .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr td, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr th {
         text-align: left; }
-        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-desc, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-desc {
+        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-desc, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-desc, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr td .forum-desc, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr th .forum-desc {
           font-size: 19px;
           color: #444444; }
-        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-desc-strand, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-desc-strand {
+        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-desc-strand, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-desc-strand, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr td .forum-desc-strand, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr th .forum-desc-strand {
           font-size: 13px;
           color: #4257b2; }
-        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td:first-child, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th:first-child {
+        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td:first-child, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th:first-child, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr td:first-child, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr th:first-child {
           padding: 0.5rem 0.625rem 0.5rem 2rem !important; }
-        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-icon {
+        .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr td .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container .table-container table tbody tr th .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr td .forum-icon, .forum-dashboard .forum-list-container .forum-dashboard-container-discussion .table-container table tbody tr th .forum-icon {
           max-width: 30px; }
 
 .forum-dashboard .forum-dashboard-container-discussion {
@@ -3094,11 +3094,47 @@ span.no-validator {
   margin-top: -9px;
   border: solid 1px #ebebeb; }
   .forum-dashboard .forum-dashboard-container-discussion .forum-name {
-    font-size: 22px; }
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 8px;
+    padding-right: 8px;
+    margin-bottom: 16px; }
     .forum-dashboard .forum-dashboard-container-discussion .forum-name .date-created {
       font-size: 13px;
       color: #4257b2;
-      margin-top: 5px; }
+      margin-top: 5px;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translate(0, -50%); }
+
+.forum-user {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  border-left: #e0e0e0 solid 2px;
+  padding-left: 16px; }
+  .forum-user .image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 28px;
+    margin-right: 8px;
+    width: 28px;
+    border-radius: 50%; }
+  .forum-user .name {
+    font-size: 16px;
+    color: #52b8d5;
+    margin-right: 8px; }
+  .forum-user .role {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.4);
+    border-radius: 50px;
+    background: #e0e0e0;
+    padding: 8px; }
 
 .discussion-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
@@ -3109,7 +3145,9 @@ span.no-validator {
     font-size: 22px;
     border-bottom: #e0e0e0 solid 1px;
     padding: 8px;
-    position: relative; }
+    position: relative;
+    display: flex;
+    align-items: center; }
     .discussion-container .discussion-title .date-created {
       position: absolute;
       top: 50%;
@@ -3117,6 +3155,31 @@ span.no-validator {
       transform: translate(0, -50%);
       color: rgba(0, 0, 0, 0.6);
       font-size: 12px; }
+    .discussion-container .discussion-title .discussion-user {
+      display: flex;
+      align-items: center;
+      margin-left: 16px;
+      border-left: #e0e0e0 solid 2px;
+      padding-left: 16px; }
+      .discussion-container .discussion-title .discussion-user .image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 28px;
+        margin-right: 8px;
+        width: 28px;
+        border-radius: 50%; }
+      .discussion-container .discussion-title .discussion-user .name {
+        font-size: 16px;
+        color: #52b8d5;
+        margin-right: 8px; }
+      .discussion-container .discussion-title .discussion-user .role {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.4);
+        border-radius: 50px;
+        background: #e0e0e0;
+        padding: 8px; }
   .discussion-container .discussion-user {
     padding-top: 8px;
     color: rgba(0, 0, 0, 0.6);
@@ -3162,6 +3225,13 @@ span.no-validator {
     .comment-list .comment-info-container .comment-description {
       padding: 8px;
       padding-top: 0; }
+
+.forum-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200px;
+  width: 200px; }
 
 .doughnut-chart-label {
   text-align: center;
