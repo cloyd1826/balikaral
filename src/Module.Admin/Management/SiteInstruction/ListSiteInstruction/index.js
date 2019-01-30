@@ -148,7 +148,7 @@ class Layout extends Component {
 								        					</span>
 							        					</Link>
 							        				
-							        					<span onClick={()=>{this.toggleDelete('/level/delete/' + attr._id)}}>
+							        					<span onClick={()=>{this.toggleDelete('/site-instruction/delete/' + attr._id)}}>
 							        						<i className='fa fa-trash cancel'></i>
 							        					</span>
 							        				</Table.Cell>
@@ -188,7 +188,7 @@ class Layout extends Component {
         	</Grid>
 
 
-        	<ManagementDelete item='Level Name' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
+        	<ManagementDelete item='Site Instruction' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
 
         </div>
     )
