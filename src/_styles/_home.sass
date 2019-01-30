@@ -71,8 +71,30 @@
 			padding-top: 16px
 			text-align: center
 
-.volunteer-container
+.volunteer-container,.teacher-student-slider-container
 	padding: 64px 10vw
+
+.instruction-slide
+	.instruction-title
+		box-shadow: 0 0 0.3125rem 0 #dadee0
+		padding: 16px
+		margin-bottom: 16px
+		border-bottom: #ea2d2d solid 3px
+		.title
+			font-size: 22px
+			font-weight: 600
+			margin-bottom: 16px
+		.description
+			font-size: 16px
+			font-weight: 500
+	.instruction-image-container
+		margin-bottom: 16px
+		.instruction-image
+			background-size: cover
+			background-repeat: no-repeat
+			background-position: center
+			height: 80vh
+			width: 100%
 
 
 .volunteer-card
@@ -154,6 +176,16 @@
 					color: #fff
 					border: none
 					margin-top: 30px
+				.st-link
+					font-size: 22px
+					border-bottom: solid 4px
+					margin-top: 22px
+					display: inline-block
+					font-weight: 600
+				.st-link.student
+					border-bottom-color: $blue-color
+				.st-link.teacher
+					border-bottom-color: #ea2d2d
 				.st-btn-teacher
 					background: #ea2d2d
 

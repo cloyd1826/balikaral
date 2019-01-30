@@ -15,8 +15,6 @@ import SignUp from '../_userComponent/SignUp'
 import student from '../_images/student.png'
 import teacher from '../_images/teacher.png'
 
-import {Link} from 'react-router-dom'
-
 class Home extends Component {
   constructor(props){
     super(props)
@@ -38,6 +36,7 @@ class Home extends Component {
 
         learningStrand: [],
         teacher: [],
+        instruction: [],
 
         userLength: 0,
     }
@@ -55,8 +54,9 @@ class Home extends Component {
     }
   }
   componentDidMount(){
-    apiRequest('get', `/landing-page/fetch-active`, false, false)
+    apiRequest('get', `/landing-page/fetch-instruction?userType=${this.props.match.params.type}&instructionFor=${this.props.match.params.type}`, false, false)
       .then((res)=>{
+        console.log(res)
           if(res.data){
             console.log(res.data.landingPage)
             let landingPage = res.data.landingPage
@@ -81,8 +81,8 @@ class Home extends Component {
               instagram: landingPage.instagram,
               medium: landingPage.medium,
               google: landingPage.google,
-              userLength: res.data.userLength,
               teacher: res.data.teacher,
+              instruction: res.data.instruction,
             })
            
           }
@@ -107,61 +107,106 @@ class Home extends Component {
     
   }
   render() {
-   
+    var settings = {
+      autoPlay: true,
+      arrows: true,
+      autoPlaySpeed: 5000,
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+
+    };
     return (
       <div className='home-container'>
         <NavBar logo={this.state.logo} />
 
         { this.state.signUp ? <SignUp close={this.toggleSignUp}/> : null }
-        
-        <Grid full>
-          <Grid.X className='home-banner'>
-            <Grid.Cell large={6} medium={12} small={12} className='home-banner-text'>
-              <div>
-                <p className='home-subtitle bold subtitle-montserrat'>
-                    Tayo na at mag
-                </p>
-                <p className='home-title'>
-                  <span className='blue-color'>Balik</span>&nbsp;
-                  <span className='red-color'>Aral</span>
-                  <span></span>
-                </p>
-                <p className='home-description'>
-                  {this.state.pageDescription}
-                </p>
-                <button type='button' className='button primary home-button' onClick={this.toggleSignUp}>Magsimula</button>
-              </div>
-            </Grid.Cell>
-            <Grid.Cell large={6} medium={12} small={12} className='home-image-container'>
-              <ImageLoader className='home-image-banner' image={this.state.pageLogo} />
-            </Grid.Cell>
+ 
 
-          </Grid.X>
-          <Grid.X className='home-counter'>
-            <Grid.Cell large={6} medium={12} small={12}>
-              <div className='counter'>
-                  <span>
-                    <p className='counter-number'>4728</p>
-                    <p className='counter-text'>Mga Pumasa</p>
-                  </span>
-                </div>
-            </Grid.Cell>
-            <Grid.Cell large={6} medium={12} small={12}>
-              <div className='counter'>
-                 <span>
-                  <p className='counter-number'>{this.state.userLength}</p>
-                  <p className='counter-text'>Mga Gumagamit ng Programa</p>
-                </span>
-              </div>
-            </Grid.Cell>
+        {/*mga boluntaryo*/}
+       
+      {/* //STUDENT AND TEACHER */}
+       <Grid full className="home-student-teacher-main-container home-banner">
+          <Grid.X>
+            <Grid.Cell large={12} medium={12} small={12}>
+              <Grid className='home-student-teacher-container'>
+                  
+                  <Grid.X>
+                      <Grid.Cell large={7} medium={6} small={12}>
+                        <div className="cell-container">
+                        
+                           <ImageLoader className="st-image" image={
+                            (this.props.match.params.type === 'Student' ? this.state.learnerDescriptionImage : '') + 
+                            (this.props.match.params.type === 'Teacher' ? this.state.contributorDescriptionImage : '')
+                            } />               
+                        </div>
+                      </Grid.Cell>
+                      <Grid.Cell large={5} medium={6} small={12}>
+                        <div className="cell-container">
+                          <h2 className="st-title">Maging 
+                            <span  className=
+                              {
+                                (this.props.match.params.type === 'Student' ? 'st-title-student' : '') + 
+                                (this.props.match.params.type === 'Teacher' ? 'st-title-teacher' : '')
+                              }
 
+                              >{
+                              (this.props.match.params.type === 'Student' ? 'STUDENT' : '') + 
+                              (this.props.match.params.type === 'Teacher' ? 'CONTRIBUTOR' : '')
+                             }
+                             </span></h2>
+                          <p className="st-description">
+                            
+                            {
+                              (this.props.match.params.type === 'Student' ? this.state.learnerDescription : '') + 
+                              (this.props.match.params.type === 'Teacher' ? this.state.contributorDescription : '')
+                            } 
+                          </p>
+                          <button className={'st-button ' + 
+                            (this.props.match.params.type === 'Student' ? 'st-button-student' : '') + 
+                            (this.props.match.params.type === 'Teacher' ? 'st-button-teacher' : '')
+                            } onClick={this.toggleSignUp}>Magsimula</button>
+                        </div>  
+                      </Grid.Cell>
+                  </Grid.X>
+                </Grid>
+              </Grid.Cell>
           </Grid.X>
         </Grid>
 
 
+      <Grid full>
+        <Grid.X>
+          
+          <Grid.Cell large={12} medium={12} small={12}>
+            <div className="teacher-student-slider-container">
+              <div className='subtitle-montserrat bold home-title-text text-center'>{this.state.instruction.length} easy ways to start using Balikaral</div>
+              <Slider {...settings}>
+                {
+                  this.state.instruction.map((attr, index)=>{
+                    return(
+                      <div key={index} className='instruction-slide'>
+                        <div className='instruction-title'>
+                          <div className='title'>{index + 1}) {attr.title}</div>
+                          <div className='description'>{attr.description}</div>
+                        </div>
+                        <div className='instruction-image-container'>
+                          <ImageLoader image={attr.image} className='instruction-image' />
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </Slider>
+            </div>
+          </Grid.Cell>
+        </Grid.X>
+      </Grid>
 
-        {/*mga boluntaryo*/}
-        {/* <div className='volunteer-container container'>
+
+       {/* <div className='volunteer-container container'>
           <div className='subtitle-montserrat bold home-title-text'>Mga Boluntaryo</div>
           <Slider {...settings}>
             {this.state.teacher.map((attr, index)=>{
@@ -189,105 +234,13 @@ class Home extends Component {
           </Slider>
 
         </div> */}
-      {/* //STUDENT AND TEACHER */}
-      <Grid full className="home-student-teacher-main-container">
-        <Grid.X>
-          <Grid.Cell large={12} medium={12} small={12}>
-          <Grid className='home-student-teacher-container'>
-              <Grid.X>
-                  <Grid.Cell large={5} medium={6} small={12}>
-                    <div className="cell-container text-right">
-                      <h2 className="st-title text-right">Maging <span className="st-title-student">LEARNER</span></h2>
-                      <p className="st-description text-right">
-                        {this.state.learnerDescription} 
-                      </p>
-                       <Link to='/instruction/Student'>
-                        <div className='st-link student'>Im a Student</div>
-                      </Link>
-                     
-                    </div>
-                  </Grid.Cell>
-                  <Grid.Cell large={7} medium={6} small={12}>
-                    <div className="cell-container">
-
-                      <ImageLoader className="st-image" image={this.state.learnerDescriptionImage} />
-
-                     
-                    </div>
-                  </Grid.Cell>
-              </Grid.X>
-              <Grid.X>
-                  <Grid.Cell large={7} medium={6} small={12}>
-                    <div className="cell-container">
-                    
-                       <ImageLoader className="st-image" image={this.state.contributorDescriptionImage} />               
-                    </div>
-                  </Grid.Cell>
-                  <Grid.Cell large={5} medium={6} small={12}>
-                    <div className="cell-container">
-                      <h2 className="st-title">Maging <span  className="st-title-teacher">CONTRIBUTOR</span></h2>
-                      <p className="st-description">
-                        {this.state.contributorDescription} 
-                      </p>
-                      <Link to='/instruction/Teacher'>
-                        <div className='st-link teacher'>Im a Contributor</div>
-                      </Link>
-                    </div>  
-                  </Grid.Cell>
-              </Grid.X>
-            </Grid>
-          </Grid.Cell>
-        </Grid.X>
-      </Grid>
-      {/* //STUDENT AND TEACHER */}
-
-      {/*about*/}
-
-         <Grid.X className='about-container'>
-            <Grid.Cell large={6} medium={12} small={12} className='about-banner-text'>
-
-              <ImageLoader className='about-image' image={this.state.tungkolSaProgramaLogo}/>
-            </Grid.Cell>
-            <Grid.Cell large={6} medium={12} small={12} className='about-image-container'>
-              <span>
-                <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>
-                <p className='context-montserrat'>
-                    {this.state.tungkolSaProgramaDescription}
-                </p>
-                <button className='button primary' onClick={this.toggleSignUp}>Magsimula</button>
-              </span>
-            </Grid.Cell>
-
-          </Grid.X>
+         
+   
           
 
 
 
-      {/*about*/}
-      <div className='subject-container'>
-        <div className='grid-container fluid'>
-          <div className='grid-x'>
-            <div className='large-12'>
-              <div className='subtitle-montserrat bold home-title-text'>Mga Takda</div>
-            </div>
-          </div>
-          <div className='grid-x'>
-          {this.state.learningStrand.map((attr, index)=>{
-            return (
-                <div className='large-4 medium-6 small-12' key={index}>
-                  <div className='subject-card'>
-                    <div className='subject'>
-                      <div className='subject-title'>{attr.name}</div>
-                      <span className='reviewer'>{attr.reviewer.length} Reviewers</span>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-
+   
 
       <div className='footer-container'>
         <div className='grid-container fluid'>

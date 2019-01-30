@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {Route, NavLink, Link, withRouter} from 'react-router-dom'
 
 import Level from '../../Management/Level'
+import SiteInstruction from '../../Management/SiteInstruction'
 import SurveyManagement from '../../Management/SurveyManagement'
 import LearningStrand from '../../Management/LearningStrand'
 import Subject from '../../Management/Subject'
@@ -20,6 +21,7 @@ const Routes = () => {
       <Route path='/admin/management/exam-type/' component={ExamType} />
       <Route path='/admin/management/forum/' component={ManagementForum} />
       <Route path='/admin/management/survey-management/' component={SurveyManagement} />
+      <Route path='/admin/management/site-instruction/' component={SiteInstruction} />
 		</div>
 	)
 }
@@ -74,13 +76,20 @@ class RouteManagement extends Component {
                 Forum
               </div>
             </Link>
-           {/* <Link to='/admin/management/survey-management/list'>
+            <Link to='/admin/management/survey-management/list'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/management/survey-management') ? 'active' : '')}>
                 <i className='la la-users' />
                 Survey Management
               </div>
               
-            </Link>*/}
+            </Link>
+            <Link to='/admin/management/site-instruction/list'>
+              <div className={'link ' + (this.props.location.pathname.match('/admin/management/site-instruction') ? 'active' : '')}>
+                <i className='la la-info' />
+                Site Instructions
+              </div>
+              
+            </Link>
             <Link to='/admin/management/landing-page/list'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/management/landing-page') ? 'active' : '')}>
                 <i className='la la-institution' />

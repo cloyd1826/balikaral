@@ -11,6 +11,7 @@ import Test from '../Test'
 
 
 import Home from '../Page.Home'
+import TeacherInstruction from '../Page.Teacher'
 import ErrorPage from '../Page.Error'
 import TermsOfService from '../Page.TermsOfService'
 import PrivacyPolicy from '../Page.PrivacyPolicy'
@@ -34,6 +35,8 @@ const Routes = () => {
 			<Route path='/learner' component={ isLearnerAuth(Learner) } />
 			<Route path='/learner-start' component={ isLearnerWithoutPreTestAuth(LearnerWithoutPreTest) } />
 			<Route path='/pre-test-result' component={ PreTestResult } />
+
+			<Route path='/instruction/:type' component={ TeacherInstruction } />
 
 			<Route path='/test' component={ Test } />
 

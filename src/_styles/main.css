@@ -1367,8 +1367,30 @@ tr.green {
       padding-top: 16px;
       text-align: center; }
 
-.volunteer-container {
+.volunteer-container, .teacher-student-slider-container {
   padding: 64px 10vw; }
+
+.instruction-slide .instruction-title {
+  box-shadow: 0 0 0.3125rem 0 #dadee0;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-bottom: #ea2d2d solid 3px; }
+  .instruction-slide .instruction-title .title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 16px; }
+  .instruction-slide .instruction-title .description {
+    font-size: 16px;
+    font-weight: 500; }
+
+.instruction-slide .instruction-image-container {
+  margin-bottom: 16px; }
+  .instruction-slide .instruction-image-container .instruction-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 80vh;
+    width: 100%; }
 
 .volunteer-card {
   overflow: hidden;
@@ -1448,6 +1470,16 @@ tr.green {
         color: #fff;
         border: none;
         margin-top: 30px; }
+      .home-student-teacher-main-container .home-student-teacher-container .grid-x .cell-container .st-link {
+        font-size: 22px;
+        border-bottom: solid 4px;
+        margin-top: 22px;
+        display: inline-block;
+        font-weight: 600; }
+      .home-student-teacher-main-container .home-student-teacher-container .grid-x .cell-container .st-link.student {
+        border-bottom-color: #4257b2; }
+      .home-student-teacher-main-container .home-student-teacher-container .grid-x .cell-container .st-link.teacher {
+        border-bottom-color: #ea2d2d; }
       .home-student-teacher-main-container .home-student-teacher-container .grid-x .cell-container .st-btn-teacher {
         background: #ea2d2d; }
 
