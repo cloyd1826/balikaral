@@ -15,6 +15,22 @@ import SignUp from '../_userComponent/SignUp'
 import student from '../_images/student.png'
 import teacher from '../_images/teacher.png'
 
+let feedback = [
+  {
+    feedback: '“FINALLY, a site that incorporates a variety of study tools, learning styles and games to make review FUN. My social studies students love competing against one another for champion status!“',
+    user: 'Soljane Martinez'
+  },
+  {
+    feedback: '“FINALLY, a site that incorporates a variety of study tools, learning styles and games to make review FUN. My social studies students love competing against one another for champion status!“',
+    user: 'Soljane Martinez'
+  },
+  {
+    feedback: '“FINALLY, a site that incorporates a variety of study tools, learning styles and games to make review FUN. My social studies students love competing against one another for champion status!“',
+    user: 'Soljane Martinez'
+  },
+]
+
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -108,16 +124,28 @@ class Home extends Component {
   }
   render() {
     var settings = {
-      autoPlay: true,
-      arrows: true,
-      autoPlaySpeed: 5000,
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+    };
+    var settingsImage = {
       dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-
     };
+    var settingsFeedback = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true
+    };
+
     return (
       <div className='home-container'>
         <NavBar logo={this.state.logo} />
@@ -192,19 +220,91 @@ class Home extends Component {
                           <div className='title'>{index + 1}) {attr.title}</div>
                           <div className='description'>{attr.description}</div>
                         </div>
-                        <div className='instruction-image-container'>
-                          <ImageLoader image={attr.image} className='instruction-image' />
-                        </div>
+                       
                       </div>
                     )
                   })
                 }
+              </Slider>
+              <Slider {...settingsImage}>
+              
+                 {
+                  this.state.instruction.map((attr, index)=>{
+                    return(
+                      <div className='instruction-image-container'>
+                        <ImageLoader className='instruction-image' image={attr.image} />
+                      </div>
+                    )
+                  })
+                }
+
               </Slider>
             </div>
           </Grid.Cell>
         </Grid.X>
       </Grid>
 
+      <Grid fluid >
+        <Grid.X className='ins'>
+          <Grid.Cell large={12} medium={12} small={12} className='subtitle-montserrat text-center bold'>
+            More {this.props.match.params.type.toLowerCase()} resources
+          </Grid.Cell>
+          <Grid.Cell large={6} medium={12} small={12}>
+            <div className='instruction-banner'>
+              <i className='la la-lightbulb-o'></i>
+              <div className='context-montserrat bold'>
+                Need help getting started?
+              </div>
+              <p className='context-montserrat'>Attend a {this.props.match.params.type.toLowerCase()} webinar</p>
+              <p className='context-montserrat'>Learn more about Balikaral</p>
+              <p className='context-montserrat'>Visit our Help Center</p>
+            </div>
+          </Grid.Cell>
+          <Grid.Cell large={6} medium={12} small={12}>
+              <div className='instruction-banner'>
+                <i className='la la-graduation-cap'></i>
+                <div className='context-montserrat bold'>
+                  Become a power {this.props.match.params.type.toLowerCase()}
+                </div>
+
+
+
+                <p className='context-montserrat'>Upgrade to Balikaral {this.props.match.params.type.toLowerCase()}</p>
+                <p className='context-montserrat'>Get discounts for schools and groups</p>
+                <p className='context-montserrat'>Join the Ambassador Program</p>
+              </div>
+          </Grid.Cell>
+          <Grid.Cell large={12} medium={12} small={12}>
+            <div className='introduce'>
+              <p className='subtitle-montserrat'>
+                Introduce your colleagues to Balikaral with our presentation templates, handouts and videos.
+              </p>
+              <button className='button primary'>Learn More</button>
+            </div>
+          </Grid.Cell>
+        </Grid.X>
+      </Grid>
+      <div className='feedback-container'>
+        <Grid>
+          <Grid.X>
+            <Grid.Cell large={12} medium={12} small={12}>
+              <Slider {...settingsFeedback}>
+                {feedback.map((attr)=>{
+                  return (
+                      <div className='feedback'>
+                        <div className='fb subtitle-montserrat text-center bold'>{attr.feedback}</div>
+                        <div className='user-fb text-center'>{attr.user}</div>
+                      </div>
+                    )
+                  
+                })}
+              </Slider>
+
+            </Grid.Cell>
+          </Grid.X>
+
+        </Grid>
+      </div>
 
        {/* <div className='volunteer-container container'>
           <div className='subtitle-montserrat bold home-title-text'>Mga Boluntaryo</div>

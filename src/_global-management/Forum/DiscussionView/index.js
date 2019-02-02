@@ -162,8 +162,7 @@ class Layout extends Component {
                         + ' ' + 
                         (discussion.createdBy.personalInformation.lastName ? discussion.createdBy.personalInformation.lastName : '')
                         : '' : ''}
-                        {discussion.createdBy ? discussion.createdBy.google ? discussion.createdBy.google.name ? discussion.createdBy.google.name : '' : '' : '' }
-                        {discussion.createdBy ? discussion.createdBy.facebook ? discussion.createdBy.facebook.name ? discussion.createdBy.facebook.name : '' : '' : '' }
+                      
                       </div>
                       <div className='role'>
                         {discussion.createdBy ? discussion.createdBy.google ? discussion.createdBy.google.userType ? discussion.createdBy.google.userType : '' : '' : '' }
@@ -184,8 +183,6 @@ class Layout extends Component {
                       (discussion.createdBy.personalInformation.lastName ? discussion.createdBy.personalInformation.lastName : '')
                       : '' : ''
                     }
-                    { discussion.createdBy ? discussion.createdBy.google ? discussion.createdBy.google.name ? discussion.createdBy.google.name : '' : '' : '' }
-                    { discussion.createdBy ? discussion.createdBy.facebook ? discussion.createdBy.facebook.name ? discussion.createdBy.facebook.name : '' : '' : '' }
                   </div>
                   <div className='discussion-content'>
                      {

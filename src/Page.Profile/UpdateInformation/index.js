@@ -80,28 +80,33 @@ class Layout extends Component {
             if(res.data){
                 let result = res.data.data
                 this.setState({
-                    
-                    lastName: (result.personalInformation.lastName ? result.personalInformation.lastName : ''),
-                    firstName: (result.personalInformation.firstName ? result.personalInformation.firstName : ''),
-                    middleName: (result.personalInformation.middleName ? result.personalInformation.middleName : ''),
+                  email: (result.local ? result.local.email ? result.local.email : '' : '') + (result.google ? result.google.email ? result.google.email : '' : '') + (result.facebook ? result.facebook.email ? result.facebook.email : '' : '')  ,
+                  disabled: result.local ? result.local.disabled ? result.local.disabled : '' : '',
 
-                    houseNoStreet: result.personalInformation ? result.personalInformation.houseNoStreet ? result.personalInformation.houseNoStreet : '' : '' ,
-                    barangay: result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '',
-                    city: result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '',
-                    province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
+                  lastName: (result.personalInformation ? result.personalInformation.lastName ? result.personalInformation.lastName : '' : ''),
+                  firstName: (result.personalInformation ? result.personalInformation.firstName ? result.personalInformation.firstName : '' : ''),
+                  middleName: (result.personalInformation ? result.personalInformation.middleName ? result.personalInformation.middleName : '' : ''),
 
-                    civilStatus: result.personalInformation ?  result.personalInformation.civilStatus ?  result.personalInformation.civilStatus : '' : '', 
-                    birthday: result.personalInformation ?  result.personalInformation.birthday ?  result.personalInformation.birthday : '' : '', 
+                  houseNoStreet: result.personalInformation ? result.personalInformation ? result.personalInformation.houseNoStreet ? result.personalInformation.houseNoStreet : '' : '' : '',
+                  barangay: result.personalInformation ? result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '' : '',
+                  city: result.personalInformation ? result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '' : '',
+                  province: result.personalInformation ? result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '' : '', 
+                  birthday: result.personalInformation ? result.personalInformation ?  result.personalInformation.birthday ?  result.personalInformation.birthday : '' : '' : '', 
 
-                    learningCenter: result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '',
-                    gradeLevel: result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '',
-                    reasongForStopping: result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '',
-                    lifeStatus: result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '',
-                    
-                    gender: result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '',
+                  civilStatus: result.personalInformation ? result.personalInformation ?  result.personalInformation.civilStatus ?  result.personalInformation.civilStatus : '' : '' : '', 
 
-                    about: result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '',
-                    image: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
+                  learningCenter: result.personalInformation ? result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '' : '',
+                  gradeLevel: result.personalInformation ? result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '' : '',
+                  reasongForStopping: result.personalInformation ? result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '' : '',
+                  lifeStatus: result.personalInformation ? result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '' : '',
+                  
+                  gender: result.personalInformation ? result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '' : '',
+
+                  about: result.personalInformation ? result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '' : '',
+
+
+                  userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
+                  image: (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '')
                 })
             }
         })    

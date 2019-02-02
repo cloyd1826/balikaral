@@ -171,37 +171,36 @@ class Layout extends Component {
                 let google = result.google
                 let facebook = result.facebook
                 
-                if(local){
-                  this.setState({
-                    email: result.local ? result.local.email ? result.local.email : '' : '' ,
-                    disabled: result.local ? result.local.disabled ? result.local.disabled : '' : '',
+                this.setState({
+                  email: (result.local ? result.local.email ? result.local.email : '' : '') + (result.google ? result.google.email ? result.google.email : '' : '') + (result.facebook ? result.facebook.email ? result.facebook.email : '' : '')  ,
+                  disabled: result.local ? result.local.disabled ? result.local.disabled : '' : '',
 
-                    lastName: (result.personalInformation.lastName ? result.personalInformation.lastName : ''),
-                    firstName: (result.personalInformation.firstName ? result.personalInformation.firstName : ''),
-                    middleName: (result.personalInformation.middleName ? result.personalInformation.middleName : ''),
+                  lastName: (result.personalInformation ? result.personalInformation.lastName ? result.personalInformation.lastName : '' : ''),
+                  firstName: (result.personalInformation ? result.personalInformation.firstName ? result.personalInformation.firstName : '' : ''),
+                  middleName: (result.personalInformation ? result.personalInformation.middleName ? result.personalInformation.middleName : '' : ''),
 
-                    houseNoStreet: result.personalInformation ? result.personalInformation.houseNoStreet ? result.personalInformation.houseNoStreet : '' : '' ,
-                    barangay: result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '',
-                    city: result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '',
-                    province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
-                    birthday: result.personalInformation ?  result.personalInformation.birthday ?  result.personalInformation.birthday : '' : '', 
+                  houseNoStreet: result.personalInformation ? result.personalInformation ? result.personalInformation.houseNoStreet ? result.personalInformation.houseNoStreet : '' : '' : '',
+                  barangay: result.personalInformation ? result.personalInformation ? result.personalInformation.barangay ? result.personalInformation.barangay : '' : '' : '',
+                  city: result.personalInformation ? result.personalInformation ? result.personalInformation.city ? result.personalInformation.city : '' : '' : '',
+                  province: result.personalInformation ? result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '' : '', 
+                  birthday: result.personalInformation ? result.personalInformation ?  result.personalInformation.birthday ?  result.personalInformation.birthday : '' : '' : '', 
 
-                    civilStatus: result.personalInformation ?  result.personalInformation.civilStatus ?  result.personalInformation.civilStatus : '' : '', 
+                  civilStatus: result.personalInformation ? result.personalInformation ?  result.personalInformation.civilStatus ?  result.personalInformation.civilStatus : '' : '' : '', 
 
-                    learningCenter: result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '',
-                    gradeLevel: result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '',
-                    reasongForStopping: result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '',
-                    lifeStatus: result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '',
-                    
-                    gender: result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '',
+                  learningCenter: result.personalInformation ? result.personalInformation ?  result.personalInformation.learningCenter ?  result.personalInformation.learningCenter : '' : '' : '',
+                  gradeLevel: result.personalInformation ? result.personalInformation ?  result.personalInformation.gradeLevel ?  result.personalInformation.gradeLevel : '' : '' : '',
+                  reasongForStopping: result.personalInformation ? result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '' : '',
+                  lifeStatus: result.personalInformation ? result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '' : '',
+                  
+                  gender: result.personalInformation ? result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '' : '',
 
-                    about: result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '',
+                  about: result.personalInformation ? result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '' : '',
 
 
-                    userType:  result.local ? result.local.userType ? result.local.userType : '' : '',
-                    imagePreview: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
-                  })
-                }
+                  userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
+                  imagePreview: (this.props.type === 'local' ? (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '') : (result.google ? result.google.image ? result.google.image : '' : '') + (result.facebook ? result.facebook.image ? result.facebook.image : '' : '' ))
+                })
+              
                 
             }
         })    
@@ -213,13 +212,13 @@ class Layout extends Component {
 
  
   render() {
-
+    console.log(this.state.imagePreview)
     return (
         <div className='element-container user-profile-container'>
             <div className='user-image'>
               <Form onSubmit={this.handleSubmit}>
-                
-                    <ImageLoader className='hero-image' image={this.state.imagePreview} type='user'>
+                  {this.props.type === 'local' ? 
+                  <ImageLoader className='hero-image' image={this.state.imagePreview} type='user'>
                       <div className='user-image-input'>
                         <div className='icon-camera'>
                           <div>
@@ -237,6 +236,14 @@ class Layout extends Component {
                           />
                     </div>
                   </ImageLoader>
+                  : null}
+                  {this.props.type === 'facebook' || this.props.type === 'google' ? 
+                    <div className='hero-image'
+                      style={{backgroundImage: 'url(' + this.state.imagePreview + ')'}}
+                    ></div>
+
+                  : null}
+              
                 {this.state.image != '' ? 
                   <button className='button small' type='submit'>Update Image</button>
                 : null}
@@ -275,7 +282,8 @@ const mapStateToProps = (state) => {
     token: state.token,
     user: state.user,
     role: state.role,
-    hadPreTest: state.hadPreTest
+    hadPreTest: state.hadPreTest,
+    type: state.type
   }
 }
 const mapDispatchToProps = dispatch => {

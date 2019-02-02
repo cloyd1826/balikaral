@@ -46,7 +46,7 @@ class Layout extends Component{
       <div className='user-top-bar'>
         <div className='user-name'>
           <div className='name'>
-          {this.props.type === 'local' ?
+     
              <Link to={{ 
                   pathname: '/teacher/profile/update-information', 
                   state: { id: this.props.user.id } 
@@ -59,10 +59,7 @@ class Layout extends Component{
                   (this.props.user.lastName ? this.props.user.lastName : '')
               }
             </Link>
-           : null}
-           {this.props.type !== 'local' ? 
-              (this.props.user.firstName ? this.props.user.firstName : '' )
-            : null}
+          
 
           </div>
           <div className='role'>{
@@ -79,7 +76,7 @@ class Layout extends Component{
                   <span><i className='la la-home' />Home</span>
                 </div>
               </Link>
-              {this.props.type === 'local' ?
+              
               <Link to={{ 
                 pathname: '/teacher/profile/update-information', 
                 state: { id: this.props.user.id } 
@@ -88,7 +85,6 @@ class Layout extends Component{
                   <span><i className='fa fa-user' />Profile</span>
                 </div>
               </Link>
-               : null}
               
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>

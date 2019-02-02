@@ -42,9 +42,8 @@ class Layout extends Component {
                     + ' ' + 
                     (this.props.data.uploader.personalInformation.middleName ? (this.props.data.uploader.personalInformation.middleName.substring(0,1) + '. ') : '')
                     + ' ' + 
-                    (this.props.data.uploader.personalInformation.lastName ? this.props.data.uploader.personalInformation.lastName : '') + 
-                    (this.props.data.uploader.google ? this.props.data.uploader.google.name ? this.props.data.uploader.google.name : '' : '' ) +
-                    (this.props.data.uploader.facebook ? this.props.data.uploader.facebook.name ? this.props.data.uploader.facebook.name : '' : '' )
+                    (this.props.data.uploader.personalInformation.lastName ? this.props.data.uploader.personalInformation.lastName : '')
+                   
                     : '' : ''}
                 </div>
                 <div className='role'>

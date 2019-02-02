@@ -341,7 +341,7 @@ class Layout extends Component {
       							        		<Table.Cell>
       							        					<Link 
       							        						to={{ 
-      														    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/management/exam/edit', 
+      														    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/exam/edit', 
       														    state: { id: attr._id } 
       															}}>
       															{attr.question.details}
@@ -363,8 +363,6 @@ class Layout extends Component {
                                   + ' ' + 
                                   (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
                                   : '' : ''}
-                                  {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
-                                  {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
 
                                 </Table.Cell>
                                 <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>

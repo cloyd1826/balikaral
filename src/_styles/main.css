@@ -1372,25 +1372,26 @@ tr.green {
 
 .instruction-slide .instruction-title {
   box-shadow: 0 0 0.3125rem 0 #dadee0;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-bottom: #ea2d2d solid 3px; }
+  margin: 16px;
+  padding: 24px;
+  margin-bottom: 16px; }
   .instruction-slide .instruction-title .title {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 16px; }
   .instruction-slide .instruction-title .description {
     font-size: 16px;
     font-weight: 500; }
 
-.instruction-slide .instruction-image-container {
+.instruction-image-container {
   margin-bottom: 16px; }
-  .instruction-slide .instruction-image-container .instruction-image {
+  .instruction-image-container .instruction-image {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     height: 80vh;
-    width: 100%; }
+    width: 100%;
+    padding: 32px; }
 
 .volunteer-card {
   overflow: hidden;
@@ -1554,6 +1555,50 @@ tr.green {
       padding: 4px 0;
       font-size: 14px;
       text-align: justify; }
+
+.ins {
+  padding: 64px 10vw;
+  background: #f5f5f5; }
+
+.instruction-banner {
+  box-shadow: 0 0 0.3125rem 0 #dadee0;
+  margin: 16px;
+  padding: 32px;
+  margin-bottom: 16px;
+  text-align: center;
+  background: #fff; }
+  .instruction-banner .la {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 32px;
+    color: #4257b2; }
+  .instruction-banner .context-montserrat, .instruction-banner .form-subtitle, .instruction-banner .footer-contact span p, .footer-contact span .instruction-banner p {
+    font-size: 22px;
+    margin-bottom: 16px;
+    color: #4257b2; }
+  .instruction-banner .bold {
+    color: #000;
+    font-size: 24px;
+    margin-bottom: 32px; }
+
+.introduce {
+  background: #3b4c9b;
+  padding: 48px;
+  margin: 16px;
+  color: #fff; }
+  .introduce button {
+    margin-bottom: 0; }
+
+.feedback-container {
+  padding: 64px 10vw; }
+
+.feedback .fb {
+  margin-bottom: 32px;
+  color: rgba(0, 0, 0, 0.8); }
+
+.feedback .user-fb {
+  font-size: 22px;
+  margin-bottom: 32px; }
 
 .tos-container {
   padding: 32px;
@@ -3440,3 +3485,6 @@ p, span, a {
     padding: 16px; }
     .element-container .chart-data-container canvas, .discussion-container .chart-data-container canvas, .comment-container .chart-data-container canvas, .comment-list .chart-data-container canvas {
       margin-bottom: 80px; }
+
+.text-center {
+  text-align: center; }

@@ -161,8 +161,7 @@ class Layout extends Component {
                                   + ' ' + 
                                   (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
                                   : '' : '') }
-								{attr.examiner.google ? attr.examiner.google.name ? attr.examiner.google.name : '' : '' }
-                                {attr.examiner.facebook ? attr.examiner.facebook.name ? attr.examiner.facebook.name : '' : '' }
+								
 								</div>
 								<div className='label'>Date: { moment(attr.dateStarted).format('MMMM DD, YYYY - LTS') + ' - ' + moment(attr.dateFinished).format('MMMM DD, YYYY - LTS') }</div>
 								<div className='label'>Result: {attr.status}</div>
