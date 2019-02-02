@@ -129,10 +129,7 @@ class Layout extends Component {
                                   attr.user.personalInformation.lastName && attr.user.personalInformation.firstName ? 
                                     attr.user.personalInformation.lastName + ' ' + attr.user.personalInformation.firstName
                                   : '' : '' : ''}
-                                {attr.user ? attr.user.google ? attr.user.google.name ? attr.user.google.name : '' : '' : ''}
-                                {attr.user ? attr.user.facebook ? attr.user.facebook.name ? attr.user.facebook.name : '' : '' : ''}
-                                {attr.user.google ? attr.user.google.name ? attr.user.google.name : '' : '' }
-                                {attr.user.facebook ? attr.user.facebook.name ? attr.user.facebook.name : '' : '' }
+                               
                               </Table.Cell>
                               
                               <Table.Cell isNarrowed>

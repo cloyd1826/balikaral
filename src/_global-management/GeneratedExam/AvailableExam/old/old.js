@@ -17,8 +17,10 @@ class Layout extends Component {
     super(props)
     this.state = {  
       examType: [],
-      examToGenerate: [],
-      
+      easy: [],
+      average: [],
+      difficult: [],
+
       message: '',
       type: '',
       active: false,
@@ -31,8 +33,7 @@ class Layout extends Component {
       hasPassed: false,
       notEnoughQuestion: false,
 
-      exam: {},
-      examLearningStrand: [],
+      exam: {}
     }
     this.fetchExamType = this.fetchExamType.bind(this)
     this.formMessage = this.formMessage.bind(this)
@@ -120,11 +121,7 @@ class Layout extends Component {
               ls = [...ls, attr]
             }
           })
-          this.setState({
-            examLearningStrand: ls,
-          })
           this.generateExam(ls)
-          
         }else if(res.data.status==='Passed'){
           this.setState({
             generating: false,
@@ -132,7 +129,7 @@ class Layout extends Component {
           })
         }
         this.setState({
-          exam: data,
+          exam: data
         })
       })
       .catch((err)=>{
@@ -141,53 +138,58 @@ class Layout extends Component {
   }
   generateExam(learningStrandQuestion){
     this.setState({
-      examLearningStrand: learningStrandQuestion 
-    })
-    console.log(this.state.examLearningStrand)
-    this.setState({
       generating: true,
     })
     let count = 0
     learningStrandQuestion.map((attr)=>{
-      count = count + parseInt(attr.total) 
+      console.log(attr)
+      count = count + parseInt(attr.easy) + parseInt(attr.average) + parseInt(attr.difficult) 
     })
     learningStrandQuestion.map((attr, index)=>{
 
       if(index === learningStrandQuestion.length - 1){
-        this.addToExam(attr.learningStrand._id, attr.total, true, count)
+        this.addToExam(attr.learningStrand._id, attr.easy, attr.average, attr.difficult, true, count)
       }else{
-        this.addToExam(attr.learningStrand._id, attr.total, false, count)
+        this.addToExam(attr.learningStrand._id, attr.easy, attr.average, attr.difficult, false, count)
       }
     })
   }
-  addToExam(learningStrand, learningStrandTotal, post, count){
-    console.log(count)
-    apiRequest('get', `/exam-management/generate-exam?level=${this.props.level}&learningStrand=${learningStrand}&total=${learningStrandTotal}`, false, this.props.token)
+  addToExam(learningStrand, easyCount, averageCount, difficultCount, post, count){
+    apiRequest('get', `/exam-management/generate-random?level=${this.props.level}&learningStrand=${learningStrand}&easy=${easyCount}&average=${averageCount}&difficult=${difficultCount}`, false, this.props.token)
       .then((res)=>{
-        console.log('e',res)
-        let examToGenerate = this.state.examToGenerate
-        res.data.exam.map((attr)=>{
-          examToGenerate = [...examToGenerate, { question: attr._id, answer: ''}]
+        let easy = this.state.easy
+        let average = this.state.average
+        let difficult = this.state.difficult
+        res.data.easy.map((attr)=>{
+          easy = [...easy, { question: attr._id, answer: ''}]
         })
+        res.data.average.map((attr)=>{
+          average = [...average, { question: attr._id, answer: ''}]
+        })
+        res.data.difficult.map((attr)=>{
+          difficult = [...difficult, { question: attr._id, answer: ''}]
+        })
+        let exam = [...easy, ...average, ...difficult]
         
         this.setState({
-          examToGenerate: examToGenerate
+          easy: easy,
+          average: average,
+          difficult: difficult,
         })
-        console.log('eg',examToGenerate)
-        if(post && parseInt(examToGenerate.length) === parseInt(count)){
-          this.postExam(examToGenerate, this.state.exam)
+        if(post && parseInt(exam.length) === parseInt(count)){
+          this.postExam(exam, this.state.exam)
         }
-        if(post && parseInt(examToGenerate.length) !== parseInt(count)){
+        if(post && parseInt(exam.length) !== parseInt(count)){
+          this.generateExam(this.state.exam)
           this.setState({
-            examToGenerate: [],
+            easy: [],
+            average: [],
+            difficult: [],
             isAvailable: true,
             generating: false,
-            exam: {}
+            preTest: {}
           })
-          this.generateExam(this.state.examLearningStrand)
-          
         }
-        
       })
       .catch((err)=>{
 
@@ -204,7 +206,6 @@ class Layout extends Component {
       dateStarted: Date.now(),
       level: this.props.level
     }
-    console.log('d', data)
     apiRequest('post', `/generated-exam?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         

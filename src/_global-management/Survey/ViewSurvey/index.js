@@ -71,8 +71,7 @@ class Layout extends Component {
                     this.state.user.personalInformation.lastName && this.state.user.personalInformation.firstName ? 
                       this.state.user.personalInformation.firstName + ' ' + this.state.user.personalInformation.lastName
                     : '' : '' : ''}
-                  {this.state.user ? this.state.user.google ? this.state.user.google.name ? this.state.user.google.name : '' : '' : ''}
-                  {this.state.user ? this.state.user.facebook ? this.state.user.facebook.name ? this.state.user.facebook.name : '' : '' : ''}
+                
                 </div>
                 <div className='date'>{moment(this.state.date).format('MMM DD, YYYY - LTS')}</div>
               </div>

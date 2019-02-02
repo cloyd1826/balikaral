@@ -230,10 +230,10 @@ class Layout extends Component {
       })
   }
   componentDidMount(){
-    // this.fetchSurveyManagement()
-    this.setState({
-      survey: surveyData
-    })
+    this.fetchSurveyManagement()
+    // this.setState({
+    //   survey: surveyData
+    // })
   }
   render() {
     return (

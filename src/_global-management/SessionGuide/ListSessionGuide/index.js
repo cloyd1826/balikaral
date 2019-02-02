@@ -378,8 +378,7 @@ class Layout extends Component {
                                 + ' ' + 
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
                                 : '' : ''}
-                                {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
-                                {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
+                                
                               </Table.Cell>
                               
                               

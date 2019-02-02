@@ -163,8 +163,7 @@ class Layout extends Component {
                                   attr.personalInformation.lastName && attr.personalInformation.firstName ? 
                                     attr.personalInformation.lastName + ' ' + attr.personalInformation.firstName
                                   : '' : ''}
-                                {attr.google ? attr.google.name ? attr.google.name : '' : '' }
-                                {attr.facebook ? attr.facebook.name ? attr.facebook.name : '' : '' } 
+                                
                               </Table.Cell>
                               <Table.Cell>
                                 {attr.local ? attr.local.userType ? attr.local.userType : '' : ''}
@@ -178,7 +177,7 @@ class Layout extends Component {
                                 {attr.facebook ? attr.facebook.disabled ? 'No Access' : 'Has Access' : ''}
                               </Table.Cell>
                               <Table.Cell isNarrowed>
-                                {attr.local ? 
+                                
                                   <Link 
                                     to={{ 
                                       pathname: '/admin/user-view/update-information', 
@@ -188,7 +187,7 @@ class Layout extends Component {
                                       <i className='fa fa-user primary'></i>
                                     </span>
                                   </Link>
-                                : null}
+                               
                                 {attr.facebook ? 
                                   <span>
                                       <i className='la la-key' onClick={()=>{this.grantAccess(attr.facebook, attr._id, 'facebook')}}></i>

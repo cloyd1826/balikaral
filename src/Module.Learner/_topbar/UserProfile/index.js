@@ -56,7 +56,7 @@ class Layout extends Component{
       <div className='user-top-bar'>
         <div className='user-name'>
           <div className='name'>
-          {this.props.type === 'local' ?
+          
             <Link to={{ 
                   pathname: '/learner/profile/update-information', 
                   state: { id: this.state.user.id } 
@@ -69,16 +69,7 @@ class Layout extends Component{
                   (this.state.user.lastName ? this.state.user.lastName : '')
               }
             </Link>
-           : null}
-
-          {this.props.type !== 'local' ? 
-             <Link to={{ 
-                  pathname: '/learner/profile-social/update-learner-info', 
-                  state: { id: this.state.user.id } 
-                }}>
-              { this.props.user.firstName ? this.props.user.firstName : '' }
-              </Link>
-            : null}
+          
 
           </div>
           <div className='role'>{
@@ -95,16 +86,14 @@ class Layout extends Component{
                   <span><i className='la la-home' />Home</span>
                 </div>
               </Link>
-              {this.props.type === 'local' ?
-                <Link to={{ 
-                    pathname: '/learner/profile/update-information', 
-                    state: { id: this.state.user.id } 
-                  }}>
-                  <div className='user-bar'>
-                    <span><i className='fa fa-user' />Profile</span>
-                  </div>
-                </Link>
-               : null}
+              <Link to={{ 
+                  pathname: '/learner/profile/update-information', 
+                  state: { id: this.state.user.id } 
+                }}>
+                <div className='user-bar'>
+                  <span><i className='fa fa-user' />Profile</span>
+                </div>
+              </Link>
               
               <div className='user-bar' onClick={this.logOut}>
                  <span><i className='fa fa-sign-out' />Log Out</span>

@@ -70,9 +70,10 @@ class Layout extends Component {
             if(res.data){
                 let result = res.data.data
                 this.setState({
-                    email: result.local.email,
-                    disabled: result.local.disabled,
-                    userType:  result.local.userType,
+                    type: (result.local ? 'local' : '') || (result.google ? 'google' : '') || (result.facebook ? 'facebook' : ''),
+                    email: (result.local ? result.local.email : '') || (result.google ? result.google.email : '') || (result.facebook ? result.facebook.email : ''),
+                    disabled: (result.local ? result.local.disabled : '') || (result.google ? result.google.disabled : '') || (result.facebook ? result.facebook.disabled : ''),
+                    userType:  (result.local ? result.local.userType : '') || (result.google ? result.google.userType : '') || (result.facebook ? result.facebook.userType : ''),
                     password: ''
                 })
             }
@@ -124,17 +125,19 @@ class Layout extends Component {
                 </Grid.Cell>
               </Grid.X>
               <Grid.X>
+
                 <Grid.Cell large={6} medium={12} small={12}>
                   <Input 
                     label='Email' 
                     type='email' 
                     required
+                    disabled={this.state.type === 'local' ? false : true }
                     name='email'
                     value={this.state.email}
                     onChange={this.handleChange}
                     />
                 </Grid.Cell>
-              {this.props.user.id === this.props.location.state.id ?
+              {this.props.user.id === this.props.location.state.id && this.state.type === 'local' ?
                 <Grid.Cell large={6} medium={12} small={12}>
                   <Input 
                     label='Password' 
@@ -181,7 +184,7 @@ class Layout extends Component {
               
               <Grid.X>
                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
-                    <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
+                    <Button disabled={this.state.buttonDisabled } type='submit' text='Save' className='secondary small' />
                 </Grid.Cell>
               </Grid.X>
           </Form>

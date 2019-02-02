@@ -109,9 +109,10 @@ class Layout extends Component {
         let validation = this.state.validation
         let level = this.state.level
         let subject = this.state.subject
+        let fileType = this.state.fileType
         let page = this.state.currentPage
         
-        this.fetchLevel(validation, learningStrand, level, subject, page)
+        this.fetchLevel(validation, learningStrand, level, subject, fileType, page)
         this.formMessage(this.state.header + ' has been validated', 'success', true, false)
         this.setState({
           selectedData: []
@@ -412,7 +413,6 @@ class Layout extends Component {
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                       { this.state.header === 'Learning Resources' ? <Table.HeaderCell>Modyul</Table.HeaderCell> : null }
                         <Table.HeaderCell>Submitted By</Table.HeaderCell>
                         {this.state.role === 'Learner' ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>
@@ -443,10 +443,7 @@ class Layout extends Component {
                               <Table.Cell>{attr.description}</Table.Cell>
                               <Table.Cell>{attr.level ? attr.level.name ? attr.level.name : '' : ''}</Table.Cell>
                               <Table.Cell>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</Table.Cell>
-
-                              {this.state.header === 'Learning Resources' ? <Table.Cell>{attr.reviewer ? attr.reviewer.description ? attr.reviewer.description : '' : ''}</Table.Cell> : null } 
-                              
-                             
+   
                               <Table.Cell>
                                 {attr.uploader ? attr.uploader.personalInformation ? 
                                 (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
@@ -455,8 +452,7 @@ class Layout extends Component {
                                 + ' ' + 
                                 (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
                                 : '' : ''}
-                                {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
-                                {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
+                               
                               </Table.Cell>
                               
                               
@@ -558,7 +554,6 @@ class Layout extends Component {
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Level</Table.HeaderCell>
                         <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                        { this.state.header === 'Learning Resources' ? <Table.HeaderCell>Modyul</Table.HeaderCell> : null }
                         <Table.HeaderCell>Submitted By</Table.HeaderCell>
                         {this.state.role === "Learner" ? '' : <Table.HeaderCell>Status</Table.HeaderCell>}
                         <Table.HeaderCell isNarrowed></Table.HeaderCell>

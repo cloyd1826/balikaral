@@ -73,7 +73,7 @@ class Layout extends Component {
   fetchDiscussion(){
     apiRequest('get', `/forum/${this.props.location.state.discussionId}`, false, this.props.token)
       .then((res)=>{
-        
+        console.log(res)
         
         if(res.data){
           this.setState({
@@ -151,6 +151,26 @@ class Layout extends Component {
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   <div className='discussion-title'>
                     {discussion.title ? discussion.title : ''}  
+
+                    <div className='discussion-user'>
+                      <ImageLoader className='image' image={discussion.createdBy ? discussion.createdBy.personalInformation ? discussion.createdBy.personalInformation.image ? discussion.createdBy.personalInformation.image : '' : '' : '' }/>
+                      <div className='name'>
+                        {discussion.createdBy ? discussion.createdBy.personalInformation ? 
+                        (discussion.createdBy.personalInformation.firstName ? discussion.createdBy.personalInformation.firstName : '') 
+                        + ' ' + 
+                        (discussion.createdBy.personalInformation.middleName ? discussion.createdBy.personalInformation.middleName.substring(0,1) : '')
+                        + ' ' + 
+                        (discussion.createdBy.personalInformation.lastName ? discussion.createdBy.personalInformation.lastName : '')
+                        : '' : ''}
+                      
+                      </div>
+                      <div className='role'>
+                        {discussion.createdBy ? discussion.createdBy.google ? discussion.createdBy.google.userType ? discussion.createdBy.google.userType : '' : '' : '' }
+                        {discussion.createdBy ? discussion.createdBy.facebook ? discussion.createdBy.facebook.userType ? discussion.createdBy.facebook.userType : '' : '' : '' }
+                        {discussion.createdBy ? discussion.createdBy.local ? discussion.createdBy.local.userType ? discussion.createdBy.local.userType : '' : '' : '' }
+                      </div>
+                    </div>
+
                     <div className='date-created'>{moment(discussion.datePosted).format('MMMM DD, YYYY')}</div>
                   </div>
                   <div className='discussion-user'>
@@ -163,8 +183,6 @@ class Layout extends Component {
                       (discussion.createdBy.personalInformation.lastName ? discussion.createdBy.personalInformation.lastName : '')
                       : '' : ''
                     }
-                    { discussion.createdBy ? discussion.createdBy.google ? discussion.createdBy.google.name ? discussion.createdBy.google.name : '' : '' : '' }
-                    { discussion.createdBy ? discussion.createdBy.facebook ? discussion.createdBy.facebook.name ? discussion.createdBy.facebook.name : '' : '' : '' }
                   </div>
                   <div className='discussion-content'>
                      {

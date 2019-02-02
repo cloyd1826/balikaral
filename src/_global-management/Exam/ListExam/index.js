@@ -307,7 +307,7 @@ class Layout extends Component {
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
                             <Table.HeaderCell>Modyul</Table.HeaderCell>
-                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                           
   				          				<Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell>Level</Table.HeaderCell>
                             <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>
@@ -341,7 +341,7 @@ class Layout extends Component {
       							        		<Table.Cell>
       							        					<Link 
       							        						to={{ 
-      														    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/management/exam/edit', 
+      														    pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') + '/exam/edit', 
       														    state: { id: attr._id } 
       															}}>
       															{attr.question.details}
@@ -355,7 +355,6 @@ class Layout extends Component {
 
                                 </Table.Cell>
                                 <Table.Cell>{ attr.reviewer ? attr.reviewer.description ? attr.reviewer.description : '' : '' }</Table.Cell>
-                                <Table.Cell>{ attr.question ? attr.question.difficulty ? attr.question.difficulty : '' : '' }</Table.Cell>
                                 <Table.Cell isNarrowed>
                                 {attr.uploader ? attr.uploader.personalInformation ? 
                                   (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
@@ -364,8 +363,6 @@ class Layout extends Component {
                                   + ' ' + 
                                   (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
                                   : '' : ''}
-                                  {attr.uploader.google ? attr.uploader.google.name ? attr.uploader.google.name : '' : '' }
-                                  {attr.uploader.facebook ? attr.uploader.facebook.name ? attr.uploader.facebook.name : '' : '' }
 
                                 </Table.Cell>
                                 <Table.Cell isNarrowed>{ attr.level ? attr.level.name ? attr.level.name : '' : '' }</Table.Cell>
@@ -417,7 +414,7 @@ class Layout extends Component {
                             <Table.HeaderCell>Question</Table.HeaderCell>
                             <Table.HeaderCell>Validation</Table.HeaderCell>
                             <Table.HeaderCell>Modyul</Table.HeaderCell>
-                            <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                           
                             <Table.HeaderCell isNarrowed>Submitted By</Table.HeaderCell>
                             <Table.HeaderCell >Level</Table.HeaderCell>
                             <Table.HeaderCell isNarrowed>Learning Strand</Table.HeaderCell>

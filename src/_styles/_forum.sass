@@ -2,13 +2,15 @@
 	.forum-list-container
 		margin-top: -9px
 		border: solid 1px #ebebeb
-		.forum-dashboard-container
+		.forum-dashboard-container,.forum-dashboard-container-discussion
 			.forum-name
 				font-weight: 600
 				font-size: 22px
 				border-bottom: #e0e0e0 solid 1px
 				padding: 8px
 				position: relative
+				display: flex
+				align-items: center
 				.date-created
 					position: absolute
 					top: 50%
@@ -16,26 +18,25 @@
 					transform: translate(0,-50%)
 					color: rgba(0,0,0,0.6)
 					font-size: 12px
+				
 			.forum-strand
 				padding-top: 8px
-			.forum-user
-				padding-top: 8px
-				color: rgba(0,0,0,0.6)
-				font-weight: 600
+
 			.forum-name, .forum-description, .forum-strand, .forum-user
 				padding-left: 16px
 				padding-right: 16px
-			.forum-image
-				background-size: cover
-				background-repeat: no-repeat
-				background-position: center
-				height: 200px
-				width: 200px
+			
 			.forum-description
 				padding-bottom: 16px
 			.forum-content
 				display: flex
 				padding: 8px
+				.forum-image
+					background-size: cover
+					background-repeat: no-repeat
+					background-position: center
+					height: 200px
+					width: 200px
 			.table-container
 				table
 					border: none
@@ -75,14 +76,47 @@
 		border: solid 1px #ebebeb
 		.forum-name
 			font-size: 22px
+			display: flex
+			align-items: center
+			position: relative
+			margin-right: 8px
+			padding-right: 8px
+			
+			margin-bottom: 16px
 			.date-created
 				font-size: 13px
 				color: $blue-color
 				margin-top: 5px
-								
+				position: absolute
+				top: 50%
+				right: 16px
+				transform: translate(0,-50%)
 						
-
-
+.forum-user
+	display: flex
+	align-items: center
+	margin-left: 16px
+	border-left: #e0e0e0 solid 2px
+	padding-left: 16px
+	.image
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
+		height: 28px
+		margin-right: 8px
+		width: 28px
+		border-radius: 50%
+	.name
+		font-size: 16px
+		color: $yellow-color
+		margin-right: 8px
+	.role
+		font-size: 11px
+		font-weight: 600
+		color: rgba(0,0,0,0.4)
+		border-radius: 50px
+		background: #e0e0e0
+		padding: 8px
 
 .discussion-container
 	@extend .element-container
@@ -95,6 +129,8 @@
 		border-bottom: #e0e0e0 solid 1px
 		padding: 8px
 		position: relative
+		display: flex
+		align-items: center
 		.date-created
 			position: absolute
 			top: 50%
@@ -102,6 +138,31 @@
 			transform: translate(0,-50%)
 			color: rgba(0,0,0,0.6)
 			font-size: 12px
+		.discussion-user
+			display: flex
+			align-items: center
+			margin-left: 16px
+			border-left: #e0e0e0 solid 2px
+			padding-left: 16px
+			.image
+				background-size: cover
+				background-repeat: no-repeat
+				background-position: center
+				height: 28px
+				margin-right: 8px
+				width: 28px
+				border-radius: 50%
+			.name
+				font-size: 16px
+				color: $yellow-color
+				margin-right: 8px
+			.role
+				font-size: 11px
+				font-weight: 600
+				color: rgba(0,0,0,0.4)
+				border-radius: 50px
+				background: #e0e0e0
+				padding: 8px
 	.discussion-user
 		padding-top: 8px
 		color: rgba(0,0,0,0.6)
@@ -149,3 +210,10 @@
 		.comment-description
 			padding: 8px
 			padding-top: 0
+
+.forum-image
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center
+	height: 200px
+	width: 200px

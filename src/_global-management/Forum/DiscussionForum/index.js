@@ -79,7 +79,6 @@ class Layout extends Component {
   fetchSubject(page){
     apiRequest('get', `/forum/discussions/${this.props.location.state.id}?page=${page}`, false, this.props.token)
       .then((res)=>{
-        
         if(res.data){
           this.setState({
             forum: res.data.data,
@@ -139,21 +138,29 @@ class Layout extends Component {
                               state: { id: this.props.location.state.id, discussionId: attr._id } 
                                 }}>
                           <div className='forum-dashboard-container-discussion'>
-                            <div className='forum-name'>{attr.title}
+                            <div className='forum-name'>{attr.title} 
+                              <div className='forum-user'>
+                                <ImageLoader className='image' image={attr.createdBy ? attr.createdBy.personalInformation ? attr.createdBy.personalInformation.image ? attr.createdBy.personalInformation.image : '' : '' : '' }/>
+                                <div className='name'>
+                                  {attr.createdBy ? attr.createdBy.personalInformation ? 
+                                  (attr.createdBy.personalInformation.firstName ? attr.createdBy.personalInformation.firstName : '') 
+                                  + ' ' + 
+                                  (attr.createdBy.personalInformation.middleName ? attr.createdBy.personalInformation.middleName.substring(0,1) : '')
+                                  + ' ' + 
+                                  (attr.createdBy.personalInformation.lastName ? attr.createdBy.personalInformation.lastName : '')
+                                  : '' : ''}
+                                 
+                                </div>
+                                <div className='role'>
+                                  {attr.createdBy ? attr.createdBy.google ? attr.createdBy.google.userType ? attr.createdBy.google.userType : '' : '' : '' }
+                                  {attr.createdBy ? attr.createdBy.facebook ? attr.createdBy.facebook.userType ? attr.createdBy.facebook.userType : '' : '' : '' }
+                                  {attr.createdBy ? attr.createdBy.local ? attr.createdBy.local.userType ? attr.createdBy.local.userType : '' : '' : '' }
+                                </div>
+                              </div>
+
                               <div className='date-created'>{moment(attr.datePosted).format('MMMM DD, YYYY')}</div>
                             </div>
-                            <div className='forum-user'>
-                              {attr.createdBy ? attr.createdBy.personalInformation ? 
-                                (attr.createdBy.personalInformation.firstName ? attr.createdBy.personalInformation.firstName : '') 
-                                + ' ' + 
-                                (attr.createdBy.personalInformation.middleName ? attr.createdBy.personalInformation.middleName.substring(0,1) : '')
-                                + ' ' + 
-                                (attr.createdBy.personalInformation.lastName ? attr.createdBy.personalInformation.lastName : '')
-                                : '' : ''}
-                                {attr.createdBy ? attr.createdBy.google ? attr.createdBy.google.name ? attr.createdBy.google.name : '' : '' : '' }
-                                {attr.createdBy ? attr.createdBy.facebook ? attr.createdBy.facebook.name ? attr.createdBy.facebook.name : '' : '' : '' }
-
-                            </div>
+                            
                             <div className='forum-content'>
                                {
                                   attr.image && attr.image !== '' ?

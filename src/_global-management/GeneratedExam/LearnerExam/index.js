@@ -31,7 +31,7 @@ class Layout extends Component {
 
       status: '',
       learningStrand: '',
-      
+      examType: '',
 
       currentPage: 1,
       nextPage: null,
@@ -211,8 +211,7 @@ class Layout extends Component {
                                 + ' ' + 
                                 (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
                                 : '' : ''}
-                                {attr.examiner.google ? attr.examiner.google.name ? attr.examiner.google.name : '' : '' }
-                                {attr.examiner.facebook ? attr.examiner.facebook.name ? attr.examiner.facebook.name : '' : '' }
+                               
                               </Table.Cell>
 
                               <Table.Cell>{attr.dateStarted ? moment(attr.dateStarted).format('MMMM DD, YYYY') : ''}</Table.Cell>

@@ -2,22 +2,22 @@ import React, {Component} from 'react'
 
 import { Link } from 'react-router-dom'
 
-import Grid from '../../_component/Grid'
-import Table from '../../_component/Table'
-import FormMessage from '../../_component/Form/FormMessage'
-import Pagination from '../../_component/Pagination'
+import Grid from '../../../../_component/Grid'
+import Table from '../../../../_component/Table'
+import FormMessage from '../../../../_component/Form/FormMessage'
+import Pagination from '../../../../_component/Pagination'
 
-import apiRequest from '../../_axios'
-
-import moment from 'moment'
+import apiRequest from '../../../../_axios'
 
 import { connect } from 'react-redux'
+
+import ManagementDelete from '../../../../_component/ManagementDelete'
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
-    	auditTrail: [],
+    	level: [],
 
     	message: '',
       type: '',
@@ -73,12 +73,12 @@ class Layout extends Component {
   }
 
   fetchLevel(page){
-  	apiRequest('get', `/audit-trail/all?page=${page}`, false, this.props.token)
+  	apiRequest('get', `/site-instruction/all?page=${page}`, false, this.props.token)
   		.then((res)=>{
+        console.log(res.data)
   			if(res.data){
-          console.log(res.data)
   				this.setState({
-	  				auditTrail: res.data.data,
+	  				level: res.data.data,
             currentPage: res.data.currentPage,
             nextPage: res.data.nextPage,
             pageCount: res.data.pageCount,
@@ -104,8 +104,11 @@ class Layout extends Component {
         			<Grid.Cell large={12}  medium={12} small={12}>
         				<div className='element-container'>
         					<div className='title-text-container hide-on-large-x'>
-        						<div className='title'>History</div>
+        						<div className='title'>Site Instruction Management</div>
         						<div className='title-action'>
+        							<Link to='/admin/management/site-instruction/add'>
+        								<div className='button primary small'>Add New Site Instruction</div>
+        							</Link>
         						</div>
         					</div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
@@ -113,32 +116,42 @@ class Layout extends Component {
 	        				<Table hover nostripe>
 				        		<Table.Header>
 				        			<Table.Row>
-				        				<Table.HeaderCell>Date</Table.HeaderCell>
-                        <Table.HeaderCell>Module</Table.HeaderCell>
-                        <Table.HeaderCell>Action</Table.HeaderCell>
-				        				<Table.HeaderCell>User</Table.HeaderCell>
+                        <Table.HeaderCell>Instruction For</Table.HeaderCell>
+				        				<Table.HeaderCell>Title</Table.HeaderCell>
+				        				<Table.HeaderCell>Description</Table.HeaderCell>
+				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Header>
 				        		<Table.Body>
 				        			{
-					        			this.state.auditTrail.map((attr, index) =>{
+					        			this.state.level.map((attr, index) =>{
 					        				return (
 					        					<Table.Row key={index}>
-                              <Table.Cell>{moment(attr.date).format('MMMM DD, YYYY - LTS')}</Table.Cell>
-                              <Table.Cell>{attr.module}</Table.Cell>
-                              <Table.Cell>{attr.title}</Table.Cell>
+                              <Table.Cell>{attr.instructionFor}</Table.Cell>
 							        				<Table.Cell>
-                                {
-                                  attr.user ? attr.user.personalInformation ? 
-                                  (attr.user.personalInformation.firstName ? attr.user.personalInformation.firstName : '') 
-                                  + ' ' + 
-                                  (attr.user.personalInformation.middleName ? attr.user.personalInformation.middleName.substring(0,1) : '')
-                                  + ' ' + 
-                                  (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
-                                  : '' : ''
-                                }
-                               
-                              </Table.Cell>
+							        					<Link 
+							        						to={{ 
+    														    pathname: '/admin/management/site-instruction/edit', 
+    														    state: { id: attr._id } 
+    															}}>
+    															{attr.title}
+    														</Link>
+													    </Table.Cell>
+							        				<Table.Cell>{attr.description}</Table.Cell>
+							        				<Table.Cell isNarrowed>
+							        					<Link to={{ 
+															    pathname: '/admin/management/site-instruction/edit', 
+															    state: { id: attr._id } 
+															  }}>
+								        					<span>
+								        						<i className='fa fa-edit primary'></i>
+								        					</span>
+							        					</Link>
+							        				
+							        					<span onClick={()=>{this.toggleDelete('/site-instruction/delete/' + attr._id)}}>
+							        						<i className='fa fa-trash cancel'></i>
+							        					</span>
+							        				</Table.Cell>
 							        			</Table.Row>
 					        				)
 					        			})
@@ -149,10 +162,10 @@ class Layout extends Component {
 				        		</Table.Body>
 				        		<Table.Footer>
 				        			<Table.Row>
-				        				<Table.HeaderCell>Date</Table.HeaderCell>
-                        <Table.HeaderCell>Module</Table.HeaderCell>
-                        <Table.HeaderCell>Action</Table.HeaderCell>
-                        <Table.HeaderCell>User</Table.HeaderCell>
+                        <Table.HeaderCell>Instruction For</Table.HeaderCell>
+				        				<Table.HeaderCell>Title</Table.HeaderCell>
+				        				<Table.HeaderCell>Description</Table.HeaderCell>
+				        				<Table.HeaderCell isNarrowed></Table.HeaderCell>
 				        			</Table.Row>
 				        		</Table.Footer>
 			        	</Table>
@@ -173,6 +186,9 @@ class Layout extends Component {
         			</Grid.Cell>
         		</Grid.X>
         	</Grid>
+
+
+        	<ManagementDelete item='Site Instruction' close={this.toggleDelete} active={this.state.deleteActive} link={this.state.link} />
 
         </div>
     )

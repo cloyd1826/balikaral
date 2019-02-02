@@ -123,9 +123,7 @@ class Layout extends Component {
                               (result.uploader.personalInformation.middleName ? result.uploader.personalInformation.middleName.substring(0,1) : '')
                               + ' ' + 
                               (result.uploader.personalInformation.lastName ? result.uploader.personalInformation.lastName : '')
-                              : '' : '') + 
-                              (result.uploader.google ? result.uploader.google.name ? result.uploader.google.name : '' : '' ) +
-                              (result.uploader.facebook ? result.uploader.facebook.name ? result.uploader.facebook.name : '' : '' ),
+                              : '' : ''),
                     validation: result.validation,
                     validator: result.validator,
 

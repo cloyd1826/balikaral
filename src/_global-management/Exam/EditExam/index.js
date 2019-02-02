@@ -166,9 +166,7 @@ class Layout extends Component {
                               (result.uploader.personalInformation.middleName ? result.uploader.personalInformation.middleName.substring(0,1) : '')
                               + ' ' + 
                               (result.uploader.personalInformation.lastName ? result.uploader.personalInformation.lastName : '')
-                              : '' : '') +
-                              (result.google ? result.google.name ? result.google.name : '' : '' ) +
-                              (result.facebook ? result.facebook.name ? result.facebook.name : '' : '' ),
+                              : '' : ''),
                     validation: result.validation,
                     validator: (result.validator ? result.validator : [] ),
                 })
@@ -222,8 +220,7 @@ class Layout extends Component {
     formData.append('validation', this.state.validation )
     formData.append('questionDetails', this.state.question )
     formData.append('answer', this.state.answer )
-    formData.append('difficulty', this.state.difficulty )
-
+   
     formData.append('aDetails', this.state.a )
     formData.append('bDetails', this.state.b )
     formData.append('cDetails', this.state.c )
@@ -457,22 +454,7 @@ class Layout extends Component {
                                   </Select>
                                 </Grid.Cell>
 
-                                <Grid.Cell large={3} medium={12} small={12}>
-                                  
-                                  <Select
-                                    required 
-                                    type='text' 
-                                    label='Difficulty'
-                                    name='difficulty' 
-                                    value={this.state.difficulty} 
-                                    onChange={this.handleChange}
-                                    >
-                                    <option value='' disabled></option>
-                                    <option value='Easy'>Easy</option>
-                                    <option value='Average'>Average</option>
-                                    <option value='Difficult'>Difficult</option>
-                                  </Select>
-                                </Grid.Cell>
+                                
 
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                                     <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />

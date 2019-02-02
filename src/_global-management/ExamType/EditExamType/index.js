@@ -35,13 +35,7 @@ class Layout extends Component {
         learningStrandList: [],
         learningStrandName: '',
 
-        easyCount: 0,
-        averageCount: 0,
-        difficultCount: 0,
-
-        difficultyEasy: '',
-        difficultyAverage: '',
-        difficultyDifficult: '',
+       
 
         passingRate: '',
         totalHours: '',
@@ -49,7 +43,9 @@ class Layout extends Component {
         message: '',
         type: '',
         active: false,
-        buttonDisabled: false
+        buttonDisabled: false,
+
+        difficultyCount: 0
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -69,6 +65,7 @@ class Layout extends Component {
     this.changeQuestion = this.changeQuestion.bind(this)
 
     this.fetchDifficultyCount = this.fetchDifficultyCount.bind(this)
+
 
   }
   changeQuestion(e, max){
@@ -102,10 +99,7 @@ class Layout extends Component {
     let data = {
       learningStrand: this.state.learningStrand,
       learningStrandName: this.state.learningStrandName,
-      easy: this.state.difficultyEasy,
-      average: this.state.difficultyAverage,
-      difficult: this.state.difficultyDifficult,
-      total: parseInt(this.state.difficultyEasy) + parseInt(this.state.difficultyAverage) + parseInt(this.state.difficultyDifficult)
+      total: this.state.total
 
     }
     let checkIfExist = learningStrandQuestion.map((attr)=>{
@@ -120,9 +114,7 @@ class Layout extends Component {
       learningStrandQuestion: learningStrandQuestion,
       learningStrand: '',
       learningStrandName: '',
-      difficultyEasy: '',
-      difficultyAverage: '',
-      difficultyDifficult: '',
+      total: '',
     })
   }
   changeLearningStrand(e){
@@ -136,11 +128,7 @@ class Layout extends Component {
     this.setState({
       [name]: value,
       learningStrandName: learningStrandName,
-      difficultyEasy: 0,
-      difficultyAverage: 0,
-      difficultyDifficult: 0,
     })
-
     this.fetchDifficultyCount(this.state.level, value)
   }
   removeLearningStrand(index){
@@ -161,12 +149,24 @@ class Layout extends Component {
   
   componentDidMount(){
     if(this.props.location.state){
-
       this.fetchLearningStrand()
     }else{
       this.props.history.push('/')
     }
     
+  }
+  fetchDifficultyCount(level, learningStrand){
+    apiRequest('get', `/exam-management/difficulty-count?learningStrand=${learningStrand}&level=${level}`, false, this.props.token)
+      .then((res)=>{
+        if(res.data){
+          this.setState({
+            difficultyCount: res.data.difficultyCount
+          })  
+        }
+      })
+      .catch((err)=>{
+
+      })
   }
   fetchLearningStrand(){
     apiRequest('get', `/learning-strand/all`, false, this.props.token)
@@ -183,21 +183,8 @@ class Layout extends Component {
       })
     
   }
-  fetchDifficultyCount(level, learningStrand){
-    apiRequest('get', `/exam-management/difficulty-count?level=${level}&learningStrand=${learningStrand}`, false, this.props.token)
-      .then((res)=>{
-        if(res.data){
-          this.setState({
-            easyCount: res.data.easy,
-            averageCount: res.data.average,
-            difficultCount: res.data.difficult,
-          })  
-        }
-      })
-      .catch((err)=>{
-        
-      })
-  }
+
+ 
   fetchSingle(learningStrandList){
     apiRequest('get', `/exam-type-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
@@ -273,6 +260,7 @@ class Layout extends Component {
           this.formMessage('Error: ' + err.message, 'error', true, false)
         })
   }
+
   render() { 
     return (
         <div>
@@ -343,37 +331,14 @@ class Layout extends Component {
                         <Input
                           type='number'
                           min={0}
-                          max={this.state.easyCount}
-                          label={'Easy - (' + this.state.easyCount + ')'}
-                          name='difficultyEasy'
-                          value={this.state.difficultyEasy}
-                          onChange={(e)=>{this.changeQuestion(e,this.state.easyCount)}}
+                          max={this.state.difficultyCount}
+                          label={'Number of Questions - ' + this.state.difficultyCount}
+                          name='total'
+                          value={this.state.total}
+                          onChange={(e) => this.changeQuestion(e, this.state.difficultyCount)}
                         />
                       </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          
-                          type='number'
-                          min={0}
-                          max={this.state.averageCount}
-                          label={'Average - (' + this.state.averageCount + ')'}
-                          name='difficultyAverage'
-                          value={this.state.difficultyAverage}
-                          onChange={(e)=>{this.changeQuestion(e,this.state.averageCount)}}
-                        />
-                      </Grid.Cell>
-                      <Grid.Cell large={3} medium={12} small={12}>
-                        <Input
-                          
-                          type='number'
-                          min={0}
-                           max={this.state.difficultCount}
-                          label={'difficult - (' + this.state.difficultCount + ')'}
-                          name='difficultyDifficult'
-                          value={this.state.difficultyDifficult}
-                          onChange={(e)=>{this.changeQuestion(e,this.state.difficultCount)}}
-                        />
-                      </Grid.Cell>
+                      
                       <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                         <Button type='button' text='Add Learning Strand' className='secondary small' onClick={this.addLearningStrand} />
                       </Grid.Cell>
@@ -387,9 +352,6 @@ class Layout extends Component {
                           <Table.Header>
                             <Table.Row>
                               <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                              <Table.HeaderCell>Easy</Table.HeaderCell>
-                              <Table.HeaderCell>Average</Table.HeaderCell>
-                              <Table.HeaderCell>Difficult</Table.HeaderCell>
                               <Table.HeaderCell>Total</Table.HeaderCell>
                               <Table.HeaderCell isNarrowed></Table.HeaderCell>
                             </Table.Row>
@@ -400,9 +362,6 @@ class Layout extends Component {
                                 return (
                                   <Table.Row key={index}>
                                     <Table.Cell>{attr.learningStrandName}</Table.Cell>
-                                    <Table.Cell>{attr.easy}</Table.Cell>
-                                    <Table.Cell>{attr.average}</Table.Cell>
-                                    <Table.Cell>{attr.difficult}</Table.Cell>
                                     <Table.Cell>{attr.total}</Table.Cell>
                                     <Table.Cell isNarrowed>
                                         <span onClick={()=>{this.removeLearningStrand(index)}}>
@@ -417,9 +376,6 @@ class Layout extends Component {
                           <Table.Footer>
                             <Table.Row>
                               <Table.HeaderCell>Learning Strand</Table.HeaderCell>
-                              <Table.HeaderCell>Easy</Table.HeaderCell>
-                              <Table.HeaderCell>Average</Table.HeaderCell>
-                              <Table.HeaderCell>Difficult</Table.HeaderCell>
                               <Table.HeaderCell>Total</Table.HeaderCell>
                               <Table.HeaderCell isNarrowed></Table.HeaderCell>
                             </Table.Row>

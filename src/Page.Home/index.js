@@ -15,6 +15,8 @@ import SignUp from '../_userComponent/SignUp'
 import student from '../_images/student.png'
 import teacher from '../_images/teacher.png'
 
+import {Link} from 'react-router-dom'
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -192,43 +194,48 @@ class Home extends Component {
         <Grid.X>
           <Grid.Cell large={12} medium={12} small={12}>
           <Grid className='home-student-teacher-container'>
-        <Grid.X>
-            <Grid.Cell large={5} medium={6} small={12}>
-              <div className="cell-container text-right">
-                <h2 className="st-title text-right">Maging <span className="st-title-student">LEARNER</span></h2>
-                <p className="st-description text-right">
-                  {this.state.learnerDescription} 
-                </p>
-                <button className='st-button' onClick={this.toggleSignUp}>Magsimula</button>
-              </div>
-            </Grid.Cell>
-            <Grid.Cell large={7} medium={6} small={12}>
-              <div className="cell-container">
+              <Grid.X>
+                  <Grid.Cell large={5} medium={6} small={12}>
+                    <div className="cell-container text-right">
+                      <h2 className="st-title text-right">Maging <span className="st-title-student">LEARNER</span></h2>
+                      <p className="st-description text-right">
+                        {this.state.learnerDescription} 
+                      </p>
+                       <Link to='/instruction/Student'>
+                        <div className='st-link student'>Im a Student</div>
+                      </Link>
+                     
+                    </div>
+                  </Grid.Cell>
+                  <Grid.Cell large={7} medium={6} small={12}>
+                    <div className="cell-container">
 
-                <ImageLoader className="st-image" image={this.state.learnerDescriptionImage} />
+                      <ImageLoader className="st-image" image={this.state.learnerDescriptionImage} />
 
-               
-              </div>
-            </Grid.Cell>
-        </Grid.X>
-        <Grid.X>
-            <Grid.Cell large={7} medium={6} small={12}>
-              <div className="cell-container">
-              
-                 <ImageLoader className="st-image" image={this.state.contributorDescriptionImage} />               
-              </div>
-            </Grid.Cell>
-            <Grid.Cell large={5} medium={6} small={12}>
-              <div className="cell-container">
-                <h2 className="st-title">Maging <span  className="st-title-teacher">CONTRIBUTOR</span></h2>
-                <p className="st-description">
-                  {this.state.contributorDescription} 
-                </p>
-                <button className='st-button st-btn-teacher' onClick={this.toggleSignUp}>Magsimula</button>
-              </div>  
-            </Grid.Cell>
-        </Grid.X>
-      </Grid>
+                     
+                    </div>
+                  </Grid.Cell>
+              </Grid.X>
+              <Grid.X>
+                  <Grid.Cell large={7} medium={6} small={12}>
+                    <div className="cell-container">
+                    
+                       <ImageLoader className="st-image" image={this.state.contributorDescriptionImage} />               
+                    </div>
+                  </Grid.Cell>
+                  <Grid.Cell large={5} medium={6} small={12}>
+                    <div className="cell-container">
+                      <h2 className="st-title">Maging <span  className="st-title-teacher">CONTRIBUTOR</span></h2>
+                      <p className="st-description">
+                        {this.state.contributorDescription} 
+                      </p>
+                      <Link to='/instruction/Teacher'>
+                        <div className='st-link teacher'>Im a Contributor</div>
+                      </Link>
+                    </div>  
+                  </Grid.Cell>
+              </Grid.X>
+            </Grid>
           </Grid.Cell>
         </Grid.X>
       </Grid>
@@ -314,7 +321,7 @@ class Home extends Component {
 
             <div className='large-6 medium-12'>
                 <p className='bold subtitle-montserrat'>Tungkol Sa Programa</p>
-                <p className='context-montserrat'>
+                <p className='context-montserrat description'> 
                    {this.state.tungkolSaProgramaDescription}
                 </p>
                 <p className='context-montserrat bold'>©2018 Balik Aral</p>
