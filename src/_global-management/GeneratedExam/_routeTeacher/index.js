@@ -23,7 +23,10 @@ class Exam extends Component {
     return (
         <div>
           <div className='third-top-bar'>
-            <NavLink to='/teacher/generated-exam/learner' className='link' activeClassName='active'>
+            <NavLink to={{ 
+                pathname: '/teacher/generated-exam/learner', 
+                state: {learner: this.props.location.state.learner}
+              }} className='link' activeClassName='active'>
               List of Generated Exam
             </NavLink>
             {this.props.location.pathname === '/teacher/generated-exam/result' ? 

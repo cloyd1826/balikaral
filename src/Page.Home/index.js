@@ -17,6 +17,8 @@ import teacher from '../_images/teacher.png'
 
 import {Link} from 'react-router-dom'
 
+import Reviewer from './Reviewer'
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -26,7 +28,7 @@ class Home extends Component {
         pageLogo: '',
         tungkolSaProgramaDescription: '',
         tungkolSaProgramaLogo: '',
-       
+        passedExam: '',
         email: '',
         contact: '',
         
@@ -83,6 +85,7 @@ class Home extends Component {
               google: landingPage.google,
               userLength: res.data.userLength,
               teacher: res.data.teacher,
+              passedExam: res.data.passedExam
             })
            
           }
@@ -141,7 +144,7 @@ class Home extends Component {
             <Grid.Cell large={6} medium={12} small={12}>
               <div className='counter'>
                   <span>
-                    <p className='counter-number'>4728</p>
+                    <p className='counter-number'>{this.state.passedExam}</p>
                     <p className='counter-text'>Mga Pumasa</p>
                   </span>
                 </div>
@@ -268,7 +271,7 @@ class Home extends Component {
         <div className='grid-container fluid'>
           <div className='grid-x'>
             <div className='large-12'>
-              <div className='subtitle-montserrat bold home-title-text'>Mga Takda</div>
+              <div className='subtitle-montserrat bold home-title-text'>Mga Learning Strand</div>
             </div>
           </div>
           <div className='grid-x'>
@@ -288,6 +291,7 @@ class Home extends Component {
         </div>
       </div>
 
+      <Reviewer />
 
       <div className='footer-container'>
         <div className='grid-container fluid'>

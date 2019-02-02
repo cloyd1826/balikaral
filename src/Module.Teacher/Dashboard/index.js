@@ -29,11 +29,11 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
-                <Grid.Cell large={2} medium={6} small={12}>
-                  <Link to='/teacher/generated-exam/learner'>
+                 <Grid.Cell large={2} medium={6} small={12}>
+                  <Link to='/teacher/your-students'>
                     <div className='dashboard-link'>
-                      <span className='la la-list-ol'></span>
-                      <div className='link-title'>Learner Exam</div>
+                      <span className='la la-users'></span>
+                      <div className='link-title'>Your Students</div>
                     </div>
                   </Link>
                 </Grid.Cell>

@@ -1538,11 +1538,14 @@ tr.green {
 
 .footer-container {
   padding: 64px 10vw;
-  background: #f5f5f5; }
+  background: #4257b2;
+  color: #fff; }
   .footer-container p {
-    padding: 16px 0; }
+    padding: 16px 0;
+    color: #fff; }
   .footer-container .context-montserrat.description, .footer-container .description.form-subtitle, .footer-container .footer-contact span p.description, .footer-contact span .footer-container p.description {
-    font-size: 16px; }
+    font-size: 16px;
+    color: #fff; }
 
 .footer-contact {
   display: flex; }
@@ -1551,10 +1554,15 @@ tr.green {
     margin-right: 32px;
     padding: 0 16px; }
     .footer-contact span p {
-      color: rgba(0, 0, 0, 0.4);
+      color: #fff;
       padding: 4px 0;
-      font-size: 14px;
-      text-align: justify; }
+      font-size: 16px;
+      text-align: justify;
+      color: #fff; }
+
+.rev-cont {
+  padding: 64px 10vw;
+  background: #f5f5f5; }
 
 .ins {
   padding: 64px 10vw;
@@ -2795,7 +2803,7 @@ span.no-validator {
   padding: 37px 13px;
   position: relative;
   transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s;
-  border: dashed 2px #52b8d5; }
+  box-shadow: 0 0 0.3125rem 0 #dadee0; }
   .grid-reviewer-container .reviewer-info {
     padding: 4px 16px;
     display: flex;
