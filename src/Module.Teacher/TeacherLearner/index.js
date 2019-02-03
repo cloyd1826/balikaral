@@ -34,34 +34,13 @@ class Layout extends Component {
 
     }
     this.fetchUser = this.fetchUser.bind(this)
-    this.postTeacherLearner = this.postTeacherLearner.bind(this)
    	this.formMessage = this.formMessage.bind(this)
 
     this.changePage = this.changePage.bind(this)
 
-    this.toggleConfirm = this.toggleConfirm.bind(this)
+   
+  }
 
-  }
-  toggleConfirm(id){
-    this.setState({
-      modalConfirm: this.state.modalConfirm ? false : true,
-      selectedLearner: this.state.modalConfirm ? '' : id
-    })
-  }
-  postTeacherLearner(){
-    let data = {
-      teacher: this.props.user.id,
-      learner: this.state.selectedLearner
-    }
-    apiRequest('post', `/teacher-learner?userId=${this.props.user.id}`, data, this.props.token)
-      .then((res)=>{
-        this.formMessage('Data has been recorded', 'success', true, false)
-        this.toggleConfirm('')
-      })
-      .catch((err)=>{
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-      })
-  }
   changePage(page){
     this.setState({
       currentPage: page
@@ -77,7 +56,7 @@ class Layout extends Component {
   }
 
   fetchUser(page){
-  	apiRequest('get', `/user/all?type=Learner&page=${page}`, false, this.props.token)
+  	apiRequest('get', `/teacher-learner/all?teacher=${this.props.user.id}&page=${page}`, false, this.props.token)
   		.then((res)=>{
      
   			if(res.data){
@@ -128,35 +107,39 @@ class Layout extends Component {
 					        				return (
                             <Table.Row key={index}>
                               <Table.Cell>
-                                {attr.personalInformation ? 
-                                  attr.personalInformation.lastName && attr.personalInformation.firstName ? 
-                                  attr.personalInformation.lastName + ' ' + attr.personalInformation.firstName
-                                  : '' : ''}
+                                {attr.learner ? attr.learner.personalInformation ? 
+                                  attr.learner.personalInformation.lastName && attr.learner.personalInformation.firstName ? 
+                                  attr.learner.personalInformation.lastName + ' ' + attr.learner.personalInformation.firstName
+                                  : '' : '' : ''}
                               </Table.Cell>
                               <Table.Cell>
-                                {attr.personalInformation ? attr.personalInformation.learningCenter ? attr.personalInformation.learningCenter : '' : ''}
+                                {attr.learner ? attr.learner.personalInformation ? attr.learner.personalInformation.learningCenter ? attr.learner.personalInformation.learningCenter : '' : '' : ''}
                               </Table.Cell>
                               <Table.Cell>
-                                {attr.personalInformation ? attr.personalInformation.gradeLevel ? attr.personalInformation.gradeLevel : '' : ''}
+                                {attr.learner ? attr.learner.personalInformation ? attr.learner.personalInformation.gradeLevel ? attr.learner.personalInformation.gradeLevel : '' : '' : ''}
                               </Table.Cell>
                               
                               <Table.Cell isNarrowed>
-                                  {this.props.role === 'Administrator' ? 
                                     <Link 
                                       to={{ 
-                                        pathname: ( (this.props.role === 'Administrator' ? '/admin' : '') + (this.props.role === 'Teacher' ? '/teacher' : '')  +  '/learner-profile/exam-type'), 
-                                        state: { id: attr._id } 
+                                        pathname: '/teacher/learner-profile/exam-type', 
+                                        state: { id: attr.learner._id } 
                                       }}>
                                       <span>
-                                        <i className='fa fa-user primary'></i>
+                                        <i className='la la-folder-open-o primary'></i>
                                       </span>
                                     </Link>
-                                  : null}
-                                  {this.props.role === 'Teacher' ? 
-                                    <span onClick={() => this.toggleConfirm(attr._id)}>
-                                      <i className='la la-user-plus primary'></i>
-                                    </span>
-                                  : null}
+                                    <Link 
+                                      to={{ 
+                                        pathname: '/teacher/generated-exam/learner', 
+                                        state: { learner: attr.learner._id } 
+                                      }}>
+                                      <span>
+                                        <i className='la la-list-ul primary'></i>
+                                      </span>
+                                    </Link>
+
+                                 
                               </Table.Cell>
                             </Table.Row>
 					        				)
@@ -189,20 +172,6 @@ class Layout extends Component {
         			</Grid.Cell>
         		</Grid.X>
         	</Grid>
-
-          {this.state.modalConfirm ? 
-            <div className='modal'>
-              <div className='delete-modal'>
-                <span className='close-button la la-times-circle' onClick={() => this.toggleConfirm('')}></span>
-                <div className='delete-title text-center'>Set as your Learner ?</div>
-                <div className='context-montserrat text-center'>The student will be listed as one of your learners.</div>
-                <div className='delete-button-group'>
-                  <button type='button' className='button yes small' onClick={this.postTeacherLearner}>Ok</button>
-                  <button type='button' className='button no' onClick={() => this.toggleConfirm('')}>Cancel</button>
-                </div>
-              </div> 
-            </div>
-          : null}
 
         </div>
     )

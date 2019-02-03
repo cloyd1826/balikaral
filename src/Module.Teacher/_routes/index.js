@@ -3,6 +3,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import Dashboard from '../Dashboard'
+import TeacherLearner from '../TeacherLearner'
 
 import UserProfile from '../../Page.Profile/_routesTeacher'
 
@@ -28,6 +29,7 @@ const Routes = () => {
 
 
             <Route path='/teacher/learner-list' component={LearnerList} />
+            <Route path='/teacher/your-students' component={TeacherLearner} />
             <Route path='/teacher/learner-profile' component={LearnerProfile} />
         </div>
 

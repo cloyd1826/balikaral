@@ -45,9 +45,9 @@ class Sidebar extends Component {
                     <i className='la la-user'></i>
                     <span>Mga Learner</span>
                   </NavLink>
-                  <NavLink className='sidebar-link' activeClassName='active' to='/teacher/generated-exam/learner'>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/teacher/your-students'>
                     <i className='la la-list-ol'></i>
-                    <span>Learner Exam</span>
+                    <span>Your Students</span>
                   </NavLink>
                 </div>
                 <div className='sidebar-content'>

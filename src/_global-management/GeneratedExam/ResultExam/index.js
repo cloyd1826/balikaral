@@ -126,6 +126,7 @@ class Layout extends Component {
     }
   }
   render() { 
+   
     return (
         <div>
           <Grid fluid>
@@ -135,13 +136,23 @@ class Layout extends Component {
                   <div className='title-text-container'>
                     <div className='title'>Exam - {this.state.examType ? this.state.examType.examType ? this.state.examType.examType : '' : '' }</div>
                     <div className='title-action'>
-                      	<Link to={
-                      		(this.props.role === 'Learner' ? '/learner/exam/list' : '') 
-                      		+ (this.props.role === 'Administrator' ? '/admin/generated-exam/learner' : '')
-                      		+ (this.props.role === 'Teacher' ? '/teacher/generated-exam/learner' : '')
-                      	}>
-                        	<div className='button primary small'>List of Generated Exam</div>
-                     	</Link>
+                      	{this.props.role !== 'Teacher' ? 
+                          <Link to={
+                              (this.props.role === 'Learner' ? '/learner/exam/list' : '') 
+                              + (this.props.role === 'Administrator' ? '/admin/generated-exam/learner' : '')
+                            
+                            }>
+                              <div className='button primary small'>List of Generated Exam</div>
+                           </Link> : null}
+                        {this.props.role === 'Teacher' ? 
+                          <Link 
+                              to={{ 
+                                pathname: '/teacher/generated-exam/learner', 
+                                state: { learner: this.props.location.state.learner } 
+                              }}>
+                               <div className='button primary small'>List of Generated Exam</div>
+                          </Link>
+                        : null}
                     </div>
                   </div>
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>

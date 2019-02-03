@@ -109,6 +109,8 @@ class Layout extends Component {
 
     if(this.props.role === 'Learner'){
       routeToUse = `/generated-exam/all?examiner=${this.props.user.id}&status=${status}&type=${type}&page=${page}`
+    }else if(this.props.role === 'Teacher'){
+      routeToUse = `/generated-exam/all?examiner=${this.props.location.state.learner}&status=${status}&type=${type}&page=${page}`
     }else{
       routeToUse = `/generated-exam/all?status=${status}&type=${type}&page=${page}`
     }
@@ -248,7 +250,7 @@ class Layout extends Component {
                                  
                                   <Link to={{ 
                                     pathname: (this.props.role === 'Administrator' ? '/admin/generated-exam/result' : '') + (this.props.role === 'Teacher' ? '/teacher/generated-exam/result' : ''),
-                                    state: { id: attr._id } 
+                                    state: { id: attr._id, learner: (this.props.location.state.learner ? this.props.location.state.learner : '') } 
                                   }}>
                                     <span>
                                       <i className='la la-folder-open-o primary'></i>

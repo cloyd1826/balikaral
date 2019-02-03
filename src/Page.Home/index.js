@@ -22,6 +22,7 @@ import Masonry from 'react-masonry-component';
 import placeholderimg from '../_images/placeholder-image.png'
 import otherImg from '../_images/vol2.jpeg'
 
+import Reviewer from './Reviewer'
 
 class Home extends Component {
   constructor(props){
@@ -32,7 +33,7 @@ class Home extends Component {
         pageLogo: '',
         tungkolSaProgramaDescription: '',
         tungkolSaProgramaLogo: '',
-       
+        passedExam: '',
         email: '',
         contact: '',
         
@@ -89,6 +90,7 @@ class Home extends Component {
               google: landingPage.google,
               userLength: res.data.userLength,
               teacher: res.data.teacher,
+              passedExam: res.data.passedExam
             })
            
           }
@@ -148,7 +150,7 @@ class Home extends Component {
             <Grid.Cell large={6} medium={12} small={12}>
               <div className='counter'>
                   <span>
-                    <p className='counter-number'>4728</p>
+                    <p className='counter-number'>{this.state.passedExam}</p>
                     <p className='counter-text'>Mga Pumasa</p>
                   </span>
                 </div>
@@ -273,9 +275,9 @@ class Home extends Component {
       {/*about*/}
       <div className='subject-container'>
         <div className='grid-container fluid'>
-          <div className='grid-x justify-center'>
-            <div className='large-10'>
-              <div className='subtitle-montserrat bold home-title-text text-center'>Mga Takda</div>
+          <div className='grid-x'>
+            <div className='large-12'>
+              <div className='subtitle-montserrat bold home-title-text text-center'>Mga Learning Strand</div>
             </div>
           </div>
           <div className='grid-x justify-center'>
@@ -307,6 +309,7 @@ class Home extends Component {
         </div>
       </div>
 
+      <Reviewer />
 
       <div className='footer-container'>
         <div className='grid-container fluid'>
