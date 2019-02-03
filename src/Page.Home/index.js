@@ -17,6 +17,12 @@ import teacher from '../_images/teacher.png'
 
 import {Link} from 'react-router-dom'
 
+import Masonry from 'react-masonry-component';
+
+import placeholderimg from '../_images/placeholder-image.png'
+import otherImg from '../_images/vol2.jpeg'
+
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -95,6 +101,7 @@ class Home extends Component {
 
     apiRequest('get', `/learning-strand/fetchAllReviewer?page=1`, false, false)
       .then((res)=>{
+            console.log('ls data', res)
             if(res.data){
              this.setState({
                 learningStrand: res.data.data
@@ -266,24 +273,36 @@ class Home extends Component {
       {/*about*/}
       <div className='subject-container'>
         <div className='grid-container fluid'>
-          <div className='grid-x'>
-            <div className='large-12'>
-              <div className='subtitle-montserrat bold home-title-text'>Mga Takda</div>
+          <div className='grid-x justify-center'>
+            <div className='large-10'>
+              <div className='subtitle-montserrat bold home-title-text text-center'>Mga Takda</div>
             </div>
           </div>
-          <div className='grid-x'>
+          <div className='grid-x justify-center'>
+          <Masonry className="learning-strand-container large-10">
+            <div className="learning-strand-item">
+                <p className='ls-title'>Test Name Exam / Reviewer Longer Name</p>
+                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
+            </div>
+            <div className="learning-strand-item">
+                <img src={placeholderimg} className="ls-img" />
+                <p className='ls-title'>Test Name Exam / Reviewer</p>
+                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
+            </div>
+            <div className="learning-strand-item">
+                <img src={otherImg} className="ls-img" />
+                <p className='ls-title'>Test Name Exam</p>
+                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
+            </div>
           {this.state.learningStrand.map((attr, index)=>{
             return (
-                <div className='large-4 medium-6 small-12' key={index}>
-                  <div className='subject-card'>
-                    <div className='subject'>
-                      <div className='subject-title'>{attr.name}</div>
-                      <span className='reviewer'>{attr.reviewer.length} Reviewers</span>
-                    </div>
-                  </div>
+                <div key={index} className="learning-strand-item">
+                    <p className='ls-title'>{attr.name}</p>
+                    <span className='ls-reviewer'><i className="la la-book"></i>{attr.reviewer.length} Reviewers</span>
                 </div>
               )
             })}
+            </Masonry>
           </div>
         </div>
       </div>

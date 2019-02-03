@@ -128,7 +128,7 @@ class Home extends Component {
       infinite: true,
       speed: 500,
       slidesToShow: 3,
-      slidesToScroll: 3,
+      slidesToScroll: 1,
     };
     var settingsImage = {
       dots: true,
@@ -143,7 +143,17 @@ class Home extends Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: true
+      arrows: true,
+
+    };
+    var settingsWays = {
+      dots: true,
+      infinite: this.state.learningStrand.length < 3,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      arrows: true,
+
     };
 
     return (
@@ -210,23 +220,26 @@ class Home extends Component {
           
           <Grid.Cell large={12} medium={12} small={12}>
             <div className="teacher-student-slider-container">
-              <div className='subtitle-montserrat bold home-title-text text-center'>{this.state.instruction.length} easy ways to start using Balikaral</div>
-              <Slider {...settings}>
+              <div className='subtitle-montserrat bold home-title-text text-center easy-ways'>{this.state.instruction.length} easy ways to start using Balikaral</div>
+              <Slider {...settingsWays}>
                 {
                   this.state.instruction.map((attr, index)=>{
                     return(
-                      <div key={index} className='instruction-slide'>
-                        <div className='instruction-title'>
-                          <div className='title'>{index + 1}) {attr.title}</div>
-                          <div className='description'>{attr.description}</div>
+                      <div key={index}>
+                        <div className='instruction-slide'>
+                          <div className='instruction-title'>
+                            {attr.image ? attr.image !== '' ? <img src={`${config}/${attr.image}`} className="instruction-img" /> : "" : "" }
+                            <div className='title'>{index + 1}) {attr.title}</div>
+                            <div className='description'>{attr.description}</div>
+                          </div>
+
                         </div>
-                       
                       </div>
                     )
                   })
                 }
               </Slider>
-              <Slider {...settingsImage}>
+              {/* <Slider {...settingsImage}>
               
                  {
                   this.state.instruction.map((attr, index)=>{
@@ -238,15 +251,15 @@ class Home extends Component {
                   })
                 }
 
-              </Slider>
+              </Slider> */}
             </div>
           </Grid.Cell>
         </Grid.X>
       </Grid>
 
-      <Grid fluid >
+      <Grid full >
         <Grid.X className='ins'>
-          <Grid.Cell large={12} medium={12} small={12} className='subtitle-montserrat text-center bold'>
+          <Grid.Cell large={12} medium={12} small={12} className='subtitle-montserrat more-stud-rsrc text-center bold'>
             More {this.props.match.params.type.toLowerCase()} resources
           </Grid.Cell>
           <Grid.Cell large={6} medium={12} small={12}>
@@ -276,10 +289,10 @@ class Home extends Component {
           </Grid.Cell>
           <Grid.Cell large={12} medium={12} small={12}>
             <div className='introduce'>
-              <p className='subtitle-montserrat'>
+              <p className='subtitle-montserrat text-center'>
                 Introduce your colleagues to Balikaral with our presentation templates, handouts and videos.
               </p>
-              <button className='button primary'>Learn More</button>
+              <button className='button primary rsrc-btn'>Learn More</button>
             </div>
           </Grid.Cell>
         </Grid.X>
