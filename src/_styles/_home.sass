@@ -75,17 +75,20 @@
 	padding: 64px 10vw
 
 .instruction-slide
-
 	.instruction-title
 		box-shadow: 0 0 0.3125rem 0 #dadee0
 		margin: 16px
 		padding: 24px
 		margin-bottom: 16px
-		
+		background: #fff
+		.instruction-img
+			width: 100%
+			border: solid 1px #f9f9f9
 		.title
 			font-size: 20px
 			font-weight: 600
 			margin-bottom: 16px
+			margin-top: 10px
 		.description
 			font-size: 16px
 			font-weight: 500
@@ -100,6 +103,19 @@
 		width: 100%
 		padding: 32px
 
+.easy-ways
+	margin-bottom: 64px!important
+	position: relative!important
+	&::after
+		content: ' '
+		position: absolute
+		width: 100%
+		max-width: 100px
+		height: 5px
+		background: $blue-color
+		transform: translateX(-50%)
+		left: 50%
+		bottom: -20px
 
 .volunteer-card
 	overflow: hidden
@@ -214,7 +230,7 @@
 		justify-content: center
 		display: flex
 .subject-container
-	padding: 64px 10vw
+	padding: 64px 0px
 	.subject-card
 		padding: 8px 16px
 		.subject
@@ -282,18 +298,18 @@
 	text-align: center
 	background: #fff
 	.la
-		font-size: 48px
+		font-size: 122px
 		text-align: center
-		margin-bottom: 32px
+		margin-bottom: 14px
 		color: $blue-color
 	.context-montserrat
-		font-size: 22px
+		font-size: 18px
 		margin-bottom: 16px
 		color: $blue-color
 	.bold
-		color: #000
-		font-size: 24px
-		margin-bottom: 32px
+		color: #656565
+		font-size: 27px
+		margin-bottom: 23px
 
 .introduce
 	background: #3b4c9b
@@ -308,7 +324,62 @@
 .feedback
 	.fb
 		margin-bottom: 32px
-		color: rgba(0,0,0,0.8)
+		color: #636363
+		font-size: 26px
+		font-style: italic
+		position: relative
+		padding: 0px 61px
+		margin-bottom: 48px
+		&:after
+			content: ' '
+			position: absolute
+			bottom: -20px
+			width: 8%
+			background: $blue-color
+			height: 4px
+			transform: translateX(-50%)
+			left: 50%
 	.user-fb
 		font-size: 22px
 		margin-bottom: 32px
+		color: #7e7e7e
+
+.more-stud-rsrc
+	margin-bottom: 50px
+	color: #383838
+
+.rsrc-btn
+	max-width: 55%
+	width: 100%
+	min-width: 150px
+	display: block
+	margin: 0 auto
+	margin-top: 20px
+
+
+.slick-prev, .slick-next
+	position: absolute
+	top: 50%
+	&::before
+		color: $blue-color!important
+		font-size: 25px!important
+		font-family: 'FontAwesome'!important
+.slick-prev
+	left: 5%
+	&::before
+		content: '\f053'!important
+.slick-next 
+	right: 5%
+	&::before
+		content: '\f054'!important
+
+.slick-dots
+	li
+		button
+			&:before
+				font-size: 8px!important
+
+	.slick-active
+		button
+			&:before
+				color: $blue-color!important
