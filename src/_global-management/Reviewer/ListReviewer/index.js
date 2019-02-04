@@ -286,6 +286,7 @@ class Layout extends Component {
     apiRequest('get', routeToUse, false, this.props.token)
       .then((res)=>{
         if(res.data){
+          console.log(res)
           this.setState({
             reviewer: res.data.data,
             currentPage: res.data.currentPage,
@@ -426,9 +427,7 @@ class Layout extends Component {
                           let indexOfSelectedData = selectedData.map((sd)=>{
                             return sd._id
                           }).indexOf(attr._id)
-                          let isValidatedByUser = attr.validator.map((v)=>{
-                            return v.user._id
-                          }).indexOf(this.props.user.id)
+                         
                          
                           return (
                             <Table.Row key={index}>
@@ -465,31 +464,31 @@ class Layout extends Component {
                               </Table.Cell>  
                               }
                               <Table.Cell isNarrowed>
-                                {attr.fileType === 'PDF' ?
+                                {attr.fileType === 'PDF' && attr.pdf ?
                                   <span>
                                     <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-pdf-o primary'/></a>
                                   </span>
                                  : null}
 
-                                {attr.fileType === 'Powerpoint Presentation' ?
+                                {attr.fileType === 'Powerpoint Presentation' && attr.pdf ?
                                   <span>
                                     <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-powerpoint-o primary'/></a>
                                   </span>
                                  : null}
 
-                                {attr.fileType === 'Microsoft Word Document' ?
+                                {attr.fileType === 'Microsoft Word Document' && attr.pdf?
                                   <span>
                                     <a href={`${config}/${attr.pdf}`} download target='_blank'><i className='la la-file-word-o primary'/></a>
                                   </span>
                                  : null}
-                                {attr.fileType === 'Youtube Video' ?
+                                {attr.fileType === 'Youtube Video' && attr.youtubeVideo?
                                   <span>
                                     <a href={`https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'><i className='la la-youtube-play primary'/></a>
                                   </span>
                                  : null}
 
 
-                                 {(this.props.role === 'Administrator' || attr.uploader._id !== this.props.user.id) && this.props.role !== 'Learner' && !attr.validation ?
+                                 {(this.props.role === 'Administrator' && (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') !== this.props.user.id) && this.props.role !== 'Learner' && !attr.validation ?
                                    <Link to={{
                                       pathname: this.state.urlLinkToUse + '/validate',
                                       state: { id: attr._id }
@@ -510,7 +509,7 @@ class Layout extends Component {
                                     </span>
                                  </Link>
 
-                                 {(this.props.role === 'Administrator' || attr.uploader._id === this.props.user.id) && this.props.role !== 'Learner' ? 
+                                 {(this.props.role === 'Administrator' || (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') === this.props.user.id) && this.props.role !== 'Learner' ? 
                                    <Link to={{
                                       pathname: this.state.urlLinkToUse + '/edit',
                                       state: { id: attr._id }
@@ -531,7 +530,7 @@ class Layout extends Component {
 
                                 
 
-                                { this.props.role === 'Administrator' || attr.uploader._id === this.props.user.id ?
+                                { this.props.role === 'Administrator' || (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') === this.props.user.id ?
                                   <span onClick={()=>{this.toggleDelete('/reviewer-management/delete/' + attr._id, attr.fileUsage)}}>
                                     <i className='fa fa-trash cancel'></i>
                                   </span>

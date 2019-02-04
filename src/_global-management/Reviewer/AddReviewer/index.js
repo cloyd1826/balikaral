@@ -342,6 +342,7 @@ class Layout extends Component {
                         <Grid.Cell large={6} medium={12} small={12}>
                           <Input 
                             type='text'
+                            required
                             label='Youtube Video ID' 
                             placeholder='Youtube Video ID' 
                             name='youtubeVideo' 

@@ -323,9 +323,7 @@ class Layout extends Component {
                               let indexOfSelectedData = selectedData.map((sd)=>{
                                 return sd._id
                               }).indexOf(attr._id)
-  					          				let isValidatedByUser = attr.validator.map((v)=>{
-                                  return v.user._id
-                              }).indexOf(this.props.user.id)
+  					          				
 
                             return (
                               <Table.Row key={index}>
@@ -371,7 +369,7 @@ class Layout extends Component {
   							        				<Table.Cell isNarrowed>
 
 
-                                  { (this.props.role === 'Administrator' || this.props.user.id !== attr.uploader._id) && !attr.validation ?
+                                  { (this.props.role === 'Administrator' || this.props.user.id !== (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '')) && !attr.validation ?
                                     <Link to={{ 
                                       pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/validate', 
                                       state: { id: attr._id } 
@@ -382,7 +380,7 @@ class Layout extends Component {
                                     </Link>
                                   : null }
 
-                                  { this.props.role === 'Administrator' || this.props.user.id === attr.uploader._id ? 
+                                  { this.props.role === 'Administrator' || this.props.user.id === (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') ? 
                                     <Link to={{ 
                                       pathname: (this.props.role === 'Administrator' ? '/admin/teachers' : '') + (this.props.role === 'Teacher' ? '/teacher/management' : '') +  '/exam/edit', 
                                       state: { id: attr._id } 
@@ -393,7 +391,7 @@ class Layout extends Component {
                                       </Link>
                                     : null }
 
-                                    { this.props.role === 'Administrator' || this.props.user.id === attr.uploader._id ?
+                                    { this.props.role === 'Administrator' || this.props.user.id === (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') ?
                                       <span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
                                         <i className='fa fa-trash cancel'></i>
                                       </span>
