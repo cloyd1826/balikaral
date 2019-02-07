@@ -251,14 +251,14 @@ class Layout extends Component {
 
     //learner
     if(this.props.location.pathname.match('/learner/resources/reviewer') && this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
       this.setState({
         urlLinkToUse: '/learner/resources/reviewer',
         header: 'Reviewer'
       })
     }
     if(this.props.location.pathname.match('/learner/resources/learning-resources') && this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
        this.setState({
         urlLinkToUse: '/learner/resources/learning-resources',
         header: 'Learning Resources'
@@ -267,14 +267,14 @@ class Layout extends Component {
 
     // learner without pre-test
     if(this.props.location.pathname.match('/learner-start/resources/reviewer') && !this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&fileType=${fileType}&page=${page}&fileUsage=Reviewer`
       this.setState({
         urlLinkToUse: '/learner-start/resources/reviewer',
         header: 'Reviewer'
       })
     }
     if(this.props.location.pathname.match('/learner-start/resources/learning-resources') && !this.props.hadPreTest){
-      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&level=${level}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
+      routeToUse = `/reviewer-management/all?validation=true&level=${this.props.level}&learningStrand=${learningStrand}&fileType=${fileType}&page=${page}&fileUsage=Learning Resources`
        this.setState({
         urlLinkToUse: '/learner-start/resources/learning-resources',
         header: 'Learning Resources'
