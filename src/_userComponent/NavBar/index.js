@@ -63,9 +63,7 @@ class Layout extends Component {
 		      	<div className='grid-x'>
 		      		<div className='large-6 medium-12 nav-icon-container'>
 		      			<Link to='/'>
-		      				
 		      				<ImageLoader style={{width: "130px",backgroundColor: "white"}} className='nav-icon' image={this.props.logo ? this.props.logo : ''} />
-		      			
 		      			</Link>
 		      		</div>
 		      		<div className='large-6 medium-12 '>
