@@ -64,7 +64,7 @@ class Layout extends Component {
 		      		<div className='large-6 medium-12 nav-icon-container'>
 		      			<Link to='/'>
 		      				
-		      				<ImageLoader className='nav-icon' image={this.props.logo ? this.props.logo : ''} />
+		      				<ImageLoader style={{width: "130px",backgroundColor: "white"}} className='nav-icon' image={this.props.logo ? this.props.logo : ''} />
 		      			
 		      			</Link>
 		      		</div>
