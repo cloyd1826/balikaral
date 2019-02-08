@@ -282,20 +282,6 @@ class Home extends Component {
           </div>
           <div className='grid-x justify-center'>
           <Masonry className="learning-strand-container large-10">
-            {/* <div className="learning-strand-item">
-                <p className='ls-title'>Test Name Exam / Reviewer Longer Name</p>
-                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
-            </div>
-            <div className="learning-strand-item">
-                <img src={placeholderimg} className="ls-img" />
-                <p className='ls-title'>Test Name Exam / Reviewer</p>
-                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
-            </div>
-            <div className="learning-strand-item">
-                <img src={otherImg} className="ls-img" />
-                <p className='ls-title'>Test Name Exam</p>
-                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
-            </div> */}
           {this.state.learningStrand.map((attr, index)=>{
             return (
                 <div key={index} className="learning-strand-item">
