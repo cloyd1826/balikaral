@@ -1749,8 +1749,7 @@ tr.green {
   margin-right: 1rem; }
 
 .nav-icon-container {
-  align-items: center;
-  display: flex; }
+  align-items: left; }
 
 .nav-container {
   padding: 4px 5vw;
@@ -3530,7 +3529,9 @@ canvas {
   .table-filter {
     flex-wrap: wrap !important; }
   .balik, .aral, .user-name {
-    display: none !important; }
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important; }
   .secondary-top-bar, .third-top-bar {
     display: none; } }
 

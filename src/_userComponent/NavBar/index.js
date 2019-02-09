@@ -61,12 +61,12 @@ class Layout extends Component {
 		    <div className='nav-container'>
 		      <div className='grid-container fluid'>
 		      	<div className='grid-x'>
-		      		<div className='large-6 medium-12 nav-icon-container'>
+		      		<div className='large-6 medium-6 small-12 nav-icon-container'>
 		      			<Link to='/'>
 		      				<ImageLoader style={{width: "130px",backgroundColor: "white"}} className='nav-icon' image={this.props.logo ? this.props.logo : ''} />
 		      			</Link>
 		      		</div>
-		      		<div className='large-6 medium-12 '>
+		      		<div className='large-6 medium-6 small-12'>
 		      			<div className='link-container'>
 		      				{this.props.isLoggedIn ? 
 		      					this.state.profile ? <UserProfile /> : null
