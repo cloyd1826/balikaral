@@ -13,6 +13,7 @@ import Button from '../../../_component/Form/Button'
 import apiRequest from '../../../_axios'
 
 import { connect } from 'react-redux'
+import SelectLevel from '../../../_special-form/SelectLevel'
 
 
 class Layout extends Component {
@@ -77,13 +78,15 @@ class Layout extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       middleName: this.state.middleName,
-      houseNoStreet: this.state.houseNoStreet,
-      barangay: this.state.barangay,
-      city: this.state.city,
-      province: this.state.province,
-      zipcode: this.state.zipcode ,
-      userType: this.state.userType 
+      userType: this.state.userType,
+      gender: this.state.gender,
+      birthday: this.state.birthday,
+      civilStatus: this.state.civilStatus,
     }
+    if(this.state.userType === 'Learner'){
+      data = {...data, level: this.state.level, learningCenter: this.state.learningCenter}
+    }
+    
     apiRequest('post', `/signup?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           this.formMessage('New User has been created', 'success', true, false)
@@ -149,6 +152,9 @@ class Layout extends Component {
                                     <option value='Teacher'>Teacher</option>
                                   </Select>
                                 </Grid.Cell>
+
+
+                                 
                                
                                 
                                 <Grid.Cell large={4} medium={6}  small={12}>
@@ -178,7 +184,68 @@ class Layout extends Component {
                                     onChange={this.handleChange}
                                      />
                                 </Grid.Cell>
-                                 
+                                 <Grid.Cell large={4} medium={12} small={12}>
+                                  <Select
+                                    label='Gender'
+                                    required
+                                    name='gender'
+                                    value={this.state.gender}
+                                    onChange={this.handleChange}
+                                    >
+                                    <option value=''></option>
+                                    <option value='Male'>Male</option>
+                                    <option value='Female'>Female</option>
+                                  </Select>
+                                </Grid.Cell>
+                                <Grid.Cell large={4} medium={12} small={12}>
+                                  <Select
+                                    label='Civil Status'
+                                    name='civilStatus'
+                                    value={this.state.civilStatus}
+                                    onChange={this.handleChange}
+                                    >
+                                    <option value=''></option>
+                                    <option value='Single'>Single</option>
+                                    <option value='Married'>Married</option>
+                                    <option value='Divorced'>Divorced</option>
+                                    <option value='Widowed'>Widowed</option>
+                                  </Select>
+                                </Grid.Cell>
+                                 <Grid.Cell large={4} medium={12} small={12}>
+                                  <Input 
+                                    type='date'
+                                    label='Birthday'
+                                    required
+                                    name='birthday'
+                                    value={this.state.birthday}
+                                    onChange={this.handleChange}
+                                     />
+                                </Grid.Cell>
+                              </Grid.X>
+                              {this.state.userType === 'Learner' ? 
+                                <Grid.X>
+                                  <Grid.Cell large={4} medium={12} small={12}>
+                                    <SelectLevel
+                                      label='Level'
+                                      required
+                                      name='level'
+                                      value={this.state.level}
+                                      onChange={this.handleChange}
+                                      />
+                                  </Grid.Cell>
+                                  <Grid.Cell large={4} medium={12} small={12}>
+                                    <Input
+                                      label='Learning Center'
+                                      required
+                                      name='learningCenter'
+                                      value={this.state.learningCenter}
+                                      onChange={this.handleChange}
+                                      />
+                                  </Grid.Cell>
+
+                                </Grid.X>
+                              : null}
+                              <Grid.X>
                                  
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                                     <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />

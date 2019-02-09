@@ -214,8 +214,8 @@ class Layout extends Component {
                                 + ' ' + 
                                 (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
                                 : '' : ''}
-                                {attr.examiner ? attr.examiner.google ? attr.examiner.google.name ? attr.examiner.google.name : '' : '' : '' }
-                                {attr.examiner ? attr.examiner.facebook ? attr.examiner.facebook.name ? attr.examiner.facebook.name : '' : '' : '' }
+                                {attr.examiner ? attr.examiner.google ? attr.examiner.google.name ? attr.examiner.google.name : (attr.examiner.google.email ? attr.examiner.google.email : '' ) : '' : '' }
+                                {attr.examiner ? attr.examiner.facebook ? attr.examiner.facebook.name ? attr.examiner.facebook.name : (attr.examiner.facebook.email ? attr.examiner.facebook.email : '') : '' : '' }
                                
                               </Table.Cell>
 
