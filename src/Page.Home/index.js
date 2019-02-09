@@ -282,7 +282,6 @@ class Home extends Component {
           </div>
           <div className='grid-x justify-center'>
           <Masonry className="learning-strand-container large-10">
-            
           {this.state.learningStrand.map((attr, index)=>{
             return (
                 <div key={index} className="learning-strand-item">

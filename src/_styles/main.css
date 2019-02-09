@@ -1770,8 +1770,7 @@ tr.green {
   margin-right: 1rem; }
 
 .nav-icon-container {
-  align-items: center;
-  display: flex; }
+  align-items: left; }
 
 .nav-container {
   padding: 4px 5vw;
@@ -1780,9 +1779,10 @@ tr.green {
   z-index: 998;
   box-shadow: 0px 0px 3px #a1a1a1; }
   .nav-container .nav-icon {
-    width: 50px;
+    width: 130px;
     padding: 1em;
     height: 32px;
+    background-color: white;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center; }
@@ -3550,7 +3550,9 @@ canvas {
   .table-filter {
     flex-wrap: wrap !important; }
   .balik, .aral, .user-name {
-    display: none !important; }
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important; }
   .secondary-top-bar, .third-top-bar {
     display: none; } }
 
