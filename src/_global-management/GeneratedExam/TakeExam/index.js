@@ -206,7 +206,7 @@ class Layout extends Component {
         }
         percentagePerLearningStrand = [...percentagePerLearningStrand, data]
       })
-      if(Math.round((lengthOfCorrectAnswer.length/exam.length) * 100) < 90 ){
+      if(Math.round((lengthOfCorrectAnswer.length/exam.length) * 100) < 60 ){
         //retake
         data = {...data, status: 'Retake', percentagePerLearningStrand: percentagePerLearningStrand, timeRemaining: timeRemaining,}
       }else{
