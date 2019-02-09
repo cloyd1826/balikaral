@@ -37,13 +37,16 @@ class Layout extends Component {
         message: '',
         type: '',
         active: false,
-        buttonDisabled: false
+        buttonDisabled: false,
+        isEmailExist: false
       
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
  
     this.formMessage = this.formMessage.bind(this)
+
+    this.checkEmail = this.checkEmail.bind(this)
   }
 
   formMessage(message, type, active, button){
@@ -68,6 +71,28 @@ class Layout extends Component {
     this.setState({
         [name]: value
     })
+  }
+  checkEmail(){
+    console.log(this.state.email)
+    apiRequest('get', `/user/check-email?type=local&email=${this.state.email}`, false, this.props.token)
+      .then((res)=>{
+        console.log(res)
+        if(res.data.count > 0){
+          this.setState({
+            isEmailExist: true
+          })
+          this.formMessage('Email Already Exist!', 'warning', true, true)
+          
+        }else{
+          this.setState({
+            isEmailExist: false
+          })
+          this.formMessage('', '', false, false)
+        }
+      })
+      .catch((err)=>{
+
+      })
   }
   handleSubmit(e){
     e.preventDefault()
@@ -126,6 +151,7 @@ class Layout extends Component {
                                     name='email'
                                     value={this.state.email}
                                     onChange={this.handleChange}
+                                    onBlur={this.checkEmail}
                                     />
                                 </Grid.Cell>
                                 <Grid.Cell large={4} medium={6} small={12}>
@@ -248,7 +274,7 @@ class Layout extends Component {
                               <Grid.X>
                                  
                                 <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
-                                    <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />
+                                    <Button disabled={this.state.buttonDisabled || this.state.isEmailExist} type='submit' text='Save' className='secondary small' />
                                     <Link to='/admin/user/list'>
                                         <Button type='button' text='Return' className='cancel small'/>
                                     </Link>

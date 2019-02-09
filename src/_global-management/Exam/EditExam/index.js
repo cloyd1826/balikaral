@@ -549,7 +549,6 @@ class Layout extends Component {
                                         </div>
 
                                     </div>
-                                    <div className='difficulty'>Difficulty: {this.state.difficulty}</div>
                                   </div>
                                 </Grid.Cell>
                             </Grid.X>

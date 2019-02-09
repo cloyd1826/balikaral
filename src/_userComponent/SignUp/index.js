@@ -386,6 +386,7 @@ class Layout extends Component{
                       <option value='' disabled></option>
                       <option value='Learner'>Learner</option>
                       <option value='Teacher'>Teacher</option>
+                      <option value='Administrator'>Administrator</option>
                     </Select>
                   </Grid.Cell>
                   
