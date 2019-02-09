@@ -10,7 +10,7 @@ import Slider from "react-slick"
 import ImageLoader from '../_component/ImageLoader'
 import Grid from '../_component/Grid'
 
-import SignUp from '../_userComponent/SignUp'
+import LogIn from '../_userComponent/LogIn'
 
 import student from '../_images/student.png'
 import teacher from '../_images/teacher.png'
@@ -121,7 +121,7 @@ class Home extends Component {
       <div className='home-container'>
         <NavBar logo={this.state.logo} />
 
-        { this.state.signUp ? <SignUp close={this.toggleSignUp}/> : null }
+        { this.state.signUp ? <LogIn close={this.toggleSignUp}/> : null }
         
         <Grid full>
           <Grid.X className='home-banner'>
