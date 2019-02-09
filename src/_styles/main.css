@@ -1583,6 +1583,27 @@ tr.green {
 .rev-cont {
   padding: 64px 10vw;
   background: #f5f5f5; }
+  .rev-cont .learning-strand-item {
+    background: #fff; }
+    .rev-cont .learning-strand-item .user {
+      display: flex;
+      align-items: center; }
+      .rev-cont .learning-strand-item .user .image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 28px;
+        margin-right: 8px;
+        width: 28px;
+        border-radius: 50%; }
+      .rev-cont .learning-strand-item .user .name {
+        font-size: 16px;
+        color: #52b8d5;
+        margin-right: 8px; }
+      .rev-cont .learning-strand-item .user .role {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.4); }
 
 .ins {
   padding: 64px 10vw;

@@ -17,7 +17,7 @@ class ErrorPage extends Component {
         <div className='error-container-page'>
           <span>
           <i className='la la-code' />
-          <div className='message'>An error occured.</div>
+          <div className='message'>Page is undergoing maintenance.</div>
           </span>
         </div>
         

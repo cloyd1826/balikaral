@@ -18,6 +18,7 @@ class Input extends Component {
 						min={this.props.min ? this.props.min : ''}
 						max={this.props.max ? this.props.max : ''}
 						onChange={this.props.onChange ? this.props.onChange : '' }
+						onBlur={this.props.onBlur ? this.props.onBlur : ''}
 						value={this.props.value}
 						name={this.props.name}
 						/>

@@ -58,6 +58,8 @@ class Layout extends Component{
       isSocialConfirm: false,
 
       signIn: false,
+
+      isEmailExist: false,
     }
     this.componentClicked = this.componentClicked.bind(this)
 
@@ -74,6 +76,40 @@ class Layout extends Component{
 
     this.createNewAccount = this.createNewAccount.bind(this)
 
+    this.checkEmail = this.checkEmail.bind(this)
+
+  }
+  checkEmail(socEmail, socType){
+
+   
+    let email = this.state.email
+    let type = 'local'
+    if(socEmail){
+      email = socEmail
+    }
+   
+    if(socType){
+      type = socType
+    }
+   
+    
+
+    apiRequest('get', `/user/check-email?type=${type}&email=${email}`, false, this.props.token)
+      .then((res)=>{
+        if(res.data.count > 0){
+          this.setState({
+            isEmailExist: true
+          })
+          
+        }else{
+          this.setState({
+            isEmailExist: false
+          })
+        }
+      })
+      .catch((err)=>{
+
+      })
   }
   formMessage(message, type, active, button){
     this.setState({
@@ -200,6 +236,7 @@ class Layout extends Component{
 
   }
   responseFacebook(res){
+
     this.setState({
       isFacebookConfirm: true,
       isGoogleConfirm: false,
@@ -209,9 +246,9 @@ class Layout extends Component{
       image: res.picture.data.url,
       id: res.id
     })
+    this.checkEmail(res.email, 'facebook')
   }
   responseGoogle(res){
-    console.log(res)
     this.setState({
       isGoogleConfirm: true,
       isFacebookConfirm: false,
@@ -221,7 +258,7 @@ class Layout extends Component{
       image: res.profileObj.imageUrl,
       id: res.googleId
     })
-    console.log(res)
+    this.checkEmail(res.profileObj.email, 'google')
   }
   render() {
     return (
@@ -279,10 +316,19 @@ class Layout extends Component{
                     <div className='log-in-border'>
                       <div className='context-montserrat'>OR EMAIL</div>
                     </div>
+                    
                   </Grid.Cell>
+                  
                 </Grid.X>
                <Form onSubmit={this.handleSubmit}>
+                <Grid.X>
+                  <Grid.Cell  large={12} medium={12} small={12}>
+                    <FormMessage type='warning' active={this.state.isEmailExist}  formMessage={this.formMessage}>
+                        {this.state.isSocialConfirm ? 'This account' : 'Email'} already exist!
+                    </FormMessage>
+                  </Grid.Cell>
 
+                </Grid.X>
                {!this.state.isSocialConfirm ? 
                   <Grid.X>
                     <Grid.Cell large={12} medium={12} small={12}>
@@ -292,9 +338,11 @@ class Layout extends Component{
                         placeholder='email@mail.com'
                         required
                         name='email'
+                        onBlur={(e) => this.checkEmail('', 'local')}
                         value={this.state.email}
                         onChange={this.handleChange}
                         />
+                        
                     </Grid.Cell>
                     <Grid.Cell large={12} medium={12} small={12}>
                       <Input 
@@ -450,7 +498,7 @@ class Layout extends Component{
                       </div>
                   </Grid.Cell>
                   <Grid.Cell large={12} medium={12} small={12} className='sign-up-button'>
-                    <button type='submit' disabled={!this.state.checked} className='button sign-up'>Sign up</button>
+                    <button type='submit' disabled={!this.state.checked || this.state.isEmailExist} className='button sign-up'>Sign up</button>
                   </Grid.Cell>
                 </Grid.X>
                 </Form>

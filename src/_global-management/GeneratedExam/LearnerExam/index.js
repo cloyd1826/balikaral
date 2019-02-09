@@ -117,6 +117,7 @@ class Layout extends Component {
 
   	apiRequest('get', routeToUse, false, this.props.token)
   		.then((res)=>{
+        console.log(res)
   			if(res.data){
         
   				this.setState({
@@ -213,6 +214,8 @@ class Layout extends Component {
                                 + ' ' + 
                                 (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
                                 : '' : ''}
+                                {attr.examiner ? attr.examiner.google ? attr.examiner.google.name ? attr.examiner.google.name : '' : '' : '' }
+                                {attr.examiner ? attr.examiner.facebook ? attr.examiner.facebook.name ? attr.examiner.facebook.name : '' : '' : '' }
                                
                               </Table.Cell>
 
@@ -250,7 +253,7 @@ class Layout extends Component {
                                  
                                   <Link to={{ 
                                     pathname: (this.props.role === 'Administrator' ? '/admin/generated-exam/result' : '') + (this.props.role === 'Teacher' ? '/teacher/generated-exam/result' : ''),
-                                    state: { id: attr._id, learner: (this.props.location.state.learner ? this.props.location.state.learner : '') } 
+                                    state: { id: attr._id, learner: (this.props.location ? this.props.location.state ? this.props.location.state.learner ? this.props.location.state.learner : '' : '' : '' ) } 
                                   }}>
                                     <span>
                                       <i className='la la-folder-open-o primary'></i>

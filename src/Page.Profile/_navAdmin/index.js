@@ -30,6 +30,11 @@ class Layout extends Component {
           <NavLink 
             className='link' 
             activeClassName='active' 
+            to={ { pathname:'/admin/user-view/update-learner-info', state: { id: this.props.location.state.id } } }
+            >Other Information</NavLink> 
+          <NavLink 
+            className='link' 
+            activeClassName='active' 
             to={ { pathname:'/admin/user-view/audit-trail', state: { id: this.props.location.state.id } } }
             >History</NavLink>
         </div>

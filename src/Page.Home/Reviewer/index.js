@@ -10,6 +10,9 @@ import apiRequest from '../../_axios'
 import config from '../../_config'
 
 import { connect } from 'react-redux'
+
+import Masonry from 'react-masonry-component';
+
 class Layout extends Component {
   constructor(props) {
     super(props)
@@ -54,50 +57,62 @@ class Layout extends Component {
   }
   render() { 
     return (
-        <div className='rev-cont'>
+
+      
+
+        <div className='subject-container rev-cont'>
           <Grid fluid>
           	<Grid.X>
           		<Grid.Cell  large={12} medium={12} small={12}>
-          			<div className='subtitle-montserrat bold home-title-text'>Mga Reviewer</div>
+          			<div className='subtitle-montserrat bold home-title-text text-center'>Mga Reviewer</div>
           		</Grid.Cell>
           	</Grid.X>
             <Grid.X>
-            	{this.state.reviewer.map((attr, index)=>{
-            		return(
-            			<Grid.Cell key={index} large={4} medium={6} small={12}>
-				          <div className='grid-reviewer-container border-solid'>
-				            <div className='reviewer-info'>
-				              <div className='learning-strand'>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</div>
-				              <div className='user'>
-				                <ImageLoader 
-				                  className='image' 
-				                  image={
-				                      attr.uploader ? attr.uploader.personalInformation ? attr.uploader.personalInformation.image ? attr.uploader.personalInformation.image : '' : '' : ''   
-				                    }
-				                />
-				                <div className='name'>
-				                  { attr.uploader ? attr.uploader.personalInformation ? 
-				                    (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
-				                    + ' ' + 
-				                    (attr.uploader.personalInformation.middleName ? (attr.uploader.personalInformation.middleName.substring(0,1) + '. ') : '')
-				                    + ' ' + 
-				                    (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
-				                   
-				                    : '' : ''}
-				                </div>
-				               
+              <Masonry className="learning-strand-container large-12">
+                  {this.state.reviewer.map((attr, index)=>{
+                return(
+                    <div className="learning-strand-item" key={index}>
+                        <a href={attr.fileType !== 'Youtube Video' ? `${config}/${attr.pdf}` : `https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'>
+                         <p className='ls-title'>{attr.description}</p>
+                        </a>
+                         <div className='user'>
+                            <ImageLoader 
+                              className='image' 
+                              image={
+                                  attr.uploader ? attr.uploader.personalInformation ? attr.uploader.personalInformation.image ? attr.uploader.personalInformation.image : '' : '' : ''   
+                                }
+                            />
+                            <div className='name'>
+                              { attr.uploader ? attr.uploader.personalInformation ? 
+                                (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
+                                + ' ' + 
+                                (attr.uploader.personalInformation.middleName ? (attr.uploader.personalInformation.middleName.substring(0,1) + '. ') : '')
+                                + ' ' + 
+                                (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
+                               
+                                : '' : ''}
+                            </div>
+                           
 
 
-				              </div>
+                          </div>
+                        
+                    </div>
 
-				            </div>
-				            <a href={attr.fileType !== 'Youtube Video' ? `${config}/${attr.pdf}` : `https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'>
-				             <div className='reviewer-title'>{attr.description}</div>
-				            </a>
-				          </div>
-		        		</Grid.Cell>
-            		)
-            	})}
+                )
+              })}
+                   
+                   
+
+                
+                </Masonry>
+
+
+
+
+
+
+            			
             </Grid.X>
             <Grid.X>
              <Grid.Cell large={12}  medium={12} small={12}>
@@ -132,3 +147,88 @@ const mapStateToProps = (state) => {
 }
 const ListReviewer = connect(mapStateToProps)(Layout)
 export default ListReviewer
+
+
+/*
+<Grid.Cell key={index} large={4} medium={6} small={12}>
+                  <div className='grid-reviewer-container border-solid'>
+                    <div className='reviewer-info'>
+                      <div className='learning-strand'>{attr.learningStrand ? attr.learningStrand.name ? attr.learningStrand.name : '' : ''}</div>
+                      <div className='user'>
+                        <ImageLoader 
+                          className='image' 
+                          image={
+                              attr.uploader ? attr.uploader.personalInformation ? attr.uploader.personalInformation.image ? attr.uploader.personalInformation.image : '' : '' : ''   
+                            }
+                        />
+                        <div className='name'>
+                          { attr.uploader ? attr.uploader.personalInformation ? 
+                            (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
+                            + ' ' + 
+                            (attr.uploader.personalInformation.middleName ? (attr.uploader.personalInformation.middleName.substring(0,1) + '. ') : '')
+                            + ' ' + 
+                            (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
+                           
+                            : '' : ''}
+                        </div>
+                       
+
+
+                      </div>
+
+                    </div>
+                    <a href={attr.fileType !== 'Youtube Video' ? `${config}/${attr.pdf}` : `https://www.youtube.com/watch?v=${attr.youtubeVideo}`} target='_blank'>
+                     <div className='reviewer-title'>{attr.description}</div>
+                    </a>
+                  </div>
+                </Grid.Cell>
+
+
+<div className='subject-container'>
+        <div className='grid-container fluid'>
+          <div className='grid-x'>
+            <div className='large-12'>
+              <div className='subtitle-montserrat bold home-title-text text-center'>Mga Learning Strand</div>
+            </div>
+          </div>
+          <div className='grid-x justify-center'>
+          <Masonry className="learning-strand-container large-10">
+            <div className="learning-strand-item">
+                <p className='ls-title'>Test Name Exam / Reviewer Longer Name</p>
+                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
+            </div>
+            <div className="learning-strand-item">
+                <img src={placeholderimg} className="ls-img" />
+                <p className='ls-title'>Test Name Exam / Reviewer</p>
+                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
+            </div>
+            <div className="learning-strand-item">
+                <img src={otherImg} className="ls-img" />
+                <p className='ls-title'>Test Name Exam</p>
+                <span className='ls-reviewer'><i className="la la-book"></i>38 Reviewers</span>
+            </div>
+          {this.state.learningStrand.map((attr, index)=>{
+            return (
+                <div key={index} className="learning-strand-item">
+                    <p className='ls-title'>{attr.name}</p>
+                    <span className='ls-reviewer'><i className="la la-book"></i>{attr.reviewer.length} Reviewers</span>
+                </div>
+              )
+            })}
+            </Masonry>
+          </div>
+        </div>
+      </div>
+
+      <span className='ls-reviewer'><i className="la la-book"></i>
+                           { attr.uploader ? attr.uploader.personalInformation ? 
+                            (attr.uploader.personalInformation.firstName ? attr.uploader.personalInformation.firstName : '') 
+                            + ' ' + 
+                            (attr.uploader.personalInformation.middleName ? (attr.uploader.personalInformation.middleName.substring(0,1) + '. ') : '')
+                            + ' ' + 
+                            (attr.uploader.personalInformation.lastName ? attr.uploader.personalInformation.lastName : '')
+                           
+                            : '' : ''}
+
+                        </span>
+*/

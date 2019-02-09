@@ -10,8 +10,7 @@ import Input from '../../_component/Form/Input'
 import Button from '../../_component/Form/Button'
 import FormMessage from '../../_component/Form/FormMessage'
 
-import { Link } from 'react-router-dom'
-
+import { Link, withRouter } from 'react-router-dom'
 
 import axios from 'axios'
 import apiRequest from '../../_axios'
@@ -88,15 +87,22 @@ class Layout extends Component{
                   userData = {...userData, level: level, hadPreTest: res.data.pretest }
                   
                   this.props.actions.logIn(userData)
-                  this.props.close()
+                  if(res.data.pretest){
+                    this.props.history.push('/learner/dashboard')
+                  }else{
+                    this.props.history.push('/learner-start/dashboard')
+                  }
                 }
               })
               .catch((err)=>{
                 this.formMessage('Error: ' + err.message, 'error', true, false)
               })
-          }else{
+          }else if(userData.role === 'Administrator'){
             this.props.actions.logIn(userData)
-            this.props.close()
+            this.props.history.push('/admin/dashboard')
+          }else if(userData.role === 'Teacher'){
+            this.props.actions.logIn(userData)
+            this.props.history.push('/teacher/dashboard')
           }
         }
         
@@ -143,15 +149,22 @@ class Layout extends Component{
                   userData = {...userData, level: level, hadPreTest: res.data.pretest }
                   
                   this.props.actions.logIn(userData)
-                  this.props.close()
+                  if(res.data.pretest){
+                    this.props.history.push('/learner/dashboard')
+                  }else{
+                    this.props.history.push('/learner-start/dashboard')
+                  }
                 }
               })
               .catch((err)=>{
                 this.formMessage('Error: ' + err.message, 'error', true, false)
               })
-          }else{
+          }else if(userData.role === 'Administrator'){
             this.props.actions.logIn(userData)
-            this.props.close()
+            this.props.history.push('/admin/dashboard')
+          }else if(userData.role === 'Teacher'){
+            this.props.actions.logIn(userData)
+            this.props.history.push('/teacher/dashboard')
           }
         }
         
@@ -182,7 +195,7 @@ class Layout extends Component{
     this.formMessage('Logging in', 'loading', true, false)
     apiRequest('post', '/signin', {email: this.state.email, password: this.state.password})
       .then((res)=>{
-          console.log(res)
+         
           if(res.data) {
               let result = res.data
               let userData = {
@@ -205,18 +218,27 @@ class Layout extends Component{
                   .then((res)=>{
                     if(res.data){
                       userData = {...userData, level: level, hadPreTest: res.data.pretest }
-                      
                       this.props.actions.logIn(userData)
-                      this.props.close()
+                      if(res.data.pretest){
+                        this.props.history.push('/learner/dashboard')
+                      }else{
+                        this.props.history.push('/learner-start/dashboard')
+                      }
                     }
                   })
                   .catch((err)=>{
                     this.formMessage('Error: ' + err.message, 'error', true, false)
                   })
-              }else{
+              }else if(userData.role === 'Administrator'){
                 this.props.actions.logIn(userData)
-                this.props.close()
+                this.props.history.push('/admin/dashboard')
+              }else if(userData.role === 'Teacher'){
+                this.props.actions.logIn(userData)
+                this.props.history.push('/teacher/dashboard')
               }
+
+
+
           }else if(res.disabled){
             this.setState({
               disabled: true,
@@ -400,6 +422,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const LogIn = connect(mapStateToProps, mapDispatchToProps)(Layout)
-
+const LogInLayout = connect(mapStateToProps, mapDispatchToProps)(Layout)
+const LogIn = withRouter(LogInLayout)
 export default LogIn
