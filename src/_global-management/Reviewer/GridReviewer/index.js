@@ -187,7 +187,7 @@ class Layout extends Component {
                           value={this.state.validation} 
                           onChange={this.handleChange}
                           >
-                          <option value=''></option>
+                          <option value='' disabled> -- SELECT --</option>
                           <option value='false'>For Validation</option>
                           <option value='true'>Validated</option>
                         </Select>

@@ -199,7 +199,7 @@ class Layout extends Component {
                             onChange={this.handleChange}
                             required
                           >
-                            <option value=''></option>
+                            <option value='' disabled> -- SELECT --</option>
                             <option value={true}>Active</option>
                             <option value={false}>Inactive</option>
                           </Select>

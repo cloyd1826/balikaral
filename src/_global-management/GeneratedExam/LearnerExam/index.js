@@ -161,7 +161,7 @@ class Layout extends Component {
                         value={this.state.examType} 
                         onChange={this.handleChange}
                         >
-                        <option value=''></option>
+                        <option value='' disabled> -- SELECT --</option>
                         <option value='Pre Test'>Pre Test</option>
                         <option value='Adaptive Test'>Adaptive Test</option>
                         <option value='Post Test'>Post Test</option>
@@ -175,7 +175,7 @@ class Layout extends Component {
                         value={this.state.status} 
                         onChange={this.handleChange}
                         >
-                        <option value=''></option>
+                        <option value='' disabled> -- SELECT --</option>
                         <option value='Pending'>Pending</option>
                         <option value='Retake'>Retake</option>
                         <option value='Completed'>Completed</option>

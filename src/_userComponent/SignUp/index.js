@@ -458,7 +458,7 @@ class Layout extends Component{
                         value={this.state.gender}
                         onChange={this.handleChange}
                         >
-                        <option value=''></option>
+                        <option value='' disabled> -- SELECT --</option>
                         <option value='Male'>Male</option>
                         <option value='Female'>Female</option>
                       </Select>
@@ -470,7 +470,7 @@ class Layout extends Component{
                         value={this.state.civilStatus}
                         onChange={this.handleChange}
                         >
-                        <option value=''></option>
+                        <option value='' disabled> -- SELECT --</option>
                         <option value='Single'>Single</option>
                         <option value='Married'>Married</option>
                         <option value='Divorced'>Divorced</option>

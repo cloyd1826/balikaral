@@ -296,7 +296,7 @@ class Layout extends Component {
                             name='typeReviewer' 
                             value={this.state.typeReviewer} 
                             onChange={this.changeTypeReviewer}>
-                            <option value=''></option>                          
+                            <option value='' disabled> -- SELECT --</option>                          
                             <option value='PDF'>PDF</option>                          
                             <option value='Powerpoint Presentation'>Powerpoint Presentation</option>                          
                             <option value='Microsoft Word Document'>Microsoft Word Document</option>                        
