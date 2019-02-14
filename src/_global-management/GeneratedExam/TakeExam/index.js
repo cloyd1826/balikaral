@@ -196,7 +196,7 @@ class Layout extends Component {
         let correctAnswerOfQuestions = attr.content.filter((attr)=>{
           return attr.answer === attr.correctAnswer
         }) 
-
+ 
         let data = {
           learningStrand: attr.id,
           learningStrandName: learningStrandData[learningStrandData.map((attr)=>{return attr._id}).indexOf(attr.id)].name,
@@ -216,7 +216,7 @@ class Layout extends Component {
       }
 
 
-    }else{
+    }else{ 
       data = {
         exam: newExam,
         timeRemaining: timeRemaining, 

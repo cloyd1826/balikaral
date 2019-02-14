@@ -85,8 +85,8 @@ class Layout extends Component {
       })
   }
   addToExam(learningStrand, total, post, count){
-    
-    apiRequest('get', `/exam-management/generate-exam?level=${this.props.level}&learningStrand=${learningStrand}&total=${total}`, false, this.props.token)
+    if(learningStrand){
+       apiRequest('get', `/exam-management/generate-exam?level=${this.props.level}&learningStrand=${learningStrand}&total=${total}`, false, this.props.token)
       .then((res)=>{
         let examToGenerate = this.state.examToGenerate
        
@@ -110,13 +110,12 @@ class Layout extends Component {
             preTest: {}
           })
         }
-
-        
-        
       })
       .catch((err)=>{
 
       })
+    }
+   
   }
   generateExam(data){
     let learningStrandQuestion = data.learningStrandQuestions

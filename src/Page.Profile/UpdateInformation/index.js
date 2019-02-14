@@ -46,7 +46,12 @@ class Layout extends Component {
         message: '',
         type: '',
         active: false,
-        buttonDisabled: false
+        buttonDisabled: false,
+
+        lastGradeLevelCompleted: '',
+        reasonDropOut: '',
+        attendedAlsLessonBefore: '',
+        completedProgram: '',
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -104,6 +109,10 @@ class Layout extends Component {
 
                   about: result.personalInformation ? result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '' : '',
 
+                  lastGradeLevelCompleted: result.personalInformation ?  result.personalInformation.lastGradeLevelCompleted ?  result.personalInformation.lastGradeLevelCompleted : '' : '',
+                  reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
+                  attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
+                  completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
 
                   userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
                   image: (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '')
@@ -154,6 +163,11 @@ class Layout extends Component {
         about: this.state.about, 
 
         image: this.state.image, 
+
+        lastGradeLevelCompleted: this.state.lastGradeLevelCompleted,
+        reasonDropOut: this.state.reasonDropOut,
+        attendedAlsLessonBefore: this.state.attendedAlsLessonBefore, 
+        completedProgram: this.state.completedProgram,
 
     }
     apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)

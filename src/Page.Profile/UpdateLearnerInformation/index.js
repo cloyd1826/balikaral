@@ -45,7 +45,12 @@ class Layout extends Component {
         message: '',
         type: '',
         active: false,
-        buttonDisabled: false
+        buttonDisabled: false,
+
+        lastGradeLevelCompleted: '',
+        reasonDropOut: '',
+        attendedAlsLessonBefore: '',
+        completedProgram: '', 
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -89,7 +94,7 @@ class Layout extends Component {
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
                     province: result.personalInformation ?  result.personalInformation.province ?  result.personalInformation.province : '' : '', 
                     gender: result.personalInformation ?  result.personalInformation.gender ?  result.personalInformation.gender : '' : '',
-                    image: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '')
+                    image: (result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : ''),
                   })
                 }
                 this.setState({
@@ -98,7 +103,11 @@ class Layout extends Component {
                     reasongForStopping: result.personalInformation ?  result.personalInformation.reasongForStopping ?  result.personalInformation.reasongForStopping : '' : '',
                     lifeStatus: result.personalInformation ?  result.personalInformation.lifeStatus ?  result.personalInformation.lifeStatus : '' : '',
                     about: result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '',
-                    method: result.method
+                    method: result.method,
+                    lastGradeLevelCompleted: result.personalInformation ?  result.personalInformation.lastGradeLevelCompleted ?  result.personalInformation.lastGradeLevelCompleted : '' : '',
+                    reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
+                    attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
+                    completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
                 })
             }
         })    
@@ -127,9 +136,13 @@ class Layout extends Component {
      let data = {
         learningCenter: this.state.learningCenter,
         gradeLevel: this.state.gradeLevel,
-        reasongForStopping: this.state.reasongForStopping, 
+        reasongForStopping: this.state.reasongForStopping === 'Other' ? this.state.otherReasonForStopping : this.state.reasongForStopping, 
         lifeStatus: this.state.lifeStatus, 
         about: this.state.about,
+        lastGradeLevelCompleted: this.state.lastGradeLevelCompleted,
+        reasonDropOut: this.state.reasonDropOut,
+        attendedAlsLessonBefore: this.state.attendedAlsLessonBefore, 
+        completedProgram: this.state.completedProgram,
     }
     if(this.state.method === 'local'){
       data = { ...data, 
@@ -165,7 +178,7 @@ class Layout extends Component {
                   </Grid.Cell>
                 </Grid.X> 
                 <Grid.X>
-                  <Grid.Cell large={4} medium={6}  small={12}>
+                  <Grid.Cell large={6} medium={6}  small={12}>
                     <Input 
                       label='Learning Center'
                       
@@ -174,40 +187,90 @@ class Layout extends Component {
                       onChange={this.handleChange}
                       />
                   </Grid.Cell>
-                  <Grid.Cell large={4} medium={6}  small={12}>
+                  <Grid.Cell large={6} medium={6}  small={12}>
                    
                       <Select 
-                        label='Grade o Level na inabot'
+                        label='Last Grade Level Completed'
                         name='gradeLevel'
                         value={this.state.gradeLevel}
                         onChange={this.handleChange}>
                         <option value=''></option>
-                        <option value='1'>1</option>
-                        <option value='2'>2</option>
-                        <option value='3'>3</option>
-                        <option value='4'>4</option>
-                        <option value='5'>5</option>
-                        <option value='6'>6</option>
-                        <option value='7'>7</option>
-                        <option value='8'>8</option>
-                        <option value='9'>9</option>
-                        <option value='10'>10</option>
-                        <option value='11'>11</option>
-                        <option value='12'>12</option>
+                        <option value='K'>K</option>
+                        <option value='G-1'>G-1</option>
+                        <option value='G-2'>G-2</option>
+                        <option value='G-3'>G-3</option>
+                        <option value='G-4'>G-4</option>
+                        <option value='G-5'>G-5</option>
+                        <option value='G-6'>G-6</option>
+                        <option value='G-7'>G-7</option>
+                        <option value='G-8'>G-8</option>
+                        <option value='G-9'>G-9</option>
+                        <option value='G-10'>G-10</option>
+                        <option value='G-11'>G-11</option>
+                        <option value='G-12'>G-12</option>
+                        
                       </Select>
                   </Grid.Cell>
-                  <Grid.Cell large={4} medium={6}  small={12}>
-                    <Input 
-                      label='Rason kung bakit tumigil'
-                      
-                      name='reasongForStopping'
-                      value={this.state.reasongForStopping}
-                      onChange={this.handleChange}
-                      />
+                  <Grid.Cell large={6} medium={6}  small={12}>
+                   
+                      <Select
+                        label='Rason kung bakit tumigil'
+                        name='reasongForStopping'
+                        value={this.state.reasongForStopping}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='No School in Barangay'>No School in Barangay</option>
+                        <option value='School too far from home'>School too far from home</option>
+                        <option value='Needed to help family'>Needed to help family</option>
+                        <option value='Unable to pay miscellaneous and other expenses'>Unable to pay miscellaneous and other expenses</option>
+                        <option value='Other'>Other</option>
+                      </Select>
+                     
+
                   </Grid.Cell>
+
+                  {this.state.reasongForStopping === 'Other' ? 
+                    <Grid.Cell large={6} medium={6}  small={12}>
+                       <Input 
+                          label='Other Reason:' 
+                          name='otherReasonForStopping'
+                          value={this.state.otherReasonForStopping}
+                          onChange={this.handleChange} />
+                    </Grid.Cell> 
+                    : null}
+                  <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Have you attended ALS learning lesson before ?'
+                        name='attendedAlsLessonBefore'
+                        value={this.state.attendedAlsLessonBefore}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
+                  </Grid.Cell>
+                 {this.state.attendedAlsLessonBefore === 'Yes' ?  
+                  <Grid.Cell large={6} medium={6}  small={12}>
+                     <Select
+                         label='Have you completed the program ?'
+                         name='completedProgram'
+                         value={this.state.completedProgram}
+                         onChange={this.handleChange}
+                       >
+                         <option value=''></option>
+                         <option value='Yes'>Yes</option>
+                         <option value='No'>No</option>
+                        
+                       </Select>
+                   </Grid.Cell> 
+                   : null }
+
                   <Grid.Cell large={12} medium={6}  small={12}>
                     <Textarea 
-                      label='Pinagkaka-abalahan ngayon'
+                      label='Current Life Status'
                       
                       name='lifeStatus'
                       value={this.state.lifeStatus}
@@ -217,7 +280,7 @@ class Layout extends Component {
 
                   <Grid.Cell large={12} medium={6}  small={12}>
                     <Textarea 
-                      label='About sa iyong sarili'
+                      label='Describe yourself'
                       rows={3}
                       name='about'
                       value={this.state.about}

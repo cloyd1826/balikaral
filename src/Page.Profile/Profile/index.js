@@ -50,6 +50,10 @@ class Layout extends Component {
         image: '',
         imagePreview: '',
       
+        lastGradeLevelCompleted: '',
+        reasonDropOut: '',
+        attendedAlsLessonBefore: '',
+        completedProgram: '',
     }
 
     this.fetchSingle = this.fetchSingle.bind(this)
@@ -153,6 +157,11 @@ class Layout extends Component {
     formData.append('gender', this.state.gender)
     formData.append('about', this.state.about)
 
+    formData.append('lastGradeLevelCompleted', this.state.lastGradeLevelCompleted)
+    formData.append('reasonDropOut', this.state.reasonDropOut)
+    formData.append('attendedAlsLessonBefore', this.state.attendedAlsLessonBefore)
+    formData.append('completedProgram', this.state.completedProgram)
+
     const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
@@ -196,6 +205,10 @@ class Layout extends Component {
 
                   about: result.personalInformation ? result.personalInformation ?  result.personalInformation.about ?  result.personalInformation.about : '' : '' : '',
 
+                  lastGradeLevelCompleted: result.personalInformation ?  result.personalInformation.lastGradeLevelCompleted ?  result.personalInformation.lastGradeLevelCompleted : '' : '',
+                  reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
+                  attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
+                  completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
 
                   userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
                   imagePreview: (this.props.type === 'local' ? (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '') : (result.google ? result.google.image ? result.google.image : '' : '') + (result.facebook ? result.facebook.image ? result.facebook.image : '' : '' ))

@@ -161,37 +161,40 @@ class Layout extends Component {
     })
   }
   addToExam(learningStrand, learningStrandTotal, post, count){
-    console.log(count)
-    apiRequest('get', `/exam-management/generate-exam?level=${this.props.level}&learningStrand=${learningStrand}&total=${learningStrandTotal}`, false, this.props.token)
-      .then((res)=>{
-        console.log('e',res)
-        let examToGenerate = this.state.examToGenerate
-        res.data.exam.map((attr)=>{
-          examToGenerate = [...examToGenerate, { question: attr._id, answer: ''}]
-        })
-        
-        this.setState({
-          examToGenerate: examToGenerate
-        })
-        console.log('eg',examToGenerate)
-        if(post && parseInt(examToGenerate.length) === parseInt(count)){
-          this.postExam(examToGenerate, this.state.exam)
-        }
-        if(post && parseInt(examToGenerate.length) !== parseInt(count)){
-          this.setState({
-            examToGenerate: [],
-            isAvailable: true,
-            generating: false,
-            exam: {}
+    
+    if(learningStrand){
+      apiRequest('get', `/exam-management/generate-exam?level=${this.props.level}&learningStrand=${learningStrand}&total=${learningStrandTotal}`, false, this.props.token)
+        .then((res)=>{
+          console.log('e',res)
+          let examToGenerate = this.state.examToGenerate
+          res.data.exam.map((attr)=>{
+            examToGenerate = [...examToGenerate, { question: attr._id, answer: ''}]
           })
-          this.generateExam(this.state.examLearningStrand)
           
-        }
-        
-      })
-      .catch((err)=>{
+          this.setState({
+            examToGenerate: examToGenerate
+          })
+          console.log('eg',examToGenerate)
+          if(post && parseInt(examToGenerate.length) === parseInt(count)){
+            this.postExam(examToGenerate, this.state.exam)
+          }
+          if(post && parseInt(examToGenerate.length) !== parseInt(count)){
+            this.setState({
+              examToGenerate: [],
+              isAvailable: true,
+              generating: false,
+              exam: {}
+            })
+            this.generateExam(this.state.examLearningStrand)
+            
+          }
+          
+        })
+        .catch((err)=>{
 
-      })
+        })
+    }
+    
   }
   postExam(exam, type){
     let data = {
