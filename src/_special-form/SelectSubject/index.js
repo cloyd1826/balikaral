@@ -45,7 +45,7 @@ class Layout extends Component {
       required={this.props.required}
 			label={'Lesson'}
 		>
-			<option value=''></option>
+			<option value='' disabled> -- SELECT --</option>
         {this.state.subject.map((attr,index)=> {
           return (
               <option key={index} value={attr._id}>{attr.lessonName}</option>

@@ -179,7 +179,7 @@ class Layout extends Component {
                                     name='instructionFor' 
                                     value={this.state.instructionFor} 
                                     onChange={this.handleChange}>
-                                    <option value=''></option>
+                                    <option value='' disabled> -- SELECT --</option>
                                     <option value='Student'>Student</option>
                                     <option value='Teacher'>Teacher</option>
                                   </Select>

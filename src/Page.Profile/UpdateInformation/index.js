@@ -329,7 +329,7 @@ class Layout extends Component {
                       value={this.state.gender}
                       onChange={this.handleChange}
                     >
-                      <option value=''></option>
+                      <option value='' disabled> -- SELECT --</option>
                       <option value='Male'>Male</option>
                       <option value='Female'>Female</option>
                     </Select>
@@ -341,7 +341,7 @@ class Layout extends Component {
                       value={this.state.civilStatus}
                       onChange={this.handleChange}
                     >
-                      <option value=''></option>
+                      <option value='' disabled> -- SELECT --</option>
                       <option value='Single'>Single</option>
                       <option value='Married'>Married</option>
                       <option value='Divorced'>Divorced</option>
@@ -350,7 +350,7 @@ class Layout extends Component {
                   </Grid.Cell>
                 </Grid.X>
                 <Grid.X>
-                   <Grid.Cell large={3} medium={6} small={12}>
+                   {/* <Grid.Cell large={3} medium={6} small={12}>
                     <Input 
                       label='House No'
                       
@@ -376,15 +376,32 @@ class Layout extends Component {
                       value={this.state.city}
                       onChange={this.handleChange}
                        />
-                  </Grid.Cell>
-                   <Grid.Cell large={3} medium={6} small={12}>
-                    <Input 
-                      label='Province'
-                      
+                  </Grid.Cell> */}
+                  <Grid.Cell large={4} medium={6} small={12}>
+                    <Select 
+                      label='Region'
                       name='province'
                       value={this.state.province}
                       onChange={this.handleChange}
-                       />
+                    >
+                      <option value='' disabled> -- SELECT REGION --</option>
+                      <option value='armm'>ARMM</option>
+                      <option value='car'>CAR</option>
+                      <option value='ncr'>NCR</option>
+                      <option value='regioni'>REGION I</option>
+                      <option value='regionII'>REGION II</option>
+                      <option value='regioniii'>REGION III</option>
+                      <option value='regioniv'>REGION IV</option>
+                      <option value='regionv'>REGION V</option>
+                      <option value='regionvi'>REGION VI</option>
+                      <option value='regionvii'>REGION VII</option>
+                      <option value='regionviii'>REGION VIII</option>
+                      <option value='regionix'>REGION IX</option>
+                      <option value='regionx'>REGION X</option>
+                      <option value='regionxi'>REGION XI</option>
+                      <option value='regionxii'>REGION XII</option>
+                      <option value='regionxiii'>REGION XIII</option>
+                    </Select>
                   </Grid.Cell>
 
 

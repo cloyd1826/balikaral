@@ -208,7 +208,7 @@ class Layout extends Component {
                         name='gradeLevel'
                         value={this.state.gradeLevel}
                         onChange={this.handleChange}>
-                        <option value=''></option>
+                        <option value='' disabled></option>
                         <option value='K'>K</option>
                         <option value='G-1'>G-1</option>
                         <option value='G-2'>G-2</option>
@@ -247,7 +247,7 @@ class Layout extends Component {
                         value={this.state.reasongForStopping}
                         onChange={this.handleChange}
                       >
-                        <option value=''></option>
+                        <option value='' disabled></option>
                         <option value='No School in Barangay'>No School in Barangay</option>
                         <option value='School too far from home'>School too far from home</option>
                         <option value='Needed to help family'>Needed to help family</option>
@@ -288,7 +288,7 @@ class Layout extends Component {
                         value={this.state.attendedAlsLessonBefore}
                         onChange={this.handleChange}
                       >
-                        <option value=''></option>
+                        <option value='' disabled></option>
                         <option value='Yes'>Yes</option>
                         <option value='No'>No</option>
                        
@@ -321,7 +321,6 @@ class Layout extends Component {
                       </Select>
                   </Grid.Cell>
                  ]
-                 
                    : null }
 
                   <Grid.Cell large={12} medium={6}  small={12}>

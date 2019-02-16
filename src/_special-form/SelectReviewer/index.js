@@ -50,7 +50,7 @@ class Layout extends Component {
       required={this.props.required}
        
     >
-      <option value=''></option>
+      <option value='' disabled> -- SELECT --</option>
         {this.state.reviewer.map((attr,index)=> {
           return (
               <option key={index} value={attr._id}>{(this.props.fileUsage ? '' : attr.fileUsage + ' - ' ) + attr.description}</option>
