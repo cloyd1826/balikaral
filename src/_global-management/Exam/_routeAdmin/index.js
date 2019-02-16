@@ -5,6 +5,7 @@ import {Route, NavLink} from 'react-router-dom'
 import AddExam from '../AddExam'
 import ListExam from '../ListExam'
 import EditExam from '../EditExam'
+import EditUploaderValidator from '../EditUploaderValidator'
 import ImportExam from '../ImportExam'
 import ValidateExam from '../ValidateExam'
 
@@ -14,6 +15,7 @@ const Routes = () => {
 			<Route path='/admin/teachers/exam/add' component={AddExam} />
 			<Route path='/admin/teachers/exam/list' component={ListExam} />
       <Route path='/admin/teachers/exam/edit' component={EditExam} />
+      <Route path='/admin/teachers/exam/edit-uploader' component={EditUploaderValidator} />
       <Route path='/admin/teachers/exam/import' component={ImportExam} />
       <Route path='/admin/teachers/exam/validate' component={ValidateExam} />
 		</div>

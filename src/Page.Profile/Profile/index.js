@@ -162,6 +162,15 @@ class Layout extends Component {
     formData.append('attendedAlsLessonBefore', this.state.attendedAlsLessonBefore)
     formData.append('completedProgram', this.state.completedProgram)
 
+    formData.append('yearsInAls', this.state.yearsInAls)
+    formData.append('registeredExaminee', this.state.registeredExaminee)
+    formData.append('occupation', this.state.occupation)
+    formData.append('letPasser', this.state.letPasser)
+    formData.append('noOfYearsTeaching', this.state.noOfYearsTeaching)
+    formData.append('noOfYearsAsAlsTeacher', this.state.noOfYearsAsAlsTeacher)
+    formData.append('subjectExpertise', this.state.subjectExpertise)
+
+
     const configPost = {
         headers: {
             Authorization: `${this.props.token}`,
@@ -209,6 +218,15 @@ class Layout extends Component {
                   reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
                   attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
                   completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
+
+
+                  yearsInAls: result.personalInformation ?  result.personalInformation.yearsInAls ?  result.personalInformation.yearsInAls : '' : '',
+                  registeredExaminee: result.personalInformation ?  result.personalInformation.registeredExaminee ?  result.personalInformation.registeredExaminee : '' : '',
+                  occupation: result.personalInformation ?  result.personalInformation.occupation ?  result.personalInformation.occupation : '' : '',
+                  letPasser: result.personalInformation ?  result.personalInformation.letPasser ?  result.personalInformation.letPasser : '' : '',
+                  noOfYearsTeaching: result.personalInformation ?  result.personalInformation.noOfYearsTeaching ?  result.personalInformation.noOfYearsTeaching : '' : '',
+                  noOfYearsAsAlsTeacher: result.personalInformation ?  result.personalInformation.noOfYearsAsAlsTeacher ?  result.personalInformation.noOfYearsAsAlsTeacher : '' : '',
+                  subjectExpertise: result.personalInformation ?  result.personalInformation.subjectExpertise ?  result.personalInformation.subjectExpertise : '' : '',
 
                   userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
                   imagePreview: (this.props.type === 'local' ? (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '') : (result.google ? result.google.image ? result.google.image : '' : '') + (result.facebook ? result.facebook.image ? result.facebook.image : '' : '' ))

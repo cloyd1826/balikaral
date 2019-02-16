@@ -2889,6 +2889,16 @@ span.no-validator {
   .answer-text, .answer-box {
     width: calc(50% - 16px); } }
 
+.validator-container {
+  display: flex;
+  align-items: center; }
+  .validator-container .validator-name {
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer; }
+    .validator-container .validator-name .la {
+      margin-left: 8px; }
+
 .grid-reviewer-container {
   background: #fff;
   margin: 8px;

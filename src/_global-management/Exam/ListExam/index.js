@@ -391,6 +391,18 @@ class Layout extends Component {
                                       </Link>
                                     : null }
 
+
+                                 {this.props.role === 'Administrator' ? 
+                                   <Link to={{
+                                      pathname: '/admin/teachers/exam/edit-uploader',
+                                      state: { id: attr._id }
+                                   }}>
+                                    <span>
+                                        <i className='la la-users primary'></i>
+                                      </span>
+                                   </Link>
+                                 : null}
+
                                     { this.props.role === 'Administrator' || this.props.user.id === (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') ?
                                       <span onClick={()=>{this.toggleDelete('/exam-management/delete/' + attr._id)}}>
                                         <i className='fa fa-trash cancel'></i>

@@ -520,6 +520,17 @@ class Layout extends Component {
                                    </Link>
                                  : null}
 
+                                 {this.props.role === 'Administrator' ? 
+                                   <Link to={{
+                                      pathname: this.state.urlLinkToUse + '/edit-uploader',
+                                      state: { id: attr._id }
+                                   }}>
+                                    <span>
+                                        <i className='la la-users primary'></i>
+                                      </span>
+                                   </Link>
+                                 : null}
+
 
                                  
 

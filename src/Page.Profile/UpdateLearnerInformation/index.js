@@ -51,6 +51,10 @@ class Layout extends Component {
         reasonDropOut: '',
         attendedAlsLessonBefore: '',
         completedProgram: '', 
+
+        yearsInAls: '',
+        registeredExaminee: '',
+        occupation: '',
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -108,6 +112,12 @@ class Layout extends Component {
                     reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
                     attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
                     completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
+                
+                    yearsInAls: result.personalInformation ?  result.personalInformation.yearsInAls ?  result.personalInformation.yearsInAls : '' : '',
+                    registeredExaminee: result.personalInformation ?  result.personalInformation.registeredExaminee ?  result.personalInformation.registeredExaminee : '' : '',
+                    occupation: result.personalInformation ?  result.personalInformation.occupation ?  result.personalInformation.occupation : '' : '',
+                    
+                 
                 })
             }
         })    
@@ -143,6 +153,10 @@ class Layout extends Component {
         reasonDropOut: this.state.reasonDropOut,
         attendedAlsLessonBefore: this.state.attendedAlsLessonBefore, 
         completedProgram: this.state.completedProgram,
+
+        yearsInAls: this.state.yearsInAls,
+        registeredExaminee: this.state.registeredExaminee,
+        occupation: this.state.occupation,
     }
     if(this.state.method === 'local'){
       data = { ...data, 
@@ -210,6 +224,20 @@ class Layout extends Component {
                         <option value='G-12'>G-12</option>
                         
                       </Select>
+
+                  </Grid.Cell>
+                   <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Occupation Status'
+                        name='occupation'
+                        value={this.state.occupation}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
                   </Grid.Cell>
                   <Grid.Cell large={6} medium={6}  small={12}>
                    
@@ -239,6 +267,20 @@ class Layout extends Component {
                           onChange={this.handleChange} />
                     </Grid.Cell> 
                     : null}
+                        <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Are you a registered examinee ?'
+                        name='registeredExaminee'
+                        value={this.state.registeredExaminee}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
+                  </Grid.Cell>
+                 
                   <Grid.Cell large={6} medium={6}  small={12}>
                     <Select
                         label='Have you attended ALS learning lesson before ?'
@@ -252,20 +294,34 @@ class Layout extends Component {
                        
                       </Select>
                   </Grid.Cell>
+              
                  {this.state.attendedAlsLessonBefore === 'Yes' ?  
+
+                 [
                   <Grid.Cell large={6} medium={6}  small={12}>
-                     <Select
-                         label='Have you completed the program ?'
-                         name='completedProgram'
-                         value={this.state.completedProgram}
+                     <Input
+                         label='Years in ALS'
+                         name='yearsInAls'
+                         value={this.state.yearsInAls}
                          onChange={this.handleChange}
-                       >
-                         <option value=''></option>
-                         <option value='Yes'>Yes</option>
-                         <option value='No'>No</option>
-                        
-                       </Select>
-                   </Grid.Cell> 
+                       />
+                   </Grid.Cell> ,
+
+                  <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Have you completed the program ?'
+                        name='completedProgram'
+                        value={this.state.completedProgram}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
+                  </Grid.Cell>
+                 ]
+                 
                    : null }
 
                   <Grid.Cell large={12} medium={6}  small={12}>
