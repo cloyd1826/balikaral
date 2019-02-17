@@ -483,6 +483,7 @@ class Layout extends Component{
                         label='Birthday'
                         required
                         name='birthday'
+                        max='2007-12-31'
                         value={this.state.birthday}
                         onChange={this.handleChange}
                          />
