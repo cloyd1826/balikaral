@@ -80,6 +80,12 @@ class Layout extends Component {
         .catch((err)=>{
           this.formMessage('Error: ' + err.message, 'error', true, false)
         })
+
+     apiRequest('get', '/user/age', false, this.props.token)
+     	.then((res)=>{
+     		console.log(res)
+     	})
+     	.catch((err)=>{})
   }
   
   render() {
