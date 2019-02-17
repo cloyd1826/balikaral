@@ -51,6 +51,10 @@ class Layout extends Component {
         reasonDropOut: '',
         attendedAlsLessonBefore: '',
         completedProgram: '', 
+
+        yearsInAls: '',
+        registeredExaminee: '',
+        occupation: '',
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -108,6 +112,12 @@ class Layout extends Component {
                     reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
                     attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
                     completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
+                
+                    yearsInAls: result.personalInformation ?  result.personalInformation.yearsInAls ?  result.personalInformation.yearsInAls : '' : '',
+                    registeredExaminee: result.personalInformation ?  result.personalInformation.registeredExaminee ?  result.personalInformation.registeredExaminee : '' : '',
+                    occupation: result.personalInformation ?  result.personalInformation.occupation ?  result.personalInformation.occupation : '' : '',
+                    
+                 
                 })
             }
         })    
@@ -143,6 +153,10 @@ class Layout extends Component {
         reasonDropOut: this.state.reasonDropOut,
         attendedAlsLessonBefore: this.state.attendedAlsLessonBefore, 
         completedProgram: this.state.completedProgram,
+
+        yearsInAls: this.state.yearsInAls,
+        registeredExaminee: this.state.registeredExaminee,
+        occupation: this.state.occupation,
     }
     if(this.state.method === 'local'){
       data = { ...data, 
@@ -194,7 +208,7 @@ class Layout extends Component {
                         name='gradeLevel'
                         value={this.state.gradeLevel}
                         onChange={this.handleChange}>
-                        <option value='' disabled> -- SELECT --</option>
+                        <option value='' disabled></option>
                         <option value='K'>K</option>
                         <option value='G-1'>G-1</option>
                         <option value='G-2'>G-2</option>
@@ -210,6 +224,20 @@ class Layout extends Component {
                         <option value='G-12'>G-12</option>
                         
                       </Select>
+
+                  </Grid.Cell>
+                   <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Occupation Status'
+                        name='occupation'
+                        value={this.state.occupation}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
                   </Grid.Cell>
                   <Grid.Cell large={6} medium={6}  small={12}>
                    
@@ -219,7 +247,7 @@ class Layout extends Component {
                         value={this.state.reasongForStopping}
                         onChange={this.handleChange}
                       >
-                        <option value='' disabled> -- SELECT --</option>
+                        <option value='' disabled></option>
                         <option value='No School in Barangay'>No School in Barangay</option>
                         <option value='School too far from home'>School too far from home</option>
                         <option value='Needed to help family'>Needed to help family</option>
@@ -239,6 +267,20 @@ class Layout extends Component {
                           onChange={this.handleChange} />
                     </Grid.Cell> 
                     : null}
+                        <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Are you a registered examinee ?'
+                        name='registeredExaminee'
+                        value={this.state.registeredExaminee}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
+                  </Grid.Cell>
+                 
                   <Grid.Cell large={6} medium={6}  small={12}>
                     <Select
                         label='Have you attended ALS learning lesson before ?'
@@ -246,26 +288,39 @@ class Layout extends Component {
                         value={this.state.attendedAlsLessonBefore}
                         onChange={this.handleChange}
                       >
-                        <option value='' disabled> -- SELECT --</option>
+                        <option value='' disabled></option>
                         <option value='Yes'>Yes</option>
                         <option value='No'>No</option>
                        
                       </Select>
                   </Grid.Cell>
+              
                  {this.state.attendedAlsLessonBefore === 'Yes' ?  
+
+                 [
                   <Grid.Cell large={6} medium={6}  small={12}>
-                     <Select
-                         label='Have you completed the program ?'
-                         name='completedProgram'
-                         value={this.state.completedProgram}
+                     <Input
+                         label='Years in ALS'
+                         name='yearsInAls'
+                         value={this.state.yearsInAls}
                          onChange={this.handleChange}
-                       >
-                         <option value='' disabled> -- SELECT --</option>
-                         <option value='Yes'>Yes</option>
-                         <option value='No'>No</option>
-                        
-                       </Select>
-                   </Grid.Cell> 
+                       />
+                   </Grid.Cell> ,
+
+                  <Grid.Cell large={6} medium={6}  small={12}>
+                    <Select
+                        label='Have you completed the program ?'
+                        name='completedProgram'
+                        value={this.state.completedProgram}
+                        onChange={this.handleChange}
+                      >
+                        <option value=''></option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
+                       
+                      </Select>
+                  </Grid.Cell>
+                 ]
                    : null }
 
                   <Grid.Cell large={12} medium={6}  small={12}>

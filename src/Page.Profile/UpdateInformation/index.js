@@ -11,6 +11,7 @@ import Select from '../../_component/Form/Select'
 import Button from '../../_component/Form/Button'
 
 import apiRequest from '../../_axios'
+import SelectLearningStrand from '../../_special-form/SelectLearningStrand'
 
 import { connect } from 'react-redux'
 
@@ -52,6 +53,9 @@ class Layout extends Component {
         reasonDropOut: '',
         attendedAlsLessonBefore: '',
         completedProgram: '',
+
+        learningStrand: [],
+        subjectExpertise: [],
       
     }
     this.handleChange = this.handleChange.bind(this)
@@ -60,8 +64,50 @@ class Layout extends Component {
     this.fetchSingle = this.fetchSingle.bind(this)
  
     this.formMessage = this.formMessage.bind(this)
-  }
 
+    this.addLearningStrand = this.addLearningStrand.bind(this)
+    this.removeLearningStrand = this.removeLearningStrand.bind(this)
+    this.fetchLearningStrand = this.fetchLearningStrand.bind(this)
+  }
+  addLearningStrand(e){
+    let subjectExpertise = this.state.subjectExpertise
+    let learningStrand = this.state.learningStrand
+    console.log(learningStrand)
+    let index = learningStrand.map((attr)=>{
+      return attr._id
+    }).indexOf(e.target.value)
+
+    let newSubject = { learningStrand: learningStrand[index] }
+
+    subjectExpertise = [...subjectExpertise, newSubject]
+    console.log(subjectExpertise)
+    this.setState({
+      subjectExpertise: subjectExpertise,
+      [e.target.name]: e.target.value
+    })
+  }
+  removeLearningStrand(i){
+    let subjectExpertise = this.state.subjectExpertise
+
+    subjectExpertise = [...subjectExpertise.slice(0,i), ...subjectExpertise.slice(i + 1)]
+
+    this.setState({
+      subjectExpertise: subjectExpertise
+    })
+  }
+  fetchLearningStrand(){
+    apiRequest('get', `/learning-strand/fetchAllWithoutPagination`, false, this.props.token)
+      .then((res)=>{
+        if(res.data){
+          this.setState({
+            learningStrand: res.data.data
+          })  
+        }
+      })
+      .catch((err)=>{
+        
+      })
+  }
   formMessage(message, type, active, button){
     this.setState({
       message: message,
@@ -74,6 +120,7 @@ class Layout extends Component {
   componentDidMount(){
      if(this.props.location.state){
       this.fetchSingle()
+      this.fetchLearningStrand()
     }else{
       this.props.history.push('/')
     }
@@ -82,6 +129,7 @@ class Layout extends Component {
   fetchSingle(){
     apiRequest('get', `/user/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
+          console.log(res)
             if(res.data){
                 let result = res.data.data
                 this.setState({
@@ -113,6 +161,15 @@ class Layout extends Component {
                   reasonDropOut: result.personalInformation ?  result.personalInformation.reasonDropOut ?  result.personalInformation.reasonDropOut : '' : '',
                   attendedAlsLessonBefore: result.personalInformation ?  result.personalInformation.attendedAlsLessonBefore ?  result.personalInformation.attendedAlsLessonBefore : '' : '',
                   completedProgram: result.personalInformation ?  result.personalInformation.completedProgram ?  result.personalInformation.completedProgram : '' : '',
+
+                  yearsInAls: result.personalInformation ?  result.personalInformation.yearsInAls ?  result.personalInformation.yearsInAls : '' : '',
+                  registeredExaminee: result.personalInformation ?  result.personalInformation.registeredExaminee ?  result.personalInformation.registeredExaminee : '' : '',
+                  occupation: result.personalInformation ?  result.personalInformation.occupation ?  result.personalInformation.occupation : '' : '',
+                  
+                  letPasser: result.personalInformation ?  result.personalInformation.letPasser ?  result.personalInformation.letPasser : '' : '',
+                  noOfYearsTeaching: result.personalInformation ?  result.personalInformation.noOfYearsTeaching ?  result.personalInformation.noOfYearsTeaching : '' : '',
+                  noOfYearsAsAlsTeacher: result.personalInformation ?  result.personalInformation.noOfYearsAsAlsTeacher ?  result.personalInformation.noOfYearsAsAlsTeacher : '' : '',
+                  subjectExpertise: result.personalInformation ?  result.personalInformation.subjectExpertise ?  result.personalInformation.subjectExpertise : '' : '',
 
                   userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
                   image: (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '')
@@ -169,7 +226,20 @@ class Layout extends Component {
         attendedAlsLessonBefore: this.state.attendedAlsLessonBefore, 
         completedProgram: this.state.completedProgram,
 
+        letPasser: this.state.letPasser,
+        noOfYearsTeaching: this.state.noOfYearsTeaching,
+        noOfYearsAsAlsTeacher: this.state.noOfYearsAsAlsTeacher,
+
     }
+    if(this.state.subjectExpertise.length > 0){
+      let subjectExpertise = []
+      let ssubjectExpertise = this.state.subjectExpertise
+      ssubjectExpertise.map((attr)=>{
+        subjectExpertise = [...subjectExpertise, { learningStrand: (attr.learningStrand ? attr.learningStrand._id : null ) }]
+      })
+      data = {...data, subjectExpertise}
+    }
+    console.log(data)
     apiRequest('put', `/user/update-personal-info/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
         .then((res)=>{
           this.fetchSingle()
@@ -333,6 +403,76 @@ class Layout extends Component {
                       <option value='regionxiii'>REGION XIII</option>
                     </Select>
                   </Grid.Cell>
+
+
+                  <Grid.Cell large={3} medium={6} small={12}>
+                    <Input 
+                      label='Province'
+                      
+                      name='province'
+                      value={this.state.province}
+                      onChange={this.handleChange}
+                       />
+                  </Grid.Cell>
+
+                  </Grid.X>
+
+                  {this.props.role !== 'Learner' ?
+                  <Grid.X>
+
+
+                  <Grid.Cell large={3} medium={6} small={12}>
+                    <Input 
+                      label='Are you a LET Passer ?'
+                      
+                      name='letPasser'
+                      value={this.state.letPasser}
+                      onChange={this.handleChange}
+                       />
+                  </Grid.Cell>
+                  <Grid.Cell large={3} medium={6} small={12}>
+                    <Input 
+                      label='No of years in teaching'
+                      
+                      name='noOfYearsTeaching'
+                      value={this.state.noOfYearsTeaching}
+                      onChange={this.handleChange}
+                       />
+                  </Grid.Cell>
+                  <Grid.Cell large={3} medium={6} small={12}>
+                    <Input 
+                      label='No of Years as ALS Teacher'
+                      
+                      name='noOfYearsAsAlsTeacher'
+                      value={this.state.noOfYearsAsAlsTeacher}
+                      onChange={this.handleChange}
+                       />
+                  </Grid.Cell>
+                   <Grid.Cell large={6} medium={12} small={12}>
+                    <SelectLearningStrand 
+                      type='text' 
+                      label='Subject of Expertise' 
+                      value={this.state.subjectExpertiseSelect} 
+                      name='subjectExpertiseSelect'
+                      onChange={this.addLearningStrand}/>
+                  </Grid.Cell>
+                  <Grid.Cell large={6} medium={12} small={12} className='validator-container'>           
+                    {this.state.subjectExpertise.map((attr,index)=>{
+                      
+                      return (
+                         <span key={index} className='validator-name' onClick={()=>{this.removeLearningStrand(index)}}>
+
+                         {  attr.learningStrand ? attr.learningStrand.name  : ''}
+                      <i className='la la-close' />
+                        </span>
+                      )})}
+                  </Grid.Cell>
+
+                  </Grid.X>
+
+                   : null}
+                  <Grid.X>
+
                    
                   <Grid.Cell className='form-button right' large={12} medium={12} small={12}>
                       <Button disabled={this.state.buttonDisabled} type='submit' text='Save' className='secondary small' />

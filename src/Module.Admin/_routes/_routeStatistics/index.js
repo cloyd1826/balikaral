@@ -4,6 +4,7 @@ import {Route, NavLink, Link, withRouter} from 'react-router-dom'
 
 import GeneratedExam from '../../Statistics/GeneratedExam'
 import ExamType from '../../Statistics/ExamType'
+import Summary from '../../Statistics/Summary'
 import AuditTrail from '../../AuditTrail'
 
 import Survey from '../../../_global-management/Survey/_routeAdmin'
@@ -12,6 +13,7 @@ const Routes = () => {
 	return (
 		<div>
       <Route path='/admin/system/exam-type' component={ExamType} />
+      <Route path='/admin/system/summary' component={Summary} />
       <Route path='/admin/system/generated-exam' component={GeneratedExam} />
       <Route path='/admin/system/audit-trail' component={AuditTrail} />
 			<Route path='/admin/system/survey' component={Survey} />
@@ -49,6 +51,13 @@ class RouteManagement extends Component {
               <div className={'link ' + (this.props.location.pathname.match('/admin/system/generated-exam') ? 'active' : '')}>
                 <i className='la la-tasks' />
                 Statistics ng mga Exam
+              </div>
+              
+            </Link>
+            <Link to='/admin/system/summary'>
+              <div className={'link ' + (this.props.location.pathname.match('/admin/system/summary') ? 'active' : '')}>
+                <i className='la la-tasks' />
+                Summary of User Data
               </div>
               
             </Link>

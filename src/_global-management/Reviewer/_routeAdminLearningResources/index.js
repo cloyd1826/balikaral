@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react'
 
 import {Route, NavLink} from 'react-router-dom'
@@ -5,6 +6,7 @@ import {Route, NavLink} from 'react-router-dom'
 import AddReviewer from '../AddReviewer'
 import ListReviewer from '../ListReviewer'
 import EditReviewer from '../EditReviewer'
+import EditUploaderValidator from '../EditUploaderValidator'
 import ValidateReviewer from '../ValidateReviewer'
 import ViewReviewer from '../ViewReviewer'
 
@@ -14,6 +16,7 @@ const Routes = () => {
       <Route path='/admin/teachers/learning-resources/add' component={AddReviewer} />
       <Route path='/admin/teachers/learning-resources/list' component={ListReviewer} />
       <Route path='/admin/teachers/learning-resources/edit' component={EditReviewer} />
+      <Route path='/admin/teachers/learning-resources/edit-uploader' component={EditUploaderValidator} />
       <Route path='/admin/teachers/learning-resources/validate' component={ValidateReviewer} />
       <Route path='/admin/teachers/learning-resources/view' component={ViewReviewer} />
     </div>

@@ -2,7 +2,7 @@
 let config = ''
 
 if(process.env.NODE_ENV === 'development'){
-	config = 'https://balikaral.com/api'
+	config = 'http://localhost:5000/api'
 }
 if(process.env.NODE_ENV === 'production'){
 	config = 'https://balikaral.com/api'
