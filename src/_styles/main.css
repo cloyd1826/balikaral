@@ -1150,6 +1150,28 @@ tr.green {
       background: #fe0000;
       color: #fafafa; }
 
+.chart-modal {
+  max-height: 90vh;
+  max-width: 90vw;
+  width: 100%;
+  background: #fff;
+  padding: 25px 32px 32px 16px;
+  position: relative;
+  overflow: auto; }
+  .chart-modal .close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    font-size: 32px;
+    color: rgba(0, 0, 0, 0.8);
+    transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
+    .chart-modal .close-button:hover {
+      color: #fe0000; }
+
+.hidden {
+  display: none; }
+
 .sign-in-container {
   max-height: 70vh;
   overflow-y: auto;

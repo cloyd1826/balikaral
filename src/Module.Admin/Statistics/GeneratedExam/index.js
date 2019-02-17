@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
+import  Table from '../../../_component/Table'
 
 import FormMessage from '../../../_component/Form/FormMessage'
 import apiRequest from '../../../_axios'
@@ -15,7 +16,9 @@ import Pagination from '../../../_component/Pagination'
 
 import {Bar} from 'react-chartjs-2';
 
+
 import moment from 'moment'
+import { Tapable } from 'tapable';
 
 class Layout extends Component {
   constructor(props) {
@@ -34,11 +37,20 @@ class Layout extends Component {
       perPage: 10,
       previousPage: null,
       totalCount: 1,
-      generatedExam: [],
+			generatedExam: [],
+			
+			modalOn: false,
+
+			preAdaptivePost: {},
+			adaptiveData : [],
+			prePost : {}
     }
     this.formMessage = this.formMessage.bind(this)
     this.fetchGeneratedExam = this.fetchGeneratedExam.bind(this)
-  	this.changePage = this.changePage.bind(this)
+		this.changePage = this.changePage.bind(this)
+		
+		this.showModal = this.showModal.bind(this)
+		this.closeModal = this.closeModal.bind(this)
   }
   changePage(page){
    
@@ -47,7 +59,46 @@ class Layout extends Component {
     })
     let status = this.state.status
     this.fetchGeneratedExam(status, page)
-  }
+	}
+	
+	showModal(data){
+		let modalOn = this.state.modalOn
+
+		apiRequest('get', `/generated-exam/performance-indicator/${data}`, false, this.props.token)
+		.then(res => {
+				console.log('preadaptivepost', res.data)
+				this.setState({
+					preAdaptivePost : res.data,
+					adaptiveData : res.data.adaptiveTest
+				})
+
+			apiRequest('get', `/generated-exam/pre-post/${data}`, false, this.props.token)
+			.then(result => {
+				this.setState({
+					prePost : result.data,
+					modalOn: !modalOn
+				})
+
+				console.log('asd', this.state.prePost)
+			})
+			.catch(err => {
+				this.formMessage('Error: ' + err.message, 'error', true, false)
+			})
+
+
+		})
+		.catch(err => {
+			this.formMessage('Error: ' + err.message, 'error', true, false)
+		})
+
+	}
+	closeModal(){
+		this.setState({
+			modalOn : false,
+			preAdaptivePost: {},
+			prePost : {}
+		})
+	}
 
   formMessage(message, type, active, button){
     this.setState({
@@ -89,6 +140,15 @@ class Layout extends Component {
   }
   
   render() {
+		// let adaptiveData = this.state.adaptiveData
+		// let adaptive = []
+		
+		// for(var i = 0; i <= adaptiveData.length; i++){
+		// 	adaptive = adaptive.concat(adaptive[i].percentage)
+		// }
+
+
+
     return (
     	<Grid fluid>
 	        <div className='element-container'>
@@ -101,8 +161,132 @@ class Layout extends Component {
 	          </Grid.Cell>
 	        </Grid.X>
 	        <Grid.X className="chart-data-container">
+
+							{/* START TABLE */}
+
+							<div className="table-container" style={{width:'100%'}}>
+                  <Table hover nostripe>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
+                        <Table.HeaderCell>Exam Type</Table.HeaderCell>
+                        <Table.HeaderCell>Date</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
+
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                     
+										{this.state.generatedExam.map((attr, index)=>{
+	            	
+	            	let data =  {
+					    labels: [],
+					    datasets: [
+					      {
+					        label: 'Correct',
+					        backgroundColor: '#d1f4da',
+					        borderColor: 'rgba(255,99,132,1)',
+					        borderWidth: 1,
+					        hoverBackgroundColor: '#d1f4da',
+					        hoverBorderColor: 'rgba(255,99,132,1)',
+					        data: []
+					      },
+					      {
+					        label: 'Total Question',
+					        type: 'line',
+					        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+					        borderColor: 'rgba(54, 162, 235, 1)',
+					        borderWidth: 1,
+					        hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+					        hoverBorderColor: 'rgba(54, 162, 235, 1)',
+					        data: [],
+					      }
+					    ],
+					  }
+					let labels = [] 
+					let correctScore = []
+					let totalQuestion = []
+					attr.percentagePerLearningStrand.map((pls)=>{
+						labels = [...labels, (pls.learningStrand ? pls.learningStrand.name ? pls.learningStrand.name : '' : '' ) ]
+						correctScore = [...correctScore, (pls.score ? pls.score : 0)]
+						totalQuestion = [...totalQuestion, (pls.totalQuestion ? pls.totalQuestion : 0)]
+					})
+
+					data.labels = labels
+					data.datasets[0].data = correctScore
+					data.datasets[1].data = totalQuestion
+
+    //   learningStrand: { 
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'learningStrand',
+    //		name: '',
+    //   },
+    //   percentage: Number,
+    //   score: Number,
+    //   totalQuestion: Number
+    //dateStarted: {
+  //   type: Date
+  // },
+  // dateFinished: {
+  //    type: Date
+  // },
+    // }
+				    return (
+				    		<Table.Row key={index}>
+									<Table.Cell>
+										{( 
+								attr.examiner ? 
+								 attr.examiner.google ? attr.examiner.google.email
+								 : attr.examiner.facebook ? attr.examiner.facebook.email : attr.examiner.personalInformation ? 
+								 (attr.examiner.personalInformation.firstName ? attr.examiner.personalInformation.firstName : '') + ' ' + (attr.examiner.personalInformation.middleName ? attr.examiner.personalInformation.middleName.substring(0,1) : '')
+								 + ' ' + (attr.examiner.personalInformation.lastName ? attr.examiner.personalInformation.lastName : '')
+								 : '' : ''
+								 )}
+									</Table.Cell>
+									<Table.Cell>{attr.type}</Table.Cell>
+									<Table.Cell>
+									{ moment(attr.dateStarted).format('MMMM DD, YYYY - LTS') + ' - ' + moment(attr.dateFinished).format('MMMM DD, YYYY - LTS') }
+									</Table.Cell>
+									<Table.Cell>
+									<span onClick={()=>{this.showModal(attr.examiner._id)}}>
+                    <i className='la la-folder-open-o primary'></i>
+                  </span>
+									</Table.Cell>
+							</Table.Row>
+	    					/* <Bar 
+	    						data={data}
+									height={75}
+	    						options={{
+										animation: false,
+						    	}} /> */
+				    )
+
+
+				})}
+                      
+                    </Table.Body>
+                    <Table.Footer>
+                      <Table.Row>
+												<Table.HeaderCell>Title</Table.HeaderCell>
+                        <Table.HeaderCell>Exam Type</Table.HeaderCell>
+                        <Table.HeaderCell>Date</Table.HeaderCell>
+                        <Table.HeaderCell isNarrowed></Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Footer>
+                </Table>
+                </div>
+
+							{/* END TABLE */}
 	          
-	            {this.state.generatedExam.map((attr, index)=>{
+
+
+
+
+
+
+
+
+	            {/* {this.state.generatedExam.map((attr, index)=>{
 	            	
 	            	let data =  {
 					    labels: [],
@@ -176,9 +360,9 @@ class Layout extends Component {
 							</div>
 	    					<Bar 
 	    						data={data}
-	    						height={75}
+									height={75}
 	    						options={{
-						        animation: false
+										animation: false,
 						    	}} />
 	    				
 
@@ -189,7 +373,7 @@ class Layout extends Component {
 				    )
 
 
-				})}
+				})} */}
 
 	           
 	          
@@ -212,6 +396,141 @@ class Layout extends Component {
 		          </Grid.Cell>
 	        </Grid.X>
         </div>
+
+				<div className={ this.state.modalOn ? "visible" : "hidden"} >
+					<div className='modal'>
+						<div className='chart-modal'>
+							
+
+							<span className='close-button la la-times-circle' onClick={(e) => this.closeModal()}></span>
+							<div className="chart-content-container">
+								<Grid full>
+									<Grid.X>
+										<Grid.Cell large={12} medium={12} small={12}><h1 className="text-center">Performance Indicator</h1></Grid.Cell>
+										<Grid.Cell large={4} medium={4} small={12}>
+											<h3>Pre and Post</h3>
+												<Bar 
+													data = {{
+														labels: [],
+														datasets: [
+															{
+																label: 'Pre',
+																backgroundColor: '#d1f4da',
+																borderColor: 'rgba(255,99,132,1)',
+																borderWidth: 1,
+																hoverBackgroundColor: '#d1f4da',
+																hoverBorderColor: 'rgba(255,99,132,1)',
+																data: [this.state.prePost.pre ? this.state.prePost.pre.length > 0 ? this.state.prePost.pre[0].percentage : 0 : 0 ]
+															},
+															{
+																label: 'Post',
+																backgroundColor: '#bbe3ff',
+																borderColor: 'rgba(255,99,132,1)',
+																borderWidth: 1,	
+																hoverBorderColor: 'rgba(255,99,132,1)',
+																data: [this.state.prePost.post ? this.state.prePost.post.length > 0 ? this.state.prePost.post[0].percentage : 0 : 0 ]
+															}
+															
+														],
+													}}
+													height={75}
+													options={{
+														animation: false,
+														scales: {
+															yAxes: [{
+																			display: true,
+																			ticks: {
+																					beginAtZero: true,
+																					steps: 10,
+																					stepValue: 5,
+																					max: 100
+																			}
+																	}]
+													},
+												}} />
+										</Grid.Cell>
+										<Grid.Cell large={4} medium={4} small={12}>
+											<h3>All Examinations</h3>										
+											<Bar 
+													data = {{
+														labels: [],
+														datasets: [
+															{
+																label: 'Pre',
+																backgroundColor: '#d1f4da',
+																borderColor: 'rgba(255,99,132,1)',
+																borderWidth: 1,
+																hoverBackgroundColor: '#d1f4da',
+																hoverBorderColor: 'rgba(255,99,132,1)',
+																data: [this.state.preAdaptivePost.pre ? this.state.preAdaptivePost.pre.length > 0 ? this.state.preAdaptivePost.pre[0].percentage : 0 : 0 ]
+															},
+															{
+																label: 'Post',
+																backgroundColor: '#d1f4da',
+																borderColor: 'rgba(255,99,132,1)',
+																borderWidth: 1,
+																hoverBackgroundColor: '#d1f4da',
+																hoverBorderColor: 'rgba(255,99,132,1)',
+																data: [this.state.preAdaptivePost.post ? this.state.preAdaptivePost.post.length > 0 ? this.state.preAdaptivePost.post[0].percentage : 0 : 0 ]
+															}
+														],
+													}}
+													height={75}
+													options={{
+														animation: false,
+														scales: {
+															yAxes: [{
+																			display: true,
+																			ticks: {
+																					beginAtZero: true,
+																					steps: 10,
+																					stepValue: 5,
+																					max: 100
+																			}
+																	}]
+													},
+												}} />
+										</Grid.Cell>
+										{/* <Grid.Cell large={4} medium={4} small={12}>
+										<h3>&nbsp;</h3>									
+											<Bar 
+													data = {{
+														labels: [],
+														datasets: [
+															{
+																label: 'Adaptive',
+																backgroundColor: '#d1f4da',
+																borderColor: 'rgba(255,99,132,1)',
+																borderWidth: 1,
+																hoverBackgroundColor: '#d1f4da',
+																hoverBorderColor: 'rgba(255,99,132,1)',
+																data: adaptive
+															}
+														],
+													}}
+													height={75}
+													options={{
+														animation: false,
+														scales: {
+															yAxes: [{
+																			display: true,
+																			ticks: {
+																					beginAtZero: true,
+																					steps: 10,
+																					stepValue: 5,
+																					max: 100
+																			}
+																	}]
+													},
+												}} />
+										</Grid.Cell> */}
+									</Grid.X>
+									
+								</Grid>
+							</div>
+							</div>
+						</div> 
+					</div>
        </Grid>
     )
   }
