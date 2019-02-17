@@ -218,14 +218,22 @@ class Layout extends Component {
 	                              			{this.state.validator.map((attr,index)=>{
 			                                  return (
 			                                     <span key={index} className='validator-name' onClick={()=>{this.removeValidator(index)}}>
-
-			                                     {  attr.user ? attr.user.personalInformation ? 
+			                                     {  attr.user ? attr.user.method == 'local' ? 
 			                                         (attr.user.personalInformation.firstName ? attr.user.personalInformation.firstName : '') 
 			                                         + ' ' + 
 			                                         (attr.user.personalInformation.middleName ? attr.user.personalInformation.middleName.substring(0,1) : '')
 			                                         + ' ' + 
 			                                         (attr.user.personalInformation.lastName ? attr.user.personalInformation.lastName : '')
-			                                     : '' : ''}
+                                           : '' : ''}
+
+                                            {  attr.user ? attr.user.method == 'facebook' ? 
+			                                         attr.user.facebook.email
+                                           : '' : ''}
+
+                                            {  attr.user ? attr.user.method == 'google' ? 
+			                                         attr.user.google.email
+                                           : '' : ''}
+
 			                                	<i className='la la-close' />
 			                                    </span>
 			                                  )})}
