@@ -43,12 +43,19 @@ class Layout extends Component {
 			<option value=''></option>
         {this.state.user.map((attr,index)=> {
           return (
-              <option key={index} value={attr._id}>{
-              		attr.personalInformation ? 
+							<option key={index} value={attr._id}>
+									{
+              		attr.method == 'local' ? 
               			(attr.personalInformation.firstName ? attr.personalInformation.firstName : '')  + ' '  +
               			(attr.personalInformation.middleName ? attr.personalInformation.middleName.substring(0,1) + '. ' : '')  + 
               			(attr.personalInformation.lastName ? attr.personalInformation.lastName : '')   
-              		: ''}
+									: '' }
+									{
+										 attr.method == 'facebook' ? attr.facebook.email : ''
+									}
+									{
+										 attr.method == 'google' ? attr.google.email : ''
+									}
               </option>
             )
         })}
