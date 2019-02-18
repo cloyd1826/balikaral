@@ -12,7 +12,8 @@ class Layout extends Component {
     this.state = {  
     	user: []
     }
-    this.fetchAll = this.fetchAll.bind(this)
+		this.fetchAll = this.fetchAll.bind(this)
+		this.nameChecker = this.nameChecker.bind(this)
   }
   fetchAll(){	
   	apiRequest('get', `/user/fetch-all?notType=Learner`, false, this.props.token)
@@ -26,7 +27,28 @@ class Layout extends Component {
   		.catch((err)=>{
         
   		})
-  }
+	}
+	
+	nameChecker(attr) {
+		if(attr.method == "local"){
+			return attr.personalInformation.firstName + " " + attr.personalInformation.middleName + " " + attr.personalInformation.lastName 
+		}
+		if(attr.method == "facebook"){
+			if(attr.personalInformation.firstName){
+				return attr.personalInformation.firstName+ " " + attr.personalInformation.middleName + " " + attr.personalInformation.lastName
+			}else{
+				return attr.facebook.email
+			}
+		}
+		if(attr.method == "google"){
+			if(attr.personalInformation.firstName){
+				return attr.personalInformation.firstName+ " " + attr.personalInformation.middleName + " " + attr.personalInformation.lastName
+			}else{
+				return attr.google.email
+			}
+		}
+	}
+
   componentDidMount(){
   	this.fetchAll()
   }
@@ -44,18 +66,7 @@ class Layout extends Component {
         {this.state.user.map((attr,index)=> {
           return (
 							<option key={index} value={attr._id}>
-									{
-              		attr.method == 'local' ? 
-              			(attr.personalInformation.firstName ? attr.personalInformation.firstName : '')  + ' '  +
-              			(attr.personalInformation.middleName ? attr.personalInformation.middleName.substring(0,1) + '. ' : '')  + 
-              			(attr.personalInformation.lastName ? attr.personalInformation.lastName : '')   
-									: '' }
-									{
-										 attr.method == 'facebook' ? attr.facebook.email : ''
-									}
-									{
-										 attr.method == 'google' ? attr.google.email : ''
-									}
+									{this.nameChecker(attr)}
               </option>
             )
         })}
