@@ -8,7 +8,7 @@ import FormMessage from '../../../_component/Form/FormMessage'
 import Pagination from '../../../_component/Pagination'
 
 import apiRequest from '../../../_axios'
-
+import Select from '../../../_component/Form/Select'
 import { connect } from 'react-redux'
 
 import ManagementDelete from '../../../_component/ManagementDelete'
@@ -23,7 +23,7 @@ class Layout extends Component {
     	message: '',
       type: '',
       active: false,
-
+      userType: '',
       currentPage: 1,
       nextPage: null,
       pageCount: 0,
@@ -36,6 +36,7 @@ class Layout extends Component {
     this.fetchUser = this.fetchUser.bind(this)
    	this.formMessage = this.formMessage.bind(this)
     this.changePage = this.changePage.bind(this)
+    this.handleChange = this.handleChange.bind(this)
 
     this.toggleDelete = this.toggleDelete.bind(this)
 
@@ -45,8 +46,15 @@ class Layout extends Component {
     this.setState({
       currentPage: page
     })
-    this.fetchUser( page)
+    this.fetchUser( page, this.state.userType)
   }
+
+  handleChange(page, value) {
+    this.setState({ userType: value}, () => {
+      this.fetchUser( page, this.state.userType)
+    });
+  }
+
   formMessage(message, type, active){
     this.setState({
       message: message,
@@ -70,8 +78,8 @@ class Layout extends Component {
     }
   }
 
-  fetchUser(page){
-  	apiRequest('get', `/user/all?page=${page}`, false, this.props.token)
+  fetchUser(page, type){
+  	apiRequest('get', `/user/all?page=${page}&type=${type}`, false, this.props.token)
   		.then((res)=>{
         console.log(res)
   			if(res.data){
@@ -92,7 +100,7 @@ class Layout extends Component {
   		})
   }
   componentDidMount(){
-  	this.fetchUser(1)
+  	this.fetchUser(1,'')
   }
   grantAccess(account,id,type){
     this.formMessage('Updating Data...', 'loading', true, true)
@@ -124,6 +132,23 @@ class Layout extends Component {
         						<div className='title'>User Management</div>
         						
         					</div>
+                  <div className='table-filter'>
+                    <Grid.Cell large={2} medium={12} small={12}>
+                      <Select 
+                        label='Type of User'
+                        name='userType' 
+                        value={this.state.userType} 
+                        onChange={e => this.handleChange('1', e.target.value)}
+                        >
+                        <option value='' disabled> -- SELECT --</option>
+                        <option value=''>All</option>
+                        <option value='Administrator'>Administrator</option>
+                        <option value='Learner'>Learner</option>
+                        <option value='Teacher'>Teacher</option>
+                       
+                      </Select>
+                    </Grid.Cell>
+                  </div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   <div className="table-container">
 	        				<Table hover nostripe>
