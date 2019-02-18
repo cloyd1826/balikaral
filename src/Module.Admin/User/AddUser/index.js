@@ -25,7 +25,7 @@ class Layout extends Component {
         lastName: '',
         firstName: '',
         middleName: '',
-
+        level: '',
         houseNoStreet: '',
         barangay: '',
         city: '',
@@ -178,11 +178,6 @@ class Layout extends Component {
                                     <option value='Teacher'>Teacher</option>
                                   </Select>
                                 </Grid.Cell>
-
-
-                                 
-                               
-                                
                                 <Grid.Cell large={4} medium={6}  small={12}>
                                   <Input 
                                     label='First Name'
