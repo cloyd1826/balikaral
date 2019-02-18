@@ -167,28 +167,31 @@ class Layout extends Component {
         .then((res)=>{
           console.log('e',res)
           let examToGenerate = this.state.examToGenerate
-          res.data.exam.map((attr)=>{
+          const examG = res.data.exam.map((attr)=>{
             examToGenerate = [...examToGenerate, { question: attr._id, answer: ''}]
           })
-          
-          this.setState({
-            examToGenerate: examToGenerate
-          })
-          console.log('eg',examToGenerate)
-          if(post && parseInt(examToGenerate.length) === parseInt(count)){
-            this.postExam(examToGenerate, this.state.exam)
-          }
-          if(post && parseInt(examToGenerate.length) !== parseInt(count)){
+          if(examG){
             this.setState({
-              examToGenerate: [],
-              isAvailable: true,
-              generating: false,
-              exam: {}
+              examToGenerate: examToGenerate
             })
-            this.generateExam(this.state.examLearningStrand)
-            
+            console.log('eg',examToGenerate)
+            if(post && parseInt(examToGenerate.length) === parseInt(count)){
+              console.log("examToGenerate",examToGenerate)
+              console.log("this.state.exam",this.state.exam)
+              this.postExam(examToGenerate, this.state.exam)
+            }
+            if(post && parseInt(examToGenerate.length) !== parseInt(count)){
+              console.log("this.state.examLearningStrand",this.state.examLearningStrand)
+              this.setState({
+                examToGenerate: [],
+                isAvailable: true,
+                generating: false,
+                exam: {}
+              })
+              this.generateExam(this.state.examLearningStrand)
+              
+            }
           }
-          
         })
         .catch((err)=>{
 
@@ -197,6 +200,7 @@ class Layout extends Component {
     
   }
   postExam(exam, type){
+    console.log("type",type)  
     let data = {
       examType: type._id,
       exam: exam,
@@ -207,8 +211,14 @@ class Layout extends Component {
       dateStarted: Date.now(),
       level: this.props.level
     }
-    console.log('d', data)
-    apiRequest('post', `/generated-exam?userId=${this.props.user.id}`, data, this.props.token)
+    console.log(data.examType)
+    if(data.examType == "undefined" || data.examType == null){
+      this.props.history.push({
+        pathname: '/learner/exam/available'
+      })
+    }
+    else{
+      apiRequest('post', `/generated-exam?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{
         
           this.props.history.push({
@@ -219,6 +229,7 @@ class Layout extends Component {
       .catch((err)=>{
         this.formMessage('Error: ' + err.message, 'error', true, false)
       })
+    }
   }
 
   checkStatus(){

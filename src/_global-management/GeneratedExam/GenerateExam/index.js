@@ -72,10 +72,8 @@ class Layout extends Component {
     if(lengthOfAnsweredQuestion.length === exam.length){
       this.updateExam(exam, 'Completed')
     }
-
   }
   fetchExamType(){
-   
     apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
       .then((res)=>{  
       
@@ -134,7 +132,6 @@ class Layout extends Component {
       }
     }
    
-
     apiRequest('put', `/generated-exam/update/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{ 
           if(finished === 'Completed'){
