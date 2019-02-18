@@ -140,13 +140,24 @@ class Layout extends Component {
   }
   
   render() {
-		// let adaptiveData = this.state.adaptiveData
-		// let adaptive = []
-		
-		// for(var i = 0; i <= adaptiveData.length; i++){
-		// 	adaptive = adaptive.concat(adaptive[i].percentage)
-		// }
+		let adaptiveData = this.state.adaptiveData
+		let adaptive = []
+		let adaptiveLabel = []
+		let adaptLabel = []
+		let adaptiveBg = []
 
+		let preLabel = ['Pre',]
+		let postLabel = ['Post']
+		let adptLabel = ['Adaptive']
+
+		
+		for(var i = 0; i < adaptiveData.length; i++){
+			adaptive =  [...adaptive, adaptiveData[i].percentage]
+			adaptiveLabel = adaptiveLabel.concat(adptLabel)
+			adaptiveBg = [...adaptiveBg, ['#d7ecfb']]
+		}
+
+		adaptLabel = [preLabel, ...adaptiveLabel, postLabel]
 
 
     return (
@@ -449,34 +460,32 @@ class Layout extends Component {
 													},
 												}} />
 										</Grid.Cell>
-										<Grid.Cell large={4} medium={4} small={12}>
+										<Grid.Cell large={8} medium={8} small={12}>
 											<h3>All Examinations</h3>										
 											<Bar 
-													data = {{
-														labels: [],
-														datasets: [
-															{
-																label: 'Pre',
-																backgroundColor: '#d1f4da',
-																borderColor: 'rgba(255,99,132,1)',
-																borderWidth: 1,
-																hoverBackgroundColor: '#d1f4da',
-																hoverBorderColor: 'rgba(255,99,132,1)',
-																data: [this.state.preAdaptivePost.pre ? this.state.preAdaptivePost.pre.length > 0 ? this.state.preAdaptivePost.pre[0].percentage : 0 : 0 ]
-															},
-															{
-																label: 'Post',
-																backgroundColor: '#d1f4da',
-																borderColor: 'rgba(255,99,132,1)',
-																borderWidth: 1,
-																hoverBackgroundColor: '#d1f4da',
-																hoverBorderColor: 'rgba(255,99,132,1)',
-																data: [this.state.preAdaptivePost.post ? this.state.preAdaptivePost.post.length > 0 ? this.state.preAdaptivePost.post[0].percentage : 0 : 0 ]
-															}
-														],
-													}}
+													data = {
+														{
+															labels: adaptLabel,
+															datasets: [
+																{
+																	backgroundColor: ['#fff5dd', ...adaptiveBg, '#ffe0e6'],
+																	borderColor: 'rgba(255,99,132,1)',
+																	borderWidth: 1,
+																	hoverBorderColor: 'rgba(255,99,132,1)',
+																	data: [
+																		this.state.preAdaptivePost.pre ? this.state.preAdaptivePost.pre.length > 0 ? this.state.preAdaptivePost.pre[0].percentage : 0 : 0 , ...adaptive ,
+																		this.state.preAdaptivePost.post ? this.state.preAdaptivePost.post.length > 0 ? this.state.preAdaptivePost.post[0].percentage : 0 : 0 
+																	]
+																}
+															],
+														}
+													}
 													height={75}
 													options={{
+														
+														legend: {
+															display: false
+													},
 														animation: false,
 														scales: {
 															yAxes: [{
@@ -491,39 +500,6 @@ class Layout extends Component {
 													},
 												}} />
 										</Grid.Cell>
-										{/* <Grid.Cell large={4} medium={4} small={12}>
-										<h3>&nbsp;</h3>									
-											<Bar 
-													data = {{
-														labels: [],
-														datasets: [
-															{
-																label: 'Adaptive',
-																backgroundColor: '#d1f4da',
-																borderColor: 'rgba(255,99,132,1)',
-																borderWidth: 1,
-																hoverBackgroundColor: '#d1f4da',
-																hoverBorderColor: 'rgba(255,99,132,1)',
-																data: adaptive
-															}
-														],
-													}}
-													height={75}
-													options={{
-														animation: false,
-														scales: {
-															yAxes: [{
-																			display: true,
-																			ticks: {
-																					beginAtZero: true,
-																					steps: 10,
-																					stepValue: 5,
-																					max: 100
-																			}
-																	}]
-													},
-												}} />
-										</Grid.Cell> */}
 									</Grid.X>
 									
 								</Grid>
