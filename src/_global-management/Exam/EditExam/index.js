@@ -295,6 +295,17 @@ class Layout extends Component {
                                 </Grid.Cell>
 
                                 <Grid.Cell large={12} medium={12} small={12}>
+                                  <div className='context-montserrat' style={{fontSize: "16px",color: "black"}}>Validator: { " " }
+                                    {
+                                      this.state.validator.map(function(value){
+                                        function checker(val){
+                                          return val.user.personalInformation.firstName + " " + val.user.personalInformation.middleName+ " "+ val.user.personalInformation.lastName 
+                                      }
+                                      return (<div><span style={{color:"black",fontWeight: "bold", textDecoration: "underline"}}>{checker(value)}</span><br/></div>)
+                                    }
+                                    )
+                                    }
+                                  </div>
                                   <Textarea 
                                     required 
                                     type='text' 

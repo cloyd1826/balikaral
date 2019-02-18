@@ -48,6 +48,7 @@ class Layout extends Component {
     this.fetchSingle = this.fetchSingle.bind(this)
  
     this.formMessage = this.formMessage.bind(this)
+    this.nameChecker = this.nameChecker.bind(this)
 
     this.onDocumentComplete = this.onDocumentComplete.bind(this)
 
@@ -94,6 +95,28 @@ class Layout extends Component {
       this.props.history.push('/')
     }
   }
+
+  nameChecker(attr) {
+    console.log(attr)
+    // if(attr.method == "local"){
+		// 	return attr.personalInformation.firstName + " " + attr.personalInformation.middleName + " " + attr.personalInformation.lastName 
+		// }
+		// if(attr.method == "facebook"){
+		// 	if(attr.personalInformation.firstName){
+		// 		return attr.personalInformation.firstName+ " " + attr.personalInformation.middleName + " " + attr.personalInformation.lastName
+		// 	}else{
+		// 		return attr.facebook.email
+		// 	}
+		// }
+		// if(attr.method == "google"){
+		// 	if(attr.personalInformation.firstName){
+		// 		return attr.personalInformation.firstName+ " " + attr.personalInformation.middleName + " " + attr.personalInformation.lastName
+		// 	}else{
+		// 		return attr.google.email
+		// 	}
+		// }
+  }
+  
   fetchSingle(){
     this.formMessage('Loading Content', 'loading', true, false)
 
@@ -177,6 +200,17 @@ class Layout extends Component {
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={6} small={12}>
                         <div className='context-montserrat'>Title: <span>{this.state.description}</span></div>
+                      </Grid.Cell>
+                      <Grid.Cell large={3} medium={6} small={12}>
+                        <div className='context-montserrat'>Validator: { " " }
+                        {this.state.validator.map(function(value){
+                          function checker(val){
+                            return val.user.personalInformation.firstName + " " + val.user.personalInformation.middleName+ " "+ val.user.personalInformation.lastName 
+                          }
+                          return <span>{checker(value)}</span>
+                        } 
+                        
+                        )}</div>
                       </Grid.Cell>
 
                        {this.state.fileType === 'PDF' ? 
