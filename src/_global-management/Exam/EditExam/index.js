@@ -301,7 +301,7 @@ class Layout extends Component {
                                         function checker(val){
                                           return val.user.personalInformation.firstName + " " + val.user.personalInformation.middleName+ " "+ val.user.personalInformation.lastName 
                                       }
-                                      return (<div><span style={{color:"black",fontWeight: "bold", textDecoration: "underline"}}>{checker(value)}</span><br/></div>)
+                                      return (<div><span style={{textDecoration: "underline",fontWeight: 500,color: "white", backgroundColor: "#3859AD", padding: "3px", borderRadius: "7px", lineHeight: 1.5}}>{checker(value)}</span><br/></div>)
                                     }
                                     )
                                     }

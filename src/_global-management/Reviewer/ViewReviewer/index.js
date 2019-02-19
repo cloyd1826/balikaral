@@ -193,13 +193,13 @@ class Layout extends Component {
                   <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage>
                   <Grid.X className='reviewer-view'>
                       <Grid.Cell large={3} medium={6} small={12}>
-                        <div className='context-montserrat'>Learning Strand: <span>{this.state.learningStrand}</span></div>
+                        <div className='context-montserrat'>Learning Strand: <span style={{textDecoration: "underline",fontWeight: 500,color: "white", backgroundColor: "#3859AD", padding: "3px", borderRadius: "7px", lineHeight: 1.5}}>{this.state.learningStrand}</span></div>
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={6} small={12}>
-                        <div className='context-montserrat'>Teacher: <span>{this.state.uploader}</span></div>
+                        <div className='context-montserrat'>Teacher: <span style={{textDecoration: "underline",fontWeight: 500,color: "white", backgroundColor: "#3859AD", padding: "3px", borderRadius: "7px", lineHeight: 1.5}}>{this.state.uploader}</span></div>
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={6} small={12}>
-                        <div className='context-montserrat'>Title: <span>{this.state.description}</span></div>
+                        <div className='context-montserrat'>Title: <span style={{textDecoration: "underline",fontWeight: 500,color: "white", backgroundColor: "#3859AD", padding: "3px", borderRadius: "7px", lineHeight: 1.5}}>{this.state.description}</span></div>
                       </Grid.Cell>
                       <Grid.Cell large={3} medium={6} small={12}>
                         <div className='context-montserrat'>Validator: { " " }
@@ -207,7 +207,7 @@ class Layout extends Component {
                           function checker(val){
                             return val.user.personalInformation.firstName + " " + val.user.personalInformation.middleName+ " "+ val.user.personalInformation.lastName 
                           }
-                          return <span>{checker(value)}</span>
+                          return <div><span style={{textDecoration: "underline",fontWeight: 500,color: "white", backgroundColor: "#3859AD", padding: "3px", borderRadius: "7px", lineHeight: 1.5}}>{checker(value)}</span><br/></div>
                         } 
                         
                         )}</div>
