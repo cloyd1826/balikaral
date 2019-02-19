@@ -200,7 +200,7 @@ class Dashboard extends Component {
                   <Link to='/admin/system/exam-type'>
                     <div className='dashboard-link' >
                       <span className='la la-circle-o-notch'></span>
-                      <div className='link-title'>Statistics ng Exam Type</div>
+                      <div className='link-title'>Analytics ng Exam Type</div>
                     </div>
                   </Link>
                 </Grid.Cell>
@@ -209,7 +209,7 @@ class Dashboard extends Component {
                   <Link to='/admin/system/generated-exam'>
                     <div className='dashboard-link' >
                       <span className='la la-tasks'></span>
-                      <div className='link-title'>Statistics ng mga Exam</div>
+                      <div className='link-title'>Analytics ng mga Exam</div>
                     </div>
                   </Link>
                 </Grid.Cell>

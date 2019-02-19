@@ -43,14 +43,14 @@ class RouteManagement extends Component {
             <Link to='/admin/system/exam-type'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/system/exam-type') ? 'active' : '')}>
                 <i className='la la-circle-o-notch' />
-                Statistics ng Exam Type
+                Analytics ng Exam Type
               </div>
               
             </Link>
             <Link to='/admin/system/generated-exam'>
               <div className={'link ' + (this.props.location.pathname.match('/admin/system/generated-exam') ? 'active' : '')}>
                 <i className='la la-tasks' />
-                Statistics ng mga Exam
+                Analytics ng mga Exam
               </div>
               
             </Link>

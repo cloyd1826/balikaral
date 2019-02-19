@@ -114,11 +114,11 @@ class Sidebar extends Component {
                   </div>
                   <NavLink className='sidebar-link' activeClassName='active' to='/admin/statistics/exam-type'>
                     <i className='la la-circle-o-notch'></i>
-                    <span>Statistics ng Exam Type</span>
+                    <span>Analytics ng Exam Type</span>
                   </NavLink>
                   <NavLink className='sidebar-link' activeClassName='active' to='/admin/statistics/generated-exam'>
                     <i className='la la-tasks'></i>
-                    <span>Statistics ng Generated Exam</span>
+                    <span>Analytics ng Generated Exam</span>
                   </NavLink>
                 
                 </div>
