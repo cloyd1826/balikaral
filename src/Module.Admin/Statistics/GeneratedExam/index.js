@@ -14,7 +14,7 @@ import config from '../../../_config'
 
 import Pagination from '../../../_component/Pagination'
 
-import {Bar} from 'react-chartjs-2';
+import {Bar, Line} from 'react-chartjs-2';
 
 
 import moment from 'moment'
@@ -41,7 +41,9 @@ class Layout extends Component {
 
 				modalOn: false,
 
-				prePostData : []
+				learnerName : '',
+				prePostData : [],
+				preAdaptivePostData : []
 		}
 		
 		this.changePage = this.changePage.bind(this)
@@ -58,7 +60,7 @@ class Layout extends Component {
     this.fetchAllLearner(page)
 	}
 	
-	showModal(data){
+	showModal(data, name){
 		let modalOn = this.state.modalOn
 
 		apiRequest('get', `/generated-exam/analytics/pre-post/${data}`, false, this.props.token)
@@ -68,12 +70,32 @@ class Layout extends Component {
 
 			this.setState({
 				prePostData : prePostData,
-				modalOn : !modalOn
 			})
+
+			//PRE ADAPTIVE POST
+			apiRequest('get', `/generated-exam/analytics/all/${data}`, false, this.props.token)
+				.then(res => {
+					const preAdaptivePostData = res.data.data
+
+					console.log('preadaptivepost', preAdaptivePostData)
+					this.setState({
+						preAdaptivePostData : preAdaptivePostData,
+						learnerName: name,
+						modalOn : !modalOn
+					})
+				})
+				.catch((err)=>{
+					console.log(err)
+				})
+
+
 		})
 		.catch((err)=>{
 			console.log(err)
 		})
+
+
+		
 	}
 
 	closeModal(){
@@ -113,6 +135,7 @@ class Layout extends Component {
   
   render() {
 		
+		// PRE POST DATA START
 		let ppData = [this.state.prePostData]
 		let prePostLabel = []
 		let preData = []
@@ -122,8 +145,8 @@ class Layout extends Component {
 
 		ppLabels.map((attr, i)=>{
 			ppData.map(data => {
-				preData = [...preData, data[attr][0].percentage]
-				postData = [...postData, data[attr][1].percentage]
+				preData = [...preData, data[attr][0] ? data[attr][0].percentage : 0]
+				postData = [...postData, data[attr][1] ? data[attr][1].percentage : 0]
 			})
 		})
 
@@ -144,6 +167,66 @@ class Layout extends Component {
 
 		console.log('pplabel', ppLabels)
 		console.log('ppData', ppData)
+
+		// PRE POST DATA END
+
+
+		//PRE ADAPTIVE POST DATA START
+
+		let papData = [this.state.preAdaptivePostData]
+		let preAdaptPostLabel = []
+		let adaptALabel = []
+		let preAData = []
+		let adaptAData = []
+		let postAData = []
+		let pApLabels = Object.keys(this.state.preAdaptivePostData)
+		
+
+		pApLabels.map((attr, i)=>{
+			papData.map(data => {
+				preAData = [...preAData, data[attr][0].percentage]
+				postAData = [...postAData, data[attr][2].percentage]
+			})
+		})
+
+		pApLabels.map((attr, i)=>{
+			papData.map(data => {
+				if(data[attr][i]){
+					if(data[attr][i].learningStrand === attr && data[attr][i].type === 'Adaptive Test'){
+						adaptAData = [...adaptAData, data[attr][i].percentage]
+						adaptALabel = [...adaptALabel, 'Adaptive']
+					}
+				}
+			})
+		})
+
+		let preAdaptivePostDatasets = [{
+			label: 'Pre',
+			backgroundColor: '#ffd778',
+			borderColor: 'rgba(255,99,132,1)',
+			borderWidth: 1,
+			data: [...preAData]
+		},
+		{
+			label: 'Adaptive',
+			backgroundColor: '#6fcdcd',
+			borderColor: 'rgba(255,99,132,1)',
+			borderWidth: 1,
+			// data: [...adaptAData],
+			data: []
+		},
+		{
+			label: 'Post',
+			backgroundColor: '#5eb5ef',
+			borderColor: 'rgba(255,99,132,1)',
+			borderWidth: 1,
+			data: [...postAData]
+		}]
+
+		console.log('pAplabel', ppLabels)
+		console.log('pApData', papData)
+		//PRE ADAPTIVE POST DATA END
+
 
 
     return (
@@ -179,7 +262,7 @@ class Layout extends Component {
 													<Table.Cell>{attr.personalInformation.firstName + ' ' + attr.personalInformation.lastName}</Table.Cell>
 													<Table.Cell>{attr.local.userType}</Table.Cell>
 													<Table.Cell>
-														<span onClick={(e)=> this.showModal(attr._id)}>
+														<span onClick={(e)=> this.showModal(attr._id, attr.personalInformation.firstName + ' ' + attr.personalInformation.lastName)}>
       								    		<i className='la la-folder-open-o primary'></i>
       								    	</span>
 													</Table.Cell>
@@ -229,7 +312,9 @@ class Layout extends Component {
 							<div className="chart-content-container">
 								<Grid full>
 									<Grid.X>
-										<Grid.Cell large={12} medium={12} small={12}><h1 className="text-center">Performance Indicator</h1></Grid.Cell>
+										<Grid.Cell large={12} medium={12} small={12}><h2 className="text-center">Performance Indicator</h2></Grid.Cell>
+										<Grid.Cell large={12} medium={12} small={12}><h1 className="learner-name text-center">{this.state.learnerName}</h1></Grid.Cell>
+										<Grid.Cell large={12} medium={12} small={12}><div className="underline"></div></Grid.Cell>
 										<Grid.Cell large={12} medium={12} small={12}>
 											<h3>Pre and Post</h3>
 												<Bar 
@@ -254,41 +339,55 @@ class Layout extends Component {
 												}} />
 										</Grid.Cell>
 										<Grid.Cell large={12} medium={12} small={12}>
-											<h3>All Examinations</h3>										
-											<Bar 
-													data = {
-														{
-															labels: [],
-															datasets: [
-																{
-																	backgroundColor: ['#fff5dd', [], '#ffe0e6'],
-																	borderColor: 'rgba(255,99,132,1)',
-																	borderWidth: 1,
-																	hoverBorderColor: 'rgba(255,99,132,1)',
-																	data: []
-																}
-															],
-														}
-													}
-													height={75}
-													options={{
-														
-														legend: {
-															display: false
-													},
-														animation: false,
-														scales: {
-															yAxes: [{
-																			display: true,
-																			ticks: {
-																					beginAtZero: true,
-																					steps: 10,
-																					stepValue: 5,
-																					max: 100
-																			}
-																	}]
-													},
-												}} />
+											<Grid full>
+												<Grid.X>
+												<Grid.Cell large={12}><h3>All Examinations</h3></Grid.Cell>
+												{
+												pApLabels.map((attr, i)=>{
+													return(
+														papData.map(data => {
+															return(
+																<Grid.Cell key={i} large={6} medium={12} small={12}>
+																	<Line 
+																		key={i}
+																			data={{
+																				labels: ['Pre',...adaptALabel, 'Post'],
+																				datasets: [{
+																						fill: false,
+																						lineTension: 0,
+																						pointRadius: 4,
+																						label: data[attr][0].learningStrand,
+																						backgroundColor: '#ffd778',
+																						borderColor: 'rgba(255,99,132,1)',
+																						borderWidth: 1,
+																						data: [data[attr][0] ? data[attr][0].percentage : 0, ...adaptAData ,data[attr][2] ? data[attr][2].percentage : 0]
+																					}
+																				]
+																			}}
+																			height={75}
+																			options={{
+																				animation: false,
+																				scales: {
+																					yAxes: [{
+																									display: true,
+																									ticks: {
+																											beginAtZero: true,
+																											steps: 10,
+																											stepValue: 5,
+																											max: 100
+																									}
+																							}],
+																			},
+																		}} />
+																</Grid.Cell>
+															)
+														})
+													)
+												})
+											}
+												</Grid.X>
+											</Grid>										
+											
 										</Grid.Cell>
 									</Grid.X>
 									

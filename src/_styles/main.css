@@ -1168,6 +1168,13 @@ tr.green {
     transition: cubic-bezier(0.33, 0.33, 0.33, 1) 0.3s; }
     .chart-modal .close-button:hover {
       color: #fe0000; }
+  .chart-modal .chart-content-container .learner-name {
+    color: #4257b2;
+    margin-top: -10px;
+    text-transform: capitalize; }
+  .chart-modal .chart-content-container .underline {
+    border-bottom: solid 1px #e4e4e4;
+    width: 100%; }
 
 .hidden {
   display: none; }
