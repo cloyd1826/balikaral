@@ -10,16 +10,35 @@ import Pagination from '../../../_component/Pagination'
 import apiRequest from '../../../_axios'
 import Select from '../../../_component/Form/Select'
 import { connect } from 'react-redux'
-
 import ManagementDelete from '../../../_component/ManagementDelete'
+import { CSVLink } from "react-csv"
 
+let header = [
+  { label: "First Name", key:"personalInformation.firstName"},
+  { label: "Middle Name", key:"personalInformation.middleName"},
+  { label: "Last Name", key:"personalInformation.lastName"},
+  { label: "Facebook Email", key:"facebook.email"},
+  { label: "Gmail Email", key:"google.email"},
+  { label: "Local Email", key:"local.email"},
+  { label: "Region", key:"personalInformation.province"},
+  { label: "Gender", key:"personalInformation.gender"},
+  { label: "Grade Level", key:"personalInformation.lastGradeLevelCompleted"},
+  { label: "Learning Center", key:"personalInformation.learningCenter"},
+  { label: "Civil Status", key:"personalInformation.civilStatus"},
+  { label: "Reason For Stopping", key:"personalInformation.reasongForStopping"},
+  { label: "Years in ALS", key:"personalInformation.yearsInAls"},
+  { label: "Occupation", key:"personalInformation.occupation"},
+  { label: "LET Passer (If Teacher)", key:"personalInformation.letPasser"},
+  { label: "No. Of Year as ALS Teacher", key:"personalInformation.noOfYearsTeaching"},
+  
+]
 
 class Layout extends Component {
   constructor(props) {
     super(props)
     this.state = {  
     	user: [],
-
+      userReport: [],
     	message: '',
       type: '',
       active: false,
@@ -37,22 +56,25 @@ class Layout extends Component {
    	this.formMessage = this.formMessage.bind(this)
     this.changePage = this.changePage.bind(this)
     this.handleChange = this.handleChange.bind(this)
-
+    this.fetchAll = this.fetchAll.bind(this)
+    
     this.toggleDelete = this.toggleDelete.bind(this)
-
+    
     this.grantAccess = this.grantAccess.bind(this)
   }
+
   changePage(page){
     this.setState({
       currentPage: page
     })
     this.fetchUser( page, this.state.userType)
   }
-
+  
   handleChange(page, value) {
     this.setState({ userType: value}, () => {
       this.fetchUser( page, this.state.userType)
     });
+    console.log(this.state)
   }
 
   formMessage(message, type, active){
@@ -62,6 +84,7 @@ class Layout extends Component {
       active: active
     })
   }
+
   toggleDelete(link){
     if(this.state.deleteActive){
       this.setState({
@@ -79,6 +102,7 @@ class Layout extends Component {
   }
 
   fetchUser(page, type){
+    this.fetchAll(type)
   	apiRequest('get', `/user/all?page=${page}&type=${type}`, false, this.props.token)
   		.then((res)=>{
         console.log(res)
@@ -99,8 +123,26 @@ class Layout extends Component {
   			this.formMessage('Error: ' + err.message, 'error', true, false)
   		})
   }
+
+  fetchAll(type){
+  	apiRequest('get', `/user/fetch-all?type=${type}`, false, this.props.token)
+  		.then((res)=>{
+        console.log(res)
+  			if(res.data){
+  				this.setState({
+	  				userReport: res.data.data
+	  			})	
+	  		}
+  		})
+  		.catch((err)=>{
+        
+  			this.formMessage('Error: ' + err.message, 'error', true, false)
+  		})
+  }
+
   componentDidMount(){
-  	this.fetchUser(1,'')
+    this.fetchUser(1,'')
+    this.fetchAll('')
   }
   grantAccess(account,id,type){
     this.formMessage('Updating Data...', 'loading', true, true)
@@ -148,6 +190,12 @@ class Layout extends Component {
                        
                       </Select>
                     </Grid.Cell>
+                    <Grid.Cell  large={2} medium={12} small={12}>
+                    <div style={{marginTop:"23px"}} className='button primary small'><CSVLink data={this.state.userReport} headers={header}>
+                      Export CSV
+                    </CSVLink></div>
+                    </Grid.Cell>
+                    {/* <button onClick={this.JSONToCSVConvertor(this.user,"FILE",true)}>EXPORT</button> */}
                   </div>
         					<FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                   <div className="table-container">
