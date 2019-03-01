@@ -30,7 +30,7 @@ class Layout extends Component {
       learningStrand: [],
 
       percentagePerLearningStrand: [],
-
+      finalReviewer: [],
       totalHours: 0,
       hours:0,
       minutes: 0,
@@ -55,6 +55,12 @@ class Layout extends Component {
     apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
       .then((res)=>{  
         if(res.data){
+            let filtered = []
+            for(let i = 0; i < res.data.look[0].finalReviewer.length; i++){
+              if(res.data.look[0].finalReviewer[i].length > 0){
+                filtered.push(res.data.look[0].finalReviewer[i])
+              }
+            }
       			let result = res.data.data
       			let checkedExam = []
       			let exam = result.exam
@@ -92,7 +98,8 @@ class Layout extends Component {
               timeRemaining: (result.timeRemaining ? parseInt(result.timeRemaining * 60) : 0),
               hours: hours,
               minutes: minutes,
-              seconds: seconds
+              seconds: seconds,
+              finalReviewer: filtered
       			})
           }
         })
@@ -212,6 +219,7 @@ class Layout extends Component {
                           <Grid.Cell large={12} medium={12} small={12}>
                             <QuestionAnswered 
                               exam={this.state.exam}
+                              finalReviewer={this.state.finalReviewer}
                               checking={true}
                               percentagePerLearningStrand={this.state.percentagePerLearningStrand}
                             />

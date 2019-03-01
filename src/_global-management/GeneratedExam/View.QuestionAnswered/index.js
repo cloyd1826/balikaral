@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 import config from '../../../_config'
+import apiRequest from '../../../_axios'
 
 class Layout extends Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class Layout extends Component {
     	checking: false
     }
     this.setGrid = this.setGrid.bind(this)
+    this.fetchReviewer = this.fetchReviewer.bind(this)
+    this.fetchAxios = this.fetchAxios.bind(this)
   }
   setGrid(currentPage){
   	if(!this.state.checking){
@@ -28,6 +31,17 @@ class Layout extends Component {
   	})
   }
 
+  async fetchAxios(id){
+    const data = await apiRequest('get', `/reviewer-management/${id}`, false, this.props.token)
+    return data.data.data.description
+  }
+
+  fetchReviewer(id,x){
+    if(x.question.learningStrand === id){
+      return this.fetchAxios(x.question.reviewer)
+    }
+  }
+
   render() {  
     let passedLearningStrand = this.props.percentagePerLearningStrand.filter((attr)=>{
       return attr.percentage >= 90
@@ -35,14 +49,13 @@ class Layout extends Component {
     let failedLearningStrand = this.props.percentagePerLearningStrand.filter((attr)=>{
       return attr.percentage < 90
     })
-
     return (
           <div className='question-answered-container'>
 
           {this.props.checking ? 
           <div className='summary-learning-strand'>
             <div className='summary-title'>Ito ang resulta ng exam: </div>
-           
+            
             {passedLearningStrand.length > 0 ?
                <div className='summary-text'>
                   Matataas ang mga nakuha mo sa:
@@ -56,9 +69,16 @@ class Layout extends Component {
             {failedLearningStrand.length > 0 ?
              <div className='summary-text'>
                 Kailangan mo pang pag-aralan maigi ang:
-               
+                  
                   {failedLearningStrand.map((attr, index)=>{
-                    return  <div key={index} className='learning-strand'>{attr.learningStrandName}</div>
+                    return  <div key={index} className='learning-strand'>{attr.learningStrandName}
+                      <ul>
+                        { this.props.finalReviewer.map( (x,i) => {
+                          // console.log(attr.learningStrand+ " " +x[i].learningStrand)
+                          return (attr.learningStrand === x[i].learningStrand ? <li>{x[i].description}</li> : "")
+                        }) }
+                      </ul>
+                    </div>
                   })}
                 
              </div>
