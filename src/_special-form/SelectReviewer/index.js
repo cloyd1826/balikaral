@@ -52,8 +52,11 @@ class Layout extends Component {
     >
       <option value='' disabled> -- SELECT --</option>
         {this.state.reviewer.map((attr,index)=> {
+          console.log(attr,"attr")
           return (
-              <option key={index} value={attr._id}>{(this.props.fileUsage ? '' : attr.fileUsage + ' - ' ) + attr.description}</option>
+              <option key={index} value={attr._id}>{ this.props.fileUsage && this.props.fileUsage === "Reviewer" ? "Modyul" : this.props.fileUsage} 
+              { attr.fileUsage && attr.fileUsage === "Reviewer" ? "Modyul" : attr.fileUsage}{" - "}
+              {attr.description}</option>
             )
         })}
           

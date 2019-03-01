@@ -262,7 +262,7 @@ class Layout extends Component {
                             name='reviewer' 
                             required
                             learningStrand={this.state.learningStrand}
-                            fileUsage='Reviewer'
+                            fileUsage='Modyul'
                             value={this.state.reviewer} 
                             onChange={this.handleChange}/>
                           </Grid.Cell>
