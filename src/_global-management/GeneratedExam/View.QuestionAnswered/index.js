@@ -73,9 +73,10 @@ class Layout extends Component {
                   {failedLearningStrand.map((attr, index)=>{
                     return  <div key={index} className='learning-strand'>{attr.learningStrandName}
                       <ul>
+                        {console.log("this.props.finalReviewer",this.props.finalReviewer)}
                         { this.props.finalReviewer.map( (x,i) => {
-                          // console.log(attr.learningStrand+ " " +x[i].learningStrand)
-                          return (attr.learningStrand === x[i].learningStrand ? <li>{x[i].description}</li> : "")
+                          // console.log(attr.learningStrand+ " " +x[0].learningStrand)
+                          return (attr.learningStrand === x[0].learningStrand ? <li>{x[0].description}</li> : "")
                         }) }
                       </ul>
                     </div>

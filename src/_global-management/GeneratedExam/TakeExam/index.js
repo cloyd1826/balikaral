@@ -28,7 +28,7 @@ class Layout extends Component {
       learningStrand: [],
 
       percentagePerLearningStrand: [],
-
+      finalReviewer : [],
       generatingExam: true,
       takingExam: false,
       questionAnswered: false,
@@ -167,6 +167,7 @@ class Layout extends Component {
 
     let percentagePerLearningStrand = []
 
+
     let data = {}
 
     if(finished){
@@ -236,7 +237,6 @@ class Layout extends Component {
 
     apiRequest('put', `/generated-exam/update/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
       .then((res)=>{ 
-        console.log(res)
        if(finished){
           this.setState({
             exam: checkedExam,
@@ -246,9 +246,27 @@ class Layout extends Component {
             takingExam: false,
             questionAnswered: (this.props.hadPreTest ? true : false),
             checking: (this.props.hadPreTest ? true : false),
-            hadPreTest: (this.props.hadPreTest ? false : true),
-
+            hadPreTest: (this.props.hadPreTest ? false : true)
           })
+          apiRequest('get', `/generated-exam/${this.props.location.state.id}`, false, this.props.token)
+            .then((res)=>{  
+              if(res.data){
+                let filtered = []
+                for(let i = 0; i < res.data.look[0].finalReviewer.length; i++){
+                    if(res.data.look[0].finalReviewer[i].length > 0){
+                    filtered.push(res.data.look[0].finalReviewer[i])
+                    }
+                }
+                console.log("res",res)
+                console.log("filtered",filtered)
+                this.setState({
+                  finalReviewer: filtered
+                })
+              }
+            })
+            .catch((err)=>{
+                this.formMessage('Error: ' + err.message, 'error', true, false)
+            })
 
            if(!this.props.hadPreTest){
               
@@ -479,6 +497,7 @@ class Layout extends Component {
                       setGrid={this.setGrid}
                       checking={this.state.checking}
                       percentagePerLearningStrand={this.state.percentagePerLearningStrand}
+                      finalReviewer = {this.state.finalReviewer}
                     />
                   : null}
                   
