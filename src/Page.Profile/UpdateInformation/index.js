@@ -168,8 +168,8 @@ class Layout extends Component {
                   
                   letPasser: result.personalInformation ?  result.personalInformation.letPasser ?  result.personalInformation.letPasser : '' : '',
                   noOfYearsTeaching: result.personalInformation ?  result.personalInformation.noOfYearsTeaching ?  result.personalInformation.noOfYearsTeaching : '' : '',
-                  noOfYearsAsAlsTeacher: result.personalInformation ?  result.personalInformation.noOfYearsAsAlsTeacher ?  result.personalInformation.noOfYearsAsAlsTeacher : '' : '',
-                  subjectExpertise: result.personalInformation ?  result.personalInformation.subjectExpertise ?  result.personalInformation.subjectExpertise : '' : '',
+                  noOfYearsAsAlsTeacher: result.personalInformation.noOfYearsAsAlsTeacher ?  result.personalInformation.noOfYearsAsAlsTeacher : '',
+                  subjectExpertise:  result.personalInformation.subjectExpertise == null ? [] : result.personalInformation.subjectExpertise,
 
                   userType:  (result.local ? result.local.userType ? result.local.userType : '' : '') + (result.google ? result.google.userType ? result.google.userType : '' : '') + (result.facebook ? result.facebook.userType ? result.facebook.userType : '' : ''),
                   image: (result.personalInformation ? result.personalInformation ? result.personalInformation.image ? result.personalInformation.image : '' : '' : '')

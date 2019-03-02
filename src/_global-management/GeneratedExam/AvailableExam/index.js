@@ -110,6 +110,56 @@ class Layout extends Component {
     apiRequest('get', `/exam-management/exam-status?examinerId=${this.props.user.id}&type=${data.examType}`, false, this.props.token)
       .then((res)=>{
         console.log(res)
+        let arrData = []
+        for(let i = 0; i < res.data.checkIfFailed.length; i++){
+          for(let a = 0; a < res.data.checkIfFailed[i].percentagePerLearningStrand.length; a++){
+            if(res.data.checkIfFailed[i].percentagePerLearningStrand[a].percentage < 60){
+              arrData.push(res.data.checkIfFailed[i].percentagePerLearningStrand[a])
+            }
+          }
+        }
+
+        function dynamicSort(property) {
+          var sortOrder = 1;
+          if(property[0] === "-") {
+              sortOrder = -1;
+              property = property.substr(1);
+          }
+          return function (a,b) {
+              var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+              return result * sortOrder;
+          }
+        }
+
+        function split(number, sections, min) {
+            var ary = [];
+            var i = 0;
+            while ( number >= 0 ) {
+                if (!ary[i % sections]) ary[i % sections] = 0;
+                if ( number >= min ) {
+                  number -= min;
+                  ary[i % sections] += min;
+                  min++;
+                } else {
+                    ary[i % sections] += number;
+                    break;
+                }
+                // Randomize here
+                if (i > sections) {
+                    i += Math.floor(Math.random() * 3);
+                } else {
+                    i++;
+                }
+            }
+            return ary;
+        }
+        function sortNumber(a,b) {
+          return b - a;
+        }
+        let dataSplitted = split(100,arrData.length,100/arrData.length -2).sort(sortNumber);
+        console.log(dataSplitted)
+        arrData.sort(dynamicSort("percentage"))
+        console.log(arrData.length)
         if(res.data.status === 'Exam Available'){
           this.generateExam(data.learningStrandQuestions)
         }else if(res.data.failedLearningStrand){
@@ -123,8 +173,20 @@ class Layout extends Component {
           this.setState({
             examLearningStrand: ls,
           })
-          this.generateExam(ls)
-          
+          let finalLS = []
+          for(let i = 0; i < ls.length; i++){
+            // console.log(arrData[i].learningStrand)
+            // console.log(ls[i].learningStrand._id)
+            for(let a = 0; a < arrData.length; a++){
+              if(ls[i].learningStrand._id === arrData[a].learningStrand){
+                finalLS.push({learningStrand:ls[i].learningStrand,total:ls[i].total + Math.round(ls[i].total * (dataSplitted[a]/100)),_id:ls[i]._id})
+              }
+            }
+          }
+          console.log(ls)
+          console.log(finalLS)
+          this.generateExam(finalLS)
+
         }else if(res.data.status==='Passed'){
           this.setState({
             generating: false,

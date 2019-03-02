@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Grid from '../../../_component/Grid'
 import  Table from '../../../_component/Table'
+import Button from '../../../_component/Form/Button'
 
 import FormMessage from '../../../_component/Form/FormMessage'
 import apiRequest from '../../../_axios'
@@ -19,6 +20,10 @@ import {Bar, Line} from 'react-chartjs-2';
 
 import moment from 'moment'
 import { Tapable } from 'tapable';
+
+import pdfMake from 'pdfmake/build/pdfmake.js';
+import pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 class Layout extends Component {
   constructor(props) {
@@ -38,6 +43,7 @@ class Layout extends Component {
      		previousPage: null,
      		totalCount: 1,
 				generatedExam: [],
+				examinationData: [],
 
 				modalOn: false,
 
@@ -50,7 +56,73 @@ class Layout extends Component {
 		
 		this.showModal = this.showModal.bind(this)
 		this.closeModal = this.closeModal.bind(this)
-  }
+		this.printExam = this.printExam.bind(this)
+	}
+	
+	printExam(){
+		let arr = []
+		this.state.examinationData.map( (x,i) => {
+			console.log(x)
+			let date = new Date(x.dateFinished)
+			arr.push([
+				{
+						text:x.examiner.personalInformation.firstName+ " "+x.examiner.personalInformation.lastName, fontSize:14
+				},
+				{
+						text:x.examType.examType, fontSize:14,alignment:"center"
+				},
+				{
+						ul:x.percentagePerLearningStrand.map( (a,b) =>{
+							return a.learningStrand.name + " - " +a.score+" out of "+a.totalQuestion  
+						}), fontSize:14
+				},
+				{
+						text:Math.round((x.score/x.exam.length)*100), fontSize:14,alignment:"center"
+				},
+				{
+						text:(date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear(), fontSize:14,alignment:"center"
+				},
+				{
+						text:x.status === "Retake" ? "Failed" : "Passed", fontSize:14,alignment:"center"
+				}
+			])
+
+		}) 
+		var dd = {
+				pageOrientation: "landscape",
+				pageSize: "Legal",
+				pageMargins: [40, 70, 40, 40],
+			header: [
+					{
+							
+							table: {
+									body: [
+							[{text:[{text:"BALIK",color: "#4257b2",fontSize:20},{text:"ARAL",color:"red",fontSize:20}],border:[],margin:[34,30,0,0]}, {text:" - Student Examination Report",border:[],fontSize:16,margin:[0,33,0,0]}]
+						]
+							}
+					}
+					],
+			content: [
+				{
+					table: {
+							widths:["20%","14%","26%","20%","12%","8%"],
+						body: [
+							[{text:"Full Name",alignment:"center",fontSize:16,fillColor:"#4257b2",color:"white",margin:[10,10,10,10]},
+							{text:"Type of Exam",alignment:"center",fontSize:16,fillColor:"#4257b2",color:"white",margin:[10,10,10,10]},
+							{text:"Examination Result",alignment:"center",fontSize:16,fillColor:"#4257b2",color:"white",margin:[10,10,10,10]},
+							{text:"Average",alignment:"center",fontSize:16,fillColor:"#4257b2",color:"white",margin:[10,10,10,10]},
+							{text:"Date Taken",alignment:"center",fontSize:16,fillColor:"#4257b2",color:"white",margin:[10,10,10,10]},
+							{text:"Status",alignment:"center",fontSize:16,fillColor:"#4257b2",color:"white",margin:[10,10,10,10]}
+							],
+							...arr
+						]
+					}
+				}
+			]
+		}
+		pdfMake.createPdf(dd).open()
+	}
+
   changePage(page){
    
     this.setState({
@@ -62,7 +134,7 @@ class Layout extends Component {
 	
 	showModal(data, name){
 		let modalOn = this.state.modalOn
-
+		console.log(data)
 		apiRequest('get', `/generated-exam/analytics/pre-post/${data}`, false, this.props.token)
 		.then(res => {
 			console.log('prepost', res.data.data)
@@ -83,6 +155,18 @@ class Layout extends Component {
 						learnerName: name,
 						modalOn : !modalOn
 					})
+
+					apiRequest('get', `/generated-exam/fetch-examination/${data}`, false, this.props.token)
+						.then(employeeRes => {
+							console.log(employeeRes)
+							this.setState({
+								examinationData: employeeRes.data.data
+							})
+						})
+						.catch((err)=>{
+							console.log(err)
+						})
+
 				})
 				.catch((err)=>{
 					console.log(err)
@@ -243,7 +327,7 @@ class Layout extends Component {
 	        <Grid.X className="chart-data-container">
 
 							{/* START TABLE */}
-
+							
 							<div className="table-container" style={{width:'100%'}}>
                   <Table hover nostripe>
                     <Table.Header>
@@ -312,8 +396,10 @@ class Layout extends Component {
 							<div className="chart-content-container">
 								<Grid full>
 									<Grid.X>
+										 
 										<Grid.Cell large={12} medium={12} small={12}><h2 className="text-center">Performance Indicator</h2></Grid.Cell>
 										<Grid.Cell large={12} medium={12} small={12}><h1 className="learner-name text-center">{this.state.learnerName}</h1></Grid.Cell>
+										<Grid.Cell large={12} medium={12} small={12}><button onClick={() => { this.printExam() }} className='secondary small' style={{color:"white",backgroundColor:"#4257b2"}}><i className='la la-cloud-download' style={{fontSize:"24px"}}></i> Export Examination</button></Grid.Cell>
 										<Grid.Cell large={12} medium={12} small={12}><div className="underline"></div></Grid.Cell>
 										<Grid.Cell large={12} medium={12} small={12}>
 											<h3>Pre and Post</h3>
