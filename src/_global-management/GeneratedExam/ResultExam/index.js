@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 
 
 import QuestionAnswered from '../View.QuestionAnswered'
-
+import mergeByKey from 'array-merge-by-key'
 
  
 class Layout extends Component {
@@ -58,9 +58,51 @@ class Layout extends Component {
             let filtered = []
             for(let i = 0; i < res.data.look[0].finalReviewer.length; i++){
               if(res.data.look[0].finalReviewer[i].length > 0){
-                filtered.push(res.data.look[0].finalReviewer[i])
+                filtered.push(res.data.look[0].finalReviewer[i][0])
               }
+            } 
+            function mergeObjects(filtered)
+              {
+                var resultArray = [];
+                var urls = [];
+                for(var item in filtered)
+                {
+                  console.log(filtered[item])
+                  var itemIndex = urls.indexOf(filtered[item].description);
+                  if(itemIndex == -1)
+                  {
+                    urls.push(filtered[item].description);
+                    var obj = {};
+                    obj.description = filtered[item].description;
+                    obj.variations = [];
+                    var variationData = {};
+                    variationData._id = filtered[item]._id;
+                    variationData.learningStrand = filtered[item].learningStrand;
+ 
+                    obj.variations.push(variationData);
+                    resultArray.push(obj);
+                  }
+                  else
+                  {
+                    var variationData = {};
+                    variationData._id = filtered[item]._id;
+                    variationData.learningStrand = filtered[item].learningStrand;
+                    resultArray[itemIndex].variations.push(variationData)
+                  }
+                  
+                }
+                return resultArray;
+              }
+            let finalData = []
+            let initData = mergeObjects(filtered)
+            for(let ii =0; ii <initData.length; ii++){
+              finalData.push({
+                learningStrand:initData[ii].variations[0].learningStrand,
+                total: initData[ii].variations.length,
+                description: initData[ii].description
+              })
             }
+
       			let result = res.data.data
       			let checkedExam = []
       			let exam = result.exam
@@ -99,7 +141,7 @@ class Layout extends Component {
               hours: hours,
               minutes: minutes,
               seconds: seconds,
-              finalReviewer: filtered
+              finalReviewer: finalData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total))
       			})
           }
         })

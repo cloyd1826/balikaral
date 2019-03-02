@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://balikaral.com",
   "dependencies": {
+    "array-merge-by-key": "^1.0.1",
     "axios": "^0.18.0",
     "chart.js": "^2.7.3",
     "font-awesome": "^4.7.0",

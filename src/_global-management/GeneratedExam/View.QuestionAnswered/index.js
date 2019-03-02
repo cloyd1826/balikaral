@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import config from '../../../_config'
 import apiRequest from '../../../_axios'
+import mergeByKey from 'array-merge-by-key'
 
 class Layout extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Layout extends Component {
     	checking: false
     }
     this.setGrid = this.setGrid.bind(this)
-    this.fetchReviewer = this.fetchReviewer.bind(this)
+    // this.fetchReviewer = this.fetchReviewer.bind(this)
     this.fetchAxios = this.fetchAxios.bind(this)
   }
   setGrid(currentPage){
@@ -34,12 +35,6 @@ class Layout extends Component {
   async fetchAxios(id){
     const data = await apiRequest('get', `/reviewer-management/${id}`, false, this.props.token)
     return data.data.data.description
-  }
-
-  fetchReviewer(id,x){
-    if(x.question.learningStrand === id){
-      return this.fetchAxios(x.question.reviewer)
-    }
   }
 
   render() {  
@@ -74,10 +69,13 @@ class Layout extends Component {
                     return  <div key={index} className='learning-strand'>{attr.learningStrandName}
                       <ul>
                         {console.log("this.props.finalReviewer",this.props.finalReviewer)}
-                        { this.props.finalReviewer.map( (x,i) => {
-                          // console.log(attr.learningStrand+ " " +x[0].learningStrand)
-                          return (attr.learningStrand === x[0].learningStrand ? <li>{x[0].description}</li> : "")
-                        }) }
+                        
+                        {
+                          // this.fetchReviewer(this.props.finalReviewer)
+                          this.props.finalReviewer.map( (x,i) => {
+                            return (attr.learningStrand === x.learningStrand ? <li style={{lineHeight: "40px"}}><span style={{color:"white",backgroundColor:"blue",borderRadius:"3px",padding:"6px",margin:"2px"}}>{x.total}{" "}</span>{x.description}</li> : "")
+                          }) 
+                        }
                       </ul>
                     </div>
                   })}
