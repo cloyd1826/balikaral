@@ -96,20 +96,29 @@ class Layout extends Component {
     }
   }
   fetchSingle(){
-    
+    console.log(this.props.location.state.id)
     apiRequest('get', `/exam-management/${this.props.location.state.id}`, false, this.props.token)
         .then((res)=>{
           
-            if(res.data){
+            if(res.data){ 
+              console.log(res)
                 let result = res.data.data
                 let validator = result.validator
-
+                console.log(validator)
+                console.log(this.props.user)
                 //check if the current user has validated the reviewer already
-                let isValidatedByCurrentUser = validator.map((attr)=>{
-                  return attr.user._id
-                }).indexOf(this.props.user.id)
-
-                this.setState({
+                let isValidatedByCurrentUser = 0
+                if(validator){
+                  isValidatedByCurrentUser = validator.map((attr)=>{
+                      return attr.user._id
+                  }).indexOf(this.props.user.id)
+                }else{
+                  isValidatedByCurrentUser = -1
+                }
+                console.log(this.props.role,result)
+                
+                if(this.props.role === "Administrator"){
+                  this.setState({
                     questionImage: (result.question ? result.question.images ? result.question.images : '' : ''),
                     question: (result.question ? result.question.details ? result.question.details : '' : ''),
                     answer: (result.question ? result.question.answer ? result.question.answer : '' : ''),
@@ -137,9 +146,42 @@ class Layout extends Component {
                     validation: result.validation,
                     validator: (result.validator ? result.validator : [] ),
 
-                    disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === result.uploader._id  ? true : false )
+                    disableReview: isValidatedByCurrentUser > -1 ? true : false
                    
                 })
+                }else{
+                  this.setState({
+                    questionImage: (result.question ? result.question.images ? result.question.images : '' : ''),
+                    question: (result.question ? result.question.details ? result.question.details : '' : ''),
+                    answer: (result.question ? result.question.answer ? result.question.answer : '' : ''),
+                    difficulty: (result.question ? result.question.difficulty ? result.question.difficulty : '' : ''),
+                    level: (result.level ? result.level.name ? result.level.name : '' : ''),
+                    learningStrand: (result.learningStrand ? result.learningStrand.name ? result.learningStrand.name : '' : ''),
+                    a: (result.question ? result.question.choices ? result.question.choices.a ? result.question.choices.a.details ? result.question.choices.a.details : '' : '' : '' : '' ),
+                    b: (result.question ? result.question.choices ? result.question.choices.b ? result.question.choices.b.details ? result.question.choices.b.details : '' : '' : '' : '' ),
+                    c: (result.question ? result.question.choices ? result.question.choices.c ? result.question.choices.c.details ? result.question.choices.c.details : '' : '' : '' : '' ),
+                    d: (result.question ? result.question.choices ? result.question.choices.d ? result.question.choices.d.details ? result.question.choices.d.details : '' : '' : '' : '' ),
+                   
+                    aImage: (result.question ? result.question.choices ? result.question.choices.a ? result.question.choices.a.image ? result.question.choices.a.image : '' : '' : '' : '' ),
+                    bImage: (result.question ? result.question.choices ? result.question.choices.b ? result.question.choices.b.image ? result.question.choices.b.image : '' : '' : '' : '' ),
+                    cImage: (result.question ? result.question.choices ? result.question.choices.c ? result.question.choices.c.image ? result.question.choices.c.image : '' : '' : '' : '' ),
+                    dImage: (result.question ? result.question.choices ? result.question.choices.d ? result.question.choices.d.image ? result.question.choices.d.image : '' : '' : '' : '' ),
+
+                    uploader: (result.uploader ? result.uploader.personalInformation ? 
+                              (result.uploader.personalInformation.firstName ? result.uploader.personalInformation.firstName : '') 
+                              + ' ' + 
+                              (result.uploader.personalInformation.middleName ? result.uploader.personalInformation.middleName.substring(0,1) : '')
+                              + ' ' + 
+                              (result.uploader.personalInformation.lastName ? result.uploader.personalInformation.lastName : '')
+                              : '' : '')
+                            ,
+                    validation: result.validation,
+                    validator: (result.validator ? result.validator : [] ),
+
+                    disableReview: isValidatedByCurrentUser > -1 ? true : false
+                   
+                })
+                }
             }
             
         })    
