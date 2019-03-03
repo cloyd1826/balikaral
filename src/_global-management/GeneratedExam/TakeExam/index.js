@@ -253,14 +253,53 @@ class Layout extends Component {
               if(res.data){
                 let filtered = []
                 for(let i = 0; i < res.data.look[0].finalReviewer.length; i++){
-                    if(res.data.look[0].finalReviewer[i].length > 0){
-                    filtered.push(res.data.look[0].finalReviewer[i])
+                  if(res.data.look[0].finalReviewer[i].length > 0){
+                    filtered.push(res.data.look[0].finalReviewer[i][0])
+                  }
+                } 
+                function mergeObjects(filtered)
+                  {
+                    var resultArray = [];
+                    var urls = [];
+                    for(var item in filtered)
+                    {
+                      console.log(filtered[item])
+                      var itemIndex = urls.indexOf(filtered[item].description);
+                      if(itemIndex == -1)
+                      {
+                        urls.push(filtered[item].description);
+                        var obj = {};
+                        obj.description = filtered[item].description;
+                        obj.variations = [];
+                        var variationData = {};
+                        variationData._id = filtered[item]._id;
+                        variationData.learningStrand = filtered[item].learningStrand;
+    
+                        obj.variations.push(variationData);
+                        resultArray.push(obj);
+                      }
+                      else
+                      {
+                        var variationData = {};
+                        variationData._id = filtered[item]._id;
+                        variationData.learningStrand = filtered[item].learningStrand;
+                        resultArray[itemIndex].variations.push(variationData)
+                      }
+                      
                     }
+                    return resultArray;
+                  }
+                let finalData = []
+                let initData = mergeObjects(filtered)
+                for(let ii =0; ii <initData.length; ii++){
+                  finalData.push({
+                    learningStrand:initData[ii].variations[0].learningStrand,
+                    total: initData[ii].variations.length,
+                    description: initData[ii].description
+                  })
                 }
-                console.log("res",res)
-                console.log("filtered",filtered)
                 this.setState({
-                  finalReviewer: filtered
+                  finalReviewer: finalData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total))
                 })
               }
             })

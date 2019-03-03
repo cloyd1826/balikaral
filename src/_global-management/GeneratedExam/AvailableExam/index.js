@@ -107,85 +107,51 @@ class Layout extends Component {
       })
   }
   checkIfPassed(data){
+    
     apiRequest('get', `/exam-management/exam-status?examinerId=${this.props.user.id}&type=${data.examType}`, false, this.props.token)
       .then((res)=>{
-        console.log(res)
-        let arrData = []
-        for(let i = 0; i < res.data.checkIfFailed.length; i++){
-          for(let a = 0; a < res.data.checkIfFailed[i].percentagePerLearningStrand.length; a++){
-            if(res.data.checkIfFailed[i].percentagePerLearningStrand[a].percentage < 60){
-              arrData.push(res.data.checkIfFailed[i].percentagePerLearningStrand[a])
-            }
-          }
-        }
-
-        function dynamicSort(property) {
-          var sortOrder = 1;
-          if(property[0] === "-") {
-              sortOrder = -1;
-              property = property.substr(1);
-          }
-          return function (a,b) {
-              var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-              return result * sortOrder;
-          }
-        }
-
-        function split(number, sections, min) {
-            var ary = [];
-            var i = 0;
-            while ( number >= 0 ) {
-                if (!ary[i % sections]) ary[i % sections] = 0;
-                if ( number >= min ) {
-                  number -= min;
-                  ary[i % sections] += min;
-                  min++;
-                } else {
-                    ary[i % sections] += number;
-                    break;
-                }
-                // Randomize here
-                if (i > sections) {
-                    i += Math.floor(Math.random() * 3);
-                } else {
-                    i++;
-                }
-            }
-            return ary;
-        }
-        function sortNumber(a,b) {
-          return b - a;
-        }
-        let dataSplitted = split(100,arrData.length,100/arrData.length -2).sort(sortNumber);
-        console.log(dataSplitted)
-        arrData.sort(dynamicSort("percentage"))
-        console.log(arrData.length)
+        
         if(res.data.status === 'Exam Available'){
-          this.generateExam(data.learningStrandQuestions)
+          this.generateExam(data.learningStrandQuestions, true)
         }else if(res.data.failedLearningStrand){
-          let ls = []
-          let fls = res.data.failedLearningStrand
-          data.learningStrandQuestions.filter((attr)=>{
-            if(fls.indexOf(attr.learningStrand._id) > -1){
-              ls = [...ls, attr]
+          
+          function dynamicSort(property) {
+            var sortOrder = 1;
+            if(property[0] === "-") {
+                sortOrder = -1;
+                property = property.substr(1);
             }
-          })
-          this.setState({
-            examLearningStrand: ls,
-          })
-          let finalLS = []
-          for(let i = 0; i < ls.length; i++){
-            // console.log(arrData[i].learningStrand)
-            // console.log(ls[i].learningStrand._id)
-            for(let a = 0; a < arrData.length; a++){
-              if(ls[i].learningStrand._id === arrData[a].learningStrand){
-                finalLS.push({learningStrand:ls[i].learningStrand,total:ls[i].total + Math.round(ls[i].total * (dataSplitted[a]/100)),_id:ls[i]._id})
-              }
+            return function (a,b) {
+                var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+                return result * sortOrder;
             }
           }
-          console.log(ls)
-          console.log(finalLS)
-          this.generateExam(finalLS)
+          let arrData = res.data.failedLearningStrand.sort(dynamicSort("score"))
+          let totalMistake = 0
+          let finalArray = []
+          let arrPercentageMarkUp = [.35, .25, .20, .15, .05]
+          arrData.map( (x,i) => {
+            totalMistake += x.totalQuestion - x.score
+          })
+          let total = 0
+          arrData.map( (x,i) => {
+            finalArray.push({
+              learningStrand: x.learningStrand,
+              total: Math.round((totalMistake * arrPercentageMarkUp[i]) + x.score)
+            })
+            total += Math.round((totalMistake * arrPercentageMarkUp[i]) + x.score)
+          })
+
+          if(total > data.examTotal){
+            finalArray[0].total = finalArray[0].total - (total - data.examTotal)
+          }
+          console.log(finalArray)
+          
+          this.setState({
+            examLearningStrand: finalArray,
+          })
+          
+          this.generateExam(finalArray)
 
         }else if(res.data.status==='Passed'){
           this.setState({
@@ -201,7 +167,7 @@ class Layout extends Component {
         console.log(err)
       })
   }
-  generateExam(learningStrandQuestion){
+  generateExam(learningStrandQuestion, checker){
     this.setState({
       examLearningStrand: learningStrandQuestion 
     })
@@ -213,17 +179,28 @@ class Layout extends Component {
     learningStrandQuestion.map((attr)=>{
       count = count + parseInt(attr.total) 
     })
-    learningStrandQuestion.map((attr, index)=>{
+    if(checker){
+      learningStrandQuestion.map((attr, index)=>{
 
-      if(index === learningStrandQuestion.length - 1){
-        this.addToExam(attr.learningStrand._id, attr.total, true, count)
-      }else{
-        this.addToExam(attr.learningStrand._id, attr.total, false, count)
-      }
-    })
+        if(index === learningStrandQuestion.length - 1){
+          this.addToExam(attr.learningStrand._id, attr.total, true, count)
+        }else{
+          this.addToExam(attr.learningStrand._id, attr.total, false, count)
+        }
+      })
+    }else{
+      learningStrandQuestion.map((attr, index)=>{
+
+        if(index === learningStrandQuestion.length - 1){
+          this.addToExam(attr.learningStrand, attr.total, true, count)
+        }else{
+          this.addToExam(attr.learningStrand, attr.total, false, count)
+        }
+      })
+    }
   }
   addToExam(learningStrand, learningStrandTotal, post, count){
-    
+    console.log(learningStrand+ " - "+learningStrandTotal+ " - "+ count)
     if(learningStrand){
       apiRequest('get', `/exam-management/generate-exam?level=${this.props.level}&learningStrand=${learningStrand}&total=${learningStrandTotal}`, false, this.props.token)
         .then((res)=>{
