@@ -68,12 +68,12 @@ class Layout extends Component {
                   {failedLearningStrand.map((attr, index)=>{
                     return  <div key={index} className='learning-strand'>{attr.learningStrandName}
                       <ul>
-                        {console.log("this.props.finalReviewer",this.props.finalReviewer)}
-                        
                         {
                           // this.fetchReviewer(this.props.finalReviewer)
                           this.props.finalReviewer.map( (x,i) => {
-                            return (attr.learningStrand === x.learningStrand ? <li style={{lineHeight: "40px"}}><span style={{color:"white",backgroundColor:"blue",borderRadius:"3px",padding:"6px",margin:"2px"}}>{x.total}{" "}</span>{x.description}</li> : "")
+                            return (attr.learningStrand === x.learningStrand ? (
+                            
+                            <li style={{lineHeight: "45px"}}><span style={{color:"white",backgroundColor:"blue",borderRadius:"3px",padding:"6px",margin:"2px"}}>{i === 0 ? "Highest Priority" : i === 5 ? "Lowest Priority" : "Medium Priority"}</span><span style={{height: "21px",width: "21px", backgroundColor: "red",color:"white", borderRadius: "50%",fontSize:10,position:"absolute",marginTop:"-5px",marginLeft:"-12px",display: "inline-block",textAlign:"center"}}><a style={{marginTop:"-11px",fontSize:12,position:"absolute",marginLeft:"-3px"}}>{x.total}</a></span>{x.description}</li>) : "")
                           }) 
                         }
                       </ul>
