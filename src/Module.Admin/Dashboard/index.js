@@ -222,6 +222,14 @@ class Dashboard extends Component {
                     </div>
                   </Link>
                 </Grid.Cell>
+                <Grid.Cell large={2} medium={4} small={12}>
+                  <Link to='/admin/system/validation'>
+                    <div className='dashboard-link' >
+                      <span className='la la-hourglass'></span>
+                      <div className='link-title'>Teacher's Contribution</div>
+                    </div>
+                  </Link>
+                </Grid.Cell>
 
                 <Grid.Cell large={2} medium={4} small={12}>
                   <Link to='/admin/system/survey/list'>

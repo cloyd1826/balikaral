@@ -120,6 +120,10 @@ class Sidebar extends Component {
                     <i className='la la-tasks'></i>
                     <span>Analytics ng Generated Exam</span>
                   </NavLink>
+                  <NavLink className='sidebar-link' activeClassName='active' to='/admin/system/validation'>
+                    <i className='la la-tasks'></i>
+                    <span>Validation</span>
+                  </NavLink>
                 
                 </div>
 

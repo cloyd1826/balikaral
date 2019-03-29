@@ -19,6 +19,7 @@
     "react-dom": "^16.6.0",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^4.0.0",
+    "react-idle-timer": "^4.2.5",
     "react-masonry-component": "^6.2.1",
     "react-pdf": "^4.0.0",
     "react-pdf-js": "^4.0.2",

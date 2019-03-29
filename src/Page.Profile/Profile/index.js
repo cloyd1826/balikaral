@@ -82,7 +82,6 @@ class Layout extends Component {
   }
 
   componentDidMount(){
-    
     if(this.props.location.state){
       let user = this.props.user
       this.fetchSingle()

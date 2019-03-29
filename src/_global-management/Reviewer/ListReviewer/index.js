@@ -487,9 +487,8 @@ class Layout extends Component {
                                   </span>
                                  : null}
 
-
-                                 {(this.props.role === 'Administrator' && (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') !== this.props.user.id) && this.props.role !== 'Learner' && !attr.validation ?
-                                   <Link to={{
+                                 {( this.props.role === 'Administrator' || this.props.role === 'Teacher' && (attr.uploader ? attr.uploader._id ? attr.uploader._id : '' : '') !== this.props.user.id) && this.props.role !== 'Learner' && !attr.validation ?
+                                   <Link hidden={this.state.header === "Teaching Resources" &&  this.props.role !== 'Administrator'} to={{
                                       pathname: this.state.urlLinkToUse + '/validate',
                                       state: { id: attr._id }
                                    }}>

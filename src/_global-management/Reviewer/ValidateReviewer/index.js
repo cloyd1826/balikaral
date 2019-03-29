@@ -8,7 +8,7 @@ import config from '../../../_config'
 import Grid from '../../../_component/Grid'
 import PdfViewer from '../../../_component/PdfViewer'
 import FormMessage from '../../../_component/Form/FormMessage'
-
+import axios from 'axios'
 import { connect } from 'react-redux'
 
 import YouTube from 'react-youtube'
@@ -32,11 +32,13 @@ class Layout extends Component {
         buttonDisabled: false,
 
         disableReview: false,
-
+        disableReviewUnvalidate: false,
         modalActive: false,
-
+        modalUnvalidate: false,
+        stats: false,
         header: '',
         urlToUse: '',
+        reason: ''
 
 
       
@@ -51,6 +53,7 @@ class Layout extends Component {
     this.onDocumentComplete = this.onDocumentComplete.bind(this)
 
     this.toggleModal = this.toggleModal.bind(this)
+    this.toggleModalUnvalidate = this.toggleModalUnvalidate.bind(this)
   }
 
   formMessage(message, type, active, button){
@@ -105,10 +108,20 @@ class Layout extends Component {
                 let validator = result.validator
 
                 //check if the current user has validated the reviewer already
+                let disableUnva = 0
+                let disableVal = 0
                 let isValidatedByCurrentUser = validator.map((attr)=>{
-                  return attr.user._id
-                }).indexOf(this.props.user.id)
-                console.log(res.data)
+                  if(attr.user._id === this.props.user.id && attr.reason.length > 0) {
+                    disableUnva += 1
+                  }else{
+                    disableUnva = disableUnva
+                  }
+                  if(attr.user._id === this.props.user.id && attr.reason.length === 0){
+                    disableVal += 1
+                  }else{
+                    disableVal = disableVal
+                  }
+                })
 
                 this.setState({
                     learningStrand: (result.learningStrand ? result.learningStrand.name ? result.learningStrand.name : '' : '') ,
@@ -126,8 +139,8 @@ class Layout extends Component {
                     validation: result.validation,
                     validator: result.validator,
 
-                    disableReview: ( isValidatedByCurrentUser > -1 || this.props.user.id === (result.uploader ? result.uploader._id ? result.uploader._id : '' : '' ) ? true : false )
-                    // result.validation || 
+                    disableReview: disableVal > 0 ? true : false,
+                    disableReviewUnvalidate: disableUnva > 0 ? true : false
                 })
 
 
@@ -160,27 +173,89 @@ class Layout extends Component {
       })
     }
   }
-  handleSubmit(e){
-    this.formMessage('Updating Data...', 'loading', true, true)
-    let validator = this.state.validator
-    validator = [...validator, { user: this.props.user.id }]
-    let data = {
-      validator: validator,
-      validation: (validator.length >= 3 || this.props.role === 'Administrator' ? true : false)
+
+  toggleModalUnvalidate(){
+    if(this.state.modalUnvalidate){
+      this.setState({
+        modalUnvalidate: false
+      })
+    }else{
+      this.setState({
+        modalUnvalidate: true
+      })
     }
-    apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
-      .then((res)=>{
-        
-         this.formMessage('Data has been updated...', 'success', true, false)
-         this.setState({
-            modalActive: false
-         })
-         this.fetchSingle()
-      })
-      .catch((err)=>{
-   
-        this.formMessage('Error: ' + err.message, 'error', true, false)
-      })
+  }
+
+  handleSubmit(e){
+    if(this.state.stats){
+      this.formMessage('Updating Data...', 'loading', true, true)
+      let validator = this.state.validator
+      validator = [...validator, { user: this.props.user.id }]
+      let data = {
+        validator: validator,
+        validation: (validator.length >= 3 || this.props.role === 'Administrator' ? true : false)
+      }
+      apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
+        .then((res)=>{
+          if(res){
+            axios.post(`${config}/balikaral/validation`, {
+              user: this.props.user.id,
+              type: this.state.header,
+              action: "Validate",
+              reviewer: this.props.location.state.id,
+              reason: this.state.reason
+            })
+            .then(function (response) {
+              console.log(response);
+              this.formMessage('Data has been updated...', 'success', true, false)
+              this.setState({
+                  modalActive: false
+              })
+              this.fetchSingle()
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+          }
+        })
+        .catch((err)=>{
+    
+          this.formMessage('Error: ' + err.message, 'error', true, false)
+        })
+    }else{
+      this.formMessage('Updating Data...', 'loading', true, true)
+      let validator = this.state.validator
+      validator = [...validator, { user: this.props.user.id, reason: this.state.reason }]
+      let data = {
+        validator: validator,
+        validation: false
+      }
+      apiRequest('put', `/reviewer-management/validate/${this.props.location.state.id}?userId=${this.props.user.id}`, data, this.props.token)
+        .then((res)=>{
+          axios.post(`${config}/balikaral/validation`, {
+            user: this.props.user.id,
+            type: this.state.header,
+            action: "Unvalidated",
+            reviewer: this.props.location.state.id,
+            reason: this.state.reason
+          })
+          .then(function (response) {
+            console.log(response);
+            this.formMessage('Data has been updated...', 'success', true, false)
+            this.setState({
+                modalUnvalidate: false
+            })
+            this.fetchSingle()
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+        })
+        .catch((err)=>{
+    
+          this.formMessage('Error: ' + err.message, 'error', true, false)
+        })
+    }
   }
 
   render() { 
@@ -195,7 +270,7 @@ class Layout extends Component {
                     <div className='title'>{this.state.header === 'Reviewer' ? 'Modyul (Module)' : this.state.header }</div>
                     <div className='title-action'>
                       <button disabled={this.state.disableReview} className='button primary small' onClick={this.toggleModal}>Validate {this.state.header}</button>
-
+                      <button disabled={this.state.disableReviewUnvalidate} className='button primary small' onClick={this.toggleModalUnvalidate}>Unvalidate {this.state.header}</button>
                       <Link to={
                           (this.props.role === 'Administrator' ? '/admin/teachers' + this.state.urlToUse + '/list' : '') + 
                           (this.props.role === 'Teacher' ? '/teacher/management' + this.state.urlToUse + '/list' : '')
@@ -224,8 +299,9 @@ class Layout extends Component {
                           {
                             this.state.validator.length > 0 ?
                                 this.state.validator.map((attr,index)=>{
+                                  console.log(attr)
                                   return (
-                                     <span key={index} className='validator-name'>
+                                     <span key={index} style={{background: attr.reason ? "red" : "#4257b2"}} className='validator-name'>
                                      {  attr.user ? attr.user.personalInformation ? 
                                          (attr.user.personalInformation.firstName ? attr.user.personalInformation.firstName : '') 
                                          + ' ' + 
@@ -311,12 +387,38 @@ class Layout extends Component {
             <div className='modal'>
               <div className='confirm-modal'>
                 <span className='close-button la la-times-circle' onClick={this.toggleModal}></span>
-                <div className='delete-title text-center'>Validate Reviewer {this.state.pdf} ?</div>
+                <div className='delete-title text-center'>Validate Reviewer {this.state.description} ?</div>
                 <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
-                <FormMessage type={this.state.type} active={this.state.active} formMessage={this.formMessage}>{this.state.message}</FormMessage> 
                 <div className='delete-button-group'>
-                  <button type='button' className='button yes small' onClick={this.handleSubmit}>YES</button>
+                  <button type='button' className='button yes small' onClick={() => {this.handleSubmit(); this.setState({stats: true});}}>YES</button>
                   <button type='button' className='button no small' onClick={this.toggleModal}>CANCEL</button>
+                </div>
+              </div> 
+            </div>
+
+
+          : null}
+
+          { this.state.modalUnvalidate ? 
+            <div className='modal'>
+              <div className='confirm-modal'>
+                <span className='close-button la la-times-circle' onClick={this.toggleModalUnvalidate}></span>
+                <div className='delete-title text-center'>Validate Reviewer {this.state.description} ?</div>
+                <div className='context-montserrat text-center'>You will be recorded as a validator of this reviewer.</div>
+                <div className='select-container '>
+                    <label> Reason for unvalidating this learning resources</label>
+                    <select value={this.state.reason} onChange={ (x) => { this.setState({reason: x.target.value})}}
+                    >
+                      <option value="No right answer in the given choices">No right answer in the given choices</option>
+                      <option value="Wrong use of sentences construction">Wrong use of sentences construction</option>
+                      <option value="Correct answer is spelled incorrectly">Correct answer is spelled incorrectly</option>
+                      <option value="Test questions is invalid">Test questions is invalid.</option>
+                      <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div className='delete-button-group'>
+                  <button type='button' className='button yes small' onClick={() => {this.handleSubmit(); this.setState({stats: false});}}>YES</button>
+                  <button type='button' className='button no small' onClick={this.toggleModalUnvalidate}>CANCEL</button>
                 </div>
               </div> 
             </div>

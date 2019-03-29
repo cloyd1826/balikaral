@@ -8,6 +8,7 @@ import Summary from '../../Statistics/Summary'
 import AuditTrail from '../../AuditTrail'
 
 import Survey from '../../../_global-management/Survey/_routeAdmin'
+import ValidationReport from '../../Statistics/ValidationReport';
 
 const Routes = () => {
 	return (
@@ -17,7 +18,7 @@ const Routes = () => {
       <Route path='/admin/system/generated-exam' component={GeneratedExam} />
       <Route path='/admin/system/audit-trail' component={AuditTrail} />
 			<Route path='/admin/system/survey' component={Survey} />
-      
+      <Route path='/admin/system/validation' component={ValidationReport} />
 		</div>
 	)
 }
@@ -58,6 +59,13 @@ class RouteManagement extends Component {
               <div className={'link ' + (this.props.location.pathname.match('/admin/system/summary') ? 'active' : '')}>
                 <i className='la la-tasks' />
                 Summary of User Data
+              </div>
+              
+            </Link>
+            <Link to='/admin/system/validation'>
+              <div className={'link ' + (this.props.location.pathname.match('/admin/system/validation') ? 'active' : '')}>
+                <i className='la la-tasks' />
+                Validation
               </div>
               
             </Link>
