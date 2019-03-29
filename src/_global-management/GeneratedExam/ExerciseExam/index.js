@@ -10,6 +10,7 @@ import apiRequest from '../../../_axios'
 import config from '../../../_config'
 
 import { connect } from 'react-redux'
+import Axios from 'axios';
 
 
 
@@ -35,10 +36,23 @@ class Layout extends Component {
       active: active
     })
   }
-  setAnswer(answer){
+  
+  async setAnswer(answer, status){
     this.setState({
       answer: answer
     })
+    const data = {
+      question: this.state.question,
+      status: this.state.question.answer === answer ? true : false,
+      answer: answer
+    }
+    apiRequest('post', `/practice-examination`, data, this.props.token)
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        this.formMessage('Error: ' + err.message, 'error', true, false)
+      })
   }
   newExam(){
     this.setState({
@@ -76,7 +90,7 @@ class Layout extends Component {
   }
   render() {
     let question =  this.state.question
-   
+    console.log(question)
     return (
         <div>
           <Grid fluid>
@@ -127,7 +141,7 @@ class Layout extends Component {
 
                         <div className='grid-answer'>
                           
-                          <div className={'answer-text ' + (this.state.answer === 'A' ? 'active' : '' )} onClick={()=>{this.setAnswer('A')}}>
+                          <div className={'answer-text ' + (this.state.answer === 'A' ? 'active' : '' )} onClick={()=>{this.setAnswer('A', this.state.answer === 'A' ? true : false)}}>
                             <span className='letter'>A.</span>
                             <span className='answer'>
                                 {question.choices ? question.choices.a ? question.choices.a.image ? question.choices.a.image != '' ?  
@@ -137,7 +151,7 @@ class Layout extends Component {
                             </span>
                           </div>
 
-                          <div className={'answer-text ' + (this.state.answer === 'B' ? 'active' : '' )}  onClick={()=>{this.setAnswer('B')}}>
+                          <div className={'answer-text ' + (this.state.answer === 'B' ? 'active' : '' )}  onClick={()=>{this.setAnswer('B', this.state.answer === 'B' ? true : false)}}>
                             <span className='letter'>B.</span>
                             <span className='answer'>
                                 {question.choices ? question.choices.b ? question.choices.b.image ? question.choices.b.image != '' ?  
@@ -148,7 +162,7 @@ class Layout extends Component {
                           </div>
 
 
-                          <div className={'answer-text ' + (this.state.answer === 'C' ? 'active' : '' )}  onClick={()=>{this.setAnswer('C')}}>
+                          <div className={'answer-text ' + (this.state.answer === 'C' ? 'active' : '' )}  onClick={()=>{this.setAnswer('C', this.state.answer === 'C' ? true : false)}}>
                             <span className='letter'>C.</span>
                             <span className='answer'>
                                 {question.choices ? question.choices.c ? question.choices.c.image ? question.choices.c.image != '' ?  
@@ -158,7 +172,7 @@ class Layout extends Component {
                             </span>
                           </div>
 
-                          <div className={'answer-text ' + (this.state.answer === 'D' ? 'active' : '' )}  onClick={()=>{this.setAnswer('D')}}>
+                          <div className={'answer-text ' + (this.state.answer === 'D' ? 'active' : '' )}  onClick={()=>{this.setAnswer('D', this.state.answer === 'D' ? true : false)}}>
                             <span className='letter'>D.</span>
                             <span className='answer'>
                                 {question.choices ? question.choices.d ? question.choices.d.image ? question.choices.d.image != '' ?  
