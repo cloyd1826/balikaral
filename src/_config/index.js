@@ -2,10 +2,10 @@
 let config = ''
 
 if(process.env.NODE_ENV === 'development'){
-	config = 'http://localhost:5000/api'
+	config = 'http://13.90.43.83:5000/api'
 }
 if(process.env.NODE_ENV === 'production'){
-	config = 'https://balikaral.com/api'
+	config = 'https://13.90.43.83:5000/api'
 }
 
 export const appId = '521442691675915'
