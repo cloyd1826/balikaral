@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"balikaral.levels"},{"v":2,"unique":true,"key":{"name":1},"name":"name_1","ns":"balikaral.levels","background":true}],"uuid":"e88e195285f74e438bdd7379c414eec0"}
